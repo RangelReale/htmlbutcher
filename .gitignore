@@ -6,6 +6,8 @@
 /setup/win32/*.exe
 /locale/*.mo
 /locale/*.dir
+/locale/pt_BR
 /deps/wx/locale/*.mo
-
 /setup/win64/*.exe
+/setup/ubuntu/build
+/setup/ubuntu/*.deb
