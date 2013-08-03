@@ -7,3 +7,5 @@
 /locale/*.mo
 /locale/*.dir
 /deps/wx/locale/*.mo
+
+/setup/win64/*.exe
