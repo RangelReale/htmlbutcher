@@ -2,3 +2,8 @@
 /build
 /buildrel
 /lib
+/doc/docbook/htmlhelp
+/setup/win32/*.exe
+/locale/*.mo
+/locale/*.dir
+/deps/wx/locale/*.mo
