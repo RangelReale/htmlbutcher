@@ -1,0 +1,87 @@
+<html>
+<head>
+<title>HTMLButcher</title>
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+
+HTMButcher Manual
+<hr><br>
+
+<table width="100%" border="1">
+<tr>
+<td align="center"><b>Nested tables</b></td>
+</tr>
+
+<tr>
+<td>
+
+One of the big differences of HTMLButcher to other slicing applications, is the possibility to create nested-tables. Normally image slicing applications only generate a single big HTML table containing the full image layout. Although this works for a lot of sites, for some complex designs, or ones that will by used in dynamic sites, this limits the amount of changes you can do on the layout later, without breaking the layout.<br><br>
+
+In HTMLButcher, you can create unlimited tables-inside-tables, or in HTMLButcher nomenclature, areas inside areas. Each inside area will translate to another HTML table inside a parent table's cell.<br>
+To do this, right-click on an area, and set its "Area Kind" to "Mask".<br><br>
+
+<img src="tutorial/nested_tables/nested_notuseful.png"><br clear="all"><br>
+
+On this not-too-useful example layout, "Area 7" is a cell of the main layout's table. Inside this cell there will be a nested table, shown here by the "Area 1" area "Area 3" just below the "Area 7" title. (The area 2 is the small area between area 1 and area 2, the title is not shown because the cell width is too short).<br>
+The "Area 1" cell inside "Area 7" was divided in 2 by a vertical line, and the right area was given one more inner table.<br><br>
+This will translate to the following HTML code:
+
+<pre style="font-size: 11px;">
+  &lt;TR&gt;
+    <b>&lt;!-- AREA 7 --&gt;</b>
+    &lt;TD  WIDTH="980" HEIGHT="155" VALIGN="TOP" STYLE="background-repeat: no-repeat; "&gt; 
+
+
+          &lt;TABLE WIDTH="980" CELLSPACING="0" CELLPADDING="0"&gt;
+            &lt;TR&gt;
+              <b>&lt;!-- AREA 7 =&gt; AREA 1 --&gt;</b>
+              &lt;TD  WIDTH="236" HEIGHT="155" VALIGN="TOP" STYLE="background-repeat: no-repeat; "&gt; 
+          
+
+                    &lt;TABLE WIDTH="236" CELLSPACING="0" CELLPADDING="0"&gt;
+                      &lt;TR&gt;
+                        <b>&lt;!-- AREA 7 =&gt; AREA 1 =&gt; AREA 1 --&gt;</b>
+                        &lt;TD  WIDTH="66" HEIGHT="155" VALIGN="TOP" STYLE="background-repeat: no-repeat; "&gt; 
+                          &lt;IMG SRC="images/home_area7_area1_area1.jpg" WIDTH="66" HEIGHT="155" BORDER="0"&gt;&lt;/TD&gt;
+                        <b>&lt;!-- AREA 7 =&gt; AREA 1 =&gt; AREA 2 --&gt;</b>
+                        &lt;TD  WIDTH="170" HEIGHT="155" VALIGN="TOP" STYLE="background-repeat: no-repeat; "&gt; 
+                    
+
+                              &lt;TABLE WIDTH="170" CELLSPACING="0" CELLPADDING="0"&gt;
+                                &lt;TR&gt;
+                                  <b>&lt;!-- AREA 7 =&gt; AREA 1 =&gt; AREA 2 =&gt; AREA 1 --&gt;</b>
+                                  &lt;TD  WIDTH="170" HEIGHT="98" VALIGN="TOP" STYLE="background-repeat: no-repeat; "&gt; 
+                                    &lt;IMG SRC="images/home_area7_area1_area2_area1.jpg" WIDTH="170" HEIGHT="98" BORDER="0"&gt;&lt;/TD&gt;
+                                &lt;/TR&gt;
+                                &lt;TR&gt;
+                                  <b>&lt;!-- AREA 7 =&gt; AREA 1 =&gt; AREA 2 =&gt; AREA 2 --&gt;</b>
+                                  &lt;TD  WIDTH="170" HEIGHT="57" VALIGN="TOP" STYLE="background-repeat: no-repeat; "&gt; 
+                                    &lt;IMG SRC="images/home_area7_area1_area2_area2.jpg" WIDTH="170" HEIGHT="57" BORDER="0"&gt;&lt;/TD&gt;
+                                &lt;/TR&gt;
+                                &lt;!-- alignment row --&gt;
+                                &lt;TR&gt;    &lt;TD  WIDTH="170" HEIGHT="1"&gt;    &lt;/TD&gt;  &lt;/TR&gt;
+                              &lt;/TABLE&gt;
+
+                    
+                        &lt;/TD&gt;
+                      &lt;/TR&gt;
+                      &lt;!-- alignment row --&gt;
+                      &lt;TR&gt;    &lt;TD  WIDTH="66" HEIGHT="1"&gt;    &lt;/TD&gt;    &lt;TD  WIDTH="170" HEIGHT="1"&gt;    &lt;/TD&gt;  &lt;/TR&gt;
+                    &lt;/TABLE&gt;
+
+          
+              &lt;/TD&gt;
+</pre>
+
+<br>
+For areas of kind "Mask", you can still generate a background image for them, selecting "Background image" from the area's right click menu. You can then set the top-level area as kind "None", this way the area will be transparent and will show the background image of the table below it.<br><br>
+
+Using a combination of nested masks and background-repeated images, you can create a streachable area that adjusts for any resolution that the browser may run in. See the tutorial on streatchable areas to learn how to do this.
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

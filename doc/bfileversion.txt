@@ -1,0 +1,8 @@
+Version 1
+=========
+- Initial vesion
+
+Version 2
+=========
+- Area config IDs are now VIEWID instead of MASKCONFIGID
+- MASKCONFIGID does not exists any more

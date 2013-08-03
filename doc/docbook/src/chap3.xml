@@ -1,0 +1,158 @@
+<chapter id="chap-advanced">
+<title>Advanced Tasks</title>
+
+<sect1 id="chap-advanced-none">
+<title>Advanced Tasks</title>
+<para></para>
+</sect1>
+
+<sect1 id="globalareas">
+<title>Global Areas</title>
+<para>
+<indexterm><primary>Global areas</primary></indexterm>
+A GLOBAL AREA is an AREA that is not restricted to the MASK. Is is a rectangular AREA that can appear anywhere inside the main MASK, and is usually used to extract images from the design, like buttons, bullens, logos, etc.</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_globalbase.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>We will use a GLOBAL AREA to cut the button images.</para>
+<para>Select "Insert global area" from the left toolbar, and draw a box around the middle button. Adjust its size with the "Position and Size" tool.</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_globalarea.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>Right-click on the GLOBAL AREA, and select properties.</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_globaldlg.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>Set the output parameters, such as the filename, and close the dialog window.</para>
+<para>Now, when generating the HTML file, the area image will be saved to the VIEW image directory.</para>
+</sect1>
+
+<sect1 id="previewwindow">
+<title>Preview window</title>
+<para>
+<indexterm><primary>Preview window</primary></indexterm>
+All screens that show an image area are a "Preview window". Preview windows have properties that can be changed by right-clicking over the image.</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_previewwindow.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>
+<itemizedlist>
+<listitem><para><guilabel>View full size</guilabel>: When checked, image will display in full size (without stretching). If not checked, image will fill and center proportionally on the full preview window</para></listitem>
+<listitem><para><guilabel>Repeat image</guilabel>: If checked, the image will be drawn repeated 3 times in both horizontal and vertical directions. This can be used to fine-tune repeating backgrounds, or to help spot margins</para></listitem>
+<listitem><para><guilabel>Margin</guilabel>: If checked, will add a margin from the window border to the image</para></listitem>
+<listitem><para><guilabel>Background color</guilabel>: Change the window background, for better viewing</para></listitem>
+<listitem><para><guilabel>Zoom values</guilabel>: Zooming</para></listitem>
+<listitem><para><guilabel>Save to file</guilabel>: Save the current file to an external image file</para></listitem>
+</itemizedlist>
+</para>
+</sect1>
+
+<sect1 id="transparency">
+<title>Transparency</title>
+<para>
+<indexterm><primary>Transparency</primary></indexterm>
+Another unique &product; feature is easy transparent image generation. You can set transparency for an area by pixel color, or pixel position.</para>
+<para>To set transparency options, right-click on any AREA, and select "Image format properties".</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_mnuimageformatprop.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<figure>
+<title>Image format properties dialog</title>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_imageformatprop.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+</figure>
+<tip><para>This screen can also be used to preview/compare image formats for the area.</para></tip>
+<para>Choose a image format that supports transparency (like GIF or PNG).</para>
+<para>Select the type of transparency desired (you can mix transparency types on the same image), and double-click on a image pixel. The pixel color/position will be added to the list of transparent itens.</para>
+
+</sect1>
+
+
+<sect1 id="multipleareaimage">
+<title>Multiple images from one area</title>
+<para>
+<indexterm><primary>Multiple images from one area</primary></indexterm>
+In &product; it is possible to generate more than one image from the same AREA, using alternate files.</para>
+<para>To do this, right-click on the AREA, and select "Alternate files".</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_alternatefiles.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>On this screen, you can enable one extra image per alternate file of the current VIEW. Clicking the "Enabled" checkbox for each file, will generate a new image file on the VIEW image directory. Each image can have its own properties, like format, filename, and transparency.</para>
+</sect1>
+
+<sect1 id="gridslicing">
+<title>Grid slicing</title>
+<para>
+<indexterm><primary>Grid slicing</primary></indexterm>
+The "Grid Slice" tool is used to slice an area into a number of rows and columns. To use it, right-click on an area and select "Grid slice".</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_gridslice.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>Enter the desired number of rows and coluns for the slicing.</para>
+<warning><para>If the selected area is not of "Mask" kind, it will be automatically set to it.</para></warning>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_gridsliceres.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+
+</sect1>
+
+<sect1 id="maskcustomization">
+<title>Mask customization</title>
+<para>
+<indexterm><primary>Mask customization</primary></indexterm>
+A MASK can be reused in more than one VIEWS. In each VIEW, each AREA can have VIEW-specific customizations. Any area that do not have customizations, will have the same settings on all views.</para>
+<para>To set an AREA to be customized, right-click on the AREA and select "Customize".</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_customize.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>When an area is customized, its name appears in a bold font.</para>
+<para>In a customized area, most AREA settings are specific to the current VIEW. Other VIEWs can have their own customizations, independent of each other.</para>
+<para>The following settings are <emphasis>NOT</emphasis> customizable, they are the same on all VIEWS that use the same MASK:</para>
+<para>
+<itemizedlist>
+<listitem><para>Name</para></listitem>
+<listitem><para>Position</para></listitem>
+<listitem><para>Size</para></listitem>
+</itemizedlist>
+</para>
+<para>Using this feature, you can create a MASK for the whole site that slices the top title and left/right menus, and customize only the body area on all pages.</para>
+<caution><para>Any changes made to AREAs not customized, will reflect in all VIEWs using the same MASK.</para></caution>
+</sect1>
+
+
+<sect1 id="smarttagattributes">
+<title>Smart tag attributes</title>
+<para>
+<indexterm><primary>Smart tag attributes</primary></indexterm>
+In the VIEW and AREA dialogs, there are fields to customize some of the tag attributes. On the VIEW dialog there are the <emphasis>"Body Tag Add"</emphasis> and <emphasis>"Table Tag Add"</emphasis> fields, and on the AREA dialog there are the <emphasis>"Cell Tag Append"</emphasis> and <emphasis>"Table Tag Append"</emphasis> fields. On these fields, you can put attributes for the referenced HTML tag (&lt;BODY&gt;, &lt;TABLE&gt;, &lt;TD&gt;, &lt;DIV&gt;).
+</para>
+<para>
+But these tags are not blindly added to the tag. The tags you put there are parsed, and actually can override &product;'s generated ones, ensuring there is no duplicate attributes on any of these tags.
+</para>
+<para>There is special handling for attributes named <emphasis>STYLE</emphasis>. These attributes have their own CSS attributes control, so if you add a STYLE attribute in any of these fields, the styles are parsed, and mixed with &product;'s generated ones, again ensuring no duplicates.
+</para>
+</sect1>
+
+
+</chapter>

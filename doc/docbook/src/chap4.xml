@@ -1,0 +1,514 @@
+<chapter id="chap-dialogs">
+<title>Dialogs</title>
+
+<sect1 id="chap-dialogs-none">
+<title>Dialogs</title>
+<para></para>
+</sect1>
+
+<sect1 id="dialog-projectoptions">
+<title>Project Options</title>
+<para>
+<indexterm><primary>Dialog: Project Options</primary></indexterm>
+</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_dlg_projectoptions.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>
+<itemizedlist>
+
+<listitem>
+	<para><guilabel>Layout type</guilabel>: Default layout type for this project:</para>
+	<para>
+		<itemizedlist>
+		<listitem><para><guilabel>Default</guilabel>: Default type is TABLE</para></listitem>
+		<listitem><para><guilabel>Table</guilabel>: Generates the layout using HTML TABLE tags</para></listitem>
+		<listitem><para><guilabel>AP Tableless</guilabel>: Generates the layout using HTML DIV tags with Absolute Positioning</para></listitem>
+		</itemizedlist>
+	</para>
+</listitem>
+
+</itemizedlist>
+</para>
+</sect1>
+
+
+
+<sect1 id="dialog-files">
+<title>Files</title>
+<para>
+<indexterm><primary>Dialog: Files</primary></indexterm>
+</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_files.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>
+<itemizedlist>
+<listitem><para><guilabel>Add</guilabel>: Adds a new file (image)</para></listitem>
+<listitem><para><guilabel>Edit</guilabel>: Edits the selected file (change the image data)</para></listitem>
+<listitem><para><guilabel>Remove</guilabel>: Removes the selected file</para></listitem>
+<listitem><para><guilabel>Show preview</guilabel>: When checked, selecting a file will show a preview</para></listitem>
+</itemizedlist>
+</para>
+</sect1>
+
+
+<sect1 id="dialog-masks">
+<title>Masks</title>
+<para>
+<indexterm><primary>Dialog: Masks</primary></indexterm>
+</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_masks.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>
+<itemizedlist>
+<listitem><para><guilabel>Add</guilabel>: Adds a new mask</para></listitem>
+<listitem><para><guilabel>Edit</guilabel>: Edits the selected mask</para></listitem>
+<listitem><para><guilabel>Remove</guilabel>: Removes the selected mask</para></listitem>
+<listitem><para><guilabel>Duplicate</guilabel>: Duplicate the selected mask</para></listitem>
+<listitem><para><guilabel>Name</guilabel>: Mask name</para></listitem>
+<listitem><para><guilabel>Width</guilabel>: Mask width in pixels</para></listitem>
+<listitem><para><guilabel>Height</guilabel>: Mask height in pixels</para></listitem>
+</itemizedlist>
+</para>
+</sect1>
+
+
+<sect1 id="dialog-views">
+<title>Views</title>
+<para>
+<indexterm><primary>Dialog: Views</primary></indexterm>
+</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_views.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>
+<itemizedlist>
+<listitem><para><guilabel>Add</guilabel>: Adds a new view</para></listitem>
+<listitem><para><guilabel>Edit</guilabel>: Edits the selected view</para></listitem>
+<listitem><para><guilabel>Remove</guilabel>: Removes the selected view</para></listitem>
+</itemizedlist>
+</para>
+</sect1>
+
+
+<sect1 id="dialog-view">
+<title>View</title>
+<para>
+<indexterm><primary>Dialog: View</primary></indexterm>
+</para>
+
+<sect2 id="dialog-view-view">
+<title>View</title>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_dlg_view_view.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>
+<itemizedlist>
+<listitem><para><guilabel>Name</guilabel>: View name</para></listitem>
+<listitem><para><guilabel>Layout type</guilabel>: The output layout type for this view - DEFAULT will use the project options setting.</para></listitem>
+<listitem><para><guilabel>File</guilabel>: View image file</para></listitem>
+<listitem><para><guilabel>Mask</guilabel>: View mask</para></listitem>
+<listitem><para><guilabel>Image path</guilabel>: Path for this view's images</para></listitem>
+<listitem><para><guilabel>Filename</guilabel>: View filename (e.g.: index.html)</para></listitem>
+<listitem><para><guilabel>Encoding</guilabel>: Output file encoding</para></listitem>
+<listitem>
+	<para><guilabel>Items</guilabel>: Items to generate when saving this view:</para>
+	<para>
+		<itemizedlist>
+		<listitem><para><guilabel>HTML</guilabel>: Generate a HTML file</para></listitem>
+		<listitem><para><guilabel>Images</guilabel>: Generate the area image files</para></listitem>
+		<listitem><para><guilabel>Images Global</guilabel>: Generate the global area image files</para></listitem>
+		</itemizedlist>
+	</para>
+</listitem>
+<listitem><para><guilabel>Assorted file groups</guilabel>: Assorted files from the selected groups will be copied to the VIEW image output folder</para></listitem>
+<listitem><para><guilabel>CSS</guilabel>: Shortcut to edit the VIEW selected CSS file - if no CSS file is selected, does nothing</para></listitem>
+</itemizedlist>
+</para>
+</sect2>
+
+
+<sect2 id="dialog-view-html">
+<title>HTML</title>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_dlg_view_html.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>
+<itemizedlist>
+<listitem><para><guilabel>CSS file</guilabel>: CSS file to use in this VIEW - a CSS include will be generated on the HTML page</para></listitem>
+<listitem><para><guilabel>Background image</guilabel>: Image to be used on the body background (&lt;BODY background="image"&gt;)</para></listitem>
+<listitem><para><guilabel>Background repeat</guilabel>: Background image repetition option</para></listitem>
+<listitem><para><guilabel>Background color</guilabel>: Body background color</para></listitem>
+<listitem><para><guilabel>Stretchable layout</guilabel>: Mark the view as generating a stretchable HTML page</para></listitem>
+<listitem><para><guilabel>Body tag add</guilabel>: <link linkend="smarttagattributes">Smart attributes</link> to be added to the &lt;BODY&gt; tag</para></listitem>
+<listitem><para><guilabel>Title</guilabel>: HTML page title</para></listitem>
+<listitem><para><guilabel>Head</guilabel>: HTML inside the &lt;HEAD&gt; tag</para></listitem>
+<listitem><para><guilabel>Table tag add</guilabel>: <link linkend="smarttagattributes">Smart attributes</link> to be added to the root &lt;TABLE&gt; tag</para></listitem>
+<listitem><para><guilabel>Body prepend</guilabel>: Text to append right after the &lt;BODY&gt; tag</para></listitem>
+<listitem><para><guilabel>Body append</guilabel>: Text to append right before the &lt;/BODY&gt; tag</para></listitem>
+</itemizedlist>
+</para>
+</sect2>
+
+
+<sect2 id="dialog-view-alternate">
+<title>Alternate</title>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_dlg_view_alternate.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>
+<itemizedlist>
+<listitem><para><guilabel>Alternate file 1..8</guilabel>: Numbered alternate image files for the view</para></listitem>
+</itemizedlist>
+</para>
+</sect2>
+
+</sect1>
+
+
+
+<sect1 id="dialog-area">
+<title>Area</title>
+<para>
+<indexterm><primary>Dialog: Area</primary></indexterm>
+</para>
+
+<sect2 id="dialog-area-properties">
+<title>Properties</title>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_dlg_area_prop.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>
+<itemizedlist>
+<listitem><para><guilabel>Name</guilabel>: Area name (optional)</para></listitem>
+
+<listitem>
+	<para><guilabel>Kind</guilabel>: Area kind:</para>
+	<para>
+		<itemizedlist>
+		<listitem><para><guilabel>None</guilabel>: Empty table cell</para></listitem>
+		<listitem><para><guilabel>Image</guilabel>: Image inside table cell (or as cell background)</para></listitem>
+		<listitem><para><guilabel>Mask</guilabel>: Sub-mask inside area (HTML table inside an outer table cell)</para></listitem>
+		</itemizedlist>
+	</para>
+</listitem>
+<listitem><para><guilabel>Background image</guilabel>: If checked, the image will be set as the cell's background, instead of a &lt;IMG&gt; tag</para></listitem>
+<listitem><para><guilabel>Layout type</guilabel>: The output layout type for this AREA's inner MASK - DEFAULT will use the VIEW setting. This can be different from the VIEW setting - if so, the generated page will use a mixed table/AP tableless layout (only available if Kind is MASK)</para></listitem>
+<listitem><para><guilabel>Image map</guilabel>: Area can contain an image map</para></listitem>
+<listitem><para><guilabel>Imap map name</guilabel>: Image map name</para></listitem>
+<listitem><para><guilabel>Base filename</guilabel>: Base filename for the generated image file (without extension)</para></listitem>
+<listitem><para><guilabel>Prepend parent area filename</guilabel>: If checked, the image file name will prepend recursivelly the parent areas filenames, and the view name, in the filename. if not checked, the image file name will be the base filename plus the file extension.</para></listitem>
+<listitem><para><guilabel>Use alternate file</guilabel>: Use the selected alternate image, instead of the default MASK image</para></listitem>
+<listitem><para><guilabel>Image formats</guilabel>: Image formats maintenance, with AREA image preview</para></listitem>
+</itemizedlist>
+</para>
+</sect2>
+
+<sect2 id="dialog-area-html">
+<title>HTML</title>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_dlg_area_html.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>
+<itemizedlist>
+<listitem><para><guilabel>Align</guilabel>: Cell ALIGN property</para></listitem>
+<listitem><para><guilabel>Vertical align</guilabel>: Cell VALIGN property</para></listitem>
+<listitem><para><guilabel>Background repeat</guilabel>: Background repetition option (only if background image)</para></listitem>
+<listitem><para><guilabel>Inner scrollable</guilabel>: If checked, puts a &lt;DIV&gt; inside the table cell</para></listitem>
+<listitem><para><guilabel>Cell tag append</guilabel>: &lt;TD&gt;/&lt;DIV&gt; tag <link linkend="smarttagattributes">smart attributes</link></para></listitem>
+<listitem><para><guilabel>Table tag append</guilabel>: Inner &lt;TABLE&gt; tag <link linkend="smarttagattributes">smart attributes</link> (only if Kind is MASK)</para></listitem>
+<listitem><para><guilabel>Background color</guilabel>: Cell background color</para></listitem>
+<listitem><para><guilabel>Variable size</guilabel>: If checked, cell will not have a WIDTH attribute</para></listitem>
+<listitem><para><guilabel>Content</guilabel>: HTML inside the &lt;TD&gt; tag</para></listitem>
+</itemizedlist>
+</para>
+</sect2>
+
+
+<sect2 id="dialog-area-image">
+<title>Image</title>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_dlg_area_image.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>
+<itemizedlist>
+<listitem><para><guilabel>Image URL</guilabel>: URL for the image</para></listitem>
+<listitem><para><guilabel>Image URL target</guilabel>: Target attribute for the URL link</para></listitem>
+<listitem><para><guilabel>Image tag append</guilabel>: &lt;IMG&gt; tag <link linkend="smarttagattributes">smart attributes</link></para></listitem>
+<listitem>
+	<para><guilabel>Image source</guilabel>: Area image source:</para>
+	<para>
+		<itemizedlist>
+		<listitem><para><guilabel>Default</guilabel>: The default area image</para></listitem>
+		<listitem><para><guilabel>Image link</guilabel>: The image from the link selected below</para></listitem>
+		</itemizedlist>
+	</para>
+</listitem>
+<listitem><para><guilabel>Image link</guilabel>: Image to use for the image source</para></listitem>
+</itemizedlist>
+</para>
+</sect2>
+
+</sect1>
+
+
+<sect1 id="dialog-positionandsize">
+<title>Position and Size</title>
+<para>
+<indexterm><primary>Dialog: Position and Size</primary></indexterm>
+</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_positionsize.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>
+<itemizedlist>
+
+<listitem>
+	<para><guilabel>Positions</guilabel>:</para>
+	<para>
+		<itemizedlist>
+		<listitem><para><guilabel>Left, Top, Right, Bottom</guilabel>: Pixel positions of the LINEs that define the AREA</para></listitem>
+		</itemizedlist>
+	</para>
+</listitem>		
+<listitem>
+	<para><guilabel>Movement</guilabel>:</para>
+	<para>
+		<itemizedlist>
+		<listitem><para><guilabel>Left/Top</guilabel>: Moves Left/Right or Top/Bottom LINEs simultaneously</para></listitem>
+		</itemizedlist>
+	</para>
+</listitem>		
+<listitem>
+	<para><guilabel>Size</guilabel>:</para>
+	<para>
+		<itemizedlist>
+		<listitem><para><guilabel>Width/Height</guilabel>: Changes size, moving first right/bottom LINE if possible, else moving left/top LINE</para></listitem>
+		</itemizedlist>
+	</para>
+</listitem>		
+</itemizedlist>
+</para>
+</sect1>
+
+
+<sect1 id="dialog-imageformatprop">
+<title>Image Format Properties</title>
+<para>
+<indexterm><primary>Dialog: Image Format Properties</primary></indexterm>
+</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_imageformatprop.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>
+<itemizedlist>
+<listitem><para><guilabel>Selection type</guilabel>: Action to take when double-clicking on an the Image Format's image pixel</para></listitem>
+<listitem><para><guilabel>Image format</guilabel>: Image format selection. Will reflect in the preview area below</para></listitem>
+<listitem><para><guilabel>Preview image format</guilabel>: Second image format selection, used only for image format comparisson. Will reflect in the preview area below</para></listitem>
+<listitem><para><guilabel>Hover</guilabel>: Color below the mouse cursor. Informational only</para></listitem>
+<listitem><para><guilabel>Selected</guilabel>: Single-click on a pixel to set its color to the "Selected" item. Informational only</para></listitem>
+<listitem><para><guilabel>Transparent Colors</guilabel>: List of colors to make transparent on the image</para></listitem>
+<listitem><para><guilabel>Transparent Pixels</guilabel>: List of pixels to be made transparent on the image</para></listitem>
+</itemizedlist>
+</para>
+</sect1>
+
+
+<sect1 id="dialog-alternatefiles">
+<title>Alternate Files</title>
+<para>
+<indexterm><primary>Dialog: Alternate Files</primary></indexterm>
+</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_alternatefiles.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>Each alternate file can have the following properties:</para>
+<para>
+<itemizedlist>
+<listitem><para><guilabel>Enabled</guilabel>: If checked, VIEW will generate an extra image for this area</para></listitem>
+<listitem><para><guilabel>Format</guilabel>: Image format properties for the alternate file</para></listitem>
+<listitem><para><guilabel>Image format</guilabel>: Output image format</para></listitem>
+<listitem><para><guilabel>Base filename</guilabel>: Base output filename</para></listitem>
+<listitem><para><guilabel>Prepend parent area filename</guilabel>: If checked prepends parent AREA filename, else "Base filename" will be the full output filename (without extension)</para></listitem>
+<listitem><para><guilabel>Load Preview</guilabel>: As there can be up to 8 alternate files, generating preview for all can be slow. If you want to see area previews, click on this button</para></listitem>
+</itemizedlist>
+</para>
+</sect1>
+
+
+<sect1 id="dialog-gridslice">
+<title>Grid Slice</title>
+<para>
+<indexterm><primary>Dialog: Grid Slice</primary></indexterm>
+</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_gridslice.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>
+<itemizedlist>
+<listitem><para><guilabel>Rows</guilabel>: Number of rows to slice</para></listitem>
+<listitem><para><guilabel>Columns</guilabel>: Number of columns to slice</para></listitem>
+</itemizedlist>
+</para>
+</sect1>
+
+
+<sect1 id="dialog-filepaths">
+<title>File Paths</title>
+<para>
+<indexterm><primary>Dialog: File Paths</primary></indexterm>
+</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_filepaths.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>
+<itemizedlist>
+<listitem><para><guilabel>Add</guilabel>: Adds a new file path</para></listitem>
+<listitem><para><guilabel>Edit</guilabel>: Edits the selected file path</para></listitem>
+<listitem><para><guilabel>Remove</guilabel>: Removes the selected file path</para></listitem>
+<listitem><para><guilabel>Name</guilabel>: File path name</para></listitem>
+<listitem><para><guilabel>Path</guilabel>: File path from the VIEW root path</para></listitem>
+</itemizedlist>
+</para>
+</sect1>
+
+
+<sect1 id="dialog-assortedfilegroups">
+<title>Assorted File Groups</title>
+<para>
+<indexterm><primary>Dialog: Assorted File Groups</primary></indexterm>
+</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_assortedfilegroups.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>
+<itemizedlist>
+<listitem><para><guilabel>Add</guilabel>: Adds a new assorted file group</para></listitem>
+<listitem><para><guilabel>Edit</guilabel>: Edits the selected assorted file group</para></listitem>
+<listitem><para><guilabel>Remove</guilabel>: Removes the selected assorted file group</para></listitem>
+<listitem><para><guilabel>Group Name</guilabel>: Assorted file group name</para></listitem>
+</itemizedlist>
+</para>
+</sect1>
+
+
+<sect1 id="dialog-assortedfiles">
+<title>Assorted Files</title>
+<para>
+<indexterm><primary>Dialog: Assorted Files</primary></indexterm>
+</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_assortedfiles.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>
+<itemizedlist>
+<listitem><para><guilabel>Add</guilabel>: Adds a new assorted file</para></listitem>
+<listitem><para><guilabel>Edit</guilabel>: Edits the selected assorted file</para></listitem>
+<listitem><para><guilabel>Remove</guilabel>: Removes the selected assorted file</para></listitem>
+</itemizedlist>
+</para>
+</sect1>
+
+
+<sect1 id="dialog-cssfile">
+<title>CSS Files</title>
+<para>
+<indexterm><primary>Dialog: CSS Files</primary></indexterm>
+</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_cssfile.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>
+<itemizedlist>
+<listitem><para><guilabel>Add</guilabel>: Adds a new CSS file</para></listitem>
+<listitem><para><guilabel>Edit</guilabel>: Edits the selected CSS file</para></listitem>
+<listitem><para><guilabel>Remove</guilabel>: Removes the selected CSS file</para></listitem>
+<listitem><para><guilabel>Name</guilabel>: CSS file item name</para></listitem>
+<listitem><para><guilabel>CSS text</guilabel>: CSS file text</para></listitem>
+<listitem><para><guilabel>File path</guilabel>: CSS file path (relative from VIEW output path)</para></listitem>
+<listitem><para><guilabel>Save filename</guilabel>: CSS file output filename (with extension)</para></listitem>
+</itemizedlist>
+</para>
+</sect1>
+
+
+<sect1 id="dialog-imageformats">
+<title>Image Formats</title>
+<para>
+<indexterm><primary>Dialog: Image Formats</primary></indexterm>
+</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_imageformat.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>
+<itemizedlist>
+<listitem><para><guilabel>Add</guilabel>: Adds a new image format</para></listitem>
+<listitem><para><guilabel>Edit</guilabel>: Edits the selected image format</para></listitem>
+<listitem><para><guilabel>Remove</guilabel>: Removes the selected image format</para></listitem>
+<listitem><para><guilabel>Auto-update</guilabel>: When checked, auto-update preview image based on selection</para></listitem>
+<listitem><para><guilabel>Name</guilabel>: Image format name</para></listitem>
+<listitem><para><guilabel>Format</guilabel>: Image file format</para></listitem>
+<listitem><para><guilabel>JPEG compression</guilabel>: Compression for the JPEG format</para></listitem>
+<listitem><para><guilabel>JPEG progressive</guilabel>: JPEG format progressive flag</para></listitem>
+<listitem><para><guilabel>GIF/PNG8 QUantization</guilabel>: Bitdepth-reducing algorithm - Xialon-Wu is faster, NewQuant is better looking but slow (default is NewQuant)</para></listitem>
+<listitem><para><guilabel>Force bit depth if possible</guilabel>: Force output bit depth</para></listitem>
+</itemizedlist>
+</para>
+</sect1>
+
+
+<sect1 id="dialog-currentareas">
+<title>Current Areas</title>
+<para>
+<indexterm><primary>Dialog: Current Areas</primary></indexterm>
+</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_currentareas.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>Shows the current VIEW AREAs hierarchy, and allows editing the same way as in the main screen.</para>
+</sect1>
+
+
+</chapter>

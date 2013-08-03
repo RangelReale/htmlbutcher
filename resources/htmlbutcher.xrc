@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<resource version="2.8.7.0">
+  <object class="wxBitmap" name="b_splash">hb_splash.png</object>
+  <object class="wxBitmap" name="img_wizard">wizard_image.png</object>
+  <object class="wxBitmap" name="ico_cancel">ico_cancel.png</object>
+  <object class="wxBitmap" name="ico_delete_garea">ico_delete_garea.png</object>
+  <object class="wxBitmap" name="ico_delete_line">ico_delete_line.png</object>
+  <object class="wxBitmap" name="ico_delete_marea">ico_delete_marea.png</object>
+  <object class="wxBitmap" name="ico_insert_garea">ico_insert_garea.png</object>
+  <object class="wxBitmap" name="ico_insert_hline">ico_insert_hline.png</object>
+  <object class="wxBitmap" name="ico_insert_marea">ico_insert_marea.png</object>
+  <object class="wxBitmap" name="ico_insert_vline">ico_insert_vline.png</object>
+  <object class="wxBitmap" name="ico_move_line">ico_move_line.png</object>
+  <object class="wxBitmap" name="ico_new">ico_new.png</object>
+  <object class="wxBitmap" name="ico_open">ico_open.png</object>
+  <object class="wxBitmap" name="ico_save">ico_save.png</object>
+  <object class="wxBitmap" name="ico_zoom_in">ico_zoom_in.png</object>
+  <object class="wxBitmap" name="ico_zoom_normal">ico_zoom_normal.png</object>
+  <object class="wxBitmap" name="ico_zoom_out">ico_zoom_out.png</object>
+</resource>

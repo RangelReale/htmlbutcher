@@ -1,0 +1,7 @@
+HTMLButcher 1.1
+---------------
+http://www.htmlbutcher.com
+
+HTMLButcher is an advanced HTML slicing tool. It is used to create an HTML page from an image file, slicing images and creating an HTML table, preserving the layout but allowing data and images to be individually changed.
+
+Besides common slicing tasks, HTMLButcher features unlimited nested table generation (tables inside tables), re-use of layout mask, per-area image format and transparency selection, in-place preview with file sizes, extremelly precise and easy tool for sizing, aligning, and repetition-aligning of slices, and much more.

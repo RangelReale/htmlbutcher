@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" 
+  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY product "<emphasis role='bold'>HTMLButcher</emphasis>">
+<!ENTITY productversion "1.1">
+<!ENTITY company "<trademark>SIB IT</trademark>">
+<!ENTITY chap1 SYSTEM "chap1.xml"> 
+<!ENTITY chap2 SYSTEM "chap2.xml"> 
+<!ENTITY chap3 SYSTEM "chap3.xml"> 
+<!ENTITY chap4 SYSTEM "chap4.xml"> 
+]>
+
+<book>
+ 
+<bookinfo>
+<title>&product;</title>
+<date>2008-07-09</date>
+<releaseinfo>1.1.00</releaseinfo>
+<abstract>
+<para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/hb_splash.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+</para>
+<para>
+&product; is an HTML slicing application.
+</para>
+</abstract>
+</bookinfo>
+
+&chap1; 
+&chap2;
+&chap3;
+&chap4;
+
+</book>

@@ -1,0 +1,6 @@
+application/x-htmlbutcher-project
+		description=HTMLButcher project
+		icon_filename=htmlbutcher.xpm
+		default_action_type=application
+		short_list_application_ids_for_novice_user_level=htmlbutcher
+		category=Documents

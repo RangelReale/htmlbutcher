@@ -1,0 +1,29 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<PXML xmlns="http://openpandora.org/namespaces/PXML" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="PXML_schema.xsd">
+
+  <application id="sibit.htmlbutcher">
+
+    <title lang="en_US">HTMLButcher</title>
+ 
+    <exec command="./bin/run.sh"/>
+ 
+    <description lang="en_US">HTMLButcher 2.1.0.28</description>
+ 
+    <previewpics>
+    </previewpics>
+ 
+    <author name="Rangel Reale" website="http://www.htmlbutcher.org" email="support@htmlbutcher.com"/>
+ 
+    <version major="1" minor="1" release="0" build="28"/>
+    <osversion major="1" minor="0" release="0" build="0"/>
+ 
+    <categories>
+      <category name="Graphics">
+      </category>
+    </categories>
+ 
+  </application>
+
+</PXML>
+

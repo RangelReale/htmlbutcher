@@ -1,0 +1,38 @@
+HTMLBUTCHERICON 	ICON "../resources/htmlbutcher.ico"
+
+#include "HTMLButcherVersion.h"
+1 VERSIONINFO
+ FILEVERSION HTMLBUTCHERVERSION_NUMBER
+ PRODUCTVERSION HTMLBUTCHERVERSION_NUMBER
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041604b0"
+        BEGIN
+            VALUE "FileDescription", "HTMLButcher"
+            VALUE "CompanyName", "SIB IT"
+            VALUE "FileVersion", HTMLBUTCHERVERSION_STRING
+            VALUE "InternalName", "HTMLButcher"
+            VALUE "LegalCopyright", "Copyright (C) 2008 SIB IT"
+            VALUE "OriginalFilename", "HTMLButcher.exe"
+            VALUE "ProductName", "HTMLButcher"
+            VALUE "ProductVersion", HTMLBUTCHERVERSION_STRING
+        END
+    END
+	BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#define wxUSE_NO_MANIFEST 1
+#include "wx/msw/wx.rc"

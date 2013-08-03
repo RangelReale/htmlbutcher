@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=HTMLButcher DEMO
+Comment=HTMLButcher DEMO
+Exec=htmlbutcher-demo %F
+TryExec=htmlbutcher-demo
+Icon=htmlbutcher-demo.png
+Terminal=false
+Type=Application
+Categories=Application;Network;
+GenericName[en_US]=
+Name[en_US]=HTMLButcher DEMO
+

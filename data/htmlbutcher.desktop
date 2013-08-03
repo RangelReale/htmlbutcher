@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+MimeType=application/x-htmlbutcher-project
+Encoding=UTF-8
+Name=HTMLButcher
+Comment=HTMLButcher
+Exec=htmlbutcher %F
+TryExec=htmlbutcher
+Icon=htmlbutcher.png
+Terminal=false
+Type=Application
+Categories=Application;Network;
+GenericName[en_US]=HTMLButcher
+Name[en_US]=HTMLButcher
+

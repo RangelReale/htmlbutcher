@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# restart gnome-panel for the menus to appear
+#killall -USR1 gnome-panel

@@ -1,0 +1,56 @@
+<chapter id="chap-introduction">
+<title>Introduction</title>
+
+<sect1 id="chap-introduction-none">
+<title>Introduction</title>
+<para></para>
+</sect1>
+
+<sect1 id="about">
+<title>About</title>
+<indexterm><primary>About</primary></indexterm>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot.png" format="PNG" align="center" width="50%"/>
+ </imageobject>
+</mediaobject>
+<para>&product; is an advanced HTML slicing tool. It is used to create an HTML page from an image file, slicing images and creating an HTML table, preserving the layout but allowing data and images to be individually changed.</para>
+</sect1>
+
+<sect1 id="features">
+<title>Features</title>
+<para>
+<indexterm><primary>Features</primary></indexterm>
+<itemizedlist>
+<listitem><para>Image slicing and HTML table generation;</para></listitem>
+<listitem><para>Table or AP tableless layout generation - per area setting makes possible to create mixed table/AP tableless layout if desired;</para></listitem>
+<listitem><para>Per-slice image format selection, with preview and file size calculation;</para></listitem>
+<listitem><para>Unlimited nested table generation (tables inside tables) - you are not limited to a single HTML table for the entire design, this makes it easier to integrate with dynamic sites;</para></listitem>
+<listitem><para>Customizable re-use of layout mask - create a base mask, and re-use it on similar pages, but allowing some customizations independently on each page;</para></listitem>
+<listitem><para>Allows substitution of images with standard HTML, for slices with fixed background colors;</para></listitem>
+<listitem><para>Easy image map generation;</para></listitem>
+<listitem><para>Powerful in-place preview - Preview your design using the real selected image format and parameters, with simple HTML support;</para></listitem>
+<listitem><para>Design stretcheable sites easier - generate a repeatable image to use as a background for body and cells, fixed and variable size slices;</para></listitem>
+<listitem><para>Simple transparent-color/pixel setting - can generate images with transparent color and/or pixel easily inside the tool;</para></listitem>
+<listitem><para>Global areas - define an image by using a free-positioned area, and use this image as some slice's image, page/cell background, or just save it for use manually;</para></listitem>
+<listitem><para>Alternate image support - Can have more than 1 image for each page, easy exchanged by a hotkey, to aid in seeing the full page with text together with the stripped page. Also the alternate image can be used in place of the main image;</para></listitem>
+<listitem><para>Extremelly precise and easy tool for sizing, aligning, and repetition-aligning of slices - can move pixel by pixel, entering values manually, all with a live preview area;</para></listitem>
+<listitem><para>Automatic grid slicing tool;</para></listitem>
+<listitem><para>HTML properties setting inside the tool, like cell alignment, background color, URLs, cell content, and customization of each tag parameters individually;</para></listitem>
+<listitem><para>CSS editing helper - Shows and allow editing of one or more CSS files in all windows it is rellevant; any number of CSS files per site can be used;</para></listitem>
+<listitem><para>Image formats customization and reuse - create any number of image format patterns (GIF, JPEG, PNG, bit depth, compression), and re-use them in all pages;</para></listitem>
+<listitem><para>Single file all-including project - can be shared by designers/programmers, stored as backup to make future changes in layout easier to integrate;</para></listitem>
+<listitem><para>1-step full site generation - Can save a single page, or multiple pages with a single menu item;</para></listitem>
+</itemizedlist>
+</para>
+</sect1>
+
+<sect1 id="copyright">
+<title>Copyright</title>
+<para>
+<indexterm><primary>Copyright</primary></indexterm>
+&product; is a product of &company;.</para>
+<para>The main developer is Rangel Reale (<email>rangelreale@htmlbutcher.com</email>).</para>
+</sect1>
+
+</chapter>

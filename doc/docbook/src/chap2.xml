@@ -1,0 +1,266 @@
+<chapter id="chat-gettingstarted">
+<title>Getting Started</title>
+
+<sect1 id="chap-gettingstarted-none">
+<title>Getting Started</title>
+<para></para>
+</sect1>
+
+<sect1 id="concepts">
+<title>Concepts</title>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_started.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>
+<indexterm><primary>Concepts</primary></indexterm>
+&product; is a tool to transform static layout images into HTML.</para>
+<para>To accomplish this, &product; divides the image into AREAS. Each area can have a set of properties, and can be divided in a number of sub-areas, each also with its own set of properties and sub-areas, and so on.</para>
+
+<sect2 id="concepts_file">
+<title>Files</title>
+<para>
+<indexterm><primary>Files</primary></indexterm>
+A FILE is an image file containing the layout to be sliced.</para>
+<para>FILES can be created on the <menuchoice><guimenu>Data</guimenu><guimenuitem>Files</guimenuitem></menuchoice> menu.</para>
+</sect2>
+
+<sect2 id="concepts_mask">
+<title>Masks</title>
+<para>
+<indexterm><primary>Masks</primary></indexterm>
+A MASK is a retangular box containing LINES and AREAS. They can be reused in more than one layout, with layout-specific customizations.</para>
+<para>MASKS can be created on the <menuchoice><guimenu>Data</guimenu><guimenuitem>Masks</guimenuitem></menuchoice> menu.</para>
+</sect2>
+
+<sect2 id="concepts_area">
+<title>Areas</title>
+<para>
+<indexterm><primary>Areas</primary></indexterm>
+To create AREAS, you draw LINES from the edges of a MASK, or other AREAS of kind MASK. The LINES intersections will determine the AREAS.</para>
+<para>Each AREA translate to a HTML table cell. AREAS can be of 3 kinds:</para>
+<para>
+<itemizedlist>
+<listitem><para>Image (will generate an image of the AREA box);</para></listitem>
+<listitem><para>Mask (will generate an inner table with sub-areas);</para></listitem>
+<listitem><para>None (will generate a blank cell);</para></listitem>
+</itemizedlist>
+</para>
+</sect2>
+
+<sect2 id="concepts_view">
+<title>Views</title>
+<para>
+<indexterm><primary>Views</primary></indexterm>
+A VIEW is a combination of a FILE with a MASK, which in turn can generate a single HTML page. The VIEW contains properties that will affect the generation of the HTML page.</para>
+<para>VIEWS can be created on the <menuchoice><guimenu>Data</guimenu><guimenuitem>Views</guimenuitem></menuchoice> menu.</para>
+</sect2>
+
+</sect1>
+
+
+<sect1 id="startup">
+<title>Starting a project</title>
+<para>
+<indexterm><primary>Starting a project</primary></indexterm>
+To start a new project, use the <menuchoice><guimenu>File</guimenu><guimenuitem>New</guimenuitem></menuchoice> menu.</para>
+<para>First you need to add one or more FILES. Go to the <menuchoice><guimenu>Data</guimenu><guimenuitem>Files</guimenuitem></menuchoice> menu, and add one or more layout files.</para>
+<figure>
+<title>Files dialog</title>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_files.png" format="PNG" align="center" width="60%"/>
+ </imageobject>
+</mediaobject>
+</figure>
+
+<para>Next you need to create one or more MASKS. Go to the <menuchoice><guimenu>Data</guimenu><guimenuitem>Masks</guimenuitem></menuchoice> menu, and add one or more masks.</para>
+<figure>
+<title>Masks dialog</title>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_masks.png" format="PNG" align="center" width="30%"/>
+ </imageobject>
+</mediaobject>
+</figure>
+
+<para>Now you create a VIEW for each of the HTML pages that will be generated. Go to the <menuchoice><guimenu>Data</guimenu><guimenuitem>Views</guimenuitem></menuchoice> menu, and add one or more views.</para>
+<figure>
+<title>View dialog</title>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_view.png" format="PNG" align="center" width="40%"/>
+ </imageobject>
+</mediaobject>
+</figure>
+
+<para>On the main screen, select the newly created VIEW on the "View" selection box.</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_selectview.png" format="PNG" align="center" width="80%"/>
+ </imageobject>
+</mediaobject>
+
+</sect1>
+
+
+
+<sect1 id="adjustmaskborder">
+<title>Adjusting borders</title>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_selectview.png" format="PNG" align="center" width="70%"/>
+ </imageobject>
+</mediaobject>
+<para>
+<indexterm><primary>Borders</primary></indexterm>
+On this layout, the borders of the image do not correspond to the page layout, there are some black borders that were left by the page designer. We need to set the MASK to contain only the page area.</para>
+<para>To do this, we move the 4 LINES of the MASK to the correct position. Select the "Move line" button from the left toolbar, select the left LINE (in red), and move it to the layout's left starting position.</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_movemaskline.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>Do the same for the other 3 lines.</para>
+<para>This method is not precise, usually in slicing images you need to be pixel-perfect, otherwise artifacts may appear on the final HTML layout. &product; have a tool specifically for this: the "Position and Size" tool.</para>
+<figure>
+<title>Position and size dialog</title>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_positionsize.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+</figure>
+<para>With the "Position and Size" tool, you can adjust pixel by pixel, with a live preview area. Right clicking on the preview area, you have many viewing options like zooming, image repeating, changing background color, that will help fine tune the LINES positions.</para>
+
+</sect1>
+
+
+
+<sect1 id="creatingareas">
+<title>Creating areas</title>
+<para>
+<indexterm><primary>Create area</primary></indexterm>
+To create an AREA, we need to join 2 LINES with a new LINE, and this will define one or more new AREAS.</para>
+<para>Select "Insert horizontal line" from the left toolbar. Click on the MASK left LINE, then on the MASK right LINE, creating an area for the page title. Adjust it with the "Position and Size" tool.</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_firstarea.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>The default AREA kind is IMAGE, so for this area, you just need to choose the desired image format.</para>
+<para>Below the title area, there is a short red line before the photos. To make the page size smaller, we will define this area with a cell background color, not with an image.</para>
+<para>Create a new horizontal line, and ajust the area with the "Position and Size" tool. Right click on the new area, and select "Properties".</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_areanone.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>Set "Kind" to "None", and on the "HTML" tab, check "Background color", and select the color for this AREA. If you double-click on the image view, the pixel color will be automatically copied to the background color selection.</para>
+<para>There is a green line below the photos, do the same for it.</para>
+
+</sect1>
+
+
+
+<sect1 id="alternatefiles">
+<title>Alternate files</title>
+<para>
+<indexterm><primary>Alternate files</primary></indexterm>
+Normally when receiving images from the designer, some example text and images area entered as placeholders for information that shoud be dynamically loaded, of even static, but should be in textual format instead of image.</para>
+<para>If there is a background image over the text, in slicing the image it is best that these placeholders be removed. But if they are removed, you lose the reference for the slicing.</para>
+<para>&product; solves this using "alternate images". A VIEW contains a main image, and up to 8 alternate files (images). The currently displayed image can be changed by selecting it from the "Alternate file" selection at the top of the screen, by pressing <keycombo action="press"><keycap>Ctrl</keycap><keysym>&lt;x&gt;</keysym></keycombo>, where &lt;x&gt; is the alternate file number.</para>
+<para>To select alternate files for a VIEW, select the menu <menuchoice><guimenu>Data</guimenu><guimenuitem>Current view...</guimenuitem></menuchoice> or press <keycombo><keycap>Ctrl</keycap><keysym>F7</keysym></keycombo>. On the "Alternate" folder, select the alternate files for the current VIEW. For best results, the main VIEW image should be without any example text, with all this text on the alternate files.</para>
+<figure>
+<title>View dialog showing the Alternate folder</title>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_viewalternate.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+</figure>
+<para>Now you can switch to the alternate file, and slice your design using the alternate file. On the HTML generation step, only the main image will be used to generate the images (if not set differently on the AREA properties). The <keysym>F12</keysym> key can be used as a shortcut to switch between the main image and the last selected alternate file.</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_alternate.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+</sect1>
+
+
+
+<sect1 id="submask">
+<title>Sub-masks</title>
+<para>
+<indexterm><primary>Sub-mask</primary></indexterm>
+An unique feature of &product; is the concept of a SUBMASK. A SUBMASK is a MASK inside an area. This tranlates to a table inside an outer table cell in HTML. There is no limit to the amount of SUBMASKs-inside-AREAs you can create.</para>
+<para>To create a SUBMASK, right-click on an AREA, and set its "Kind" to "Mask".</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_submask.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>Notice that the AREA title now have 2 titles, one for the "root" area, and one for the AREA inside the SUBMASK. This inner MASK behaves just like the main MASK, it can be sliced using drawing LINES between 2 other LINES. For example, we will separate the area in the middle. Select the "Insert Vertical Line" tool, and click on the AREA 5 top LINE.</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_submask_selline.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>You are asked to select which LINE do you want to pick. If you select LINE 8, you will be slicing <emphasis>the main MASK, NOT the inner MASK</emphasis>. If you want to slice the inner MASK, you must select the LINE that is inside AREA 5, which is the second one (Area 5->Line 2).</para>
+<caution><para>Is is a very common mistake to select the wrong LINE when trying to slice a SUBMASK. Pay attention to the available options, specially to what AREA the line belongs - if it is from the main MASK, no AREA name will be show, just the LINE name.</para></caution>
+<tip><para>If you are using a lot of SUBMASKs, it is <emphasis>extremelly recommended</emphasis> to give a name to all AREAS (using the AREA properties dialog). This makes it much easier to pick the correct line when slicing SUBMASKs.</para></tip>
+<para>Below is what happens if you pick the incorrect LINE (Line 8 in this example).</para>
+<note><para>It is <emphasis>NOT</emphasis> an error doing this slicing, you may want to do exactly this, but this is a common mistake that is made when using SUBMASKs.</para></note>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_submask_selline_bad.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>In this case, the AREA 5 SUBMASK was <emphasis>NOT</emphasis> sliced, instead the main MASK was sliced and a new cell on the main table was created, while the AREA 5 SUBMASK remains with only one AREA.</para>
+<para>Selecting the correct line, yields the expected result.</para>
+<mediaobject>
+ <imageobject>
+  <imagedata fileref="figure/screenshot_submask_selline_ok.png" format="PNG" align="center"/>
+ </imageobject>
+</mediaobject>
+<para>Now AREA 5 will contain a table with 2 cells (AREAs). Each AREA can be individually configured, and even contain another SUBMASK if desired.</para>
+<para>This is what the HTML will look like:</para>
+<programlisting language="html">
+<![CDATA[
+
+  <TR>
+    <TD  WIDTH="824" HEIGHT="2" VALIGN="TOP">
+      <IMG SRC="figure/home_area4.jpg" WIDTH="824" HEIGHT="2" BORDER="0"></TD>
+  </TR>
+  <TR>
+    <TD  WIDTH="824" HEIGHT="272" VALIGN="TOP">
+
+
+          <TABLE WIDTH="824" CELLSPACING="0" CELLPADDING="0">
+            <TR>
+              <TD  WIDTH="417" HEIGHT="272" VALIGN="TOP">
+                <IMG SRC="figure/home_area5_area1.jpg" WIDTH="417" HEIGHT="272" BORDER="0"></TD>
+              <TD  WIDTH="407" HEIGHT="272" VALIGN="TOP">
+                <IMG SRC="figure/home_area5_area2.jpg" WIDTH="407" HEIGHT="272" BORDER="0"></TD>
+            </TR>
+          </TABLE>
+
+
+    </TD>
+  </TR>
+
+]]>
+</programlisting>
+</sect1>
+
+
+
+<sect1 id="generatehtml">
+<title>Generating the HTML page</title>
+<para>To generate the HTML page, select the menu <menuchoice><guimenu>File</guimenu><guimenuitem>Save for web...</guimenuitem></menuchoice>, and select a destination directory.</para>
+<para>Images will be saved in a directory relactive to the selected one.</para>
+</sect1>
+
+
+</chapter>

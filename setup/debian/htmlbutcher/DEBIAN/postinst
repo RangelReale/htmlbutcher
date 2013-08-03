@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# update mime database for HTMLButcher mime types
+update-mime-database /usr/share/mime
+update-desktop-database -q
+
+# restart gnome-panel for the menus to appear
+#killall -USR1 gnome-panel

@@ -1,0 +1,2970 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: HTMLButcher\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-11-27 23:18-0300\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Rangel Reale <rangelreale@htmlbutcher.com>\n"
+"Language-Team: SIB IT <support@htmlbutcher.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Portuguese\n"
+"X-Poedit-Country: BRAZIL\n"
+"X-Poedit-SourceCharset: iso-8859-1\n"
+"X-Poedit-Basepath: C:\\prog\\personal\\HTMLButcher\n"
+"X-Poedit-SearchPath-0: src\n"
+
+#: src/BControls.cpp:54
+msgid "Could not load help"
+msgstr "Não foi possível carregar ajuda"
+
+#: src/BControls.cpp:104
+#: src/BProject.cpp:1771
+msgid "Empty Link"
+msgstr "Link vazio"
+
+#: src/BControls.cpp:354
+msgid "&Insert file link"
+msgstr "&Inserir link de arquivo"
+
+#: src/BHTML.cpp:201
+msgid "HTML not generated"
+msgstr "HTML não gerado"
+
+#: src/BImage.cpp:58
+msgid "Invalid image file extension"
+msgstr "Extensão de arquivo de imagem inválida"
+
+#: src/BImageView.cpp:424
+msgid "Preview"
+msgstr "Preview"
+
+#: src/BImageView.cpp:426
+msgid "View &full size"
+msgstr "Ver ta&manho total"
+
+#: src/BImageView.cpp:427
+msgid "&Repeat image"
+msgstr "&Repetir imagem"
+
+#: src/BImageView.cpp:428
+msgid "&Margin"
+msgstr "&Margem"
+
+#: src/BImageView.cpp:429
+msgid "&Background color"
+msgstr "Cor de &fundo"
+
+#: src/BImageView.cpp:433
+msgid "50%"
+msgstr "50%"
+
+#: src/BImageView.cpp:434
+msgid "100%"
+msgstr "100%"
+
+#: src/BImageView.cpp:435
+msgid "150%"
+msgstr "150%"
+
+#: src/BImageView.cpp:436
+msgid "200%"
+msgstr "200%"
+
+#: src/BImageView.cpp:437
+msgid "300%"
+msgstr "300%"
+
+#: src/BImageView.cpp:438
+msgid "500%"
+msgstr "500%"
+
+#: src/BImageView.cpp:439
+msgid "1000%"
+msgstr "1000%"
+
+#: src/BImageView.cpp:440
+msgid "&Custom zoom"
+msgstr "Zoom &customizado"
+
+#: src/BImageView.cpp:444
+msgid "&Save to file..."
+msgstr "&Salvar para arquivo..."
+
+#: src/BImageView.cpp:490
+msgid "Enter zoom value"
+msgstr "Entre com o zoom"
+
+#: src/BImageView.cpp:490
+msgid "Zoom (%)"
+msgstr "Zoom (%)"
+
+#: src/BImageView.cpp:490
+msgid "Zoom"
+msgstr "Zoom"
+
+#: src/BImageView.cpp:509
+#: src/BProc.cpp:330
+#: src/BProc.cpp:348
+msgid "Save file"
+msgstr "Salvar arquivo"
+
+#: src/BImageView.cpp:510
+#: src/BProc.cpp:331
+msgid "JPEG image (*.jpg)|*.jpg|GIF image (*.gif)|*.gif|PNG image (*.png)|*.png|BMP image (*.bmp)|*.bmp|TIFF image (*.tif)|*.tif|XPM image (*.xpm)|*.xpm"
+msgstr "Imagem JPEG (*.jpg)|*.jpg|Imagem GIF (*.gif)|*.gif|Imagem PNG (*.png)|*.png|Imagem BMP (*.bmp)|*.bmp|Imagem TIFF (*.tif)|*.tif|Imagem XPM (*.xpm)|*.xpm"
+
+#: src/BImage_FreeImage.cpp:88
+#: src/BImage_FreeImage.cpp:115
+#: src/BImage_FreeImage.cpp:123
+#: src/BImage_FreeImage.cpp:156
+msgid "Error loading image"
+msgstr "Erro carregando imagem"
+
+#: src/BImage_FreeImage.cpp:282
+msgid "Error saving image"
+msgstr "Erro salvando imagem"
+
+#: src/BImage_FreeImage.cpp:306
+msgid "Unable to convert image"
+msgstr "Não foi possível converter imagem"
+
+#: src/BImage_FreeImage.cpp:316
+msgid "Unable to load converted image"
+msgstr "Não foi possível carregar a imagem convertida"
+
+#: src/BLanguage.cpp:42
+#, c-format
+msgid "Uknown locale code '%s' in registry."
+msgstr "Local '%s' desconhecido."
+
+#: src/BLanguage.cpp:59
+msgid "(Use default language)"
+msgstr "(Usar idioma padrão)"
+
+#: src/BLanguage.cpp:61
+msgid "English"
+msgstr "Inglês"
+
+#: src/BLanguage.cpp:62
+msgid "Portuguese (Brazilian)"
+msgstr "Português do Brasil"
+
+#: src/BLanguage.cpp:64
+msgid "Japanese"
+msgstr "Japonês"
+
+#: src/BLanguage.cpp:74
+msgid "Select your prefered language"
+msgstr "Selecione seu idioma preferido"
+
+#: src/BLanguage.cpp:75
+msgid "Language selection"
+msgstr "Seleção de idioma"
+
+#: src/BLanguage.cpp:89
+msgid "You must restart HTMLButcher for this change to take effect."
+msgstr "Você deve reiniciar o HTMLButcher para que esta alteração surta efeito."
+
+#: src/BProc.cpp:54
+#: src/BProject.cpp:5734
+msgid "BG:"
+msgstr "BG:"
+
+#: src/BProc.cpp:79
+msgid "&Customize"
+msgstr "&Customizar"
+
+#: src/BProc.cpp:79
+msgid "Customize this area"
+msgstr "Customizar esta área"
+
+#: src/BProc.cpp:91
+msgid "Kind"
+msgstr "Tipo"
+
+#: src/BProc.cpp:92
+msgid "&None"
+msgstr "&Nenhum"
+
+#: src/BProc.cpp:92
+msgid "None"
+msgstr "Nenhum"
+
+#: src/BProc.cpp:93
+msgid "&Image"
+msgstr "&Imagem"
+
+#: src/BProc.cpp:93
+#: src/DialogAssortedFileEdit.cpp:106
+msgid "Image"
+msgstr "Imagem"
+
+#: src/BProc.cpp:94
+msgid "&Mask"
+msgstr "&Máscara"
+
+#: src/BProc.cpp:94
+msgid "Mask"
+msgstr "Máscara"
+
+#: src/BProc.cpp:95
+msgid "&Kind"
+msgstr "&Tipo"
+
+#: src/BProc.cpp:95
+msgid "Area kind"
+msgstr "Tipo de área"
+
+#: src/BProc.cpp:99
+#: src/BProc.cpp:112
+msgid "&Image Format"
+msgstr "Formato de &Imagem"
+
+#: src/BProc.cpp:111
+msgid "&Select"
+msgstr "&Selecionar"
+
+#: src/BProc.cpp:111
+msgid "Select image format"
+msgstr "Selecione o formato de imagem"
+
+#: src/BProc.cpp:112
+msgid "Image format"
+msgstr "Formato de imagem"
+
+#: src/BProc.cpp:117
+msgid "&Background Image"
+msgstr "Imagem de &fundo"
+
+#: src/BProc.cpp:117
+msgid "Generate background image"
+msgstr "Gerar imagem de fundo"
+
+#: src/BProc.cpp:128
+#: src/BProc.cpp:463
+msgid "&Delete"
+msgstr "&Excluir"
+
+#: src/BProc.cpp:128
+msgid "Delete"
+msgstr "Excluir"
+
+#: src/BProc.cpp:138
+msgid "Image &format properties"
+msgstr "Propriedades de &formato de imagem"
+
+#: src/BProc.cpp:138
+msgid "Image format properties"
+msgstr "Propriedades de formato de imagem"
+
+#: src/BProc.cpp:143
+msgid "Al&ternate files"
+msgstr "Ar&quivos alternativos"
+
+#: src/BProc.cpp:143
+msgid "Alternate files"
+msgstr "Arquivos alternativos"
+
+#: src/BProc.cpp:149
+msgid "Grid &Slice"
+msgstr "Fatiar em &Grades"
+
+#: src/BProc.cpp:149
+msgid "Slice mask in grid format"
+msgstr "Fatiar a máscara em formato de grade"
+
+#: src/BProc.cpp:154
+msgid "Position and &Size"
+msgstr "Po&sição e Tamanho"
+
+#: src/BProc.cpp:154
+msgid "Position and Size"
+msgstr "Posição e Tamanho"
+
+#: src/BProc.cpp:161
+msgid "Save ra&w image as..."
+msgstr "Salvar imagem s&em processamento como..."
+
+#: src/BProc.cpp:161
+msgid "Export raw image to file"
+msgstr "Exportar imagem sem processamento para arquivo"
+
+#: src/BProc.cpp:163
+msgid "Sa&ve image as..."
+msgstr "Sal&var imagem como..."
+
+#: src/BProc.cpp:163
+msgid "Export image to file"
+msgstr "Exportar imagem para arquivo"
+
+#: src/BProc.cpp:169
+msgid "&Rename"
+msgstr "&Renomear"
+
+#: src/BProc.cpp:169
+msgid "Rename this area"
+msgstr "Renomear esta área"
+
+#: src/BProc.cpp:172
+msgid "&Properties"
+msgstr "&Propriedades"
+
+#: src/BProc.cpp:172
+msgid "Properties"
+msgstr "Propriedades"
+
+#: src/BProc.cpp:182
+#: src/BView.cpp:2275
+msgid "Areas"
+msgstr "Áreas"
+
+#: src/BProc.cpp:222
+msgid "Cannot customize this master area"
+msgstr "Não é possível customizar esta área mestre"
+
+#: src/BProc.cpp:265
+msgid "Adjust Position and Size: "
+msgstr "Ajustar Posição e Tamanho:"
+
+#: src/BProc.cpp:272
+msgid "Area size cannot be modified at all"
+msgstr "Tamanho da área não pode ser modificado de modo algum"
+
+#: src/BProc.cpp:289
+msgid "Selected image format is invalid"
+msgstr "Format de imagem selecionado é inválido"
+
+#: src/BProc.cpp:305
+msgid "Selected alternate image format is invalid"
+msgstr "Format de arquivo alternativo selecionado é inválido"
+
+#: src/BProc.cpp:321
+msgid "Selected slice is invalid"
+msgstr "A fatia selecionada é inválida"
+
+#: src/BProc.cpp:357
+msgid "Could not save area image - try saving raw area image."
+msgstr "Não foi possível salvar imagem da área - tente salvar imagem sem processamento."
+
+#: src/BProc.cpp:364
+msgid "Enter area name"
+msgstr "Entre o nome da área"
+
+#: src/BProc.cpp:364
+msgid "Rename area"
+msgstr "Renomear área"
+
+#: src/BProc.cpp:380
+#: src/BProc.cpp:397
+#: src/BProc.cpp:413
+msgid "Properties not used"
+msgstr "Propriedades não usadas"
+
+#: src/BProc.cpp:463
+msgid "Delete line"
+msgstr "Excluir linha"
+
+#: src/BProc.cpp:476
+#: src/BView.cpp:2247
+msgid "Lines"
+msgstr "Linhas"
+
+#: src/BProc.cpp:514
+msgid "This line cannot be deleted."
+msgstr "Esta linha não pode ser excluída."
+
+#: src/BProject.cpp:415
+msgid "Invalid metadata for colorscheme"
+msgstr "Metadado inválido para este esquema de cores"
+
+#: src/BProject.cpp:455
+msgid "Invalid metadata for colorscheme color item"
+msgstr "Metadado inválido para este item de esquema de cores"
+
+#: src/BProject.cpp:544
+msgid "Color scheme does not exists"
+msgstr "Esquema de cores não existe"
+
+#: src/BProject.cpp:558
+msgid "DEFAULT"
+msgstr "PADRÃO"
+
+#: src/BProject.cpp:660
+msgid "Invalid metadata for image format"
+msgstr "Metadado inválido para o format de imagem"
+
+#: src/BProject.cpp:725
+msgid "JPEG HIGH"
+msgstr "JPEG HIGH (ALTA)"
+
+#: src/BProject.cpp:726
+msgid "JPEG MAXIMUM"
+msgstr "JPEG MAXIMUM (MÁXIMA)"
+
+#: src/BProject.cpp:727
+msgid "JPEG LOW"
+msgstr "JPEG LOW (BAIXA)"
+
+#: src/BProject.cpp:728
+msgid "GIF"
+msgstr "GIF"
+
+#: src/BProject.cpp:729
+msgid "PNG"
+msgstr "PNG"
+
+#: src/BProject.cpp:730
+msgid "PNG 8 BIT"
+msgstr "PNG 8 BIT"
+
+#: src/BProject.cpp:731
+msgid "PNG 32 BIT"
+msgstr "PNG 32 BIT"
+
+#: src/BProject.cpp:791
+#: src/BProject.cpp:3076
+msgid "Lines are not on the same mask container"
+msgstr "As linhas não estão dentro do mesmo recipiente de máscara"
+
+#: src/BProject.cpp:958
+msgid "Cannot move line"
+msgstr "Não é possível mover linha"
+
+#: src/BProject.cpp:971
+msgid "Cannot set position"
+msgstr "Não é possível setar esta posição"
+
+#: src/BProject.cpp:1056
+#, c-format
+msgid "Line %d"
+msgstr "Linha %d"
+
+#: src/BProject.cpp:1149
+msgid "TOP"
+msgstr "SUPERIOR"
+
+#: src/BProject.cpp:1151
+msgid "LEFT"
+msgstr "ESQUERDA"
+
+#: src/BProject.cpp:1222
+msgid "BOTTOM"
+msgstr "INFERIOR"
+
+#: src/BProject.cpp:1224
+msgid "RIGHT"
+msgstr "DIREITA"
+
+#: src/BProject.cpp:1332
+msgid "This area cannot be linked to"
+msgstr "Não é possível ligar a esta área"
+
+#: src/BProject.cpp:1354
+msgid "This link does not have an alternate item"
+msgstr "Este link não tem um item alternativo"
+
+#: src/BProject.cpp:1369
+msgid "This is not an area link"
+msgstr "Isto não é um link para área"
+
+#: src/BProject.cpp:1392
+#: src/BProject.cpp:1416
+msgid "Linked area not found"
+msgstr "Link para área não encontrado"
+
+#: src/BProject.cpp:1560
+msgid "This link does not point to an image"
+msgstr "Este link não aponta para uma imagem"
+
+#: src/BProject.cpp:1663
+msgid "Invalid BURL (0)"
+msgstr "BURL inválida (0)"
+
+#: src/BProject.cpp:1675
+msgid "Invalid BURL (1)"
+msgstr "BURL inválida (1)"
+
+#: src/BProject.cpp:1686
+#: src/BProject.cpp:1719
+msgid "Invalid BURL (A2)"
+msgstr "BURL inválida (A2)"
+
+#: src/BProject.cpp:1695
+msgid "Invalid BURL (A3)"
+msgstr "BURL inválida (A3)"
+
+#: src/BProject.cpp:1702
+msgid "Invalid BURL (A5)"
+msgstr "BURL inválida (A5)"
+
+#: src/BProject.cpp:1705
+msgid "Invalid BURL (A4)"
+msgstr "BURL inválida (A4)"
+
+#: src/BProject.cpp:1714
+msgid "Invalid BURL (F2)"
+msgstr "BURL inválida (F2)"
+
+#: src/BProject.cpp:1739
+msgid "Invalid BURL (E)"
+msgstr "BURL inválida (E)"
+
+#: src/BProject.cpp:1765
+#, c-format
+msgid "INVALID LINK: %s"
+msgstr "LINK INVÁLIDO: %s"
+
+#: src/BProject.cpp:1777
+#: src/BProject.cpp:3401
+msgid "Area"
+msgstr "Área"
+
+#: src/BProject.cpp:1779
+msgid "Global Area"
+msgstr "Área Global"
+
+#: src/BProject.cpp:1798
+#, c-format
+msgid "Alternate %d"
+msgstr "Alternativo %d"
+
+#: src/BProject.cpp:1802
+#, c-format
+msgid "File #%d (%s)"
+msgstr "Arquivo #%d (%s)"
+
+#: src/BProject.cpp:1805
+#, c-format
+msgid "Assorted File #%d (%s)"
+msgstr "Arquivos extra #%d (%s)"
+
+#: src/BProject.cpp:1808
+msgid "Unknown link"
+msgstr "Link desconhecido"
+
+#: src/BProject.cpp:1846
+msgid "Error parsing template"
+msgstr "Erro analisando template"
+
+#: src/BProject.cpp:1917
+msgid "** invalid burl **"
+msgstr "** burl inválido **"
+
+#: src/BProject.cpp:2003
+msgid "Image has no filename information"
+msgstr "Imagem não tem informação de nome de arquivo"
+
+#: src/BProject.cpp:2059
+msgid "Invalid metadata for image info"
+msgstr "Metadado inválido para informação de imagem"
+
+#: src/BProject.cpp:2088
+msgid "Invalid metadata for image info transparent pixel"
+msgstr "Metadado inválido para lista de pixels transparentes de informação de imagem"
+
+#: src/BProject.cpp:2194
+#, c-format
+msgid "Generating preview for %s, please wait..."
+msgstr "Gerando preview para %s, por favor aguarde..."
+
+#: src/BProject.cpp:2318
+msgid "NONE"
+msgstr "NENHUM"
+
+#: src/BProject.cpp:2321
+msgid "IMAGE"
+msgstr "IMAGEM"
+
+#: src/BProject.cpp:2324
+msgid "MASK"
+msgstr "MÁSCARA"
+
+#: src/BProject.cpp:2327
+msgid "UNKNOWN"
+msgstr "DESCONHECIDO"
+
+#: src/BProject.cpp:2490
+#: src/BProject.cpp:2610
+msgid "Invalid metadata for area config"
+msgstr "Metadado inválido para configuração de área"
+
+#: src/BProject.cpp:2748
+msgid "This area cannot be sliced"
+msgstr "Esta área não pode ser fatiada"
+
+#: src/BProject.cpp:2751
+msgid "Area size too small for slicing"
+msgstr "Tamanho da área pequeno demais para fatiar"
+
+#: src/BProject.cpp:2857
+msgid "Default area config not found"
+msgstr "Configuração padrão de área não encontrada"
+
+#: src/BProject.cpp:2873
+msgid "This area isn't customizable"
+msgstr "Esta área não é customizável"
+
+#: src/BProject.cpp:2896
+msgid "Default config cannot be deleted"
+msgstr "A configuração padrão não pode ser excluída"
+
+#: src/BProject.cpp:3082
+msgid "Invalid lines for area"
+msgstr "Linhas inválidas para área"
+
+#: src/BProject.cpp:3184
+#: src/BView.cpp:1472
+msgid "Cannot move to this position"
+msgstr "Não é possível mover para esta posição"
+
+#: src/BProject.cpp:3206
+msgid "Cannot change to this size"
+msgstr "Não é possível mudar para este tamanho"
+
+#: src/BProject.cpp:3405
+msgid "GArea"
+msgstr "GArea"
+
+#: src/BProject.cpp:3408
+msgid "MArea"
+msgstr "MArea"
+
+#: src/BProject.cpp:3483
+msgid "This area doesn't have a file name"
+msgstr "Esta área não tem um nome de arquivo"
+
+#: src/BProject.cpp:3743
+msgid "Invalid line"
+msgstr "Linha inválida"
+
+#: src/BProject.cpp:3780
+#: src/BProject.cpp:4802
+#: src/BProject.cpp:4998
+msgid "Invalid metadata for area"
+msgstr "Metadado inválido para área"
+
+#: src/BProject.cpp:3862
+msgid "No areas for layout building"
+msgstr "Não há áreas para a construção do layout"
+
+#: src/BProject.cpp:4109
+#: src/BProject.cpp:4119
+#: src/BProject.cpp:4130
+#: src/BProject.cpp:4140
+msgid "Operation not supported."
+msgstr "Operação não suportada."
+
+#: src/BProject.cpp:4241
+#: src/BProject.cpp:4716
+#: src/BProject.cpp:6170
+msgid "Invalid metadata for container"
+msgstr "Metadado inválido para recipiente"
+
+#: src/BProject.cpp:4355
+msgid "Line not connectable"
+msgstr "Linha não conectável"
+
+#: src/BProject.cpp:4359
+msgid "Line not ready"
+msgstr "Linha não está pronta"
+
+#: src/BProject.cpp:4363
+msgid "Mask not editable"
+msgstr "Máscara não editável"
+
+#: src/BProject.cpp:4367
+msgid "Area cannot be joined"
+msgstr "Está área não pode ser conectada"
+
+#: src/BProject.cpp:4371
+msgid "Container cannot contain lines"
+msgstr "Recipiente não pode conter linhas"
+
+#: src/BProject.cpp:4403
+msgid "Cannot add this line"
+msgstr "Não é possível adicionar esta linha"
+
+#: src/BProject.cpp:4498
+msgid "Could not find join area"
+msgstr "Não foi possível encontrar área de ligação"
+
+#: src/BProject.cpp:4585
+msgid "Area has no connectable lines"
+msgstr "Esta área não tem linhas conectáveis"
+
+#: src/BProject.cpp:4767
+msgid "Invalid metadata for line"
+msgstr "Metadado inválido para linha"
+
+#: src/BProject.cpp:4773
+msgid "Could not find start and/or end line"
+msgstr "Não foi possível encontrar linha de início e/ou fim"
+
+#: src/BProject.cpp:4817
+#, c-format
+msgid "Could not find area %d (%d-%d-%d-%d)"
+msgstr "Não foi possível encontrar a área %d (%d-%d-%d-%d)"
+
+#: src/BProject.cpp:4905
+msgid "Cannot add split area on this container"
+msgstr "Não é possível adicionar área 'split' neste recipiente"
+
+#: src/BProject.cpp:5304
+msgid "Cannot set these mask positions"
+msgstr "Não é possível setar essas posições de máscara"
+
+#: src/BProject.cpp:5372
+msgid "Mask size is not variable"
+msgstr "Tamanho da máscara não é variável"
+
+#: src/BProject.cpp:6110
+msgid "Invalid metadata for mask"
+msgstr "Metadado inválido para máscara"
+
+#: src/BProject.cpp:6570
+msgid "Inner areas must have a parent"
+msgstr "Áreas internas devem ter um pai"
+
+#: src/BProject.cpp:6718
+msgid "Only full paths can be created"
+msgstr "Somente diretórios completos podem ser criados"
+
+#: src/BProject.cpp:6726
+#, c-format
+msgid "Could not create dir: %s"
+msgstr "Não foi possível criar diretório: %s"
+
+#: src/BProject.cpp:6777
+msgid "Invalid metadata for file path"
+msgstr "Metadado inválido para caminho de diretório"
+
+#: src/BProject.cpp:6889
+#: src/BProject.cpp:9392
+#: src/DialogAssortedFileEdit.cpp:218
+msgid "File does not exists"
+msgstr "Arquivo não existe"
+
+#: src/BProject.cpp:6950
+msgid "Error loading file stream"
+msgstr "Erro carregando dados de arquivo"
+
+#: src/BProject.cpp:6999
+msgid "File image not found"
+msgstr "Imagem do arquivo não encontrado"
+
+#: src/BProject.cpp:7052
+#, c-format
+msgid "Loading image %s, please wait..."
+msgstr "Carregando imagem %s, por favor aguarde..."
+
+#: src/BProject.cpp:7134
+msgid "Invalid metadata for file"
+msgstr "Metadado inválido para arquivo"
+
+#: src/BProject.cpp:7379
+msgid "IMAGE ERROR"
+msgstr "ERRO DE IMAGEM"
+
+#: src/BProject.cpp:7489
+msgid "HTML file"
+msgstr "Arquivo HTML"
+
+#: src/BProject.cpp:7495
+msgid "CSS file"
+msgstr "Arquivos CSS"
+
+#: src/BProject.cpp:7511
+#: src/BProject.cpp:7676
+msgid "Area missing for HTML generation"
+msgstr "Área faltando para a geração do HTML"
+
+#: src/BProject.cpp:7546
+msgid "Could not create file"
+msgstr "Não é possível criar arquivo"
+
+#: src/BProject.cpp:7628
+msgid "Generating HTML, please wait..."
+msgstr "Gerando HTML, por favor aguarde...."
+
+#: src/BProject.cpp:7650
+msgid "Invalid layout type"
+msgstr "Tipo de layout inválido"
+
+#: src/BProject.cpp:7736
+msgid "Map"
+msgstr "Mapa"
+
+#: src/BProject.cpp:7975
+msgid "<!-- alignment row -->"
+msgstr "<!-- linha de alinhamento -->"
+
+#: src/BProject.cpp:8307
+#, c-format
+msgid "Area: %s"
+msgstr "Área: %s"
+
+#: src/BProject.cpp:8321
+#, c-format
+msgid "Area: %s alternate %d"
+msgstr "Área: %s alternativo %d"
+
+#: src/BProject.cpp:8333
+#, c-format
+msgid "Assorted file: %d - %s"
+msgstr "Arquivo extra: %d - %s"
+
+#: src/BProject.cpp:8375
+#, c-format
+msgid "Global Area: %s"
+msgstr "Área Global: %s"
+
+#: src/BProject.cpp:8387
+#, c-format
+msgid "Global Area: %s alternate %d"
+msgstr "Área Global: %s alternativo %d"
+
+#: src/BProject.cpp:8500
+msgid "Invalid metadata for view"
+msgstr "Metadado inválido para página"
+
+#: src/BProject.cpp:8569
+msgid "Invalid metadata for view assorted file"
+msgstr "Metadado inválido para arquivos extra de página"
+
+#: src/BProject.cpp:8664
+msgid "File path name cannot be blank"
+msgstr "Nome do diretório não pode estar em branco"
+
+#: src/BProject.cpp:8688
+msgid "images"
+msgstr "imagens"
+
+#: src/BProject.cpp:8689
+msgid "root"
+msgstr "raiz"
+
+#: src/BProject.cpp:8777
+#: src/BProject.cpp:8792
+msgid "File is not a recognized file format"
+msgstr "Arquivo não é de algum tipo conhecido"
+
+#: src/BProject.cpp:8782
+#: src/BProject.cpp:8797
+#: src/BProject.cpp:8811
+msgid "File is not a recognized image format"
+msgstr "Arquivo não é um tipo reconhecido de imagem"
+
+#: src/BProject.cpp:8913
+msgid "Mask is not a recognized file format"
+msgstr "Máscara não é de um tipo reconhecido de arquivo"
+
+#: src/BProject.cpp:8917
+msgid "Mask name cannot be blank"
+msgstr "Nome da máscara não pode estar em branco"
+
+#: src/BProject.cpp:9027
+msgid "View is not a recognized file format"
+msgstr "Página não é de um tipo reconhecido de arquivo"
+
+#: src/BProject.cpp:9031
+msgid "View name cannot be blank"
+msgstr "Nome da página não pode estar em branco"
+
+#: src/BProject.cpp:9236
+msgid "Invalid metadata for assorted file group"
+msgstr "Metadado inválido para grupo de arquivos extra"
+
+#: src/BProject.cpp:9552
+msgid "Assorted file is not an image"
+msgstr "Arquivo extra não é uma imagem"
+
+#: src/BProject.cpp:9574
+#: src/BProject.cpp:9596
+msgid "Invalid metadata for Assorted file"
+msgstr "Metadado inválido para arquivo extra"
+
+#: src/BProject.cpp:9937
+msgid "Invalid metadata for CSS file"
+msgstr "Metadado inválido para arquivo CSS"
+
+#: src/BProject.cpp:10216
+msgid "Loading file, please wait..."
+msgstr "Carregando arquivo, por favor aguarde..."
+
+#: src/BProject.cpp:10286
+msgid "Name of file not found"
+msgstr "Nome do arquivo não encontrado"
+
+#: src/BProject.cpp:10292
+msgid "File name not found"
+msgstr "Nome de arquivo não encontrado"
+
+#: src/BProject.cpp:10298
+msgid "Could not create temporary save file"
+msgstr "Não foi possível criar arquivo temporário"
+
+#: src/BProject.cpp:10300
+msgid "Saving file, please wait..."
+msgstr "Salvando arquivo, por favor aguarde..."
+
+#: src/BProject.cpp:10325
+#: src/BProject.cpp:10330
+msgid "Could not rename current file"
+msgstr "Não foi possível renomear arquivo atual"
+
+#: src/BProject.cpp:10339
+msgid "Could not rename new file"
+msgstr "Não foi possível renomear o novo arquivo"
+
+#: src/ButcherMetadataFile.cpp:164
+msgid "Invalid value for this datatype"
+msgstr "Valor inválido para este tipo de dados"
+
+#: src/ButcherMetadataFile.cpp:200
+msgid "Invalid integer data size"
+msgstr "Tamanho de dados inteiro inválido"
+
+#: src/ButcherMetadataFile.cpp:250
+msgid "Metadata data does not exists"
+msgstr "Dado de metadado não existe"
+
+#: src/ButcherMetadataFile.cpp:257
+msgid "This item is not for this data"
+msgstr "Este item não é para este dado"
+
+#: src/ButcherMetadataFile.cpp:347
+msgid "Metadata does not exists"
+msgstr "Metadado não existe"
+
+#: src/ButcherMetadataFile.cpp:390
+msgid "Error reading file header"
+msgstr "Erro lendo cabeçalho do arquivo"
+
+#: src/ButcherMetadataFile.cpp:395
+msgid "Error reading metadata header"
+msgstr "Erro lendo cabeçalho do metadado"
+
+#: src/ButcherMetadataFile.cpp:397
+msgid "Invalid metadata header"
+msgstr "Cabeçalho de metadado inválido"
+
+#: src/ButcherMetadataFile.cpp:428
+msgid "Could not read data header"
+msgstr "Não foi possível ler o cabeçalho dos dados"
+
+#: src/ButcherMetadataFile.cpp:431
+msgid "Invalid data header signature"
+msgstr "Assinatura de cabeçalho inválida"
+
+#: src/ButcherMetadataFile.cpp:437
+msgid "Metadata error: cannot start before ending"
+msgstr "Erro de metadado: não é possível inicar antes do fim"
+
+#: src/ButcherMetadataFile.cpp:446
+msgid "Metadata error: cannot end before starting"
+msgstr "Erro de metadado: não é possivel finalizar antes do início"
+
+#: src/ButcherMetadataFile.cpp:453
+msgid "Metadata error: cannot have item outside metadata"
+msgstr "Erro de metadado: item não pode estar fora do metadado"
+
+#: src/ButcherMetadataFile.cpp:458
+msgid "End of data without metadata end"
+msgstr "Fim dos dados sem o fim dos metadados"
+
+#: src/ButcherMetadataFile.cpp:459
+msgid "Could not read item header"
+msgstr "Não foi possível ler cabeçalho do item"
+
+#: src/ButcherMetadataFile.cpp:463
+msgid "Invalid item header"
+msgstr "Cabeçalho de item inválido"
+
+#: src/ButcherMetadataFile.cpp:481
+msgid "Invalid item data type"
+msgstr "Tipo de dado de item inválido"
+
+#: src/ButcherMetadataFile.cpp:500
+#: src/ButcherMetadataFile.cpp:539
+msgid "End of data while reading item data"
+msgstr "Fim de dados ao ler dados do item"
+
+#: src/ButcherMetadataFile.cpp:501
+msgid "Could not read item data"
+msgstr "Não foi possível ler dados do item"
+
+#: src/ButcherMetadataFile.cpp:540
+msgid "Could not read item end header"
+msgstr "Não foi possível ler cabeçalho de fim de item"
+
+#: src/ButcherMetadataFile.cpp:544
+msgid "Invalid item end header"
+msgstr "Cabeçalho de fim de item inválido"
+
+#: src/ButcherMetadataFile.cpp:551
+msgid "Metadata error: item end without begin"
+msgstr "Erro de metadado: fim do item sem início"
+
+#: src/ButcherMetadataFile.cpp:553
+msgid "Metadata error: root storage cannot have items"
+msgstr "Erro de metadado: compartimentop raiz não pode conter ítens"
+
+#: src/ButcherMetadataFile.cpp:557
+msgid "Invalid data"
+msgstr "Dado inválido"
+
+#: src/ButcherMetadataFile.cpp:575
+msgid "Error writing file header"
+msgstr "Erro gravado cabeçalho de arquivo"
+
+#: src/ButcherMetadataFile.cpp:675
+#, c-format
+msgid "Data written different than expected (expect: %d - read: %d)."
+msgstr "Dado gravado diferente do esperado (esperado: %d - lido: %d)."
+
+#: src/ButcherMetadataFile.cpp:740
+msgid "Error reopening file."
+msgstr "Erro reabrindo arquivo."
+
+#: src/ButcherMetadataFile.cpp:750
+#, c-format
+msgid "Invalid file: %s"
+msgstr "Arquivo inválido: %s"
+
+#: src/BUtil.cpp:59
+#: src/BUtil.cpp:149
+#: src/BUtil.cpp:171
+#: src/BUtil.cpp:189
+#: src/BUtil.cpp:200
+#: src/BView.cpp:1947
+msgid "Error"
+msgstr "Erro"
+
+#: src/BUtil.cpp:149
+#: src/BUtil.cpp:171
+#: src/BUtil.cpp:189
+msgid "Invalid license file"
+msgstr "Arquivo de licença inválido"
+
+#: src/BUtil.cpp:200
+msgid "Corrupted license file"
+msgstr "Arquivo de licença corrompido"
+
+#: src/BView.cpp:743
+msgid "Logic error in scrollwin events"
+msgstr "Erro de lógica em eventos scrollwin"
+
+#: src/BView.cpp:1391
+msgid "Lines can only be added in masks - convert to mask first"
+msgstr "Lines só podem ser adicionadas em máscaras - converta para máscara antes"
+
+#: src/BView.cpp:1397
+msgid "Select ending vertical line"
+msgstr "Selecione a linha vertical final"
+
+#: src/BView.cpp:1402
+msgid "Select ending horizontal line"
+msgstr "Selecione a linha horizontal final"
+
+#: src/BView.cpp:1451
+msgid "Cannot delete this line"
+msgstr "Não é possível excluir esta linha"
+
+#: src/BView.cpp:1481
+msgid "Cannot move this line"
+msgstr "Não é possível mover esta linha"
+
+#: src/BView.cpp:1485
+msgid "Select destination position"
+msgstr "Selecione a posição destino"
+
+#: src/BView.cpp:1521
+#: src/BView.cpp:1558
+msgid "Select end position"
+msgstr "Selecione a posição final"
+
+#: src/BView.cpp:1562
+msgid "No compatible area selected"
+msgstr "Nenhuma área compatível selecionada"
+
+#: src/BView.cpp:1582
+msgid "Position must be on the same area"
+msgstr "Posição deve estar na mesma área"
+
+#: src/BView.cpp:1782
+msgid "This operation cannot be executed at this time"
+msgstr "Esta operação não pode ser executada neste momento"
+
+#: src/BView.cpp:1825
+msgid "Select start vertical line"
+msgstr "Selecione a linha vertical inicial"
+
+#: src/BView.cpp:1831
+msgid "Select start horizontal line"
+msgstr "Selecione a linha horizontal inicial"
+
+#: src/BView.cpp:1835
+msgid "Select line to delete"
+msgstr "Selecione a linha a excluir"
+
+#: src/BView.cpp:1841
+msgid "Select line to move"
+msgstr "Selecione a linha a mover"
+
+#: src/BView.cpp:1847
+#: src/BView.cpp:1858
+msgid "Select start position"
+msgstr "Selecione a posição inicial"
+
+#: src/BView.cpp:1852
+msgid "Select global area to delete"
+msgstr "Seleciona a área global a excluir"
+
+#: src/BView.cpp:1863
+msgid "Select map area to delete"
+msgstr "Selecione a área de mapa a excluir"
+
+#: src/BView.cpp:1947
+msgid "Could not load image data"
+msgstr "Não foi possível carregar os dados da imagem"
+
+#: src/BView.cpp:2317
+msgid "Generating preview, please wait..."
+msgstr "Gerando preview, por favor aguarde..."
+
+#: src/DialogAbout.cpp:80
+#, c-format
+msgid "Version %s"
+msgstr "Versão %s"
+
+#: src/DialogAdjustSize.cpp:114
+msgid "Positions"
+msgstr "Posições"
+
+#: src/DialogAdjustSize.cpp:129
+msgid "&Top:"
+msgstr "&Superior:"
+
+#: src/DialogAdjustSize.cpp:144
+msgid "&Left:"
+msgstr "&Esquerda:"
+
+#: src/DialogAdjustSize.cpp:158
+msgid "&Right:"
+msgstr "&Direita:"
+
+#: src/DialogAdjustSize.cpp:173
+msgid "&Bottom:"
+msgstr "&Inferior:"
+
+#: src/DialogAdjustSize.cpp:187
+msgid "Movement"
+msgstr "Movimento"
+
+#: src/DialogAdjustSize.cpp:195
+msgid "Le&ft:"
+msgstr "Es&querda:"
+
+#: src/DialogAdjustSize.cpp:206
+msgid "To&p:"
+msgstr "To&po:"
+
+#: src/DialogAdjustSize.cpp:217
+msgid "Size"
+msgstr "Tamanho"
+
+#: src/DialogAdjustSize.cpp:225
+msgid "&Width:"
+msgstr "Compri&mento:"
+
+#: src/DialogAdjustSize.cpp:236
+msgid "&Height:"
+msgstr "&Altura:"
+
+#: src/DialogAdjustSize.cpp:254
+msgid "Re&vert"
+msgstr "Re&verter"
+
+#: src/DialogAdjustSize.cpp:258
+#: src/DialogAssortedFileEdit.cpp:142
+#: src/DialogCSSFileEdit.cpp:158
+msgid "&OK"
+msgstr "&Ok"
+
+#: src/DialogAdjustSize.cpp:262
+#: src/DialogAssortedFileEdit.cpp:146
+#: src/DialogCSSFileEdit.cpp:162
+msgid "&Cancel"
+msgstr "&Cancelar"
+
+#: src/DialogAssortedFileEdit.cpp:90
+msgid "&File:"
+msgstr "&Arquivo:"
+
+#: src/DialogAssortedFileEdit.cpp:93
+msgid "Select a file"
+msgstr "Selecione um arquivo"
+
+#: src/DialogAssortedFileEdit.cpp:94
+msgid "All files (*.*)|*.*"
+msgstr "Todos os arquivos (*.*)|*.*"
+
+#: src/DialogAssortedFileEdit.cpp:99
+msgid "File &Type:"
+msgstr "&Tipo de arquivo:"
+
+#: src/DialogAssortedFileEdit.cpp:105
+msgid "Unknown"
+msgstr "Desconhecido"
+
+#: src/DialogAssortedFileEdit.cpp:111
+#: src/DialogCSSFileEdit.cpp:132
+msgid "File &path:"
+msgstr "Ca&minho de diretório:"
+
+#: src/DialogAssortedFileEdit.cpp:120
+#: src/DialogCSSFileEdit.cpp:141
+msgid "&Save filename:"
+msgstr "Nome de arquivo a &salvar:"
+
+#: src/DialogAssortedFileEdit.cpp:127
+msgid "&Groups:"
+msgstr "&Grupos:"
+
+#: src/DialogAssortedFileEdit.cpp:212
+msgid "File cannot be blank"
+msgstr "Nome do arquivo não pode estar em branco"
+
+#: src/DialogAssortedFileEdit.cpp:224
+#: src/DialogCSSFileEdit.cpp:228
+msgid "Invalid save file name"
+msgstr "Nome de arquivo inválido"
+
+#: src/DialogCSSFileEdit.cpp:115
+msgid "&Name:"
+msgstr "&Nome:"
+
+#: src/DialogCSSFileEdit.cpp:123
+msgid "&CSS Text:"
+msgstr "Te&xto do CSS:"
+
+#: src/DialogCSSFileEdit.cpp:167
+msgid "&Help"
+msgstr "A&juda"
+
+#: src/DialogCSSFileEdit.cpp:222
+msgid "Name cannot be blank"
+msgstr "Nome não pode ser branco"
+
+#: src/DialogDemo.cpp:60
+msgid "<html><body> \t\tThis is a DEMO version of HTMLButcher. This demo have the following limitations:<br>\t\t<br>\t\t<ul>\t\t<li>No project loading and saving.</li>\t\t<li>Limit of 2 files, 1 mask, 1 view, and 1 alternate file.</li>\t\t<li>Line patterns are added to the generated images.</li>\t\t</ul>\t\t<br><br>\t\tOther than that, the application is exactly the same. Try it out, and buy it from <a href=\"http://www.htmlbutcher.com\">http://www.htmlbutcher.com</a> if you like it.<br>\t\t</body></html>"
+msgstr "<html><body> \t\tEsta é uma versão DEMO do HTMLButcher. Este demo tem as seguintes limitações:<br>\t\t<br>\t\t<ul>\t\t<li>Carregar e salvar projetos desabilitado.</li>\t\t<li>Limite de 2 arquivos, 1 máscara, 1 página, e 1 arquivo alternativo.</li>\t\t<li>Padrões de linha adicionados à imagem gerada.</li>\t\t</ul>\t\t<br><br>\t\tAlém disso, o programa é exatamente o mesmo. Teste-o, e compre em <a href=\"http://www.htmlbutcher.com\">http://www.htmlbutcher.com</a> se for de seu agrado.<br>\t\t</body></html>"
+
+#: src/DialogDemo.cpp:82
+msgid "Wait"
+msgstr "Espere"
+
+#: src/DialogDemo.cpp:111
+msgid "&Ok"
+msgstr "&Ok"
+
+#: src/DialogDemo.cpp:114
+#, c-format
+msgid "Wait %ds"
+msgstr "Espere %ds"
+
+#: src/DialogFileEdit.cpp:56
+msgid "Preview:"
+msgstr "Preview:"
+
+#: src/DialogFileEdit.cpp:66
+msgid "Show preview"
+msgstr "Mostrar previe&w"
+
+#: src/DialogFileEdit.cpp:109
+msgid "Add file"
+msgstr "Adicionar arquivo"
+
+#: src/DialogFileEdit.cpp:110
+#: src/DialogListEdit.cpp:699
+msgid "All files|*.*"
+msgstr "Todos os arquivos|*.*"
+
+#: src/DialogFileEdit.cpp:158
+#: src/DialogListEdit.cpp:742
+msgid "Are you sure you want to remove this file?"
+msgstr "Você tem certeza que quer remover este arquivo?"
+
+#: src/DialogFileEdit.cpp:160
+#, c-format
+msgid "Removing this file will remove %d view(s). Are you sure?"
+msgstr "Remover este arquivo removerá também %d página(s). Tem certeza?"
+
+#: src/DialogFileEdit.cpp:162
+#, c-format
+msgid "Removing this file will affect %d item(s). Are you sure?"
+msgstr "Remover este arquivo afetará %d item(s). Tem certeza?"
+
+#: src/DialogFileEdit.cpp:164
+#: src/DialogListEdit.cpp:847
+msgid "Remove path"
+msgstr "Remover caminho de diretório"
+
+#: src/DialogFileEdit.cpp:171
+#: src/DialogListEdit.cpp:750
+msgid "This file cannot be deleted"
+msgstr "Este arquivo não pode ser excluído"
+
+#: src/DialogFileLink.cpp:147
+msgid "Enable &Preview"
+msgstr "Habilitar &Preview"
+
+#: src/DialogFileLink.cpp:195
+msgid "Links"
+msgstr "Links"
+
+#: src/DialogFileLink.cpp:200
+msgid "Files"
+msgstr "Arquivos"
+
+#: src/DialogFileLink.cpp:203
+msgid "Assorted Files"
+msgstr "Arquivos extra"
+
+#: src/DialogFileLink.cpp:238
+msgid "No link selected"
+msgstr "Nenhum link selecionado"
+
+#: src/DialogFileLink.cpp:281
+#: src/DialogMaskAreaListEdit.cpp:192
+msgid "Global Areas"
+msgstr "Áreas Globais"
+
+#: src/DialogFileLink.cpp:393
+msgid "Alternate Files"
+msgstr "Arquivos alternativos"
+
+#: src/DialogFileLink.cpp:430
+msgid "File Link"
+msgstr "Link de arquivo"
+
+#: src/DialogFilePathEdit.cpp:108
+msgid "&Path:"
+msgstr "Ca&minho:"
+
+#: src/DialogFilePathEdit.cpp:172
+msgid "Invalid path"
+msgstr "Caminho de diretório inválido"
+
+#: src/DialogFilePathEdit.cpp:177
+msgid "Path must be a relative path"
+msgstr "Caminho de diretório deve ser um caminho relativo"
+
+#: src/DialogImageFormatEdit.cpp:69
+#: src/DialogImageFormatEdit.cpp:460
+msgid "Preview (Original):"
+msgstr "Preview (Original):"
+
+#: src/DialogImageFormatEdit.cpp:78
+#: src/DialogImageFormatEdit.cpp:470
+msgid "Auto-update"
+msgstr "Atualizar a&utomaticamente"
+
+#: src/DialogImageFormatEdit.cpp:161
+msgid "Are you sure you want to remove this image format?"
+msgstr "Tem certeza que deseja remover este formato de imagem?"
+
+#: src/DialogImageFormatEdit.cpp:163
+#, c-format
+msgid "Removing this image format will affect %d item(s). Are you sure?"
+msgstr "Remover este formato de imgem afetará %d item(s). Tem certeza?"
+
+#: src/DialogImageFormatEdit.cpp:165
+msgid "Remove image format"
+msgstr "Excluir formato de imagem"
+
+#: src/DialogImageFormatEdit.cpp:171
+msgid "This image format cannot be deleted"
+msgstr "Esta área não pode ser excluída"
+
+#: src/DialogImageFormatEdit.cpp:235
+#, c-format
+msgid "Preview (%s - size %s [%s bytes]):"
+msgstr "Preview (%s - tamanho %s [%s bytes]):"
+
+#: src/DialogImageFormatEdit.cpp:326
+msgid "Use default compression"
+msgstr "Usar compressão padrão"
+
+#: src/DialogImageFormatEdit.cpp:327
+msgid "Maximum (100%)"
+msgstr "Máxima  (100%)"
+
+#: src/DialogImageFormatEdit.cpp:328
+msgid "Normal (75%)"
+msgstr "Normal (75%)"
+
+#: src/DialogImageFormatEdit.cpp:329
+msgid "Medium (50%)"
+msgstr "Média  (50%)"
+
+#: src/DialogImageFormatEdit.cpp:330
+msgid "Low (25%)"
+msgstr "Baixa (25%)"
+
+#: src/DialogImageFormatEdit.cpp:331
+msgid "Minimum (10%)"
+msgstr "Mínima  (10%)"
+
+#: src/DialogImageFormatEdit.cpp:333
+msgid "Use default quantization"
+msgstr "(Usar quantização padrão)"
+
+#: src/DialogImageFormatEdit.cpp:334
+msgid "Xialon Wu"
+msgstr "Xialon Wu"
+
+#: src/DialogImageFormatEdit.cpp:335
+msgid "NeuQuant"
+msgstr "NeuQuant"
+
+#: src/DialogImageFormatEdit.cpp:337
+msgid "Use default bit depth"
+msgstr "Usar profundidade de bits padrão"
+
+#: src/DialogImageFormatEdit.cpp:338
+msgid "8 bit"
+msgstr "8 bit"
+
+#: src/DialogImageFormatEdit.cpp:339
+msgid "16 bit"
+msgstr "16 bit"
+
+#: src/DialogImageFormatEdit.cpp:340
+msgid "24 bit"
+msgstr "24 bit"
+
+#: src/DialogImageFormatEdit.cpp:341
+msgid "32 bit"
+msgstr "32 bit"
+
+#: src/DialogImageFormatEdit.cpp:374
+msgid "&Format:"
+msgstr "&Formato:"
+
+#: src/DialogImageFormatEdit.cpp:384
+msgid "&JPEG compression:"
+msgstr "Compressão &JPEG:"
+
+#: src/DialogImageFormatEdit.cpp:394
+msgid "JPEG pro&gressive"
+msgstr "JPEG pro&gressivo"
+
+#: src/DialogImageFormatEdit.cpp:398
+msgid "GIF/PNG8 &quantization: (reduction to 8 bit)"
+msgstr "&Quantização GIF/PNG8 : (redução para 8 bits)"
+
+#: src/DialogImageFormatEdit.cpp:408
+msgid "Force bit &depth if possible:"
+msgstr "Forçar profun&didade de bits se possível:"
+
+#: src/DialogImageFormatEdit.cpp:621
+#, c-format
+msgid "Preview (size %s [%s bytes]):"
+msgstr "Preview (tamanho %s [%s bytes]):"
+
+#: src/DialogListEdit.cpp:107
+msgid "&Add"
+msgstr "&Adicionar"
+
+#: src/DialogListEdit.cpp:111
+msgid "&Edit"
+msgstr "&Editar"
+
+#: src/DialogListEdit.cpp:115
+msgid "&Remove"
+msgstr "E&xcluir"
+
+#: src/DialogListEdit.cpp:119
+msgid "&Duplicate"
+msgstr "&Duplicar"
+
+#: src/DialogListEdit.cpp:143
+msgid "&Close"
+msgstr "&Fechar"
+
+#: src/DialogListEdit.cpp:434
+msgid "Are you sure you want to remove this mask?"
+msgstr "Tem certeza que deseja remover esta máscara?"
+
+#: src/DialogListEdit.cpp:436
+#, c-format
+msgid "Removing this mask will remove %d view(s). Are you sure?"
+msgstr "Remover esta máscara afetará %d página(s). Tem certeza?"
+
+#: src/DialogListEdit.cpp:438
+msgid "Remove mask"
+msgstr "Remover máscara"
+
+#: src/DialogListEdit.cpp:444
+msgid "This mask cannot be deleted"
+msgstr "Esta máscara não pode ser excluída"
+
+#: src/DialogListEdit.cpp:460
+msgid "New mask name"
+msgstr "Nome da nova máscara"
+
+#: src/DialogListEdit.cpp:460
+msgid "Duplicate mask"
+msgstr "Duplicar máscara"
+
+#: src/DialogListEdit.cpp:552
+msgid "Are you sure you want to remove this view?"
+msgstr "Tem certeza que deseja remover esta página?"
+
+#: src/DialogListEdit.cpp:554
+msgid "Remove view"
+msgstr "Remover página"
+
+#: src/DialogListEdit.cpp:560
+msgid "This view cannot be deleted"
+msgstr "Esta página não pode ser excluída"
+
+#: src/DialogListEdit.cpp:606
+#: src/DialogListEdit.cpp:624
+msgid "Group name"
+msgstr "Nome do grupo"
+
+#: src/DialogListEdit.cpp:606
+#: src/DialogListEdit.cpp:624
+msgid "Add Assorted File Group"
+msgstr "Adicionar grupos de arquivos extra"
+
+#: src/DialogListEdit.cpp:641
+msgid "Are you sure you want to remove this group?"
+msgstr "Tem certeza que deseja remover este grupo?"
+
+#: src/DialogListEdit.cpp:643
+msgid "Remove group"
+msgstr "Remover grupo"
+
+#: src/DialogListEdit.cpp:649
+msgid "This group cannot be deleted"
+msgstr "Este grupo  não pode ser excluído"
+
+#: src/DialogListEdit.cpp:698
+msgid "Add assorted file"
+msgstr "Adicionar arquivo extra"
+
+#: src/DialogListEdit.cpp:744
+msgid "Remove file"
+msgstr "Remover arquivo"
+
+#: src/DialogListEdit.cpp:843
+msgid "Are you sure you want to remove this path?"
+msgstr "Tem certeza que deseja remover este caminho de diretório?"
+
+#: src/DialogListEdit.cpp:845
+#, c-format
+msgid "Removing this path will affect %d item(s). Are you sure?"
+msgstr "Remover este caminho de diretório afetará %d item(s). Tem certeza?"
+
+#: src/DialogListEdit.cpp:853
+msgid "This path cannot be deleted"
+msgstr "Esta caminho de diretório não pode ser excluído"
+
+#: src/DialogListEdit.cpp:948
+msgid "Are you sure you want to remove this CSS?"
+msgstr "Tem certeza que deseja remover este CSS?"
+
+#: src/DialogListEdit.cpp:950
+#, c-format
+msgid "Removing this CSS will affect %d item(s). Are you sure?"
+msgstr "Remover este CSS afetará %d item(s). Tem certeza?"
+
+#: src/DialogListEdit.cpp:952
+msgid "Remove CSS"
+msgstr "Remover CSS"
+
+#: src/DialogListEdit.cpp:958
+msgid "This CSS cannot be deleted"
+msgstr "Este CSS não pode ser excluído"
+
+#: src/DialogMaskAreaEdit.cpp:105
+msgid "Left"
+msgstr "Esquerda"
+
+#: src/DialogMaskAreaEdit.cpp:106
+msgid "Center"
+msgstr "Centro"
+
+#: src/DialogMaskAreaEdit.cpp:107
+msgid "Right"
+msgstr "Direita"
+
+#: src/DialogMaskAreaEdit.cpp:110
+msgid "Top"
+msgstr "Superior"
+
+#: src/DialogMaskAreaEdit.cpp:111
+msgid "Middle"
+msgstr "Meio"
+
+#: src/DialogMaskAreaEdit.cpp:112
+msgid "Bottom"
+msgstr "Inferior"
+
+#: src/DialogMaskAreaEdit.cpp:115
+msgid "Horizontal"
+msgstr "Horizontal"
+
+#: src/DialogMaskAreaEdit.cpp:116
+msgid "Vertical"
+msgstr "Vertical"
+
+#: src/DialogMaskAreaEdit.cpp:117
+msgid "All"
+msgstr "Tudo"
+
+#: src/DialogMaskAreaEdit.cpp:119
+#: src/DialogMaskAreaEdit.cpp:122
+msgid "Default"
+msgstr "Padrão"
+
+#: src/DialogMaskAreaEdit.cpp:120
+msgid "Image Link"
+msgstr "Link de imagem"
+
+#: src/DialogMaskAreaEdit.cpp:123
+msgid "Table"
+msgstr "Table"
+
+#: src/DialogMaskAreaEdit.cpp:124
+msgid "AP Tableless"
+msgstr "AP Tableless"
+
+#: src/DialogMaskAreaEdit.cpp:167
+#: src/DialogMaskAreaImageFormat.cpp:227
+msgid "Hover:"
+msgstr "Sobre:"
+
+#: src/DialogMaskAreaEdit.cpp:176
+#: src/DialogMaskAreaImageFormat.cpp:236
+msgid "Selected:"
+msgstr "Selecionado:"
+
+#: src/DialogMaskAreaEdit.cpp:205
+msgid "HTML"
+msgstr "HTML"
+
+#: src/DialogMaskAreaEdit.cpp:231
+#: src/DialogMaskAreaGlobalEdit.cpp:130
+msgid "&Kind:"
+msgstr "&Tipo:"
+
+#: src/DialogMaskAreaEdit.cpp:247
+msgid "&Layout type (inner mask)"
+msgstr "Tipo de &layout (máscara interna)"
+
+#: src/DialogMaskAreaEdit.cpp:262
+#: src/DialogMaskAreaGlobalEdit.cpp:144
+msgid "&Image Format:"
+msgstr "Formato de &Imagem:"
+
+#: src/DialogMaskAreaEdit.cpp:271
+msgid "Image &Map"
+msgstr "&Mapa de imagem"
+
+#: src/DialogMaskAreaEdit.cpp:275
+msgid "Image Ma&p Name:"
+msgstr "Nome do Ma&pa de Imagem:"
+
+#: src/DialogMaskAreaEdit.cpp:284
+#: src/DialogMaskAreaGlobalEdit.cpp:154
+msgid "Base &Filename: (without extension)"
+msgstr "Nome base do a&rquivo (sem extensão)"
+
+#: src/DialogMaskAreaEdit.cpp:291
+#: src/DialogMaskAreaGlobalEdit.cpp:161
+msgid "Prepen&d parent area filename"
+msgstr "A&dicionar antes nome de arquivo da área pai"
+
+#: src/DialogMaskAreaEdit.cpp:298
+#: src/DialogMaskAreaGlobalEdit.cpp:175
+msgid "Use &Alternate file:"
+msgstr "Usar &arquivo alternativo:"
+
+#: src/DialogMaskAreaEdit.cpp:302
+#: src/DialogMaskAreaGlobalEdit.cpp:168
+msgid "No"
+msgstr "Não"
+
+#: src/DialogMaskAreaEdit.cpp:334
+msgid "&Align:"
+msgstr "&Alinhamento:"
+
+#: src/DialogMaskAreaEdit.cpp:345
+msgid "&Vertical Align:"
+msgstr "Alinhamento &vertical"
+
+#: src/DialogMaskAreaEdit.cpp:356
+msgid "Background &Repeat:"
+msgstr "R&epetição de fundo:"
+
+#: src/DialogMaskAreaEdit.cpp:367
+msgid "Inner &Scrollable (DIV)"
+msgstr "Conteúdo com &scroll (DIV)"
+
+#: src/DialogMaskAreaEdit.cpp:376
+msgid "Cell &Tag Append: (<TD>/<DIV> attributes)"
+msgstr "Adicionar à tag da cé&lula: (atributos de <TD>/<DIV>)"
+
+#: src/DialogMaskAreaEdit.cpp:384
+msgid "Table &Tag Append: (inner mask)"
+msgstr "Adicionar à tag da ta&bela: (máscara interna)"
+
+#: src/DialogMaskAreaEdit.cpp:392
+msgid "Background Co&lor:"
+msgstr "Co&r de fundo:"
+
+#: src/DialogMaskAreaEdit.cpp:402
+msgid "Variable Si&ze"
+msgstr "Tama&nho variável"
+
+#: src/DialogMaskAreaEdit.cpp:407
+msgid "&Content (HTML inside <TD>/<DIV>):"
+msgstr "Conteú&do  (HTML dentro de <TD>/<DIV>):"
+
+#: src/DialogMaskAreaEdit.cpp:425
+msgid "Image &URL: (http://www.site.com)"
+msgstr "&URL da imagem: (http://www.site.com)"
+
+#: src/DialogMaskAreaEdit.cpp:433
+msgid "Image &URL Tag Append: (<A> attributes)"
+msgstr "Adicionar à tag do lin&k da imagem: (atributos de <A>)"
+
+#: src/DialogMaskAreaEdit.cpp:441
+msgid "Ima&ge Tag Append: (<IMG> attributes)"
+msgstr "Adicionar à tag da ima&gem: (atributos de <IMG>)"
+
+#: src/DialogMaskAreaEdit.cpp:451
+msgid "Image &Source"
+msgstr "&Origem da imagem"
+
+#: src/DialogMaskAreaEdit.cpp:458
+msgid "Image &Link:"
+msgstr "&Link da imagem:"
+
+#: src/DialogMaskAreaEdit.cpp:476
+#: src/DialogMaskAreaGlobalEdit.cpp:191
+msgid "Ima&ge Formats..."
+msgstr "Formatos de Ima&gem..."
+
+#: src/DialogMaskAreaFileAlternate.cpp:114
+#, c-format
+msgid "Alternate File &%d"
+msgstr "Arquivo alternativo &%d"
+
+#: src/DialogMaskAreaFileAlternate.cpp:124
+msgid "Unavailable"
+msgstr "Não disponível"
+
+#: src/DialogMaskAreaFileAlternate.cpp:137
+msgid "Enabled"
+msgstr "Habilitado"
+
+#: src/DialogMaskAreaFileAlternate.cpp:143
+msgid "Format"
+msgstr "Formato"
+
+#: src/DialogMaskAreaFileAlternate.cpp:150
+msgid "Image Format:"
+msgstr "Formato de imagem:"
+
+#: src/DialogMaskAreaFileAlternate.cpp:160
+msgid "Base Filename: (without extension)"
+msgstr "Nome base de arquivo (sem extensão)"
+
+#: src/DialogMaskAreaFileAlternate.cpp:167
+msgid "Prepend parent area filename"
+msgstr "Adicionar antes nome de arquivo da área pai"
+
+#: src/DialogMaskAreaFileAlternate.cpp:186
+msgid "Load &Preview"
+msgstr "Carregar &Preview"
+
+#: src/DialogMaskAreaFileAlternate.cpp:389
+msgid "Loading preview, please wait"
+msgstr "Carregando preview, por favor aguarde"
+
+#: src/DialogMaskAreaImageFormat.cpp:169
+msgid "Transparent Color"
+msgstr "Cor Transparente"
+
+#: src/DialogMaskAreaImageFormat.cpp:170
+msgid "Transparent Pixel"
+msgstr "Pixel Transparente"
+
+#: src/DialogMaskAreaImageFormat.cpp:172
+msgid "&Selection type: (double-click)"
+msgstr "Tipo de &seleção: (duplo-clique)"
+
+#: src/DialogMaskAreaImageFormat.cpp:179
+msgid "Image &Format:"
+msgstr "&Formato de imagem:"
+
+#: src/DialogMaskAreaImageFormat.cpp:202
+msgid "&Preview Image Format: (comparisson only)"
+msgstr "Formato de imagem de previe&w: (somente comparação)"
+
+#: src/DialogMaskAreaImageFormat.cpp:251
+msgid "&Transparent Colors:"
+msgstr "Cores &Transparentes:"
+
+#: src/DialogMaskAreaImageFormat.cpp:258
+msgid "Transparent &Pixels:"
+msgstr "&Pixels Transparentes:"
+
+#: src/DialogMaskAreaImageFormat.cpp:307
+#: src/DialogMaskAreaImageFormat.cpp:308
+msgid "- DEFAULT -"
+msgstr "- PADRÃO -"
+
+#: src/DialogMaskAreaImageFormat.cpp:312
+msgid "Calculating file sizes, please wait..."
+msgstr "Calculando tamanhos de arquivos, por favor aguarde..."
+
+#: src/DialogMaskAreaListEdit.cpp:108
+msgid "Right-click for area menu"
+msgstr "Clique com o botão direito do mouse para menu da área"
+
+#: src/DialogMaskAreaMapEdit.cpp:115
+msgid "Map &URL: (e.g.: http://www.htmlbutcher.com)"
+msgstr "&URL do mapa: (e.g.: http://www.htmlbutcher.com)"
+
+#: src/DialogMaskAreaMapEdit.cpp:123
+msgid "Map &Area Tag Append: (<AREA> attributes)"
+msgstr "Adicionar à tag do &mapa: (atributos de <AREA>)"
+
+#: src/DialogMaskAreaMapEdit.cpp:131
+msgid "Image AL&T: (ALT attribute for <AREA> tag)"
+msgstr "AL&T da imagem: (atributo ALT da tag <AREA>)"
+
+#: src/DialogMaskAreaSlice.cpp:101
+msgid "&Rows:"
+msgstr "&Linhas:"
+
+#: src/DialogMaskAreaSlice.cpp:108
+msgid "&Columns:"
+msgstr "&Colunas:"
+
+#: src/DialogMaskAreaSlice.cpp:195
+msgid "This area already contains slices, they will be removed for this slicing operations, area you sure?"
+msgstr "Esta área já contem fatias, elas serão removidas para esta operação, tem certeza?"
+
+#: src/DialogMaskAreaSlice.cpp:196
+msgid "Warning"
+msgstr "Aviso"
+
+#: src/DialogMaskEdit.cpp:99
+msgid "Width:"
+msgstr "Largura:"
+
+#: src/DialogMaskEdit.cpp:107
+msgid "Height:"
+msgstr "Altura:"
+
+#: src/DialogOptions.cpp:56
+msgid "Basic"
+msgstr "Básico"
+
+#: src/DialogOptions.cpp:57
+msgid "Normal"
+msgstr "Normal"
+
+#: src/DialogOptions.cpp:58
+msgid "Advanced"
+msgstr "Avançado"
+
+#: src/DialogOptions.cpp:103
+msgid "Edit"
+msgstr "Editar"
+
+#: src/DialogOptions.cpp:114
+msgid "Edit Mode"
+msgstr "Modo de edição"
+
+#: src/DialogProjectOptions.cpp:56
+msgid "Default (Table)"
+msgstr "Padrão  (Table)"
+
+#: src/DialogProjectOptions.cpp:81
+#: src/DialogViewEdit.cpp:212
+msgid "&Layout type"
+msgstr "Tipo de &layout"
+
+#: src/DialogViewEdit.cpp:90
+msgid "UTF8"
+msgstr "UTF8"
+
+#: src/DialogViewEdit.cpp:91
+msgid "ISO8859-1"
+msgstr "ISO8859-1"
+
+#: src/DialogViewEdit.cpp:189
+#: src/HTMLButcherMain.cpp:175
+#: src/HTMLButcherMain.cpp:362
+msgid "View"
+msgstr "Visualizar"
+
+#: src/DialogViewEdit.cpp:195
+msgid "Alternate"
+msgstr "Alternativo"
+
+#: src/DialogViewEdit.cpp:225
+msgid "&Mask:"
+msgstr "&Máscara:"
+
+#: src/DialogViewEdit.cpp:233
+msgid "&Image path:"
+msgstr "Caminho de &diretório das imagens:"
+
+#: src/DialogViewEdit.cpp:250
+msgid "&Filename:"
+msgstr "Nome do a&rquivo:"
+
+#: src/DialogViewEdit.cpp:254
+msgid "&Encoding:"
+msgstr "Codi&ficação:"
+
+#: src/DialogViewEdit.cpp:276
+msgid "Items"
+msgstr "Itens"
+
+#: src/DialogViewEdit.cpp:283
+msgid "Images"
+msgstr "Imagens"
+
+#: src/DialogViewEdit.cpp:287
+msgid "Images Global"
+msgstr "Imagens globais"
+
+#: src/DialogViewEdit.cpp:298
+msgid "&Assorted file groups:"
+msgstr "Grupos de arquivos e&xtra:"
+
+#: src/DialogViewEdit.cpp:326
+msgid "C&SS file:"
+msgstr "Arquivo C&SS:"
+
+#: src/DialogViewEdit.cpp:335
+msgid "Back&ground Image:"
+msgstr "Imagem de &fundo:"
+
+#: src/DialogViewEdit.cpp:364
+msgid "Stretchable La&yout"
+msgstr "La&yout esticável"
+
+#: src/DialogViewEdit.cpp:374
+msgid "&Title:"
+msgstr "&Título:"
+
+#: src/DialogViewEdit.cpp:384
+msgid "&Head (HTML inside <HEAD>):"
+msgstr "Cabeçal&ho (HTML dentro de <HEAD>):"
+
+#: src/DialogViewEdit.cpp:393
+msgid "AP tableless styles on top of pa&ge"
+msgstr "Estilos AP tableless no topo da pá&gina"
+
+#: src/DialogViewEdit.cpp:409
+msgid "&Body Tag Add: (<BODY> attributes)"
+msgstr "Adicionar à tag do cor&po: (atributos de <BODY>)"
+
+#: src/DialogViewEdit.cpp:417
+msgid "Body &Prepend:"
+msgstr "Adicionar a&ntes do corpo:"
+
+#: src/DialogViewEdit.cpp:427
+msgid "&Table Tag Add: (<TABLE> attributes)"
+msgstr "Adicionar à tag da ta&bela: (atributos de <TABLE>)"
+
+#: src/DialogViewEdit.cpp:435
+msgid "Body &Append:"
+msgstr "Adicionar &depois do corpo:"
+
+#: src/DialogViewEdit.cpp:455
+#, c-format
+msgid "Alternate File &%d:"
+msgstr "Arquivo alternativo &¨%d:"
+
+#: src/DialogViewEdit.cpp:478
+msgid "CSS"
+msgstr "CSS"
+
+#: src/DialogViewEdit.cpp:619
+msgid "No CSS"
+msgstr "Sem CSS"
+
+#: src/DialogViewEdit.cpp:666
+msgid "File is required"
+msgstr "Arquivo é obrigatório"
+
+#: src/DialogViewEdit.cpp:670
+msgid "Mask is required"
+msgstr "Máscara é obrigatório"
+
+#: src/DialogViewEdit.cpp:719
+msgid "At least one item must be selected."
+msgstr "Pelo menos um item deve ser selecionado."
+
+#: src/HTMLButcherApp.cpp:203
+msgid "Fatal error - please restart the application"
+msgstr "Erro fatal - por favor reinicie a aplicação"
+
+#: src/HTMLButcherApp.cpp:232
+#: src/HTMLButcherApp.cpp:267
+#: src/HTMLButcherApp.cpp:295
+#: src/HTMLButcherApp.cpp:327
+msgid "Unhandled exception caught, program will terminate."
+msgstr "Exceção não tratada, o programa será terminado."
+
+#: src/HTMLButcherApp.cpp:340
+msgid "displays help on the command line parameters"
+msgstr "mostrar ajuda nos parametros de linha de comando"
+
+#: src/HTMLButcherApp.cpp:342
+msgid "input project file"
+msgstr "arquivo de projeto de entrada"
+
+#: src/HTMLButcherMain.cpp:141
+msgid "&New\tCtrl-N"
+msgstr "&Novo\tCtrl-N"
+
+#: src/HTMLButcherMain.cpp:141
+msgid "Create new project"
+msgstr "Criar novo projeto"
+
+#: src/HTMLButcherMain.cpp:143
+msgid "&Open...\tCtrl-O"
+msgstr "&Abrir...\tCtrl-A"
+
+#: src/HTMLButcherMain.cpp:143
+msgid "Open project"
+msgstr "Abrir projeto"
+
+#: src/HTMLButcherMain.cpp:145
+msgid "C&lose"
+msgstr "&Fechar"
+
+#: src/HTMLButcherMain.cpp:145
+msgid "Close project"
+msgstr "Fechar projeto"
+
+#: src/HTMLButcherMain.cpp:147
+msgid "&Save\tCtrl-S"
+msgstr "&Salvar\tCtrl-S"
+
+#: src/HTMLButcherMain.cpp:147
+msgid "Save project"
+msgstr "Salvar projeto"
+
+#: src/HTMLButcherMain.cpp:148
+msgid "Save &as..."
+msgstr "Salvar &como..."
+
+#: src/HTMLButcherMain.cpp:148
+msgid "Save project with a different file name"
+msgstr "Salvar projeto com outro nome de arquivo"
+
+#: src/HTMLButcherMain.cpp:151
+msgid "Save for &Web...\tCtrl-W"
+msgstr "Salvar para &Web...\tCtrl-W"
+
+#: src/HTMLButcherMain.cpp:151
+msgid "Export HTML"
+msgstr "Exportar HTML"
+
+#: src/HTMLButcherMain.cpp:153
+msgid "Save all for We&b..."
+msgstr "Salvar tudo para We&b..."
+
+#: src/HTMLButcherMain.cpp:153
+msgid "Export multiple views HTML"
+msgstr "Exportar múltiplas páginas para HTML"
+
+#: src/HTMLButcherMain.cpp:156
+msgid "&Preferences..."
+msgstr "&Preferências.."
+
+#: src/HTMLButcherMain.cpp:156
+msgid "Program preferences"
+msgstr "Preferências do programa"
+
+#: src/HTMLButcherMain.cpp:158
+msgid "E&xit\tAlt-F4"
+msgstr "Sai&r\tAlt-F4"
+
+#: src/HTMLButcherMain.cpp:158
+msgid "Exit the application"
+msgstr "Sair do programa"
+
+#: src/HTMLButcherMain.cpp:168
+msgid "&File"
+msgstr "&Arquivo"
+
+#: src/HTMLButcherMain.cpp:175
+#: src/HTMLButcherMain.cpp:196
+#: src/HTMLButcherMain.cpp:1540
+msgid "&View"
+msgstr "&Visualizar"
+
+#: src/HTMLButcherMain.cpp:178
+msgid "Zoom &Out\t-"
+msgstr "M&enos zoom\t-"
+
+#: src/HTMLButcherMain.cpp:178
+msgid "Zoom out"
+msgstr "Menos zoom"
+
+#: src/HTMLButcherMain.cpp:179
+msgid "Zoom &In\t+"
+msgstr "Mai&s zoom\t+"
+
+#: src/HTMLButcherMain.cpp:179
+msgid "Zoom in"
+msgstr "Mais zoom"
+
+#: src/HTMLButcherMain.cpp:180
+msgid "Zoom &Normal\t/"
+msgstr "Zoom &Normal\t/"
+
+#: src/HTMLButcherMain.cpp:180
+msgid "Zoom normal"
+msgstr "Zoom normal"
+
+#: src/HTMLButcherMain.cpp:181
+msgid "&Zoom...\tCtrl-Z"
+msgstr "&Zoom...\tCtrl-Z"
+
+#: src/HTMLButcherMain.cpp:183
+msgid "&Preview\tCTRL-V"
+msgstr "&Preview\tCTRL-V"
+
+#: src/HTMLButcherMain.cpp:183
+msgid "Show/hide preview"
+msgstr "Mostar/esconder preview"
+
+#: src/HTMLButcherMain.cpp:184
+msgid "&Borders\tCTRL-B"
+msgstr "&Bordas\tCTRL-B"
+
+#: src/HTMLButcherMain.cpp:184
+msgid "Show/hide borders"
+msgstr "Mostrar/esconder bordas"
+
+#: src/HTMLButcherMain.cpp:185
+msgid "&Areas\tCTRL-A"
+msgstr "Áre&as\tCTRL-A"
+
+#: src/HTMLButcherMain.cpp:185
+msgid "Show/hide areas"
+msgstr "Mostrar/esconder áreas"
+
+#: src/HTMLButcherMain.cpp:186
+msgid "G&lobal Areas\tCTRL-L"
+msgstr "Áreas G&lobais\tCTRL-L"
+
+#: src/HTMLButcherMain.cpp:186
+msgid "Show/hide global areas"
+msgstr "Mostrar/esconder áreas globais"
+
+#: src/HTMLButcherMain.cpp:187
+msgid "&Map Areas\tCTRL-M"
+msgstr "Áreas de &Mapa\tCTRL-M"
+
+#: src/HTMLButcherMain.cpp:187
+msgid "Show/hide map areas"
+msgstr "Mostrar/esconder áreas de mapa"
+
+#: src/HTMLButcherMain.cpp:188
+msgid "&Grid\tCTRL-G"
+msgstr "&Grade\tCTRL-G"
+
+#: src/HTMLButcherMain.cpp:188
+msgid "Show/hide grid"
+msgstr "Mostrar/esconder grade"
+
+#: src/HTMLButcherMain.cpp:189
+msgid "Grid &size..."
+msgstr "Taman&ho da grade..."
+
+#: src/HTMLButcherMain.cpp:189
+msgid "Grid size"
+msgstr "Tamanho da grade"
+
+#: src/HTMLButcherMain.cpp:191
+msgid "Alterna&te File\tF12"
+msgstr "Arquivo Al&ternativo\tF12"
+
+#: src/HTMLButcherMain.cpp:191
+msgid "Show alternate file"
+msgstr "Mostrar arquivo alternativo"
+
+#: src/HTMLButcherMain.cpp:194
+msgid "Lang&uage..."
+msgstr "&Idioma..."
+
+#: src/HTMLButcherMain.cpp:194
+msgid "Select language"
+msgstr "Selecione seu idioma preferido"
+
+#: src/HTMLButcherMain.cpp:199
+msgid "No selection mode"
+msgstr "Nenhum modo de seleção"
+
+#: src/HTMLButcherMain.cpp:200
+msgid "&Line\tF2"
+msgstr "&Linha\tF2"
+
+#: src/HTMLButcherMain.cpp:200
+msgid "Line selection mode"
+msgstr "Modo de seleção de linha"
+
+#: src/HTMLButcherMain.cpp:201
+msgid "&Area\tF3"
+msgstr "Áre&a\tF3"
+
+#: src/HTMLButcherMain.cpp:201
+msgid "Area selection mode"
+msgstr "Modo de seleção de área"
+
+#: src/HTMLButcherMain.cpp:203
+msgid "&Basic"
+msgstr "&Básico"
+
+#: src/HTMLButcherMain.cpp:203
+msgid "Basic edit mode"
+msgstr "Modo de edição básica"
+
+#: src/HTMLButcherMain.cpp:204
+msgid "&Normal"
+msgstr "&Normal"
+
+#: src/HTMLButcherMain.cpp:204
+msgid "Normal edit mode"
+msgstr "Modo de edição normal"
+
+#: src/HTMLButcherMain.cpp:205
+msgid "&Advanced"
+msgstr "&Avançado"
+
+#: src/HTMLButcherMain.cpp:205
+msgid "Advanced edit mode"
+msgstr "Modo de edição avançado"
+
+#: src/HTMLButcherMain.cpp:207
+msgid "&Edit mode"
+msgstr "Modo de &Edição"
+
+#: src/HTMLButcherMain.cpp:207
+msgid "Edit mode"
+msgstr "Modo de edição"
+
+#: src/HTMLButcherMain.cpp:208
+msgid "&Mode"
+msgstr "&Modo"
+
+#: src/HTMLButcherMain.cpp:211
+msgid "&Files...\tF5"
+msgstr "&Arquivos...\tF5"
+
+#: src/HTMLButcherMain.cpp:211
+msgid "Project files"
+msgstr "Arquivos do projeto"
+
+#: src/HTMLButcherMain.cpp:212
+msgid "&Masks...\tF6"
+msgstr "&Máscaras...\tF6"
+
+#: src/HTMLButcherMain.cpp:212
+msgid "Project masks"
+msgstr "Máscaras do projeto"
+
+#: src/HTMLButcherMain.cpp:213
+msgid "&Views...\tF7"
+msgstr "&Páginas...\tF7"
+
+#: src/HTMLButcherMain.cpp:213
+msgid "Project views"
+msgstr "Páginas do projeto"
+
+#: src/HTMLButcherMain.cpp:215
+msgid "File &paths..."
+msgstr "Cami&nhos de diretório..."
+
+#: src/HTMLButcherMain.cpp:215
+msgid "File paths"
+msgstr "Caminhos de diretório"
+
+#: src/HTMLButcherMain.cpp:216
+msgid "Assorted file &groups..."
+msgstr "&Grupos de arquivos extra"
+
+#: src/HTMLButcherMain.cpp:216
+msgid "Assorted file groups"
+msgstr "Grupos de arquivos extra"
+
+#: src/HTMLButcherMain.cpp:217
+msgid "&Assorted files...\tCtrl-D"
+msgstr "Arquivos e&xtra...\tCtrl-D"
+
+#: src/HTMLButcherMain.cpp:217
+msgid "Assorted files"
+msgstr "Arquivos extra"
+
+#: src/HTMLButcherMain.cpp:218
+msgid "&CSS files...\tF9"
+msgstr "Arquivos &CSS...\tF9"
+
+#: src/HTMLButcherMain.cpp:218
+msgid "CSS files"
+msgstr "Arquivos CSS"
+
+#: src/HTMLButcherMain.cpp:220
+msgid "&Image Formats..."
+msgstr "Formatos de &Imagem..."
+
+#: src/HTMLButcherMain.cpp:220
+msgid "Image formats"
+msgstr "Formatos de imagem"
+
+#: src/HTMLButcherMain.cpp:222
+msgid "Current mas&k...\tCtrl-F6"
+msgstr "Má&scara atual...\tCtrl-F6"
+
+#: src/HTMLButcherMain.cpp:222
+msgid "Edit current mask"
+msgstr "Editar a máscara atual"
+
+#: src/HTMLButcherMain.cpp:223
+msgid "&Current view...\tCtrl-F7"
+msgstr "Página a&tual...\tCtrl-F7"
+
+#: src/HTMLButcherMain.cpp:223
+msgid "Edit current view"
+msgstr "Editar a página atual"
+
+#: src/HTMLButcherMain.cpp:224
+msgid "Current a&reas...\tCtrl-Shift-F7"
+msgstr "Áreas at&uais...\tCtrl-Shift-F7"
+
+#: src/HTMLButcherMain.cpp:224
+msgid "Edit current view's areas"
+msgstr "Editar as áreas da página atual"
+
+#: src/HTMLButcherMain.cpp:226
+msgid "New vie&w wizard"
+msgstr "Assistente de criação de no&va página"
+
+#: src/HTMLButcherMain.cpp:226
+msgid "Shows the new view wizard"
+msgstr "Exibir o assistente de criação de nova página"
+
+#: src/HTMLButcherMain.cpp:228
+msgid "Project &options..."
+msgstr "&Opções do projeto"
+
+#: src/HTMLButcherMain.cpp:228
+msgid "Project options"
+msgstr "Opções do projeto"
+
+#: src/HTMLButcherMain.cpp:229
+msgid "&Data"
+msgstr "&Dados"
+
+#: src/HTMLButcherMain.cpp:233
+msgid "&Contents\tF1"
+msgstr "&Conteúdo\tF1"
+
+#: src/HTMLButcherMain.cpp:233
+msgid "Help contents"
+msgstr "Conteúdo da ajuda"
+
+#: src/HTMLButcherMain.cpp:236
+msgid "&About"
+msgstr "&Sobre"
+
+#: src/HTMLButcherMain.cpp:236
+msgid "Show info about this application"
+msgstr "Mostrar informações desta aplicação"
+
+#: src/HTMLButcherMain.cpp:238
+msgid "&Test"
+msgstr "&Teste"
+
+#: src/HTMLButcherMain.cpp:238
+msgid "Test"
+msgstr "Teste"
+
+#: src/HTMLButcherMain.cpp:263
+#: src/HTMLButcherMain.cpp:264
+msgid "New Project"
+msgstr "Novo Projeto"
+
+#: src/HTMLButcherMain.cpp:267
+#: src/HTMLButcherMain.cpp:268
+msgid "Open Project"
+msgstr "Abrir Projeto"
+
+#: src/HTMLButcherMain.cpp:269
+#: src/HTMLButcherMain.cpp:270
+msgid "Save Project"
+msgstr "Salvar Projeto"
+
+#: src/HTMLButcherMain.cpp:280
+#: src/HTMLButcherMain.cpp:281
+msgid "Insert Horizontal Line"
+msgstr "Inserir linha horizontal"
+
+#: src/HTMLButcherMain.cpp:282
+#: src/HTMLButcherMain.cpp:283
+msgid "Insert Vertical Line"
+msgstr "Inserir linha vertical"
+
+#: src/HTMLButcherMain.cpp:284
+#: src/HTMLButcherMain.cpp:285
+msgid "Move line"
+msgstr "Mover linha"
+
+#: src/HTMLButcherMain.cpp:288
+#: src/HTMLButcherMain.cpp:289
+msgid "Insert global area"
+msgstr "Inserir área global"
+
+#: src/HTMLButcherMain.cpp:290
+#: src/HTMLButcherMain.cpp:291
+msgid "Delete global area"
+msgstr "Excluir área global"
+
+#: src/HTMLButcherMain.cpp:292
+#: src/HTMLButcherMain.cpp:293
+msgid "Insert map area"
+msgstr "Inserir área de mapa"
+
+#: src/HTMLButcherMain.cpp:294
+#: src/HTMLButcherMain.cpp:295
+msgid "Delete map area"
+msgstr "Excluir área de mapa"
+
+#: src/HTMLButcherMain.cpp:296
+#: src/HTMLButcherMain.cpp:297
+msgid "Cancel operation"
+msgstr "Cancelar operação"
+
+#: src/HTMLButcherMain.cpp:336
+msgid "View:"
+msgstr "Página:"
+
+#: src/HTMLButcherMain.cpp:339
+#: src/HTMLButcherMain.cpp:340
+msgid "Zoom Out"
+msgstr "Menos zoom"
+
+#: src/HTMLButcherMain.cpp:341
+#: src/HTMLButcherMain.cpp:342
+msgid "Zoom In"
+msgstr "Mais zoom"
+
+#: src/HTMLButcherMain.cpp:343
+#: src/HTMLButcherMain.cpp:344
+msgid "Zoom Normal"
+msgstr "Zoom normal"
+
+#: src/HTMLButcherMain.cpp:346
+msgid "Mode:"
+msgstr "Modo:"
+
+#: src/HTMLButcherMain.cpp:350
+msgid "Alternate File:"
+msgstr "Arquivo alternativo:"
+
+#: src/HTMLButcherMain.cpp:357
+msgid "Main"
+msgstr "Principal"
+
+#: src/HTMLButcherMain.cpp:367
+msgid "Tools"
+msgstr "Ferramentas"
+
+#: src/HTMLButcherMain.cpp:393
+msgid "Base"
+msgstr "Base"
+
+#: src/HTMLButcherMain.cpp:511
+msgid "Cannot create new project"
+msgstr "Não é possível criar novo projeto"
+
+#: src/HTMLButcherMain.cpp:534
+msgid "Load project"
+msgstr "Carregar projeto"
+
+#: src/HTMLButcherMain.cpp:535
+#: src/HTMLButcherMain.cpp:604
+msgid "HTMLButcher Project (*.hbp)|*.hbp|All files|*.*"
+msgstr "Projetos HTMLButcher (*.hbp)|*.hbp|Todos os arquivos|*.*"
+
+#: src/HTMLButcherMain.cpp:540
+msgid "Cannot open project"
+msgstr "Não é possivel abrir o projeto"
+
+#: src/HTMLButcherMain.cpp:558
+msgid "Cannot close project"
+msgstr "Não é possivel fechar o projeto"
+
+#: src/HTMLButcherMain.cpp:579
+#: src/HTMLButcherMain.cpp:609
+msgid "Cannot save project"
+msgstr "Não é possível salvar o projeto"
+
+#: src/HTMLButcherMain.cpp:603
+msgid "Save project as"
+msgstr "Salvar o projeto como"
+
+#: src/HTMLButcherMain.cpp:603
+msgid "project.hbp"
+msgstr "projeto.hbp"
+
+#: src/HTMLButcherMain.cpp:634
+msgid "Save for web"
+msgstr "Salvar para web"
+
+#: src/HTMLButcherMain.cpp:635
+msgid "HTML files (*.html;*;htm)|*.html;*.htm|All files (*.*)|*.*"
+msgstr "Arquivos HTML(*.html;*;htm)|*.html;*.htm|Todos os arquivos (*.*)|*.*"
+
+#: src/HTMLButcherMain.cpp:642
+msgid "No view selection for save for web"
+msgstr "Nenhuma página selecionada para salvar para web"
+
+#: src/HTMLButcherMain.cpp:668
+msgid "Select output directory"
+msgstr "Selecione o diretório de destino"
+
+#: src/HTMLButcherMain.cpp:674
+msgid "No view selection for multiple save for web"
+msgstr "Nenhuma página selecionada para salvar tudo para web"
+
+#: src/HTMLButcherMain.cpp:690
+msgid "Select views to save:"
+msgstr "Selecione as páginas a salvar:"
+
+#: src/HTMLButcherMain.cpp:690
+msgid "Save all for Web"
+msgstr "Salvar tudo para a Web"
+
+#: src/HTMLButcherMain.cpp:694
+msgid "Generating HTML..."
+msgstr "Gerando HTML...."
+
+#: src/HTMLButcherMain.cpp:742
+msgid "No help"
+msgstr "Sem ajuda"
+
+#: src/HTMLButcherMain.cpp:836
+msgid "Files not available"
+msgstr "Arquivos não disponíveis"
+
+#: src/HTMLButcherMain.cpp:853
+msgid "Mask not active"
+msgstr "Máscara não está ativa"
+
+#: src/HTMLButcherMain.cpp:870
+msgid "No view in current context"
+msgstr "Nenhuma página no contexto atual"
+
+#: src/HTMLButcherMain.cpp:892
+msgid "File path menu is invalid"
+msgstr "Menu de caminho de arquivo é inválido"
+
+#: src/HTMLButcherMain.cpp:930
+msgid "Malformed CSS file"
+msgstr "Arquivo CSS mal formado"
+
+#: src/HTMLButcherMain.cpp:949
+msgid "No current view current"
+msgstr "Nenhuma página atual é atual"
+
+#: src/HTMLButcherMain.cpp:974
+msgid "No current area current"
+msgstr "Nenhuma área atual é atual"
+
+#: src/HTMLButcherMain.cpp:1000
+msgid "Option unavailable"
+msgstr "Opção indisponível"
+
+#: src/HTMLButcherMain.cpp:1021
+msgid "No current mask current"
+msgstr "Nenhuma máscara atual é atual"
+
+#: src/HTMLButcherMain.cpp:1051
+msgid "Image format list not found"
+msgstr "Lista de formato de imagens não encontrada"
+
+#: src/HTMLButcherMain.cpp:1083
+msgid "Enter zoom"
+msgstr "Entre com o zoom"
+
+#: src/HTMLButcherMain.cpp:1083
+msgid "Zoom: 1-500%"
+msgstr "Zoom: 1-500%"
+
+#: src/HTMLButcherMain.cpp:1181
+msgid "Enter grid size"
+msgstr "Entre o tamanho da grade:"
+
+#: src/HTMLButcherMain.cpp:1181
+msgid "Grid Size"
+msgstr "Tamanho da Grade"
+
+#: src/HTMLButcherMain.cpp:1238
+msgid "Operation is unavailable"
+msgstr "Operação não está disponível"
+
+#: src/HTMLButcherMain.cpp:1289
+msgid "Current project is not saved, close anyway?"
+msgstr "O projeto atual não está salvo, fechar mesmo assim?"
+
+#: src/HTMLButcherMain.cpp:1419
+msgid "[New Project]"
+msgstr "[Novo Projeto]"
+
+#: src/HTMLButcherMain.cpp:1434
+msgid "Modified"
+msgstr "Modificado"
+
+#: src/HTMLButcherMain.cpp:1508
+msgid "- Select view -"
+msgstr "- Selecione Página -"
+
+#: src/HTMLButcherMain.cpp:1608
+msgid "- NONE -"
+msgstr "- NENHUM -"
+
+#: src/HTMLButcherMain.cpp:1609
+msgid "Line"
+msgstr "Linha"
+
+#: src/HTMLButcherMain.cpp:1710
+#, c-format
+msgid "X: %d Y: %d"
+msgstr "X: %d Y: %d"
+
+#: src/WizNewView.cpp:136
+msgid "Welcome"
+msgstr "Bem-vindo"
+
+#: src/WizNewView.cpp:154
+msgid "Welcome to the New view wizard!"
+msgstr "Bem-vindo ao assistente de criação de nova página!"
+
+#: src/WizNewView.cpp:156
+msgid "This wizard will help on the creation of a new VIEW (HTML page)."
+msgstr "Este assistente irá ajudar na criação de uma nova PÁGINA HTML."
+
+#: src/WizNewView.cpp:158
+msgid "To continue, press Next."
+msgstr "Para continuar, pressione Avançar."
+
+#: src/WizNewView.cpp:182
+msgid "Layout Image File"
+msgstr "Arquivo de imagem do layout"
+
+#: src/WizNewView.cpp:201
+msgid "Select image file:"
+msgstr "Selecione arquivo de imagem:"
+
+#: src/WizNewView.cpp:213
+msgid "The layout image FILE is the image made by the webdesigner"
+msgstr "O ARQUIVO de imagem do layout é a imagem feita pelo webdesigner"
+
+#: src/WizNewView.cpp:215
+msgid "that will be sliced to generate the HTML page."
+msgstr "que será fatiada para gerar a página HTML."
+
+#: src/WizNewView.cpp:233
+msgid "The layout image file is required."
+msgstr "A imagem de layout é obrigatória."
+
+#: src/WizNewView.cpp:243
+msgid "File not found."
+msgstr "Arquivo não encontrado."
+
+#: src/WizNewView.cpp:252
+msgid "Unknown image file format."
+msgstr "Format de imagem desconhecido."
+
+#: src/WizNewView.cpp:280
+msgid "Layout Mask"
+msgstr "Máscara de layout"
+
+#: src/WizNewView.cpp:300
+msgid "Create new mask"
+msgstr "Criar nova máscara"
+
+#: src/WizNewView.cpp:306
+msgid "Mask name:"
+msgstr "Nome da máscara:"
+
+#: src/WizNewView.cpp:340
+msgid "Use existing mask"
+msgstr "Usar máscara existente"
+
+#: src/WizNewView.cpp:354
+msgid "The MASK will define the areas of the HTML slicing."
+msgstr "A MÁSCARA definirá as áreas do fatiamento da imagem."
+
+#: src/WizNewView.cpp:356
+msgid "It could be defined as the real output page slices,"
+msgstr "Ela poderia ser definida como as próprias fatias da página,"
+
+#: src/WizNewView.cpp:358
+msgid "but to allow reuse, a MASK was separately created from"
+msgstr "mas para permitir reuso, a MÁSCARA foi criada separadamente"
+
+#: src/WizNewView.cpp:360
+msgid "the output page (the VIEW)."
+msgstr "da PÁGINA."
+
+#: src/WizNewView.cpp:362
+msgid "Normally the MASK should have the same size as the layout IMAGE,"
+msgstr "Normalmente a MÁSCARA deve ter o mesmo tamanho da imagem de layout,"
+
+#: src/WizNewView.cpp:364
+msgid "but if the layout images aren't all the same size, the mask"
+msgstr "mas se as imagens de layout não forem todas do mesmo tamanho,"
+
+#: src/WizNewView.cpp:366
+msgid "should be the size of the largest one."
+msgstr "a MÁSCARA deve ser o tamanho da maior delas."
+
+#: src/WizNewView.cpp:438
+msgid "The mask name is required."
+msgstr "O nome da máscara é obrigatório."
+
+#: src/WizNewView.cpp:488
+msgid "View (output page)"
+msgstr "Página"
+
+#: src/WizNewView.cpp:507
+msgid "View name:"
+msgstr "Nome da página:"
+
+#: src/WizNewView.cpp:518
+msgid "Output HTML file name:"
+msgstr "Nome do arquivo HTML:"
+
+#: src/WizNewView.cpp:529
+msgid "The VIEW is the output HTML page."
+msgstr "O PÁGINA é a página HTML a ser gerada."
+
+#: src/WizNewView.cpp:531
+msgid "It combines an image FILE with a MASK, generating a single"
+msgstr "Ela combina um ARQUIVO com uma MÁSCARA, gerando uma única"
+
+#: src/WizNewView.cpp:533
+msgid "output HTML page together with the sliced images."
+msgstr "página HTML junto com suas imagens fatiadas."
+
+#: src/WizNewView.cpp:573
+msgid "The view name is required."
+msgstr "O nome da página é obrigatório."
+
+#: src/WizNewView.cpp:581
+msgid "The file name is required."
+msgstr "O nome do arquivo é obrigatório."
+
+#: src/WizNewView.cpp:606
+#: src/WizNewView.cpp:624
+msgid "Confirmation"
+msgstr "Confirmação"
+
+#: src/WizNewView.cpp:651
+msgid "Please review your selection, and click Finish if all is correct."
+msgstr "Por favor reveja sua seleção, e clique Finalizar se estiver correta."
+
+#: src/WizNewView.cpp:653
+#, c-format
+msgid "Image file name: %s"
+msgstr "Arquivo de imagem: %s"
+
+#: src/WizNewView.cpp:655
+#, c-format
+msgid "Mask name: %s"
+msgstr "Nome da máscara: %s"
+
+#: src/WizNewView.cpp:657
+#, c-format
+msgid "Mask size: Width = %d   Height = %d"
+msgstr "Tamanho da máscara: Largura = %d   Altura = %d"
+
+#: src/WizNewView.cpp:659
+#, c-format
+msgid "View name: %s"
+msgstr "Nome da página: %s"
+
+#: src/WizNewView.cpp:661
+#, c-format
+msgid "View file name: %s"
+msgstr "Nome do arquivo HTML: %s"
+
+#: src/wxFreeImage.cpp:210
+msgid "Invalid image handle"
+msgstr "Handle de imagem inválido"
+
+#: src/wxFreeImage.cpp:237
+#: src/wxFreeImage.cpp:408
+#: src/wxFreeImage.cpp:413
+msgid "Error getting image bits"
+msgstr "Erro lendo os bits da imagem"
+
+#: src/wxFreeImage.cpp:506
+msgid "Error copying image"
+msgstr "Erro copiando imagem"
+
+#: src/wxFreeImage.cpp:656
+msgid "Error flipping image"
+msgstr "Erro invertendo imagem"
+
+#: src/wxFreeImage.cpp:808
+msgid "This image cannot be transparent"
+msgstr "Esta imagem não pode ser transparente"
+
+#: src/wxFreeImage.cpp:940
+#: src/wxFreeImage.cpp:947
+msgid "Could not get pixel color"
+msgstr "Não foi possível retornar cor do pixel"
+
+#: src/wxFreeImage.cpp:951
+msgid "Invalid color type for this operation"
+msgstr "Tipo de cor inválida para esta operação"
+
+#: src/wxFreeImage.cpp:957
+msgid "No image available"
+msgstr "Não há imagens disponíveis"
+
+#: src/BList.h:45
+msgid "Item ID does not exists"
+msgstr "ID de item não existe"
+
+#: src/BList.h:491
+#: src/BList.h:560
+msgid "List is full"
+msgstr "A lista está cheia"
+
+#: src/BProject.h:558
+msgid "HOR"
+msgstr "HOR"
+
+#: src/BProject.h:558
+msgid "VER"
+msgstr "VER"
+
+#: src/ButcherMetadataFile.h:155
+msgid "NULL"
+msgstr "NULO"
+
+#: src/ButcherMetadataFile.h:194
+msgid "METADATA"
+msgstr "METADADO"
+
+#: src/ButcherMetadataFile.h:269
+#, c-format
+msgid "BINARY: %d"
+msgstr "BINÁRIO: %d"
+
+#: src/DialogAbout.h:12
+msgid "About"
+msgstr "Sobre"
+
+#: src/DialogAdjustSize.h:31
+msgid "Adjust Size"
+msgstr "Ajustar tamanho"
+
+#: src/DialogAssortedFileEdit.h:32
+msgid "Assorted File"
+msgstr "Arquivo extra"
+
+#: src/DialogCSSFileEdit.h:34
+msgid "CSS File"
+msgstr "Arquivo CSS"
+
+#: src/DialogFileEdit.h:84
+msgid "File"
+msgstr "Arquivo"
+
+#: src/DialogFilePathEdit.h:31
+msgid "File Path"
+msgstr "Caminho de diretório"
+
+#: src/DialogImageFormatEdit.h:41
+msgid "Image Formats"
+msgstr "Formatos de imagem"
+
+#: src/DialogImageFormatEdit.h:88
+#: src/DialogMaskAreaImageFormat.h:31
+msgid "Image Format"
+msgstr "Formato de imagem"
+
+#: src/DialogListEdit.h:97
+msgid "Masks"
+msgstr "Máscaras"
+
+#: src/DialogListEdit.h:125
+msgid "Views"
+msgstr "Páginas"
+
+#: src/DialogListEdit.h:152
+msgid "Assorted File Groups"
+msgstr "Grupos de arquivos extra"
+
+#: src/DialogListEdit.h:206
+msgid "File Paths"
+msgstr "Caminhos de diretório"
+
+#: src/DialogListEdit.h:233
+msgid "CSS Files"
+msgstr "Arquivos CSS"
+
+#: src/DialogMaskAreaSlice.h:30
+msgid "Slice Area"
+msgstr "Fatiar área"
+
+#: src/DialogOptions.h:28
+msgid "Preferences"
+msgstr "Preferências"
+
+#: src/DialogProgress.h:37
+#: src/DialogProgress.h:47
+msgid "Progress"
+msgstr "Progresso"
+
+#: src/DialogProjectOptions.h:30
+msgid "Project Options"
+msgstr "Opções do projeto"
+
+#: src/PopupCSSEdit.h:34
+msgid "Edit CSS"
+msgstr "Editar CSS"
+
+#: src/WizNewView.h:42
+msgid "New view wizard"
+msgstr "Assistente de criação de nova página"
+
+#~ msgid "Image &URL Target: (e.g.: _blank)"
+#~ msgstr "&Target do link da imagem: (e.g.: _blank)"
+#~ msgid "Eror loading image"
+#~ msgstr "Erro carregando imagem"
+

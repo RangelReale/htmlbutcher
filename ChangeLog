@@ -1,0 +1,78 @@
+version 1.1.0.28 (2013-07-22)
+	* open sourced
+
+version 1.1.0.27 (2010-12-01)
+	* demo dialog only on start and close
+
+version 1.1.0.26 (2010-10-14)
+	* added command line switch to select the license file
+	* BUGFIX: when a custom directory was added, generating the HTML files crashed the application
+
+version 1.1.0.25 (2010-06-10)
+	* changed grid line style
+	* BUGFIX: some <img> tags weren't being closed
+
+version 1.1.0.23 (2010-04-05)
+	* BUGFIX: "overflow: auto;" was causing scrollbars to appear on AP tableless layouts
+
+version 1.1.0.22 (2010-03-31)
+	* BUGFIX: when generating AP tableless sizes, the suffix "px" wasn't being added
+
+version 1.1.0.21 (2009-11-28)
+	* BUGFIX: image preview windows where incorrectly scrolling when receiving focus
+
+version 1.1.0.18 (2009-04-08)
+	* BUGFIX: assorted files weren't being saved correctly
+	* Multiple XHTML compilance fixes
+	* BUGFIX: MAP areas where named incorrectly
+
+version 1.1.0.17 (2009-02-12)
+	* BUGFIX: global areas were being allowed to have a DEFAULT config, which they shouldn't
+	* Possibility to copy area configurations
+	* BUGFIX: assorted files was outputting wrong URL path
+	
+version 1.1.0.14 (2008-11-30)
+	* Translation support
+	* pt_BR language translation
+	* BUGFIX: BODY tag was outputting leftmargin 4 times
+	* BUGFIX: BODY tag wasn't allowing override of leftmargin/topmargin/rightmargin/bottommargin
+	* Support for BMP, TIFF and XPM output format
+	* Dialog fixes for translations
+	* pt_BR translation updates
+	* Anchor tag smart tag appending support
+
+version 1.1.0.9 (2008-11-05)
+	* Per XHTML specification, all tag names should be lowercase - fixed
+
+version 1.1.0.8 (2008-11-04)
+	* BUGFIX: CSS file path handling was incorrect
+	* BUGFIX: Global area dialog wasn't reflecting Alternate file setting
+	* BUGFIX: Crash when deleting currently viewing VIEW
+	* BUGFIX: Cannot select/insert lines connected to global areas main lines
+	* Added 500% and 1000% zoom options to the image preview control
+	* Option for AP tableless DIV styles to be at the top of page, instead of embedded into the DIV tags
+	* Smart tag appending
+
+version 1.1.0.2 (2008-10-30):
+	* Added PNG 32 BIT as a default image format
+
+version 1.1.0.1 (2008-10-29):
+	* BUGFIX: mask was not being allowed to grow on the Mask dialog
+	* BUGFIX: fixed exception bug in Unix
+
+version 1.1.0.0 (2008-10-28):
+	* Implemented AP TABLELESS output layout
+
+version 1.0.3.0 (2008-10-25):
+	* BUGFIX: when area RIGHT/BOTTOM was equals WIDTH/HEIGHT, was giving an "Invalid image" error message
+
+version 1.0.2.0 (2008-10-17):
+	* Area renaming menu shortcut
+	* "Add view" wizard on "Project -> New"
+
+version 1.0.1.4 (2008-10-15):
+	* BUGFIX: root mask wasn't allowing increasing its size
+	
+version 1.0.1.1 (2008-09-30):
+	* initial BETA version - released to BETA testers only
+

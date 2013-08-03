@@ -1,0 +1,1 @@
+\prog\src\wxMSW-2.8.9\utils\wxrc\vc_mswu\wxrc htmlbutcher.xrc -v -c -o htmlbutcher_resources.cpp
