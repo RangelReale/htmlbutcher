@@ -1,5 +1,12 @@
 #!/bin/sh
 
+# detect demo
+HAVE_DEMO=0
+if [ -f ../../bin/HTMLButcherDemo ]
+then
+    HAVE_DEMO=1
+fi
+
 # create paths
 rm -Rf build
 
@@ -17,6 +24,7 @@ cp htmlbutcher/DEBIAN/postinst build/htmlbutcher/DEBIAN
 cp htmlbutcher/DEBIAN/postrm build/htmlbutcher/DEBIAN
 chmod 0555 build/htmlbutcher/DEBIAN/post*
 
+if [ "$HAVE_DEMO" -eq 1 ]; then
 mkdir -p build/htmlbutcher-demo/DEBIAN
 mkdir -p build/htmlbutcher-demo/usr/bin
 mkdir -p build/htmlbutcher-demo/usr/share/htmlbutcher-demo
@@ -24,6 +32,7 @@ mkdir -p build/htmlbutcher-demo/usr/share/pixmaps
 mkdir -p build/htmlbutcher-demo/usr/share/applications
 mkdir -p build/htmlbutcher-demo/usr/share/locale
 cp htmlbutcher-demo/DEBIAN/control build/htmlbutcher-demo/DEBIAN
+fi
 
 # copy executables
 cp ../../bin/HTMLButcher build/htmlbutcher/usr/bin/htmlbutcher
@@ -35,21 +44,26 @@ cp ../../data/htmlbutcher.mime build/htmlbutcher/usr/share/mime-info
 cp ../../data/htmlbutcher-xgd.xml build/htmlbutcher/usr/share/mime/packages/htmlbutcher.xml
 cp ../../doc/docbook/htmlbutcher.htb build/htmlbutcher/usr/share/htmlbutcher
 
+if [ "$HAVE_DEMO" -eq 1 ]; then
 cp ../../bin/HTMLButcherDemo build/htmlbutcher-demo/usr/bin/htmlbutcher-demo
 cp ../../resources/htmlbutcher.xpm build/htmlbutcher-demo/usr/share/pixmaps/htmlbutcher-demo.xpm
 cp ../../data/htmlbutcher-demo.desktop build/htmlbutcher-demo/usr/share/applications
 cp ../../doc/docbook/htmlbutcher.htb build/htmlbutcher-demo/usr/share/htmlbutcher-demo
+fi
 
 # locale files
 for file in ../../locale/*.po; do
   FBN=`basename $file`
   BN=${FBN%.po}
   D1=build/htmlbutcher/usr/share/locale/$BN/LC_MESSAGES
-  D2=build/htmlbutcher-demo/usr/share/locale/$BN/LC_MESSAGES
   mkdir -p $D1
-  mkdir -p $D2
   msgfmt -o $D1/htmlbutcher.mo $file
+
+  if [ "$HAVE_DEMO" -eq 1 ]; then
+  D2=build/htmlbutcher-demo/usr/share/locale/$BN/LC_MESSAGES
+  mkdir -p $D2
   msgfmt -o $D2/htmlbutcher-demo.mo $file
+  fi
 done
 
 
@@ -58,14 +72,19 @@ INSTSIZE=`du -s build/htmlbutcher | awk '{ print ($1) }'`
 IREP=s/%%SIZE%%/$INSTSIZE/g
 cat htmlbutcher/DEBIAN/control | sed $IREP > build/htmlbutcher/DEBIAN/control
 
+if [ "$HAVE_DEMO" -eq 1 ]; then
 INSTSIZE=`du -s build/htmlbutcher-demo | awk '{ print ($1) }'`
 IREP=s/%%SIZE%%/$INSTSIZE/g
 cat htmlbutcher-demo/DEBIAN/control | sed $IREP > build/htmlbutcher-demo/DEBIAN/control
+fi
 
 
 # remove old packages
 rm -f htmlbutcher*.deb
 
 dpkg-deb --build build/htmlbutcher .
+
+if [ "$HAVE_DEMO" -eq 1 ]; then
 dpkg-deb --build build/htmlbutcher-demo .
+fi
 
