@@ -1,0 +1,14 @@
+Package: htmlbutcher-demo
+Version: 1.1.0.28-raspbian0
+Section: admin
+Priority: extra
+Architecture: armhf
+Installed-Size: %%SIZE%%
+Depends: libc6 (>= 2.4), libstdc++6 (>= 4.2), libgtk2.0-0 (>= 2.12.0), libglib2.0-0 (>= 2.16.0), libx11-6
+Maintainer: Rangel Reale <rreale@htmlbutcher.com>
+Description: HTMLButcher DEMO - HTML slicing application
+ HTMLButcher is an advanced HTML slicing tool. It is used to create 
+ an HTML page from an image file, slicing images and creating an HTML table, 
+ preserving  the layout but allowing data and images to be individually changed.
+
+
