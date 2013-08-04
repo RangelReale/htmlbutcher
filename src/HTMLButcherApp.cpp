@@ -130,18 +130,21 @@ bool HTMLButcherApp::OnInit()
 	HTMLButcherFrame* frame = new HTMLButcherFrame(0L, wxT("HTMLButcher"));
 
 	// splash screen
-	wxBitmap rbitmap(wxXmlResource::Get()->LoadBitmap(wxT("b_splash")));
+    {
+        wxLogNull logNo;
+        wxBitmap rbitmap(wxXmlResource::Get()->LoadBitmap(wxT("b_splash")));
 
-    wxImage simage(rbitmap.ConvertToImage());
-    simage.ConvertAlphaToMask();
-    wxBitmap bitmap(simage);
+        wxImage simage(rbitmap.ConvertToImage());
+        simage.ConvertAlphaToMask();
+        wxBitmap bitmap(simage);
+        HTMLButcherSplashScreen *splash = new HTMLButcherSplashScreen(bitmap,
+                wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_TIMEOUT,
+                4000, frame, -1, wxDefaultPosition, wxDefaultSize,
+                wxNO_BORDER|wxFRAME_NO_TASKBAR|wxSTAY_ON_TOP|wxSPLASH_CENTRE_ON_SCREEN|wxFRAME_SHAPED);
+        splash->Update();
+    }
 
 
-    HTMLButcherSplashScreen *splash = new HTMLButcherSplashScreen(bitmap,
-        wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_TIMEOUT,
-        4000, frame, -1, wxDefaultPosition, wxDefaultSize,
-        wxNO_BORDER|wxFRAME_NO_TASKBAR|wxSTAY_ON_TOP|wxSPLASH_CENTRE_ON_SCREEN|wxFRAME_SHAPED);
-	splash->Update();
 	//wxYield();
 
 #ifdef __WXMSW__
@@ -151,9 +154,9 @@ bool HTMLButcherApp::OnInit()
 #endif //__WXMSW__
     frame->Show();
     SetTopWindow(frame);
-#ifndef __WXMAC__
+//#ifndef __WXMAC__
 	frame->Maximize();
-#endif
+//#endif
 
 #ifndef HTMLBUTCHER_DEMO
     if (!openfile_.IsEmpty())
@@ -306,15 +309,25 @@ void HTMLButcherApp::HandleEvent(wxEvtHandler *handler,
 
 
 
-
+#if wxCHECK_VERSION(2, 9, 0)
 static const wxCmdLineEntryDesc g_cmdLineDesc [] =
 {
-     { wxCMD_LINE_SWITCH, wxT("h"), wxT("help"), _("displays help on the command line parameters"),
+     { wxCMD_LINE_SWITCH, "h", "help", _("displays help on the command line parameters"),
           wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
-	 { wxCMD_LINE_OPTION, wxT("l"), wxT("license-file"),   wxT("license file") },
+	 { wxCMD_LINE_OPTION, "l", "license-file",   "license file" },
      { wxCMD_LINE_PARAM,  NULL, NULL, _("input project file"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
      { wxCMD_LINE_NONE }
 };
+#else
+static const wxCmdLineEntryDesc g_cmdLineDesc [] =
+{
+    { wxCMD_LINE_SWITCH, wxT("h"), wxT("help"), _("displays help on the command line parameters"),
+        wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
+    { wxCMD_LINE_OPTION, wxT("l"), wxT("license-file"),   wxT("license file") },
+    { wxCMD_LINE_PARAM,  NULL, NULL, _("input project file"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
+    { wxCMD_LINE_NONE }
+};
+#endif
 
 
 

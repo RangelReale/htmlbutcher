@@ -48,6 +48,7 @@ HTMLButcherNewViewWizard::HTMLButcherNewViewWizard( wxWindow* parent,
     //wxWizard(parent, id, caption, wxNullBitmap, pos, style), 
 	project_(project), viewid_(0)
 {
+    wxLogNull lnull;
 	wxBitmap rbitmap(wxXmlResource::Get()->LoadBitmap(wxT("img_wizard")));
 
 	Create(parent, id, caption, rbitmap, pos, style);

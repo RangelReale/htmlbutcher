@@ -44,11 +44,14 @@ void HTMLButcherAboutDialog::CreateControls()
     topsizer->Add(boxsizer, 1, wxALL|wxGROW, 3);
 
 	// logo
-	wxBitmap rbitmap(wxXmlResource::Get()->LoadBitmap(wxT("b_splash")));
-    wxImage simage(rbitmap.ConvertToImage());
-    simage.ConvertAlphaToMask();
-    bitmap_=wxBitmap(simage);
-    //wxBitmap bitmap(simage);
+    {
+        wxLogNull lnull;
+        wxBitmap rbitmap(wxXmlResource::Get()->LoadBitmap(wxT("b_splash")));
+        wxImage simage(rbitmap.ConvertToImage());
+        simage.ConvertAlphaToMask();
+        bitmap_=wxBitmap(simage);
+        //wxBitmap bitmap(simage);
+    }
 
 	image_ = new wxStaticBitmap(this, wxID_ANY,
 #ifndef __WXGTK__

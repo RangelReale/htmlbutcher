@@ -128,7 +128,7 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
 #endif
         options_()
 {
-#ifdef __WXDEBUG__
+#ifdef HTMLBUTCHER_DEBUG
     (void) new wxLogWindow(this, wxT("log"));
 #endif //__WXDEBUG__
 

@@ -54,6 +54,8 @@ void butil_errordialog(const wxString &message, wxWindow *parent)
 
 wxBitmap butil_loadxmlrcbitmap(const wxString &resname)
 {
+    wxLogNull lnull;
+    
 	wxBitmap rbitmap(wxXmlResource::Get()->LoadBitmap(resname));
     wxImage simage(rbitmap.ConvertToImage());
     simage.ConvertAlphaToMask();

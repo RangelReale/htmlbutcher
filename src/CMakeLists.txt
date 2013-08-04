@@ -139,8 +139,10 @@ set_target_properties(HTMLButcherDemo PROPERTIES COMPILE_DEFINITIONS_DEBUG "${HB
 
 set(APPS HTMLButcher)  # paths to executables
 set(DIRS )   # directories to search for prerequisites
-INSTALL(CODE "
-   include(BundleUtilities)
-   fixup_bundle(\"${APPS}\"   \"\"   \"${DIRS}\")
-   " COMPONENT Runtime)
+INSTALL(TARGETS ${APPS} BUNDLE DESTINATION . COMPONENT Runtime)
+
+#INSTALL(CODE "
+#   include(BundleUtilities)
+#   fixup_bundle(\"${APPS}\"   \"\"   \"${DIRS}\")
+#   " COMPONENT Runtime)
 
