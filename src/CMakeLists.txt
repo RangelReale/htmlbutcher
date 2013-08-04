@@ -97,13 +97,17 @@ if (WIN32)
 endif(WIN32)
 
 add_executable(HTMLButcher WIN32 MACOSX_BUNDLE ${SOURCES})
+if (HB_WITH_DEMO)
 add_executable(HTMLButcherDemo WIN32 MACOSX_BUNDLE ${SOURCES} dialogs/DialogDemo.cpp dialogs/DialogDemo.h)
-
 SOURCE_GROUP(Demo FILES dialogs/DialogDemo.cpp dialogs/DialogDemo.h)
+endif (HB_WITH_DEMO)
+
 
 
 target_link_libraries(HTMLButcher ${FREEIMAGE_LIBRARIES} ${CPPCOMP_LIBRARIES} ${wxWidgets_LIBRARIES} )
+if (HB_WITH_DEMO)
 target_link_libraries(HTMLButcherDemo ${FREEIMAGE_LIBRARIES} ${CPPCOMP_LIBRARIES} ${wxWidgets_LIBRARIES})
+endif (HB_WITH_DEMO)
 
 #if (wxstedit_FOUND)
 #	add_definitions(-DBUTCHER_USE_STEDIT)
@@ -115,34 +119,35 @@ target_link_libraries(HTMLButcherDemo ${FREEIMAGE_LIBRARIES} ${CPPCOMP_LIBRARIES
 if (wxstedit_FOUND)
 	set(HB_CDEF "${HB_CDEF};BUTCHER_USE_STEDIT")
 	set(HBDEMO_CDEF "${HBDEMO_CDEF};BUTCHER_USE_STEDIT")
-
-	#set_target_properties(HTMLButcher PROPERTIES COMPILE_DEFINITIONS BUTCHER_USE_STEDIT)
-	#set_target_properties(HTMLButcherDemo PROPERTIES COMPILE_DEFINITIONS BUTCHER_USE_STEDIT)
 	
-	target_link_libraries(HTMLButcher ${wxstedit_LIBRARIES} debug ${wxWidgets_LIB_DIR}/wxmsw28ud_stc.lib optimized ${wxWidgets_LIB_DIR}/wxmsw28u_stc.lib)
-	target_link_libraries(HTMLButcherDemo ${wxstedit_LIBRARIES} debug ${wxWidgets_LIB_DIR}/wxmsw28ud_stc.lib optimized ${wxWidgets_LIB_DIR}/wxmsw28u_stc.lib)
+        target_link_libraries(HTMLButcher ${wxstedit_LIBRARIES} debug ${wxWidgets_LIB_DIR}/wxmsw28ud_stc.lib optimized ${wxWidgets_LIB_DIR}/wxmsw28u_stc.lib)
+	#set_target_properties(HTMLButcher PROPERTIES COMPILE_DEFINITIONS BUTCHER_USE_STEDIT)
+	
+        if (HB_WITH_DEMO)
+                target_link_libraries(HTMLButcherDemo ${wxstedit_LIBRARIES} debug ${wxWidgets_LIB_DIR}/wxmsw28ud_stc.lib optimized ${wxWidgets_LIB_DIR}/wxmsw28u_stc.lib)
+                #set_target_properties(HTMLButcherDemo PROPERTIES COMPILE_DEFINITIONS BUTCHER_USE_STEDIT)
+        endif (HB_WITH_DEMO)
 endif(wxstedit_FOUND)
 
 if (UNIX)
 	if (GTK_FOUND)
 		TARGET_LINK_LIBRARIES(HTMLButcher ${GTK_LIBRARIES})
-		TARGET_LINK_LIBRARIES(HTMLButcherDemo ${GTK_LIBRARIES})
+                if (HB_WITH_DEMO)
+                        TARGET_LINK_LIBRARIES(HTMLButcherDemo ${GTK_LIBRARIES})
+                endif (HB_WITH_DEMO)
 	endif (GTK_FOUND)
 endif (UNIX)
 
 
 set_target_properties(HTMLButcher PROPERTIES COMPILE_DEFINITIONS "${HB_CDEF}")
-set_target_properties(HTMLButcherDemo PROPERTIES COMPILE_DEFINITIONS "${HBDEMO_CDEF}")
-
 set_target_properties(HTMLButcher PROPERTIES COMPILE_DEFINITIONS_DEBUG "${HB_CDEF};HTMLBUTCHER_DEBUG;HTMLBUTCHER_KEEPOLDSAVE;__WXDEBUG__")
+
+if (HB_WITH_DEMO)
+set_target_properties(HTMLButcherDemo PROPERTIES COMPILE_DEFINITIONS "${HBDEMO_CDEF}")
 set_target_properties(HTMLButcherDemo PROPERTIES COMPILE_DEFINITIONS_DEBUG "${HBDEMO_CDEF};HTMLBUTCHER_DEBUG;HTMLBUTCHER_KEEPOLDSAVE;__WXDEBUG__")
+endif (HB_WITH_DEMO)
+
 
 set(APPS HTMLButcher)  # paths to executables
 set(DIRS )   # directories to search for prerequisites
-INSTALL(TARGETS ${APPS} BUNDLE DESTINATION . COMPONENT Runtime)
-
-#INSTALL(CODE "
-#   include(BundleUtilities)
-#   fixup_bundle(\"${APPS}\"   \"\"   \"${DIRS}\")
-#   " COMPONENT Runtime)
-
+INSTALL(TARGETS ${APPS} BUNDLE DESTINATION . RUNTIME DESTINATION bin COMPONENT Runtime)
