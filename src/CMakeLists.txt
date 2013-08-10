@@ -130,12 +130,12 @@ if (wxstedit_FOUND)
 endif(wxstedit_FOUND)
 
 if (UNIX)
-	if (GTK_FOUND)
-		TARGET_LINK_LIBRARIES(HTMLButcher ${GTK_LIBRARIES})
+	if (GTK2_FOUND)
+		TARGET_LINK_LIBRARIES(HTMLButcher ${GTK2_LIBRARIES})
                 if (HB_WITH_DEMO)
-                        TARGET_LINK_LIBRARIES(HTMLButcherDemo ${GTK_LIBRARIES})
+                        TARGET_LINK_LIBRARIES(HTMLButcherDemo ${GTK2_LIBRARIES})
                 endif (HB_WITH_DEMO)
-	endif (GTK_FOUND)
+	endif (GTK2_FOUND)
 endif (UNIX)
 
 
