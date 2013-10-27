@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 
 # update mime database for HTMLButcher mime types
 update-mime-database /usr/share/mime

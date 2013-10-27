@@ -1,4 +1,12 @@
-#!/bin/sh
+#!/bin/bash
+
+# Check if we're root and re-execute if we're not.
+if [ $(id -u) != "0" ]
+then
+    sudo "$0" "$@"  # Modified as suggested below.
+    exit $?
+fi
+
 
 # detect demo
 HAVE_DEMO=0
@@ -19,10 +27,11 @@ mkdir -p build/htmlbutcher/usr/share/application-registry
 mkdir -p build/htmlbutcher/usr/share/mime-info
 mkdir -p build/htmlbutcher/usr/share/mime/packages/
 mkdir -p build/htmlbutcher/usr/share/locale
-cp htmlbutcher/DEBIAN/control build/htmlbutcher/DEBIAN
-cp htmlbutcher/DEBIAN/postinst build/htmlbutcher/DEBIAN
-cp htmlbutcher/DEBIAN/postrm build/htmlbutcher/DEBIAN
-chmod 0555 build/htmlbutcher/DEBIAN/post*
+cp -R htmlbutcher/* build/htmlbutcher
+#cp htmlbutcher/DEBIAN/control build/htmlbutcher/DEBIAN
+#cp htmlbutcher/DEBIAN/postinst build/htmlbutcher/DEBIAN
+#cp htmlbutcher/DEBIAN/postrm build/htmlbutcher/DEBIAN
+#chmod 0555 build/htmlbutcher/DEBIAN/post*
 
 if [ "$HAVE_DEMO" -eq 1 ]; then
 mkdir -p build/htmlbutcher-demo/DEBIAN
@@ -31,11 +40,13 @@ mkdir -p build/htmlbutcher-demo/usr/share/htmlbutcher-demo
 mkdir -p build/htmlbutcher-demo/usr/share/pixmaps
 mkdir -p build/htmlbutcher-demo/usr/share/applications
 mkdir -p build/htmlbutcher-demo/usr/share/locale
-cp htmlbutcher-demo/DEBIAN/control build/htmlbutcher-demo/DEBIAN
+cp -R htmlbutcher-demo/* build/htmlbutcher-demo
+#cp htmlbutcher-demo/DEBIAN/control build/htmlbutcher-demo/DEBIAN
 fi
 
 # copy executables
 cp ../../bin/HTMLButcher build/htmlbutcher/usr/bin/htmlbutcher
+strip build/htmlbutcher/usr/bin/htmlbutcher
 cp ../../resources/htmlbutcher.xpm build/htmlbutcher/usr/share/pixmaps
 cp ../../data/htmlbutcher.desktop build/htmlbutcher/usr/share/applications
 cp ../../data/htmlbutcher.applications build/htmlbutcher/usr/share/application-registry
@@ -46,6 +57,7 @@ cp ../../doc/docbook/htmlbutcher.htb build/htmlbutcher/usr/share/htmlbutcher
 
 if [ "$HAVE_DEMO" -eq 1 ]; then
 cp ../../bin/HTMLButcherDemo build/htmlbutcher-demo/usr/bin/htmlbutcher-demo
+strip build/htmlbutcher-demo/usr/bin/htmlbutcher-demo
 cp ../../resources/htmlbutcher.xpm build/htmlbutcher-demo/usr/share/pixmaps/htmlbutcher-demo.xpm
 cp ../../data/htmlbutcher-demo.desktop build/htmlbutcher-demo/usr/share/applications
 cp ../../doc/docbook/htmlbutcher.htb build/htmlbutcher-demo/usr/share/htmlbutcher-demo
@@ -82,6 +94,7 @@ fi
 # remove old packages
 rm -f htmlbutcher*.deb
 
+chown -R root. build/htmlbutcher
 dpkg-deb --build build/htmlbutcher .
 
 if [ "$HAVE_DEMO" -eq 1 ]; then

@@ -3,6 +3,8 @@
 /buildrel
 /lib
 /doc/docbook/htmlhelp
+/doc/docbook/html
+/doc/docbook/htmlbutcher.htb
 /setup/win32/*.exe
 /locale/*.mo
 /locale/*.dir
