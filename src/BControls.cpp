@@ -10,6 +10,7 @@
 //=============================================================================
 
 #include <memory>
+#include <algorithm>
 #include <wx/dcbuffer.h>
 #include <wx/help.h>
 #include <wx/cshelp.h>
