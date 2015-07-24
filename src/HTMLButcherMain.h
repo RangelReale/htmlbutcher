@@ -240,11 +240,11 @@ private Q_SLOTS:
 	void OnHelpTest();
 #endif
 
+    void OnMenuOperation(QAction *action);
+
 #ifdef QT_HIDE_FROM
 
-    void OnMenuOperation(wxCommandEvent& event);
-
-    void OnClose(wxCloseEvent& event);
+	void OnClose(wxCloseEvent& event);
 
 #endif // QT_HIDE_FROM
 
@@ -312,6 +312,8 @@ private:
 	QAction *menuFiles_, *menuMasks_, *menuViews_, *menuFilePaths_, *menuAssortedFileGroups_, *menuAssortedFiles_, *menuCSSFiles_;
 	QAction *menuImageFormats_, *menuMaskCurrent_, *menuViewCurrent_, *menuAreasCurrent_, *menuWizNewView_, *menuProjectOptions_;
 	QAction *menuHelp_, *menuAbout_, *menuHelpTest_;
+
+	QAction *menuInsertLineHorizontal_, *menuInsertLineVertical_, *menuMoveLine_, *menuDeleteLine_, *menuInsertAreaGlobal_, *menuDeleteAreaGlobal_, *menuInsertAreaMap_, *menuDeleteAreaMap_, *menuCancelOperation_;
 
     //DECLARE_EVENT_TABLE()
 };

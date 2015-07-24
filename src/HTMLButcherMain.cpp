@@ -51,6 +51,7 @@
 
 #include <QMenuBar>
 #include <QActionGroup>
+#include <QToolBar>
 
 /*
 BEGIN_EVENT_TABLE(HTMLButcherFrame, wxFrame)
@@ -347,8 +348,10 @@ HTMLButcherFrame::HTMLButcherFrame()
 
 #ifdef QT_HIDE_FROM
     wxBitmap bmp_base = wxArtProvider::GetBitmap(wxART_QUESTION, wxART_OTHER, wxSize(16,16));
+#endif //QT_HIDE_FROM
 
     // TOOLBAR: File
+/*
 #if defined(__WXMAC__)
     wxToolBar* tbFile = CreateToolBar(wxTB_FLAT | wxTB_NODIVIDER, idTBFile);
 #else
@@ -356,42 +359,77 @@ HTMLButcherFrame::HTMLButcherFrame()
                                    wxTB_FLAT | wxTB_NODIVIDER);
 #endif
     tbFile->SetToolBitmapSize(wxSize(16,16));
-    tbFile->AddTool(idMenuNew, _("New Project"), butil_loadxmlrcbitmap(wxT("ico_new")),
-        _("New Project"));
+*/
+
+	QToolBar *tbFile = new QToolBar(tr("Main"), this);
+
+	//tbFile->AddTool(idMenuNew, _("New Project"), butil_loadxmlrcbitmap(wxT("ico_new")),
+        //_("New Project"));
+	tbFile->addAction(menuNew_);
 
 #ifndef HTMLBUTCHER_DEMO
-    tbFile->AddTool(idMenuOpen, _("Open Project"), butil_loadxmlrcbitmap(wxT("ico_open")),
-        _("Open Project"));
-    tbFile->AddTool(idMenuSave, _("Save Project"), butil_loadxmlrcbitmap(wxT("ico_save")),
-        _("Save Project"));
+    //tbFile->AddTool(idMenuOpen, _("Open Project"), butil_loadxmlrcbitmap(wxT("ico_open")),
+        //_("Open Project"));
+	tbFile->addAction(menuOpen_);
+	//tbFile->AddTool(idMenuSave, _("Save Project"), butil_loadxmlrcbitmap(wxT("ico_save")),
+        //_("Save Project"));
+	tbFile->addAction(menuSave_);
 #endif
 
-    tbFile->Realize();
+    //tbFile->Realize();
+	addToolBar(Qt::TopToolBarArea, tbFile);
 
-    // TOOLBAR: Tools
+	// TOOLBAR: Tools
 
-    wxToolBar* tbTools = new wxToolBar(this, idTBTools, wxDefaultPosition, wxDefaultSize,
-                                   wxTB_FLAT | wxTB_NODIVIDER | wxTB_VERTICAL);
-    tbTools->SetToolBitmapSize(wxSize(32,32));
-    tbTools->AddTool(idMenuInsertLineHorizontal, _("Insert Horizontal Line"), butil_loadxmlrcbitmap(wxT("ico_insert_hline")),
-        _("Insert Horizontal Line"));
-    tbTools->AddTool(idMenuInsertLineVertical, _("Insert Vertical Line"), butil_loadxmlrcbitmap(wxT("ico_insert_vline")),
-        _("Insert Vertical Line"));
-    tbTools->AddTool(idMenuMoveLine, _("Move line"), butil_loadxmlrcbitmap(wxT("ico_move_line")),
-        _("Move line"));
-    tbTools->AddTool(idMenuDeleteLine, _("Delete line"), butil_loadxmlrcbitmap(wxT("ico_delete_line")),
-        _("Delete line"));
-    tbTools->AddTool(idMenuInsertAreaGlobal, _("Insert global area"), butil_loadxmlrcbitmap(wxT("ico_insert_garea")),
-        _("Insert global area"));
-    tbTools->AddTool(idMenuDeleteAreaGlobal, _("Delete global area"), butil_loadxmlrcbitmap(wxT("ico_delete_garea")),
-        _("Delete global area"));
-    tbTools->AddTool(idMenuInsertAreaMap, _("Insert map area"), butil_loadxmlrcbitmap(wxT("ico_insert_marea")),
-        _("Insert map area"));
-    tbTools->AddTool(idMenuDeleteAreaMap, _("Delete map area"), butil_loadxmlrcbitmap(wxT("ico_delete_marea")),
-        _("Delete map area"));
-    tbTools->AddTool(idMenuCancelOperation, _("Cancel operation"), butil_loadxmlrcbitmap(wxT("ico_cancel")),
-		_("Cancel operation"));
-    tbTools->Realize();
+    //wxToolBar* tbTools = new wxToolBar(this, idTBTools, wxDefaultPosition, wxDefaultSize,
+                                   //wxTB_FLAT | wxTB_NODIVIDER | wxTB_VERTICAL);
+	QToolBar *tbTools = new QToolBar(tr("Tools"), this);
+
+	QActionGroup *agTools = new QActionGroup(this);
+
+    //tbTools->SetToolBitmapSize(wxSize(32,32));
+    //tbTools->AddTool(idMenuInsertLineHorizontal, _("Insert Horizontal Line"), butil_loadxmlrcbitmap(wxT("ico_insert_hline")),
+		//_("Insert Horizontal Line"));
+	menuInsertLineHorizontal_ = tbTools->addAction(tr("Insert Horizontal Line")); menuInsertLineHorizontal_->setStatusTip(tr("Insert Horizontal Line"));
+
+    //tbTools->AddTool(idMenuInsertLineVertical, _("Insert Vertical Line"), butil_loadxmlrcbitmap(wxT("ico_insert_vline")),
+        //_("Insert Vertical Line"));
+	menuInsertLineVertical_ = tbTools->addAction(tr("Insert Vertical Line")); menuInsertLineVertical_->setStatusTip(tr("Insert Vertical Line"));
+
+    //tbTools->AddTool(idMenuMoveLine, _("Move line"), butil_loadxmlrcbitmap(wxT("ico_move_line")),
+        //_("Move line"));
+	menuMoveLine_ = tbTools->addAction(tr("Move line")); menuInsertLineVertical_->setStatusTip(tr("Move line"));
+
+    //tbTools->AddTool(idMenuDeleteLine, _("Delete line"), butil_loadxmlrcbitmap(wxT("ico_delete_line")),
+        //_("Delete line"));
+	menuDeleteLine_ = tbTools->addAction(tr("Delete line")); menuDeleteLine_->setStatusTip(tr("Delete line"));
+
+    //tbTools->AddTool(idMenuInsertAreaGlobal, _("Insert global area"), butil_loadxmlrcbitmap(wxT("ico_insert_garea")),
+        //_("Insert global area"));
+	menuInsertAreaGlobal_ = tbTools->addAction(tr("Insert global area")); menuInsertAreaGlobal_->setStatusTip(tr("Insert global area"));
+
+    //tbTools->AddTool(idMenuDeleteAreaGlobal, _("Delete global area"), butil_loadxmlrcbitmap(wxT("ico_delete_garea")),
+        //_("Delete global area"));
+	menuDeleteAreaGlobal_ = tbTools->addAction(tr("Delete global area")); menuDeleteAreaGlobal_->setStatusTip(tr("Delete global area"));
+
+    //tbTools->AddTool(idMenuInsertAreaMap, _("Insert map area"), butil_loadxmlrcbitmap(wxT("ico_insert_marea")),
+        //_("Insert map area"));
+	menuInsertAreaMap_ = tbTools->addAction(tr("Insert map area")); menuInsertAreaMap_->setStatusTip(tr("Insert map area"));
+
+    //tbTools->AddTool(idMenuDeleteAreaMap, _("Delete map area"), butil_loadxmlrcbitmap(wxT("ico_delete_marea")),
+        //_("Delete map area"));
+	menuDeleteAreaMap_ = tbTools->addAction(tr("Delete map area")); menuDeleteAreaMap_->setStatusTip(tr("Delete map area"));
+
+    //tbTools->AddTool(idMenuCancelOperation, _("Cancel operation"), butil_loadxmlrcbitmap(wxT("ico_cancel")),
+		//_("Cancel operation"));
+	menuCancelOperation_ = tbTools->addAction(tr("Cancel operation")); menuDeleteAreaMap_->setStatusTip(tr("Cancel operation"));
+
+	connect(agTools, SIGNAL(triggered(QAction*)), this, SLOT(OnMenuOperation(QAction*)));
+
+	//tbTools->Realize();
+	addToolBar(Qt::LeftToolBarArea, tbTools);
+
+#ifdef QT_HIDE_FROM
 
     // TOOLBAR: DETAIL
 /*
@@ -425,7 +463,10 @@ HTMLButcherFrame::HTMLButcherFrame()
 	selsizer->SetSizeHints(tbSelection);
 */
 
+#endif // QT_HIDE_FROM
+
     // TOOLBAR: View
+/*
 #if defined(__WXMAC__)
     wxToolBar* tbView = tbFile;
     tbView->AddSeparator();
@@ -433,27 +474,40 @@ HTMLButcherFrame::HTMLButcherFrame()
     wxToolBar* tbView = new wxToolBar(this, idTBView, wxDefaultPosition, wxDefaultSize,
                                    wxTB_FLAT | wxTB_NODIVIDER);
 #endif
-    tbView->SetToolBitmapSize(wxSize(16,16));
-    tbView->AddControl(new wxStaticText(tbView, wxID_ANY, _("View:"), wxDefaultPosition, wxDefaultSize, 0));
+	tbView->SetToolBitmapSize(wxSize(16,16));
+*/
+
+	QToolBar *tbView = new QToolBar(tr("View"), this);
+
+#ifdef QT_HIDE_FROM
+	tbView->AddControl(new wxStaticText(tbView, wxID_ANY, _("View:"), wxDefaultPosition, wxDefaultSize, 0));
     tbView->AddControl(new wxComboBox(tbView, idViewList, wxEmptyString, wxDefaultPosition, wxSize(200, -1),
         wxArrayString(), wxCB_READONLY|wxCB_SORT));
-    tbView->AddTool(idMenuZoomOut, _("Zoom Out"), butil_loadxmlrcbitmap(wxT("ico_zoom_out")),
-        _("Zoom Out"));
-    tbView->AddTool(idMenuZoomIn, _("Zoom In"), butil_loadxmlrcbitmap(wxT("ico_zoom_in")),
-        _("Zoom In"));
-    tbView->AddTool(idMenuZoomNormal, _("Zoom Normal"), butil_loadxmlrcbitmap(wxT("ico_zoom_normal")),
-        _("Zoom Normal"));
-    tbView->AddSeparator();
-    tbView->AddControl(new wxStaticText(tbView, wxID_ANY, _("Mode:"), wxDefaultPosition, wxDefaultSize, 0));
+#endif // QT_HIDE_FROM
+	//tbView->AddTool(idMenuZoomOut, _("Zoom Out"), butil_loadxmlrcbitmap(wxT("ico_zoom_out")),
+        //_("Zoom Out"));
+	tbView->addAction(menuZoomOut_);
+    //tbView->AddTool(idMenuZoomIn, _("Zoom In"), butil_loadxmlrcbitmap(wxT("ico_zoom_in")),
+        //_("Zoom In"));
+	tbView->addAction(menuZoomIn_);
+    //tbView->AddTool(idMenuZoomNormal, _("Zoom Normal"), butil_loadxmlrcbitmap(wxT("ico_zoom_normal")),
+        //_("Zoom Normal"));
+	tbView->addAction(menuZoomNormal_);
+    tbView->addSeparator();
+#ifdef QT_HIDE_FROM
+	tbView->AddControl(new wxStaticText(tbView, wxID_ANY, _("Mode:"), wxDefaultPosition, wxDefaultSize, 0));
     tbView->AddControl(new wxComboBox(tbView, idModeList, wxEmptyString, wxDefaultPosition, wxSize(80, -1),
         wxArrayString(), wxCB_READONLY));
     tbView->AddSeparator();
     tbView->AddControl(new wxStaticText(tbView, wxID_ANY, _("Alternate File:"), wxDefaultPosition, wxDefaultSize, 0));
     tbView->AddControl(new wxComboBox(tbView, idFileAlternateList, wxEmptyString, wxDefaultPosition, wxSize(160, -1),
         wxArrayString(), wxCB_READONLY));
-    tbView->Realize();
+#endif // QT_HIDE_FROM
+	//tbView->Realize();
+	addToolBar(Qt::TopToolBarArea, tbView);
 
-    // add the toolbars to the manager
+#ifdef QT_HIDE_FROM
+	// add the toolbars to the manager
     mgr_.AddPane(tbFile, wxAuiPaneInfo().
                   Name(wxT("tbFile")).Caption(_("Main")).
                   ToolbarPane().Top().
@@ -1204,37 +1258,10 @@ void HTMLButcherFrame::OnHelpTest()
 #endif
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#ifdef QT_HIDE_FROM
-
-
-
-
-
-void HTMLButcherFrame::OnMenuOperation(wxCommandEvent& event)
+void HTMLButcherFrame::OnMenuOperation(QAction *action)
 {
-    if (view_->GetProjectView() == NULL) return;
+#ifdef QT_HIDE_FROM
+	if (view_->GetProjectView() == NULL) return;
 
 
 
@@ -1257,9 +1284,8 @@ void HTMLButcherFrame::OnMenuOperation(wxCommandEvent& event)
     else if (event.GetId() == idMenuCancelOperation)
         view_->StopOperation();
     //event.Skip();
-}
-
 #endif // QT_HIDE_FROM
+}
 
 
 #ifndef HTMLBUTCHER_DEMO
@@ -1409,15 +1435,10 @@ void HTMLButcherFrame::UpdateAppState()
 	viewsctrl->Enable(isactive);
     modesctrl->Enable(isview && !isoperation);
     filealternatectrl->Enable(isview);
+#endif // QT_HIDE_FROM
 
-#ifndef HTMLBUTCHER_DEMO
-    tbFile->EnableTool(idMenuSave, isactive);
-#endif
-    tbView->EnableTool(idMenuZoomIn, isactive && isview);
-    tbView->EnableTool(idMenuZoomOut, isactive && isview);
-    tbView->EnableTool(idMenuZoomNormal, isactive && isview);
-
-    tbTools->EnableTool(idMenuInsertLineHorizontal, isview && !isoperation);
+#ifdef QT_HIDE_FROM
+	tbTools->EnableTool(idMenuInsertLineHorizontal, isview && !isoperation);
     tbTools->EnableTool(idMenuInsertLineVertical, isview && !isoperation);
     tbTools->EnableTool(idMenuDeleteLine, isview && !isoperation);
     tbTools->EnableTool(idMenuMoveLine, isview && !isoperation);
