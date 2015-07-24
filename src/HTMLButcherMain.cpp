@@ -146,28 +146,56 @@ HTMLButcherFrame::HTMLButcherFrame()
     // create a menu bar
     //wxMenuBar* mbar = new wxMenuBar();
     QMenu* fileMenu = new QMenu(tr("&File"), this);
+
     //fileMenu->Append(idMenuNew, _("&New\tCtrl-N"), _("Create new project"));
 	menuNew_ = new QAction(tr("&New\tCtrl-N"), this); menuNew_->setStatusTip(tr("Create new project")); fileMenu->addAction(menuNew_);
 	connect(menuNew_, SIGNAL(triggered()), this, SLOT(OnMenuNew()));
-	/*
-#ifndef HTMLBUTCHER_DEMO
-    fileMenu->Append(idMenuOpen, _("&Open...\tCtrl-O"), _("Open project"));
-#endif
-    fileMenu->Append(idMenuClose, _("C&lose"), _("Close project"));
-#ifndef HTMLBUTCHER_DEMO
-    fileMenu->Append(idMenuSave, _("&Save\tCtrl-S"), _("Save project"));
-    fileMenu->Append(idMenuSaveAs, _("Save &as..."), _("Save project with a different file name"));
-#endif
-    fileMenu->AppendSeparator();
-    fileMenu->Append(idMenuSaveForWeb, _("Save for &Web...\tCtrl-W"), _("Export HTML"));
-#ifndef HTMLBUTCHER_DEMO
-    fileMenu->Append(idMenuSaveForWebMultiple, _("Save all for We&b..."), _("Export multiple views HTML"));
-#endif
-	fileMenu->AppendSeparator();
-    fileMenu->Append(wxID_PREFERENCES, _("&Preferences..."), _("Program preferences"));
-    fileMenu->AppendSeparator();
-    fileMenu->Append(wxID_EXIT, _("E&xit\tAlt-F4"), _("Exit the application"));
 
+#ifndef HTMLBUTCHER_DEMO
+    //fileMenu->Append(idMenuOpen, _("&Open...\tCtrl-O"), _("Open project"));
+	menuOpen_ = new QAction(tr("&Open...\tCtrl-O"), this); menuOpen_->setStatusTip(tr("Open project")); fileMenu->addAction(menuOpen_);
+	connect(menuOpen_, SIGNAL(triggered()), this, SLOT(OnMenuOpen()));
+#endif
+    //fileMenu->Append(idMenuClose, _("C&lose"), _("Close project"));
+	menuClose_ = new QAction(tr("C&lose"), this); menuClose_->setStatusTip(tr("Close project")); fileMenu->addAction(menuClose_);
+	connect(menuClose_, SIGNAL(triggered()), this, SLOT(OnMenuClose()));
+
+#ifndef HTMLBUTCHER_DEMO
+    //fileMenu->Append(idMenuSave, _("&Save\tCtrl-S"), _("Save project"));
+	menuSave_ = new QAction(tr("&Save\tCtrl-S"), this); menuSave_->setStatusTip(tr("Save project")); fileMenu->addAction(menuSave_);
+	connect(menuSave_, SIGNAL(triggered()), this, SLOT(OnMenuSave()));
+
+    //fileMenu->Append(idMenuSaveAs, _("Save &as..."), _("Save project with a different file name"));
+	menuSaveAs_ = new QAction(tr("Save &as..."), this); menuSaveAs_->setStatusTip(tr("Save project with a different file name")); fileMenu->addAction(menuSaveAs_);
+	connect(menuSaveAs_, SIGNAL(triggered()), this, SLOT(OnMenuSaveAs()));
+
+#endif
+	fileMenu->addSeparator();
+
+    //fileMenu->Append(idMenuSaveForWeb, _("Save for &Web...\tCtrl-W"), _("Export HTML"));
+	menuSaveForWeb_ = new QAction(tr("Save for &Web...\tCtrl-W"), this); menuSaveForWeb_->setStatusTip(tr("Export HTML")); fileMenu->addAction(menuSaveForWeb_);
+	connect(menuSaveForWeb_, SIGNAL(triggered()), this, SLOT(OnMenuSaveForWeb()));
+
+#ifndef HTMLBUTCHER_DEMO
+    //fileMenu->Append(idMenuSaveForWebMultiple, _("Save all for We&b..."), _("Export multiple views HTML"));
+	menuSaveForWebMultiple_ = new QAction(tr("Save all for We&b..."), this); menuSaveForWebMultiple_->setStatusTip(tr("Export multiple views HTML")); fileMenu->addAction(menuSaveForWebMultiple_);
+	connect(menuSaveForWebMultiple_, SIGNAL(triggered()), this, SLOT(OnMenuSaveForWebMultiple()));
+#endif
+
+	fileMenu->addSeparator();
+
+    //fileMenu->Append(wxID_PREFERENCES, _("&Preferences..."), _("Program preferences"));
+	menuOptions_ = new QAction(tr("&Preferences..."), this); menuOptions_->setStatusTip(tr("Program preferences")); fileMenu->addAction(menuOptions_);
+	connect(menuOptions_, SIGNAL(triggered()), this, SLOT(OnMenuOptions()));
+
+	fileMenu->addSeparator();
+
+    //fileMenu->Append(wxID_EXIT, _("E&xit\tAlt-F4"), _("Exit the application"));
+	menuQuit_ = new QAction(tr("E&xit\tAlt-F4"), this); menuQuit_->setStatusTip(tr("Exit the application")); fileMenu->addAction(menuQuit_);
+	connect(menuQuit_, SIGNAL(triggered()), this, SLOT(OnMenuQuit()));
+
+
+#ifdef QT_HIDE_FROM
 #ifndef HTMLBUTCHER_DEMO
     filehistory_.UseMenu(fileMenu);
 #endif
@@ -175,15 +203,15 @@ HTMLButcherFrame::HTMLButcherFrame()
 #ifndef HTMLBUTCHER_DEMO
     filehistory_.Load(*wxConfigBase::Get(true));
 #endif
-	*/
+#endif // QT_HIDE_FROM
 
     //mbar->Append(fileMenu, _("&File"));
 	menuBar()->addMenu(fileMenu);
 
     QMenu* viewMenu = new QMenu(tr("&View"), this);
 
-	/*
-    //wxMenu* viewviewMenu = new wxMenu(_T(""));
+#ifdef QT_HIDE_FROM
+	//wxMenu* viewviewMenu = new wxMenu(_T(""));
     //viewMenu->Append(idMenuViewSelect, _("&View"), _("View"));
     //viewMenu->Append(idMenuViewSelect, wxT("&View"), viewviewMenu, wxT("View"));
 	viewMenu->Append(idMenuViewSelect, _("&View"), _("View"));
@@ -207,13 +235,13 @@ HTMLButcherFrame::HTMLButcherFrame()
     viewMenu->AppendSeparator();
     viewMenu->AppendCheckItem(idMenuLanguage, _("Lang&uage..."), _("Select language"));
 #endif
-	*/
-    //mbar->Append(viewMenu, _("&View"));
+#endif // QT_HIDE_FROM
+	//mbar->Append(viewMenu, _("&View"));
 	menuBar()->addMenu(viewMenu);
 
     QMenu* modeMenu = new QMenu(tr("&Mode"), this);
-	/*
-    modeMenu->AppendRadioItem(idMenuModeNone, _("&None"), _("No selection mode"));
+#ifdef QT_HIDE_FROM
+	modeMenu->AppendRadioItem(idMenuModeNone, _("&None"), _("No selection mode"));
     modeMenu->AppendRadioItem(idMenuModeLine, _("&Line\tF2"), _("Line selection mode"));
     modeMenu->AppendRadioItem(idMenuModeArea, _("&Area\tF3"), _("Area selection mode"));
     wxMenu* editmodeMenu = new wxMenu(wxEmptyString);
@@ -222,13 +250,13 @@ HTMLButcherFrame::HTMLButcherFrame()
     editmodeMenu->AppendRadioItem(idMenuEditModeAdvanced, _("&Advanced"), _("Advanced edit mode"));
     modeMenu->AppendSeparator();
     modeMenu->Append(wxID_STATIC, _("&Edit mode"), editmodeMenu, _("Edit mode"));
-	*/
-    //mbar->Append(modeMenu, _("&Mode"));
+#endif // QT_HIDE_FROM
+	//mbar->Append(modeMenu, _("&Mode"));
 	menuBar()->addMenu(modeMenu);
 
     QMenu* dataMenu = new QMenu(tr("&Data"), this);
-	/*
-    dataMenu->Append(idMenuFiles, _("&Files...\tF5"), _("Project files"));
+#ifdef QT_HIDE_FROM
+	dataMenu->Append(idMenuFiles, _("&Files...\tF5"), _("Project files"));
     dataMenu->Append(idMenuMasks, _("&Masks...\tF6"), _("Project masks"));
     dataMenu->Append(idMenuViews, _("&Views...\tF7"), _("Project views"));
     dataMenu->AppendSeparator();
@@ -246,12 +274,12 @@ HTMLButcherFrame::HTMLButcherFrame()
     dataMenu->Append(idMenuWizNewView, _("New vie&w wizard"), _("Shows the new view wizard"));
     dataMenu->AppendSeparator();
     dataMenu->Append(idMenuProjectOptions, _("Project &options..."), _("Project options"));
-	*/
-    //mbar->Append(dataMenu, _("&Data"));
+#endif // QT_HIDE_FROM
+	//mbar->Append(dataMenu, _("&Data"));
 	menuBar()->addMenu(dataMenu);
 
     QMenu* helpMenu = new QMenu(tr("&Help"), this);
-	/*
+#ifdef QT_HIDE_FROM
 #ifdef BUTCHER_USE_HELP
 	helpMenu->Append(wxID_HELP, _("&Contents\tF1"), _("Help contents"));
     helpMenu->AppendSeparator();
@@ -260,21 +288,21 @@ HTMLButcherFrame::HTMLButcherFrame()
 #ifdef HTMLBUTCHER_DEBUG
 	helpMenu->Append(idMenuHelpTest, _("&Test"), _("Test"));
 #endif
-	*/
-    //mbar->Append(helpMenu, _("&Help"));
+#endif // QT_HIDE_FROM
+	//mbar->Append(helpMenu, _("&Help"));
 	menuBar()->addMenu(helpMenu);
 
     //SetMenuBar(mbar);
 
     // create a status bar with some information about the used wxWidgets version
-	/*
-    wxStatusBar *sbar = new wxStatusBar(this);
+#ifdef QT_HIDE_FROM
+	wxStatusBar *sbar = new wxStatusBar(this);
     int sbarwidths[5] = { 100, 100, 250, 300, 100 };
     sbar->SetFieldsCount(5, sbarwidths);
 
     SetStatusBar(sbar);
     SetStatusBarPane(3);
-	*/
+#endif // QT_HIDE_FROM
 
 	statusBar();
 
@@ -561,28 +589,29 @@ void HTMLButcherFrame::OnMenuNew()
 
 
 
-#ifdef QT_HIDE_FROM
 
 #ifndef HTMLBUTCHER_DEMO
-void HTMLButcherFrame::OnMenuOpen(wxCommandEvent& event)
+void HTMLButcherFrame::OnMenuOpen()
 {
 
 	if (!DoCloseProject()) return;
 
-    wxFileDialog d(this, _("Load project"), wxEmptyString, wxEmptyString,
+#ifdef QT_HIDE_FROM
+	wxFileDialog d(this, _("Load project"), wxEmptyString, wxEmptyString,
         _("HTMLButcher Project (*.hbp)|*.hbp|All files|*.*"), wxFD_OPEN  | wxFD_FILE_MUST_EXIST);
     if (d.ShowModal() == wxID_OK) {
 
 
         DoOpenProject(d.GetPath());
     }
+#endif // QT_HIDE_FROM
 }
 #endif
 
 
 
 
-void HTMLButcherFrame::OnMenuClose(wxCommandEvent& event)
+void HTMLButcherFrame::OnMenuClose()
 {
 
 
@@ -593,9 +622,8 @@ void HTMLButcherFrame::OnMenuClose(wxCommandEvent& event)
 
 
 
-
 #ifndef HTMLBUTCHER_DEMO
-void HTMLButcherFrame::OnMenuSave(wxCommandEvent& event)
+void HTMLButcherFrame::OnMenuSave()
 {
 	if (!project_->IsOpen()) return;
 
@@ -603,7 +631,7 @@ void HTMLButcherFrame::OnMenuSave(wxCommandEvent& event)
 
     if (project_->GetFilename().IsEmpty())
     {
-        OnMenuSaveAs(event);
+        OnMenuSaveAs();
         return;
     }
     project_->Save();
@@ -616,11 +644,12 @@ void HTMLButcherFrame::OnMenuSave(wxCommandEvent& event)
 
 
 #ifndef HTMLBUTCHER_DEMO
-void HTMLButcherFrame::OnMenuSaveAs(wxCommandEvent& event)
+void HTMLButcherFrame::OnMenuSaveAs()
 {
 	if (!project_->IsOpen()) return;
 
-    wxFileDialog d(this, _("Save project as"), wxEmptyString, _("project.hbp"),
+#ifdef QT_HIDE_FROM
+	wxFileDialog d(this, _("Save project as"), wxEmptyString, _("project.hbp"),
         _("HTMLButcher Project (*.hbp)|*.hbp|All files|*.*"), wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
     if (d.ShowModal() == wxID_OK) {
 
@@ -630,17 +659,19 @@ void HTMLButcherFrame::OnMenuSaveAs(wxCommandEvent& event)
         filehistory_.Save(*wxConfigBase::Get());
         UpdateAppState();
     }
+#endif // QT_HIDE_FROM
 }
 #endif
 
 
 
 
-void HTMLButcherFrame::OnMenuSaveForWeb(wxCommandEvent& event)
+void HTMLButcherFrame::OnMenuSaveForWeb()
 {
     if (!view_->GetProjectView()) return;
 
-    wxFileDialog d(this, _("Save for web"), wxEmptyString, view_->GetProjectView()->GetDefaultFilename(),
+#ifdef QT_HIDE_FROM
+	wxFileDialog d(this, _("Save for web"), wxEmptyString, view_->GetProjectView()->GetDefaultFilename(),
         _("HTML files (*.html;*;htm)|*.html;*.htm|All files (*.*)|*.*"),
         wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
     if (d.ShowModal()==wxID_OK)
@@ -658,16 +689,18 @@ void HTMLButcherFrame::OnMenuSaveForWeb(wxCommandEvent& event)
         }
         SetCursor(*wxSTANDARD_CURSOR);
     }
+#endif // QT_HIDE_FROM
 }
 
 
 
 #ifndef HTMLBUTCHER_DEMO
-void HTMLButcherFrame::OnMenuSaveForWebMultiple(wxCommandEvent& event)
+void HTMLButcherFrame::OnMenuSaveForWebMultiple()
 {
     if (!project_->IsOpen()) return;
 
-    wxFileName p(project_->GetFilename());
+#ifdef QT_HIDE_FROM
+	wxFileName p(project_->GetFilename());
     wxDirDialog d(this, _("Select output directory"), p.GetPath());
     if (d.ShowModal()!=wxID_OK) return;
 
@@ -695,18 +728,31 @@ void HTMLButcherFrame::OnMenuSaveForWebMultiple(wxCommandEvent& event)
         for (unsigned i=0; i<sel.GetCount(); i++)
             project_->Views().Get(ids[sel[i]])->GenerateHTML(dir+project_->Views().Get(ids[sel[i]])->GetDefaultFilename());
     }
+#endif // QT_HIDE_FROM
 }
 #endif
 
-
-
-
-
-void HTMLButcherFrame::OnMenuQuit(wxCommandEvent &event)
+void HTMLButcherFrame::OnMenuOptions()
 {
-    Close();
+#ifdef QT_HIDE_FROM
+	HTMLButcherOptionsDialog d(this);
+	d.Load(&options_);
+	if (d.ShowModal()==wxID_OK)
+	{
+		d.Save(&options_);
+		options_.Save();
+	}
+#endif // QT_HIDE_FROM
 }
 
+
+void HTMLButcherFrame::OnMenuQuit()
+{
+    close();
+}
+
+
+#ifdef QT_HIDE_FROM
 
 
 
@@ -1110,19 +1156,6 @@ void HTMLButcherFrame::OnMenuFileAlternate(wxCommandEvent& event)
 
 
 
-void HTMLButcherFrame::OnMenuOptions(wxCommandEvent& event)
-{
-    HTMLButcherOptionsDialog d(this);
-    d.Load(&options_);
-    if (d.ShowModal()==wxID_OK)
-    {
-        d.Save(&options_);
-        options_.Save();
-    }
-}
-
-
-
 
 void HTMLButcherFrame::OnMenuOperation(wxCommandEvent& event)
 {
@@ -1210,24 +1243,28 @@ void HTMLButcherFrame::UpdateAppState()
     wxComboBox* viewsctrl=(wxComboBox*)FindWindow(idViewList);
     wxComboBox* modesctrl=(wxComboBox*)FindWindow(idModeList);
     wxComboBox* filealternatectrl=(wxComboBox*)FindWindow(idFileAlternateList);
+#endif // QT_HIDE_FROM
 
     bool isactive=project_->IsOpen();
     bool isview=isactive && view_->GetProjectViewId()!=0;
-    bool isoperation=view_->GetOperation()!=ButcherViewEditor::OP_NONE;
+#ifdef QT_HIDE_FROM
+	bool isoperation = view_->GetOperation() != ButcherViewEditor::OP_NONE;
+#endif // QT_HIDE_FROM
 
-    menu->Enable(idMenuNew, true);
-    menu->Enable(idMenuClose, isactive);
+	menuNew_->setEnabled(true);
+    menuClose_->setEnabled(isactive);
 #ifndef HTMLBUTCHER_DEMO
-    menu->Enable(idMenuOpen, true);
-    menu->Enable(idMenuSave, isactive);
-    menu->Enable(idMenuSaveAs, isactive);
+    menuOpen_->setEnabled(true);
+    menuSave_->setEnabled(isactive);
+    menuSaveAs_->setEnabled(isactive);
 #endif
-    menu->Enable(idMenuSaveForWeb, isactive && isview);
+    menuSaveForWeb_->setEnabled(isactive && isview);
 #ifndef HTMLBUTCHER_DEMO
-    menu->Enable(idMenuSaveForWebMultiple, isactive);
+    menuSaveForWebMultiple_->setEnabled(isactive);
 #endif
 
-    menu->Enable(idMenuModeNone, isactive && isview);
+#ifdef QT_HIDE_FROM
+	menu->Enable(idMenuModeNone, isactive && isview);
     menu->Enable(idMenuModeLine, isactive && isview);
     menu->Enable(idMenuModeArea, isactive && isview);
     menu->Check(idMenuModeNone, isactive && isview && view_->GetDefaultMode() == ButcherViewEditor::MODE_DEFAULT);

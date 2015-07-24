@@ -169,22 +169,28 @@ private:
 private Q_SLOTS:
     void OnMenuNew();
 
+
+#ifndef HTMLBUTCHER_DEMO
+    void OnMenuOpen();
+#endif
+
+    void OnMenuClose();
+
+#ifndef HTMLBUTCHER_DEMO
+    void OnMenuSave();
+    void OnMenuSaveAs();
+#endif
+
+    void OnMenuSaveForWeb();
+
+#ifndef HTMLBUTCHER_DEMO
+    void OnMenuSaveForWebMultiple();
+#endif
+
+	void OnMenuOptions();
+	void OnMenuQuit();
+
 #ifdef QT_HIDE_FROM
-
-#ifndef HTMLBUTCHER_DEMO
-    void OnMenuOpen(wxCommandEvent& event);
-#endif
-    void OnMenuClose(wxCommandEvent& event);
-#ifndef HTMLBUTCHER_DEMO
-    void OnMenuSave(wxCommandEvent& event);
-    void OnMenuSaveAs(wxCommandEvent& event);
-#endif
-    void OnMenuSaveForWeb(wxCommandEvent& event);
-#ifndef HTMLBUTCHER_DEMO
-    void OnMenuSaveForWebMultiple(wxCommandEvent& event);
-#endif
-    void OnMenuQuit(wxCommandEvent& event);
-
 #ifndef HTMLBUTCHER_DEMO
     void OnMenuHistory(wxCommandEvent &event);
 #endif
@@ -226,7 +232,6 @@ private Q_SLOTS:
 	void OnMenuLanguage(wxCommandEvent& event);
 #endif
 
-    void OnMenuOptions(wxCommandEvent& event);
 
     void OnMenuOperation(wxCommandEvent& event);
 
@@ -301,7 +306,7 @@ private:
 #endif
     ButcherOptions options_;
 
-	QAction *menuNew_;
+	QAction *menuNew_, *menuOpen_, *menuClose_, *menuSave_, *menuSaveAs_, *menuSaveForWeb_, *menuSaveForWebMultiple_, *menuOptions_, *menuQuit_;
 
     //DECLARE_EVENT_TABLE()
 };
