@@ -30,8 +30,13 @@ public:
     void SetEditMode(editmode_t em) { editmode_=em; Modified(); }
     static editmode_t GetEditMode(ButcherOptions *options);
 
-    void Load() { Load(*wxConfigBase::Get(true)); }
+#ifdef QT_HIDE_FROM
+	void Load() { Load(*wxConfigBase::Get(true)); }
     void Save() { Save(*wxConfigBase::Get(true)); }
+#else // QT_HIDE_FROM
+	void Load() {  }
+	void Save() {  }
+#endif // QT_HIDE_FROM
 
     void Load(wxConfigBase &config);
     void Save(wxConfigBase &config);

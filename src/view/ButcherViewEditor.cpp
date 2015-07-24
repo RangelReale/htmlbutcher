@@ -51,7 +51,8 @@ ButcherViewEditor::ButcherViewEditor(wxWindow* parent, wxWindowID id, const wxPo
 
 ButcherViewEditor::~ButcherViewEditor()
 {
-    if (project_) {
+#ifdef QT_HIDE_FROM
+	if (project_) {
         project_->Disconnect(wxID_ANY, wxEVT_BUTCHERPROJECT_ACTION,
             ButcherProjectEventHandler(ButcherViewEditor::OnProjectEvent),
             NULL, this);
@@ -61,6 +62,7 @@ ButcherViewEditor::~ButcherViewEditor()
         delete lineshover_;
     if (areashover_)
         delete areashover_;
+#endif // QT_HIDE_FROM
 }
 
 
@@ -123,7 +125,9 @@ void ButcherViewEditor::OnProjectEvent(ButcherProjectEvent& event)
     default:
         break;
     }
-    event.Skip(); // IMPORTANT!
+#ifdef QT_HIDE_FROM
+	event.Skip(); // IMPORTANT!
+#endif // QT_HIDE_FROM
 }
 
 
@@ -747,7 +751,8 @@ void ButcherViewEditor::DoOperationStart(ButcherViewEditor::operation_t operatio
 
 void ButcherViewEditor::SetProject(ButcherProject *project)
 {
-    if (project==project_) return;
+#ifdef QT_HIDE_FROM
+	if (project == project_) return;
 
     if (project_)
         project_->Disconnect(wxID_ANY, wxEVT_BUTCHERPROJECT_ACTION,
@@ -759,6 +764,7 @@ void ButcherViewEditor::SetProject(ButcherProject *project)
             ButcherProjectEventHandler(ButcherViewEditor::OnProjectEvent),
             NULL, this);
     ProjectChanged();
+#endif // QT_HIDE_FROM
 }
 
 

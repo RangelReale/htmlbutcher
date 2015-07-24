@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
 	qRegisterMetaType<ButcherProjectEvent>("ButcherProjectEvent");
 
 	HTMLButcherFrame window;
+	window.show();
 
 	return app.exec();
 }

@@ -132,6 +132,8 @@ HTMLButcherFrame::HTMLButcherFrame()
 #endif
         options_()
 {
+	setWindowTitle("HTMLButcher");
+
 #ifdef HTMLBUTCHER_DEBUG
     //(void) new wxLogWindow(this, wxT("log"));
 #endif //__WXDEBUG__

@@ -104,9 +104,9 @@ endif (HB_WITH_DEMO)
 
 
 
-target_link_libraries(HTMLButcher ${FREEIMAGE_LIBRARIES} ${CPPCOMP_LIBRARIES} ${wxWidgets_LIBRARIES} )
+target_link_libraries(HTMLButcher ${FREEIMAGE_LIBRARIES} ${CPPCOMP_LIBRARIES} ${wxWidgets_LIBRARIES} Qt5::WinMain )
 if (HB_WITH_DEMO)
-target_link_libraries(HTMLButcherDemo ${FREEIMAGE_LIBRARIES} ${CPPCOMP_LIBRARIES} ${wxWidgets_LIBRARIES})
+target_link_libraries(HTMLButcherDemo ${FREEIMAGE_LIBRARIES} ${CPPCOMP_LIBRARIES} ${wxWidgets_LIBRARIES} Qt5::WinMain)
 endif (HB_WITH_DEMO)
 
 #if (wxstedit_FOUND)

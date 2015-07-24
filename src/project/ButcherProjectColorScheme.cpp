@@ -44,10 +44,16 @@ void ButcherProjectColorScheme::Initialize()
     ButcherProjectBaseAutoDisable autodis(this);
 
     SetColor(BCOLOR_AREABORDER, *wxGREEN);
-    SetColor(BCOLOR_AREAGLOBALBORDER, wxTheColourDatabase->Find(wxT("YELLOW")));
+#ifdef QT_HIDE_FROM
+	SetColor(BCOLOR_AREAGLOBALBORDER, wxTheColourDatabase->Find(wxT("YELLOW")));
     //SetColor(BCOLOR_AREAMAPBORDER, wxTheColourDatabase->Find(wxT("GREEN YELLOW")));
     SetColor(BCOLOR_AREAMAPBORDER, wxTheColourDatabase->Find(wxT("BROWN")));
-    SetColor(BCOLOR_AREABORDERSELECTED, *wxBLUE);
+#else // QT_HIDE_FROM
+	SetColor(BCOLOR_AREAGLOBALBORDER, *wxGREEN);
+	//SetColor(BCOLOR_AREAMAPBORDER, wxTheColourDatabase->Find(wxT("GREEN YELLOW")));
+	SetColor(BCOLOR_AREAMAPBORDER, *wxGREEN);
+#endif QT_HIDE_FROM
+	SetColor(BCOLOR_AREABORDERSELECTED, *wxBLUE);
     SetColor(BCOLOR_AREABORDERHOVER, *wxRED);
     SetColor(BCOLOR_AREATEXT, *wxBLACK);
 }
