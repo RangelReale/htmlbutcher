@@ -52,6 +52,7 @@
 #include <QMenuBar>
 #include <QActionGroup>
 #include <QToolBar>
+#include <QStatusBar>
 
 /*
 BEGIN_EVENT_TABLE(HTMLButcherFrame, wxFrame)
@@ -344,7 +345,17 @@ HTMLButcherFrame::HTMLButcherFrame()
     SetStatusBarPane(3);
 #endif // QT_HIDE_FROM
 
-	statusBar();
+	status0_ = new QLabel(this);
+	status1_ = new QLabel(this);
+	status2_ = new QLabel(this);
+	status3_ = new QLabel(this);
+	status4_ = new QLabel(this);
+
+	statusBar()->addWidget(status0_);
+	statusBar()->addWidget(status1_);
+	statusBar()->addWidget(status2_);
+	statusBar()->addWidget(status3_);
+	statusBar()->addWidget(status4_);
 
 #ifdef QT_HIDE_FROM
     wxBitmap bmp_base = wxArtProvider::GetBitmap(wxART_QUESTION, wxART_OTHER, wxSize(16,16));
@@ -1471,14 +1482,14 @@ void HTMLButcherFrame::UpdateAppState()
     {
         SetTitle(atit);
     }
+#endif // QT_HIDE_FROM
 
     if (isactive) {
-        SetStatusText((project_->GetModified()?_("Modified"):wxT("")), 0);
+		status0_->setText(project_->GetModified()?tr("Modified"):"");
     }
 
-    if (!isactive) SetStatusText(wxEmptyString, 0);
-    if (!isview) SetStatusText(wxEmptyString, 1);
-#endif // QT_HIDE_FROM
+	if (!isactive) status0_->setText("");
+	if (!isview) status1_->setText("");
 }
 
 

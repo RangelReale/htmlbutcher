@@ -32,6 +32,7 @@
 #include <QMainWindow>
 #include <QMenu>
 #include <QAction>
+#include <QLabel>
 
 class ButcherViewEditor;
 class ButcherViewDisplay;
@@ -314,6 +315,8 @@ private:
 	QAction *menuHelp_, *menuAbout_, *menuHelpTest_;
 
 	QAction *menuInsertLineHorizontal_, *menuInsertLineVertical_, *menuMoveLine_, *menuDeleteLine_, *menuInsertAreaGlobal_, *menuDeleteAreaGlobal_, *menuInsertAreaMap_, *menuDeleteAreaMap_, *menuCancelOperation_;
+
+	QLabel  *status0_, *status1_, *status2_, *status3_, *status4_;
 
     //DECLARE_EVENT_TABLE()
 };
