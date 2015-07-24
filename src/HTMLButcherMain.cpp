@@ -225,21 +225,30 @@ HTMLButcherFrame::HTMLButcherFrame()
 
     viewMenu->addSeparator();
 
-#ifdef QT_HIDE_FROM
-	viewMenu->AppendCheckItem(idMenuShowPreview, _("&Preview\tCTRL-V"), _("Show/hide preview"));
-    viewMenu->AppendCheckItem(idMenuShowBorders, _("&Borders\tCTRL-B"), _("Show/hide borders"));
-    viewMenu->AppendCheckItem(idMenuShowAreas, _("&Areas\tCTRL-A"), _("Show/hide areas"));
-    viewMenu->AppendCheckItem(idMenuShowAreasGlobal, _("G&lobal Areas\tCTRL-L"), _("Show/hide global areas"));
-    viewMenu->AppendCheckItem(idMenuShowAreasMap, _("&Map Areas\tCTRL-M"), _("Show/hide map areas"));
-    viewMenu->AppendCheckItem(idMenuGrid, _("&Grid\tCTRL-G"), _("Show/hide grid"));
-    viewMenu->Append(idMenuGridSize, _("Grid &size..."), _("Grid size"));
-    viewMenu->AppendSeparator();
-    viewMenu->AppendCheckItem(idMenuFileAlternate, _("Alterna&te File\tF12"), _("Show alternate file"));
+	//viewMenu->AppendCheckItem(idMenuShowPreview, _("&Preview\tCTRL-V"), _("Show/hide preview"));
+	menuShowPreview_ = viewMenu->addAction(tr("&Preview\tCTRL-V"), this, SLOT(OnMenuShowPreview(bool))); menuShowPreview_->setStatusTip(tr("Show/hide preview")); menuShowPreview_->setCheckable(true);
+    //viewMenu->AppendCheckItem(idMenuShowBorders, _("&Borders\tCTRL-B"), _("Show/hide borders"));
+	menuShowBorders_ = viewMenu->addAction(tr("&Borders\tCTRL-B"), this, SLOT(OnMenuShowBorders(bool))); menuShowBorders_->setStatusTip(tr("Show/hide borders")); menuShowBorders_->setCheckable(true);
+	//viewMenu->AppendCheckItem(idMenuShowAreas, _("&Areas\tCTRL-A"), _("Show/hide areas"));
+	menuShowAreas_ = viewMenu->addAction(tr("&Areas\tCTRL-A"), this, SLOT(OnMenuShowAreas(bool))); menuShowAreas_->setStatusTip(tr("Show/hide areas")); menuShowAreas_->setCheckable(true);
+	//viewMenu->AppendCheckItem(idMenuShowAreasGlobal, _("G&lobal Areas\tCTRL-L"), _("Show/hide global areas"));
+	menuShowAreasGlobal_ = viewMenu->addAction(tr("G&lobal Areas\tCTRL-L"), this, SLOT(OnMenuShowAreasGlobal(bool))); menuShowAreasGlobal_->setStatusTip(tr("Show/hide global areas")); menuShowAreasGlobal_->setCheckable(true);
+	//viewMenu->AppendCheckItem(idMenuShowAreasMap, _("&Map Areas\tCTRL-M"), _("Show/hide map areas"));
+	menuShowAreasMap_ = viewMenu->addAction(tr("&Map Areas\tCTRL-M"), this, SLOT(OnMenuShowAreasMap(bool))); menuShowAreasMap_->setStatusTip(tr("Show/hide map areas")); menuShowAreasMap_->setCheckable(true);
+	//viewMenu->AppendCheckItem(idMenuGrid, _("&Grid\tCTRL-G"), _("Show/hide grid"));
+	menuGrid_ = viewMenu->addAction(tr("&Grid\tCTRL-G"), this, SLOT(OnMenuGrid(bool))); menuGrid_->setStatusTip(tr("Show/hide grid")); menuGrid_->setCheckable(true);
+	//viewMenu->Append(idMenuGridSize, _("Grid &size..."), _("Grid size"));
+	menuGridSize_ = viewMenu->addAction(tr("Grid &size..."), this, SLOT(OnMenuGridSize(bool))); menuGridSize_->setStatusTip(tr("Grid size"));
+	viewMenu->addSeparator();
+
+	//viewMenu->AppendCheckItem(idMenuFileAlternate, _("Alterna&te File\tF12"), _("Show alternate file"));
+	menuFileAlternate_ = viewMenu->addAction(tr("Alterna&te File\tF12"), this, SLOT(OnMenuFileAlternate(bool))); menuFileAlternate_->setStatusTip(tr("Show alternate file")); menuFileAlternate_->setCheckable(true);
+
 #if NEED_CHOOSELANG_UI
-    viewMenu->AppendSeparator();
-    viewMenu->AppendCheckItem(idMenuLanguage, _("Lang&uage..."), _("Select language"));
+    viewMenu->addSeparator();
+    //viewMenu->AppendCheckItem(idMenuLanguage, _("Lang&uage..."), _("Select language"));
+	menuLanguage_ = viewMenu->addAction(tr("Lang&uage..."), this, SLOT(OnMenuLanguage())); menuLanguage_->setStatusTip(tr("Select language"));
 #endif
-#endif // QT_HIDE_FROM
 	//mbar->Append(viewMenu, _("&View"));
 	menuBar()->addMenu(viewMenu);
 
@@ -493,7 +502,7 @@ HTMLButcherFrame::HTMLButcherFrame()
     //szBase_->Hide(viewinfo_);
 
     panBase_->SetSizer( szBase_ );
-#endif QT_HIDE_FROM
+#endif // QT_HIDE_FROM
 
     // "commit" all changes made to wxAuiManager
     //mgr_.Update();
@@ -811,6 +820,98 @@ void HTMLButcherFrame::OnMenuZoom(QAction *action)
 	}
 }
 
+void HTMLButcherFrame::OnMenuShowPreview(bool checked)
+{
+	if (view_->GetProjectView() == NULL) return;
+	view_->SetShowPreview(!view_->GetShowPreview());
+	//event.Skip();
+}
+
+
+
+
+void HTMLButcherFrame::OnMenuShowBorders(bool checked)
+{
+	if (view_->GetProjectView() == NULL) return;
+	view_->SetShowBorders(!view_->GetShowBorders());
+	//event.Skip();
+}
+
+
+
+
+void HTMLButcherFrame::OnMenuShowAreas(bool checked)
+{
+	if (view_->GetProjectView() == NULL) return;
+	view_->SetAreaView(view_->GetAreaView() ^ ButcherView::AV_AREA); // XOR
+	//event.Skip();
+}
+
+
+
+
+void HTMLButcherFrame::OnMenuShowAreasGlobal(bool checked)
+{
+	if (view_->GetProjectView() == NULL) return;
+	view_->SetAreaView(view_->GetAreaView() ^ ButcherView::AV_AREAGLOBAL); // XOR
+	//event.Skip();
+}
+
+
+
+
+void HTMLButcherFrame::OnMenuShowAreasMap(bool checked)
+{
+	if (view_->GetProjectView() == NULL) return;
+	view_->SetAreaView(view_->GetAreaView() ^ ButcherView::AV_AREAMAP); // XOR
+	//event.Skip();
+}
+
+
+
+
+void HTMLButcherFrame::OnMenuGrid(bool checked)
+{
+	if (view_->GetProjectView() == NULL) return;
+	view_->SetShowGrid(!view_->GetShowGrid());
+	//event.Skip();
+}
+
+
+
+
+void HTMLButcherFrame::OnMenuGridSize()
+{
+	if (view_->GetProjectView() == NULL) return;
+
+#ifdef QT_HIDE_FROM
+	wxTextEntryDialog d(this, _("Enter grid size"), _("Grid Size"), wxString::Format(wxT("%d"), view_->GetGridSize()));
+	if (d.ShowModal() == wxID_OK) {
+		int a=wxAtoi(d.GetValue());
+		if (a>0)
+			view_->SetGridSize(a);
+	}
+	//event.Skip();
+#endif // QT_HIDE_FROM
+}
+
+
+void HTMLButcherFrame::OnMenuFileAlternate(bool checked)
+{
+	if (view_->GetProjectView() == NULL) return;
+	view_->SetFileAlternate(!view_->GetFileAlternate());
+	LoadFileAlternate();
+	//event.Skip();
+}
+
+
+#if NEED_CHOOSELANG_UI
+void HTMLButcherFrame::OnMenuLanguage()
+{
+	ChangeUILanguage();
+}
+#endif
+
 
 #ifdef QT_HIDE_FROM
 
@@ -1072,96 +1173,8 @@ void HTMLButcherFrame::OnMenuImageFormats(wxCommandEvent& event)
 
 
 
-void HTMLButcherFrame::OnMenuShowPreview(wxCommandEvent& event)
-{
-    if (view_->GetProjectView() == NULL) return;
-    view_->SetShowPreview(!view_->GetShowPreview());
-    //event.Skip();
-}
 
 
-
-
-void HTMLButcherFrame::OnMenuShowBorders(wxCommandEvent& event)
-{
-    if (view_->GetProjectView() == NULL) return;
-    view_->SetShowBorders(!view_->GetShowBorders());
-    //event.Skip();
-}
-
-
-
-
-void HTMLButcherFrame::OnMenuShowAreas(wxCommandEvent& event)
-{
-    if (view_->GetProjectView() == NULL) return;
-    view_->SetAreaView(view_->GetAreaView() ^ ButcherView::AV_AREA); // XOR
-    //event.Skip();
-}
-
-
-
-
-void HTMLButcherFrame::OnMenuShowAreasGlobal(wxCommandEvent& event)
-{
-    if (view_->GetProjectView() == NULL) return;
-    view_->SetAreaView(view_->GetAreaView() ^ ButcherView::AV_AREAGLOBAL); // XOR
-    //event.Skip();
-}
-
-
-
-
-void HTMLButcherFrame::OnMenuShowAreasMap(wxCommandEvent& event)
-{
-    if (view_->GetProjectView() == NULL) return;
-    view_->SetAreaView(view_->GetAreaView() ^ ButcherView::AV_AREAMAP); // XOR
-    //event.Skip();
-}
-
-
-
-
-void HTMLButcherFrame::OnMenuGrid(wxCommandEvent& event)
-{
-    if (view_->GetProjectView() == NULL) return;
-    view_->SetShowGrid(!view_->GetShowGrid());
-    //event.Skip();
-}
-
-
-
-
-void HTMLButcherFrame::OnMenuGridSize(wxCommandEvent& event)
-{
-    if (view_->GetProjectView() == NULL) return;
-
-    wxTextEntryDialog d(this, _("Enter grid size"), _("Grid Size"), wxString::Format(wxT("%d"), view_->GetGridSize()));
-    if (d.ShowModal() == wxID_OK) {
-        int a=wxAtoi(d.GetValue());
-        if (a>0)
-            view_->SetGridSize(a);
-    }
-    //event.Skip();
-}
-
-#if NEED_CHOOSELANG_UI
-void HTMLButcherFrame::OnMenuLanguage(wxCommandEvent& event)
-{
-	ChangeUILanguage();
-}
-#endif
-
-
-
-
-void HTMLButcherFrame::OnMenuFileAlternate(wxCommandEvent& event)
-{
-    if (view_->GetProjectView() == NULL) return;
-    view_->SetFileAlternate(!view_->GetFileAlternate());
-    LoadFileAlternate();
-    //event.Skip();
-}
 
 
 

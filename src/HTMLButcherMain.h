@@ -199,6 +199,19 @@ private Q_SLOTS:
 	void OnMenuViewSelect();
 	void OnMenuZoom(QAction *action);
 
+	void OnMenuShowPreview(bool checked);
+	void OnMenuShowBorders(bool checked);
+	void OnMenuShowAreas(bool checked);
+	void OnMenuShowAreasGlobal(bool checked);
+	void OnMenuShowAreasMap(bool checked);
+	void OnMenuGrid(bool checked);
+	void OnMenuGridSize();
+	void OnMenuFileAlternate(bool checked);
+
+#if NEED_CHOOSELANG_UI
+	void OnMenuLanguage();
+#endif
+
 #ifdef QT_HIDE_FROM
 
     void OnMenuMode(wxCommandEvent& event);
@@ -223,18 +236,6 @@ private Q_SLOTS:
 
     void OnMenuImageFormats(wxCommandEvent& event);
 
-    void OnMenuShowPreview(wxCommandEvent& event);
-    void OnMenuShowBorders(wxCommandEvent& event);
-    void OnMenuShowAreas(wxCommandEvent& event);
-    void OnMenuShowAreasGlobal(wxCommandEvent& event);
-    void OnMenuShowAreasMap(wxCommandEvent& event);
-    void OnMenuGrid(wxCommandEvent& event);
-    void OnMenuGridSize(wxCommandEvent& event);
-    void OnMenuFileAlternate(wxCommandEvent& event);
-
-#if NEED_CHOOSELANG_UI
-	void OnMenuLanguage(wxCommandEvent& event);
-#endif
 
 
     void OnMenuOperation(wxCommandEvent& event);
@@ -312,6 +313,8 @@ private:
 
 	QAction *menuNew_, *menuOpen_, *menuClose_, *menuSave_, *menuSaveAs_, *menuSaveForWeb_, *menuSaveForWebMultiple_, *menuOptions_, *menuQuit_;
 	QAction *menuViewSelect_, *menuZoomOut_, *menuZoomIn_, *menuZoomNormal_, *menuZoom_;
+	QAction *menuShowPreview_, *menuShowBorders_, *menuShowAreas_, *menuShowAreasGlobal_, *menuShowAreasMap_, *menuGrid_, *menuGridSize_;
+	QAction *menuFileAlternate_, *menuLanguage_;
 
     //DECLARE_EVENT_TABLE()
 };
