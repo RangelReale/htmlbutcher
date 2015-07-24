@@ -23,7 +23,7 @@
 //      ButcherProject
 /////////////////////////////////
 ButcherProject::ButcherProject() :
-    wxEvtHandler(), filename_(wxEmptyString), modified_(false),
+    /*wxEvtHandler(),*/ QObject(), filename_(wxEmptyString), modified_(false),
     files_(this), masks_(this), views_(this), colorschemes_(this),
     imageformats_(this), assortedfiles_(this), assortedfilegroups_(this),
     filepaths_(this), cssfiles_(this), projectoptions_(this),
@@ -303,7 +303,7 @@ void ButcherProject::Event(ButcherProjectEvent::event_t evt, BLID_t eid,
     BLID_t eid2, bool post)
 {
     ButcherProjectEvent e(this, evt, eid, eid2);
-    e.SetEventObject(this);
+    //e.SetEventObject(this);
 
     //ButcherProjectEventNotify en(e);
 
@@ -311,7 +311,10 @@ void ButcherProject::Event(ButcherProjectEvent::event_t evt, BLID_t eid,
     //EventNotify(en);
 
     // post event
-    ProcessEvent(e);
+    //ProcessEvent(e);
+
+	emit projectEvent(e);
+
 /*
     if (post)
         wxPostEvent(this, e);
@@ -326,7 +329,7 @@ void ButcherProject::Event(ButcherProjectEvent::event_t evt, BLID_t eid,
 void ButcherProject::EventNotify(ButcherProjectEvent::event_t evt, BLID_t eid, BLID_t eid2)
 {
     ButcherProjectEvent e(this, evt, eid, eid2);
-    e.SetEventObject(this);
+    //e.SetEventObject(this);
 
     ButcherProjectEventNotify en(e);
     ExecuteEventNotify(en);

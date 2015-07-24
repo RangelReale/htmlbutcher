@@ -12,6 +12,8 @@
 #ifndef HTMLBUTCHERAPP_H
 #define HTMLBUTCHERAPP_H
 
+#ifdef QT_HIDE_FROM
+
 #include "BConsts.h"
 #include <wx/app.h>
 #ifdef BUTCHER_USE_HELP
@@ -51,5 +53,7 @@ private:
 #endif
 #endif
 };
+
+#endif // QT_HIDE_FROM
 
 #endif // HTMLBUTCHERAPP_H

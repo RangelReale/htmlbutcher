@@ -8,7 +8,7 @@ include_directories(${HTMLButcher_SOURCE_DIR}/src/project)
 include_directories(${HTMLButcher_SOURCE_DIR}/src/view)
 
 #main
-set(SOURCES_MAIN HTMLButcherApp.cpp HTMLButcherApp.h HTMLButcherMain.cpp HTMLButcherMain.h HTMLButcherSplash.cpp HTMLButcherSplash.h HTMLButcherVersion.h )
+set(SOURCES_MAIN main.cpp HTMLButcherApp.cpp HTMLButcherApp.h HTMLButcherMain.cpp HTMLButcherMain.h HTMLButcherSplash.cpp HTMLButcherSplash.h HTMLButcherVersion.h )
 
 set(SOURCES ${SOURCES_MAIN})
 SOURCE_GROUP(Main FILES ${SOURCES_MAIN})
@@ -112,6 +112,8 @@ endif (HB_WITH_DEMO)
 #if (wxstedit_FOUND)
 #	add_definitions(-DBUTCHER_USE_STEDIT)
 #endif (wxstedit_FOUND)
+
+qt5_use_modules(HTMLButcher Widgets Network WebKit WebKitWidgets)
 
 
 #set_target_properties(HTMLButcherDemo PROPERTIES COMPILE_DEFINITIONS HTMLBUTCHER_DEMO)

@@ -14,6 +14,9 @@
 #include <wx/wx.h>
 #include "BList.h"
 
+#include <QEvent>
+#include <QMetaType>
+
 class ButcherProject;
 
 /**
@@ -21,9 +24,9 @@ class ButcherProject;
  *
  * @brief Project event
  */
-DECLARE_EVENT_TYPE( wxEVT_BUTCHERPROJECT_ACTION, -1 )
+//DECLARE_EVENT_TYPE( wxEVT_BUTCHERPROJECT_ACTION, -1 )
 
-class ButcherProjectEvent : public wxEvent
+class ButcherProjectEvent : public QEvent /*public wxEvent*/
 {
 public:
     enum event_t {
@@ -44,11 +47,18 @@ public:
 
         BPE_PROGRESS };
 
+	ButcherProjectEvent();
     ButcherProjectEvent(ButcherProject *project, event_t event, BLID_t eid, BLID_t eid2,
-        int id = 0, wxEventType commandType = wxEVT_BUTCHERPROJECT_ACTION);
+        int id = 0/*, wxEventType commandType = wxEVT_BUTCHERPROJECT_ACTION*/);
+
+	static QEvent::Type staticType()
+	{
+		static int type = QEvent::registerEventType();
+		return static_cast<QEvent::Type>(type);
+	}
 
     // required for sending with wxPostEvent()
-    virtual wxEvent* Clone() const;
+    //virtual wxEvent* Clone() const;
 
     ButcherProject *GetProject() { return project_; }
     event_t GetEvent() const { return event_; }
@@ -60,6 +70,7 @@ private:
     BLID_t eid_, eid2_;
 };
 
+/*
 typedef void (wxEvtHandler::*ButcherProjectEventFunction)(ButcherProjectEvent&);
 
 #define ButcherProjectEventHandler(func) \
@@ -70,5 +81,7 @@ typedef void (wxEvtHandler::*ButcherProjectEventFunction)(ButcherProjectEvent&);
     DECLARE_EVENT_TABLE_ENTRY( wxEVT_BUTCHERPROJECT_ACTION, id, -1, \
     (wxObjectEventFunction) (wxEventFunction) \
     wxStaticCastEvent( ButcherProjectEventFunction, & fn ), (wxObject *) NULL ),
+*/
+
 
 #endif // __BPROJECT_BUTCHERPROJECTEVENT_H__

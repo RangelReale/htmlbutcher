@@ -49,8 +49,9 @@
 #include "DialogDemo.h"
 #endif
 
+#include <QMenuBar>
 
-
+/*
 BEGIN_EVENT_TABLE(HTMLButcherFrame, wxFrame)
     EVT_CLOSE(HTMLButcherFrame::OnClose)
     EVT_MENU(idMenuNew, HTMLButcherFrame::OnMenuNew)
@@ -118,10 +119,13 @@ BEGIN_EVENT_TABLE(HTMLButcherFrame, wxFrame)
 
     //EVT_UPDATE_UI_RANGE(idAreaMenuStart, idAreaMenuEnd, HTMLButcherFrame::OnUpdateUIAreaMenu)
 END_EVENT_TABLE()
+*/
 
-HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
-    : wxFrame(frame, -1, title, wxDefaultPosition, wxDefaultSize,
-        wxDEFAULT_FRAME_STYLE | wxMAXIMIZE), project_(NULL), view_(NULL), viewinfo_(NULL),
+HTMLButcherFrame::HTMLButcherFrame()
+    : /*wxFrame(frame, -1, title, wxDefaultPosition, wxDefaultSize,
+        wxDEFAULT_FRAME_STYLE | wxMAXIMIZE),*/ 
+		QMainWindow(),
+		project_(NULL), view_(NULL), viewinfo_(NULL),
         lineselect_(NULL), areaselect_(NULL), progdlg_(NULL),
 #ifndef HTMLBUTCHER_DEMO
 		filehistory_(),
@@ -129,18 +133,21 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
         options_()
 {
 #ifdef HTMLBUTCHER_DEBUG
-    (void) new wxLogWindow(this, wxT("log"));
+    //(void) new wxLogWindow(this, wxT("log"));
 #endif //__WXDEBUG__
 
     // notify wxAUI which frame to use
-    mgr_.SetManagedWindow(this);
+    //mgr_.SetManagedWindow(this);
 
     options_.Load();
 
     // create a menu bar
-    wxMenuBar* mbar = new wxMenuBar();
-    wxMenu* fileMenu = new wxMenu(_T(""));
-    fileMenu->Append(idMenuNew, _("&New\tCtrl-N"), _("Create new project"));
+    //wxMenuBar* mbar = new wxMenuBar();
+    QMenu* fileMenu = new QMenu(tr("&File"), this);
+    //fileMenu->Append(idMenuNew, _("&New\tCtrl-N"), _("Create new project"));
+	menuNew_ = new QAction(tr("&New\tCtrl-N"), this); menuNew_->setStatusTip(tr("Create new project")); fileMenu->addAction(menuNew_);
+	connect(menuNew_, SIGNAL(triggered()), this, SLOT(OnMenuNew()));
+	/*
 #ifndef HTMLBUTCHER_DEMO
     fileMenu->Append(idMenuOpen, _("&Open...\tCtrl-O"), _("Open project"));
 #endif
@@ -166,11 +173,14 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
 #ifndef HTMLBUTCHER_DEMO
     filehistory_.Load(*wxConfigBase::Get(true));
 #endif
+	*/
 
-    mbar->Append(fileMenu, _("&File"));
+    //mbar->Append(fileMenu, _("&File"));
+	menuBar()->addMenu(fileMenu);
 
-    wxMenu* viewMenu = new wxMenu(_T(""));
+    QMenu* viewMenu = new QMenu(tr("&View"), this);
 
+	/*
     //wxMenu* viewviewMenu = new wxMenu(_T(""));
     //viewMenu->Append(idMenuViewSelect, _("&View"), _("View"));
     //viewMenu->Append(idMenuViewSelect, wxT("&View"), viewviewMenu, wxT("View"));
@@ -195,9 +205,12 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
     viewMenu->AppendSeparator();
     viewMenu->AppendCheckItem(idMenuLanguage, _("Lang&uage..."), _("Select language"));
 #endif
-    mbar->Append(viewMenu, _("&View"));
+	*/
+    //mbar->Append(viewMenu, _("&View"));
+	menuBar()->addMenu(viewMenu);
 
-    wxMenu* modeMenu = new wxMenu(_T(""));
+    QMenu* modeMenu = new QMenu(tr("&Mode"), this);
+	/*
     modeMenu->AppendRadioItem(idMenuModeNone, _("&None"), _("No selection mode"));
     modeMenu->AppendRadioItem(idMenuModeLine, _("&Line\tF2"), _("Line selection mode"));
     modeMenu->AppendRadioItem(idMenuModeArea, _("&Area\tF3"), _("Area selection mode"));
@@ -207,9 +220,12 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
     editmodeMenu->AppendRadioItem(idMenuEditModeAdvanced, _("&Advanced"), _("Advanced edit mode"));
     modeMenu->AppendSeparator();
     modeMenu->Append(wxID_STATIC, _("&Edit mode"), editmodeMenu, _("Edit mode"));
-    mbar->Append(modeMenu, _("&Mode"));
+	*/
+    //mbar->Append(modeMenu, _("&Mode"));
+	menuBar()->addMenu(modeMenu);
 
-    wxMenu* dataMenu = new wxMenu(_T(""));
+    QMenu* dataMenu = new QMenu(tr("&Data"), this);
+	/*
     dataMenu->Append(idMenuFiles, _("&Files...\tF5"), _("Project files"));
     dataMenu->Append(idMenuMasks, _("&Masks...\tF6"), _("Project masks"));
     dataMenu->Append(idMenuViews, _("&Views...\tF7"), _("Project views"));
@@ -228,9 +244,12 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
     dataMenu->Append(idMenuWizNewView, _("New vie&w wizard"), _("Shows the new view wizard"));
     dataMenu->AppendSeparator();
     dataMenu->Append(idMenuProjectOptions, _("Project &options..."), _("Project options"));
-    mbar->Append(dataMenu, _("&Data"));
+	*/
+    //mbar->Append(dataMenu, _("&Data"));
+	menuBar()->addMenu(dataMenu);
 
-    wxMenu* helpMenu = new wxMenu(_T(""));
+    QMenu* helpMenu = new QMenu(tr("&Help"), this);
+	/*
 #ifdef BUTCHER_USE_HELP
 	helpMenu->Append(wxID_HELP, _("&Contents\tF1"), _("Help contents"));
     helpMenu->AppendSeparator();
@@ -239,23 +258,25 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
 #ifdef HTMLBUTCHER_DEBUG
 	helpMenu->Append(idMenuHelpTest, _("&Test"), _("Test"));
 #endif
-    mbar->Append(helpMenu, _("&Help"));
+	*/
+    //mbar->Append(helpMenu, _("&Help"));
+	menuBar()->addMenu(helpMenu);
 
-    SetMenuBar(mbar);
+    //SetMenuBar(mbar);
 
     // create a status bar with some information about the used wxWidgets version
+	/*
     wxStatusBar *sbar = new wxStatusBar(this);
     int sbarwidths[5] = { 100, 100, 250, 300, 100 };
     sbar->SetFieldsCount(5, sbarwidths);
 
     SetStatusBar(sbar);
     SetStatusBarPane(3);
+	*/
 
-    //CreateStatusBar(2);
-    //SetStatusText(_("Hello Code::Blocks user!"),0);
-    //SetStatusText(wxbuildinfo(short_f), 1);
+	statusBar();
 
-
+#ifdef QT_HIDE_FROM
     wxBitmap bmp_base = wxArtProvider::GetBitmap(wxART_QUESTION, wxART_OTHER, wxSize(16,16));
 
     // TOOLBAR: File
@@ -395,16 +416,20 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
                   GripperTop().
                   TopDockable(false).BottomDockable(false));
 */
+#endif QT_HIDE_FROM
 
     // main area
-    //panBase_ = new wxPanel(this, wxID_ANY, wxPoint(0, 0), wxSize(200, 200), wxBORDER_SUNKEN);
-    panBase_ = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxBORDER_SUNKEN);
-    //panBase_->SetBackgroundColour(*wxRED);
+    //panBase_ = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxBORDER_SUNKEN);
+	panBase_ = new QWidget(this);
+	/*
     mgr_.AddPane(panBase_, wxAuiPaneInfo().
                   Name(wxT("panBase")).Caption(_("Base")).
                   CentrePane().PaneBorder(false));
+	*/
+	setCentralWidget(panBase_);
 
 
+#ifdef QT_HIDE_FROM
 
     szBase_ = new wxBoxSizer( wxVERTICAL );
 
@@ -434,16 +459,20 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
     //szBase_->Hide(viewinfo_);
 
     panBase_->SetSizer( szBase_ );
+#endif QT_HIDE_FROM
 
     // "commit" all changes made to wxAuiManager
-    mgr_.Update();
+    //mgr_.Update();
 
     project_=new ButcherProject;
     project_->SetOptions(&options_);
 
+	/*
     project_->Connect(wxID_ANY, wxEVT_BUTCHERPROJECT_ACTION,
         ButcherProjectEventHandler(HTMLButcherFrame::OnProjectEvent),
         NULL, this);
+	*/
+	connect(project_, SIGNAL(projectEvent(ButcherProjectEvent &)), this, SLOT(OnProjectEvent(ButcherProjectEvent &)));
 
     UpdateAppState();
 
@@ -470,9 +499,12 @@ HTMLButcherFrame::~HTMLButcherFrame()
 
     project_->Close();
 
+	/*
     project_->Disconnect(wxID_ANY, wxEVT_BUTCHERPROJECT_ACTION,
         ButcherProjectEventHandler(HTMLButcherFrame::OnProjectEvent),
         NULL, this);
+	*/
+	disconnect(project_, SIGNAL(projectEvent(ButcherProjectEvent &)), this, SLOT(projectEvent(ButcherProjectEvent &)));
 
     view_->SetProject(NULL);
 
@@ -481,10 +513,11 @@ HTMLButcherFrame::~HTMLButcherFrame()
     if (lineselect_) delete lineselect_;
     if (areaselect_) delete areaselect_;
 
-    mgr_.UnInit();
+    //mgr_.UnInit();
 }
 
 
+#ifdef QT_HIDE_FROM
 
 void HTMLButcherFrame::OnClose(wxCloseEvent &event)
 {
@@ -502,11 +535,12 @@ void HTMLButcherFrame::OnClose(wxCloseEvent &event)
     Destroy();
 }
 
+#endif // QT_HIDE_FROM
 
 
 
 
-void HTMLButcherFrame::OnMenuNew(wxCommandEvent& event)
+void HTMLButcherFrame::OnMenuNew()
 {
 	if (!DoCloseProject()) return;
 
@@ -516,13 +550,16 @@ void HTMLButcherFrame::OnMenuNew(wxCommandEvent& event)
     UpdateAppState();
 
 	// Run new view wizard
+#ifdef QT_HIDE_FROM
 	HTMLButcherNewViewWizard nvwizard(this, wxID_ANY, project_);
 	if (nvwizard.RunWizard(nvwizard.GetFirstPage()))
 		SetView(nvwizard.GetViewId());
+#endif QT_HIDE_FROM
 }
 
 
 
+#ifdef QT_HIDE_FROM
 
 #ifndef HTMLBUTCHER_DEMO
 void HTMLButcherFrame::OnMenuOpen(wxCommandEvent& event)
@@ -1112,6 +1149,7 @@ void HTMLButcherFrame::OnMenuOperation(wxCommandEvent& event)
     //event.Skip();
 }
 
+#endif // QT_HIDE_FROM
 
 
 #ifndef HTMLBUTCHER_DEMO
@@ -1133,6 +1171,8 @@ bool HTMLButcherFrame::DoCloseProject()
 {
     if (!project_->IsOpen()) return true;
 
+#ifdef QT_HIDE_FROM
+
 #ifndef HTMLBUTCHER_DEMO
 	if (project_->GetModified()) {
         wxMessageDialog d(this, _("Current project is not saved, close anyway?"),
@@ -1140,6 +1180,9 @@ bool HTMLButcherFrame::DoCloseProject()
         if (d.ShowModal() != wxID_YES) return false;
     }
 #endif
+
+#endif // QT_HIDE_FROM
+
     project_->Close();
 
     UpdateAppState();
@@ -1151,6 +1194,8 @@ bool HTMLButcherFrame::DoCloseProject()
 
 void HTMLButcherFrame::UpdateAppState()
 {
+#ifdef QT_HIDE_FROM
+
     wxMenuBar *menu = GetMenuBar();
     wxToolBar *tbFile = (wxToolBar*)FindWindow(idTBFile);
 #if defined(__WXMAC__)
@@ -1288,6 +1333,7 @@ void HTMLButcherFrame::UpdateAppState()
 
     if (!isactive) SetStatusText(wxEmptyString, 0);
     if (!isview) SetStatusText(wxEmptyString, 1);
+#endif // QT_HIDE_FROM
 }
 
 
@@ -1332,13 +1378,14 @@ void HTMLButcherFrame::OnProjectEvent(ButcherProjectEvent& event)
     default:
         break;
     }
-    event.Skip(); // IMPORTANT!
+    //event.Skip(); // IMPORTANT!
 }
 
 
 
 void HTMLButcherFrame::LoadViews(bool check)
 {
+#ifdef QT_HIDE_FROM
     wxComboBox* viewsctrl=(wxComboBox*)FindWindow(idViewList);
     wxMenuItem *mitem=GetMenuBar()->FindItem(idMenuViewSelect), *newmitem;
 
@@ -1398,6 +1445,7 @@ void HTMLButcherFrame::LoadViews(bool check)
             SetView(0);
         }
     }
+#endif // QT_HIDE_FROM
 }
 
 
@@ -1405,6 +1453,7 @@ void HTMLButcherFrame::LoadViews(bool check)
 
 void HTMLButcherFrame::SetView(unsigned long id)
 {
+#ifdef QT_HIDE_FROM
     if (project_->IsOpen() && id>0) {
         if (view_->GetProjectViewId() == id) return;
 
@@ -1437,6 +1486,7 @@ void HTMLButcherFrame::SetView(unsigned long id)
     LoadFileAlternate();
 
     UpdateAppState();
+#endif // QT_HIDE_FROM
 }
 
 
@@ -1444,6 +1494,7 @@ void HTMLButcherFrame::SetView(unsigned long id)
 
 void HTMLButcherFrame::LoadModes()
 {
+#ifdef QT_HIDE_FROM
     wxComboBox* modesctrl=(wxComboBox*)FindWindow(idModeList);
 
     modesctrl->Clear();
@@ -1454,6 +1505,7 @@ void HTMLButcherFrame::LoadModes()
 
     view_->SetDefaultMode(ButcherViewEditor::MODE_SELECTAREA);
     modesctrl->SetSelection(2);
+#endif // QT_HIDE_FROM
 }
 
 
@@ -1461,7 +1513,8 @@ void HTMLButcherFrame::LoadModes()
 
 void HTMLButcherFrame::LoadFileAlternate()
 {
-    wxComboBox* factrl=(wxComboBox*)FindWindow(idFileAlternateList);
+#ifdef QT_HIDE_FROM
+	wxComboBox* factrl = (wxComboBox*)FindWindow(idFileAlternateList);
 
     factrl->Clear();
 
@@ -1490,18 +1543,21 @@ void HTMLButcherFrame::LoadFileAlternate()
     if (factrl->GetSelection() == wxNOT_FOUND) {
         factrl->SetSelection(0);
     }
+#endif // QT_HIDE_FROM
 }
 
 
 
 void HTMLButcherFrame::OnViewSelect(wxCommandEvent& event)
 {
-    wxComboBox* viewsctrl=(wxComboBox*)event.GetEventObject();
+#ifdef QT_HIDE_FROM
+	wxComboBox* viewsctrl = (wxComboBox*)event.GetEventObject();
 
     if (viewsctrl->GetSelection() != wxNOT_FOUND) {
         view_->SetFocus();
         SetView(wxccu_control_getselectedid(viewsctrl, 0));
     }
+#endif // QT_HIDE_FROM
 }
 
 
@@ -1509,7 +1565,8 @@ void HTMLButcherFrame::OnViewSelect(wxCommandEvent& event)
 
 void HTMLButcherFrame::OnModeSelect(wxCommandEvent& event)
 {
-    wxComboBox* modesctrl=(wxComboBox*)event.GetEventObject();
+#ifdef QT_HIDE_FROM
+	wxComboBox* modesctrl = (wxComboBox*)event.GetEventObject();
 
     if (modesctrl->GetSelection() != wxNOT_FOUND) {
         view_->SetDefaultMode(wxccu_control_getselectedid(modesctrl, ButcherViewEditor::MODE_DEFAULT));
@@ -1518,6 +1575,7 @@ void HTMLButcherFrame::OnModeSelect(wxCommandEvent& event)
 
         UpdateAppState();
     }
+#endif // QT_HIDE_FROM
 }
 
 
@@ -1525,12 +1583,14 @@ void HTMLButcherFrame::OnModeSelect(wxCommandEvent& event)
 
 void HTMLButcherFrame::OnFileAlternateSelect(wxCommandEvent& event)
 {
-    wxComboBox* factrl=(wxComboBox*)event.GetEventObject();
+#ifdef QT_HIDE_FROM
+	wxComboBox* factrl = (wxComboBox*)event.GetEventObject();
 
     if (factrl->GetSelection() != wxNOT_FOUND) {
         FileAlternateSelect(wxccu_control_getselectedid(factrl, 0));
     }
     view_->SetFocus();
+#endif // QT_HIDE_FROM
 }
 
 
@@ -1539,9 +1599,11 @@ void HTMLButcherFrame::OnFileAlternateSelect(wxCommandEvent& event)
 
 void HTMLButcherFrame::OnDocumentMouse(ButcherDocumentMouseEvent& event)
 {
-    if (event.GetOriginEventType() == wxEVT_MOTION)
+#ifdef QT_HIDE_FROM
+	if (event.GetOriginEventType() == wxEVT_MOTION)
         SetStatusText(wxString::Format(_("X: %d Y: %d"), event.GetX(), event.GetY()), 1);
     event.Skip();
+#endif // QT_HIDE_FROM
 }
 
 
@@ -1582,7 +1644,8 @@ void HTMLButcherFrame::OnDocumentKey(ButcherDocumentKeyEvent& event)
 
 void HTMLButcherFrame::OnBViewSelect(ButcherViewSelectEvent& event)
 {
-    wxString msg=wxEmptyString;
+#ifdef QT_HIDE_FROM
+	wxString msg = wxEmptyString;
     wxString temp;
 
     if (event.GetSelect() == ButcherViewSelectEvent::SEL_LINEHOVER) {
@@ -1626,6 +1689,7 @@ void HTMLButcherFrame::OnBViewSelect(ButcherViewSelectEvent& event)
         amenu.ShowAreaMenu();
     }
     event.Skip();
+#endif // QT_HIDE_FROM
 }
 
 
@@ -1633,13 +1697,15 @@ void HTMLButcherFrame::OnBViewSelect(ButcherViewSelectEvent& event)
 
 void HTMLButcherFrame::OnButcherStatus(ButcherStatusEvent& event)
 {
-    switch (event.GetStatus()) {
+#ifdef QT_HIDE_FROM
+	switch (event.GetStatus()) {
     case ButcherStatusEvent::ST_OPERATION:
         SetStatusText(event.GetMessage(), 2);
         break;
     default:
         break;
     }
+#endif // QT_HIDE_FROM
 }
 
 
@@ -1655,7 +1721,8 @@ void HTMLButcherFrame::OnButcherOperation(wxCommandEvent& event)
 
 void HTMLButcherFrame::FileAlternateSelect(int index, bool refreshlist)
 {
-    if (view_->GetProjectView() == NULL) return;
+#ifdef QT_HIDE_FROM
+	if (view_->GetProjectView() == NULL) return;
 
     if (index==0)
     {
@@ -1669,6 +1736,7 @@ void HTMLButcherFrame::FileAlternateSelect(int index, bool refreshlist)
 
     if (refreshlist)
         LoadFileAlternate();
+#endif // QT_HIDE_FROM
 }
 
 

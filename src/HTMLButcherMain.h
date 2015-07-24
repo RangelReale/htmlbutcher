@@ -29,19 +29,26 @@
 #include "BControls.h"
 #include "BLanguage.h"
 
+#include <QMainWindow>
+#include <QMenu>
+#include <QAction>
+
 class ButcherViewEditor;
 class ButcherViewDisplay;
 
-class HTMLButcherFrame: public wxFrame
+class HTMLButcherFrame: public QMainWindow //wxFrame
 {
+	Q_OBJECT
 public:
-    HTMLButcherFrame(wxFrame *frame, const wxString& title);
+    HTMLButcherFrame();
     ~HTMLButcherFrame();
 
 #ifndef HTMLBUTCHER_DEMO
     void DoOpenProject(const wxString &filename);
 #endif
     bool DoCloseProject();
+public Q_SLOTS:
+	void OnProjectEvent(ButcherProjectEvent& event);
 private:
     enum
     {
@@ -159,7 +166,11 @@ private:
         ID_LINEMENU_MAX
     };
 
-    void OnMenuNew(wxCommandEvent& event);
+private Q_SLOTS:
+    void OnMenuNew();
+
+#ifdef QT_HIDE_FROM
+
 #ifndef HTMLBUTCHER_DEMO
     void OnMenuOpen(wxCommandEvent& event);
 #endif
@@ -232,7 +243,10 @@ private:
     void OnAbout4(wxCommandEvent& event);
     void OnAbout5(wxCommandEvent& event);
 
-    void OnProjectEvent(ButcherProjectEvent& event);
+#endif // QT_HIDE_FROM
+
+private:
+
     void OnDocumentMouse(ButcherDocumentMouseEvent& event);
     void OnDocumentKey(ButcherDocumentKeyEvent& event);
     void OnBViewSelect(ButcherViewSelectEvent& event);
@@ -265,9 +279,12 @@ private:
     void FileAlternateSelect(int index, bool refreshlist = true);
 
 
+	/*
     wxAuiManager mgr_;
     wxPanel* panBase_;
     wxBoxSizer *szBase_;
+	*/
+	QWidget *panBase_;
 
     ButcherProject* project_;
     ButcherViewEditor* view_;
@@ -284,7 +301,9 @@ private:
 #endif
     ButcherOptions options_;
 
-    DECLARE_EVENT_TABLE()
+	QAction *menuNew_;
+
+    //DECLARE_EVENT_TABLE()
 };
 
 

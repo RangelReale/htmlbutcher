@@ -9,6 +9,8 @@
  */
 //=============================================================================
 
+#ifdef QT_HIDE_FROM
+
 /*
 #if defined(_MSC_VER) && !defined(_WIN64)
 // visual leak detector
@@ -355,5 +357,6 @@ bool HTMLButcherApp::OnCmdLineParsed(wxCmdLineParser& parser)
     return true;
 }
 
+#endif // QT_HIDE_FROM
 
 

@@ -33,6 +33,8 @@
 #include "ButcherProjectBaseAutoUpdate.h"
 #include "ButcherProjectMetadataFile.h"
 
+#include <QObject>
+
 using namespace std;
 
 /**
@@ -40,7 +42,8 @@ using namespace std;
  *
  * @brief Project
  */
-class ButcherProject : public wxEvtHandler {
+class ButcherProject : public QObject /*: public wxEvtHandler*/ {
+	Q_OBJECT
 public:
     enum updflag_t { UF_PROGRESS=1, UF_FAST=2, UF_GROUP=4 };
     typedef unsigned short updflags_t;
@@ -103,6 +106,8 @@ public:
 
     ButcherOptions *GetOptions() { return options_; }
     void SetOptions(ButcherOptions *options) { options_=options; }
+Q_SIGNALS:
+	void projectEvent(ButcherProjectEvent &event);
 protected:
     friend class ButcherProjectBase;
 private:
