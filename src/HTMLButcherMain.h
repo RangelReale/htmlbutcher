@@ -212,12 +212,11 @@ private Q_SLOTS:
 	void OnMenuLanguage();
 #endif
 
+    void OnMenuMode(QAction *action);
+    void OnMenuEditMode(QAction *action);
+
 #ifdef QT_HIDE_FROM
-
-    void OnMenuMode(wxCommandEvent& event);
-    void OnMenuEditMode(wxCommandEvent& event);
-
-    void OnMenuFiles(wxCommandEvent& event);
+	void OnMenuFiles(wxCommandEvent& event);
     void OnMenuMasks(wxCommandEvent& event);
     void OnMenuViews(wxCommandEvent& event);
 
@@ -315,6 +314,7 @@ private:
 	QAction *menuViewSelect_, *menuZoomOut_, *menuZoomIn_, *menuZoomNormal_, *menuZoom_;
 	QAction *menuShowPreview_, *menuShowBorders_, *menuShowAreas_, *menuShowAreasGlobal_, *menuShowAreasMap_, *menuGrid_, *menuGridSize_;
 	QAction *menuFileAlternate_, *menuLanguage_;
+	QAction *menuModeNone_, *menuModeLine_, *menuModeArea_, *menuEditModeBasic_, *menuEditModeNormal_, *menuEditModeAdvanced_;
 
     //DECLARE_EVENT_TABLE()
 };

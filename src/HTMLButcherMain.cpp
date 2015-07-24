@@ -134,6 +134,7 @@ HTMLButcherFrame::HTMLButcherFrame()
         options_()
 {
 	setWindowTitle("HTMLButcher");
+	resize(1280, 720);
 
 #ifdef HTMLBUTCHER_DEBUG
     //(void) new wxLogWindow(this, wxT("log"));
@@ -238,7 +239,7 @@ HTMLButcherFrame::HTMLButcherFrame()
 	//viewMenu->AppendCheckItem(idMenuGrid, _("&Grid\tCTRL-G"), _("Show/hide grid"));
 	menuGrid_ = viewMenu->addAction(tr("&Grid\tCTRL-G"), this, SLOT(OnMenuGrid(bool))); menuGrid_->setStatusTip(tr("Show/hide grid")); menuGrid_->setCheckable(true);
 	//viewMenu->Append(idMenuGridSize, _("Grid &size..."), _("Grid size"));
-	menuGridSize_ = viewMenu->addAction(tr("Grid &size..."), this, SLOT(OnMenuGridSize(bool))); menuGridSize_->setStatusTip(tr("Grid size"));
+	menuGridSize_ = viewMenu->addAction(tr("Grid &size..."), this, SLOT(OnMenuGridSize())); menuGridSize_->setStatusTip(tr("Grid size"));
 	viewMenu->addSeparator();
 
 	//viewMenu->AppendCheckItem(idMenuFileAlternate, _("Alterna&te File\tF12"), _("Show alternate file"));
@@ -253,17 +254,29 @@ HTMLButcherFrame::HTMLButcherFrame()
 	menuBar()->addMenu(viewMenu);
 
     QMenu* modeMenu = new QMenu(tr("&Mode"), this);
-#ifdef QT_HIDE_FROM
-	modeMenu->AppendRadioItem(idMenuModeNone, _("&None"), _("No selection mode"));
-    modeMenu->AppendRadioItem(idMenuModeLine, _("&Line\tF2"), _("Line selection mode"));
-    modeMenu->AppendRadioItem(idMenuModeArea, _("&Area\tF3"), _("Area selection mode"));
-    wxMenu* editmodeMenu = new wxMenu(wxEmptyString);
-    editmodeMenu->AppendRadioItem(idMenuEditModeBasic, _("&Basic"), _("Basic edit mode"));
-    editmodeMenu->AppendRadioItem(idMenuEditModeNormal, _("&Normal"), _("Normal edit mode"));
-    editmodeMenu->AppendRadioItem(idMenuEditModeAdvanced, _("&Advanced"), _("Advanced edit mode"));
-    modeMenu->AppendSeparator();
-    modeMenu->Append(wxID_STATIC, _("&Edit mode"), editmodeMenu, _("Edit mode"));
-#endif // QT_HIDE_FROM
+
+	QActionGroup *agMode = new QActionGroup(this);
+	//modeMenu->AppendRadioItem(idMenuModeNone, _("&None"), _("No selection mode"));
+	menuModeNone_ = modeMenu->addAction(tr("&None")); menuModeNone_->setStatusTip(tr("No selection mode")); menuModeNone_->setCheckable(true); agMode->addAction(menuModeNone_); menuModeNone_->setChecked(true);
+    //modeMenu->AppendRadioItem(idMenuModeLine, _("&Line\tF2"), _("Line selection mode"));
+	menuModeLine_ = modeMenu->addAction(tr("&Line\tF2")); menuModeLine_->setStatusTip(tr("Line selection mode")); menuModeLine_->setCheckable(true); agMode->addAction(menuModeLine_);
+    //modeMenu->AppendRadioItem(idMenuModeArea, _("&Area\tF3"), _("Area selection mode"));
+	menuModeArea_ = modeMenu->addAction(tr("&Area\tF3")); menuModeArea_->setStatusTip(tr("Area selection mode")); menuModeArea_->setCheckable(true); agMode->addAction(menuModeArea_);
+	connect(agMode, SIGNAL(triggered(QAction*)), this, SLOT(OnMenuMode(QAction*)));
+
+	QMenu* editmodeMenu = new QMenu(tr("&Edit mode"), this); editmodeMenu->setStatusTip(tr("Edit mode"));
+	QActionGroup *agEditMode = new QActionGroup(this); 
+	//editmodeMenu->AppendRadioItem(idMenuEditModeBasic, _("&Basic"), _("Basic edit mode"));
+	menuEditModeBasic_ = editmodeMenu->addAction(tr("&Basic")); menuEditModeBasic_->setStatusTip(tr("Basic edit mode")); menuEditModeBasic_->setCheckable(true); agEditMode->addAction(menuEditModeBasic_); menuEditModeBasic_->setChecked(true);
+    //editmodeMenu->AppendRadioItem(idMenuEditModeNormal, _("&Normal"), _("Normal edit mode"));
+	menuEditModeNormal_ = editmodeMenu->addAction(tr("&Normal")); menuEditModeNormal_->setStatusTip(tr("Normal edit mode")); menuEditModeNormal_->setCheckable(true); agEditMode->addAction(menuEditModeNormal_);
+    //editmodeMenu->AppendRadioItem(idMenuEditModeAdvanced, _("&Advanced"), _("Advanced edit mode"));
+	menuEditModeAdvanced_ = editmodeMenu->addAction(tr("&Advanced")); menuEditModeAdvanced_->setStatusTip(tr("Advanced edit mode")); menuEditModeAdvanced_->setCheckable(true); agEditMode->addAction(menuEditModeAdvanced_);
+	connect(agEditMode, SIGNAL(triggered(QAction*)), this, SLOT(OnMenuEditMode(QAction*)));
+
+    modeMenu->addSeparator();
+    modeMenu->addMenu(editmodeMenu);
+
 	//mbar->Append(modeMenu, _("&Mode"));
 	menuBar()->addMenu(modeMenu);
 
@@ -912,6 +925,58 @@ void HTMLButcherFrame::OnMenuLanguage()
 }
 #endif
 
+void HTMLButcherFrame::OnMenuMode(QAction *action)
+{
+#ifdef QT_HIDE_FROM
+	wxComboBox* modesctrl = (wxComboBox*)FindWindow(idModeList);
+
+	switch (event.GetId())
+	{
+	case idMenuModeNone:
+		view_->SetDefaultMode(ButcherViewEditor::MODE_DEFAULT);
+		//modesctrl->SetSelection(0);
+		modesctrl->SetSelection(wxccu_control_getindex(modesctrl, ButcherViewEditor::MODE_DEFAULT));
+		break;
+	case idMenuModeLine:
+		view_->SetDefaultMode(ButcherViewEditor::MODE_SELECTLINE);
+		//modesctrl->SetSelection(1);
+		modesctrl->SetSelection(wxccu_control_getindex(modesctrl, ButcherViewEditor::MODE_SELECTLINE));
+		break;
+	case idMenuModeArea:
+		view_->SetDefaultMode(ButcherViewEditor::MODE_SELECTAREA);
+		//modesctrl->SetSelection(2);
+		modesctrl->SetSelection(wxccu_control_getindex(modesctrl, ButcherViewEditor::MODE_SELECTAREA));
+		break;
+	}
+	UpdateAppState();
+	//event.Skip();
+#endif // QT_HIDE_FROM
+}
+
+
+
+
+void HTMLButcherFrame::OnMenuEditMode(QAction *action)
+{
+#ifdef QT_HIDE_FROM
+	switch (event.GetId())
+	{
+	case idMenuEditModeBasic:
+		options_.SetEditMode(ButcherOptions::EM_BASIC);
+		break;
+	case idMenuEditModeNormal:
+		options_.SetEditMode(ButcherOptions::EM_NORMAL);
+		break;
+	case idMenuEditModeAdvanced:
+		options_.SetEditMode(ButcherOptions::EM_ADVANCED);
+		break;
+	}
+	options_.Save();
+
+	UpdateAppState();
+	//event.Skip();
+#endif // QT_HIDE_FROM
+}
 
 #ifdef QT_HIDE_FROM
 
@@ -949,54 +1014,7 @@ void HTMLButcherFrame::OnHelpTest(wxCommandEvent& event)
 
 
 
-void HTMLButcherFrame::OnMenuMode(wxCommandEvent& event)
-{
-    wxComboBox* modesctrl=(wxComboBox*)FindWindow(idModeList);
 
-    switch (event.GetId())
-    {
-    case idMenuModeNone:
-        view_->SetDefaultMode(ButcherViewEditor::MODE_DEFAULT);
-        //modesctrl->SetSelection(0);
-        modesctrl->SetSelection(wxccu_control_getindex(modesctrl, ButcherViewEditor::MODE_DEFAULT));
-        break;
-    case idMenuModeLine:
-        view_->SetDefaultMode(ButcherViewEditor::MODE_SELECTLINE);
-        //modesctrl->SetSelection(1);
-        modesctrl->SetSelection(wxccu_control_getindex(modesctrl, ButcherViewEditor::MODE_SELECTLINE));
-        break;
-    case idMenuModeArea:
-        view_->SetDefaultMode(ButcherViewEditor::MODE_SELECTAREA);
-        //modesctrl->SetSelection(2);
-        modesctrl->SetSelection(wxccu_control_getindex(modesctrl, ButcherViewEditor::MODE_SELECTAREA));
-        break;
-    }
-    UpdateAppState();
-    //event.Skip();
-}
-
-
-
-
-void HTMLButcherFrame::OnMenuEditMode(wxCommandEvent& event)
-{
-    switch (event.GetId())
-    {
-    case idMenuEditModeBasic:
-        options_.SetEditMode(ButcherOptions::EM_BASIC);
-        break;
-    case idMenuEditModeNormal:
-        options_.SetEditMode(ButcherOptions::EM_NORMAL);
-        break;
-    case idMenuEditModeAdvanced:
-        options_.SetEditMode(ButcherOptions::EM_ADVANCED);
-        break;
-    }
-    options_.Save();
-
-    UpdateAppState();
-    //event.Skip();
-}
 
 
 
@@ -1286,11 +1304,44 @@ void HTMLButcherFrame::UpdateAppState()
     menuSaveForWebMultiple_->setEnabled(isactive);
 #endif
 
+	menuViewSelect_->setEnabled(isactive);
+	menuZoomIn_->setEnabled(isactive && isview);
+	menuZoomOut_->setEnabled(isactive && isview);
+	menuZoomNormal_->setEnabled(isactive && isview);
+	menuZoom_->setEnabled(isactive && isview);
+
 #ifdef QT_HIDE_FROM
-	menu->Enable(idMenuModeNone, isactive && isview);
-    menu->Enable(idMenuModeLine, isactive && isview);
-    menu->Enable(idMenuModeArea, isactive && isview);
-    menu->Check(idMenuModeNone, isactive && isview && view_->GetDefaultMode() == ButcherViewEditor::MODE_DEFAULT);
+	menu->Enable(idMenuFileAlternate, isactive && isview && view_->GetProjectView()->HaveFileAlternate());
+
+	menu->Check(idMenuFileAlternate, isactive && isview && view_->GetProjectView()->HaveFileAlternate() && view_->GetFileAlternate());
+#endif // QT_HIDE_FROM
+
+	menuShowPreview_->setEnabled(isactive && isview);
+	menuShowBorders_->setEnabled(isactive && isview);
+#ifdef QT_HIDE_FROM
+	menu->Enable(idMenuShowAreas, isactive && isview && view_->GetProjectViewShowAreas());
+	menu->Enable(idMenuShowAreasGlobal, isactive && isview && view_->GetProjectViewShowAreasGlobal());
+	menu->Enable(idMenuShowAreasMap, isactive && isview && view_->GetProjectViewShowAreas());
+#endif // QT_HIDE_FROM
+	menuGrid_->setEnabled(isactive && isview);
+	menuGridSize_->setEnabled(isactive && isview);
+#ifdef QT_HIDE_FROM
+	menu->Check(idMenuGrid, isactive && isview && view_->GetShowGrid());
+	menu->Check(idMenuShowPreview, isactive && isview && view_->GetShowPreview());
+	menu->Check(idMenuShowBorders, isactive && isview && view_->GetShowBorders());
+	//menu->Check(idMenuShowAreas, isactive && isview && view_->GetShowAreas());
+	//menu->Check(idMenuShowAreasGlobal, isactive && isview && view_->GetShowAreasGlobal());
+	menu->Check(idMenuShowAreas, isactive && isview && ((view_->GetAreaView()&ButcherView::AV_AREA)==ButcherView::AV_AREA));
+	menu->Check(idMenuShowAreasGlobal, isactive && isview && ((view_->GetAreaView()&ButcherView::AV_AREAGLOBAL)==ButcherView::AV_AREAGLOBAL));
+	menu->Check(idMenuShowAreasMap, isactive && isview && ((view_->GetAreaView()&ButcherView::AV_AREAMAP)==ButcherView::AV_AREAMAP));
+#endif // QT_HIDE_FROM
+
+	menuModeNone_->setEnabled(isactive && isview);
+    menuModeLine_->setEnabled(isactive && isview);
+    menuModeArea_->setEnabled(isactive && isview);
+
+#ifdef QT_HIDE_FROM
+	menu->Check(idMenuModeNone, isactive && isview && view_->GetDefaultMode() == ButcherViewEditor::MODE_DEFAULT);
     menu->Check(idMenuModeLine, isactive && isview && view_->GetDefaultMode() == ButcherViewEditor::MODE_SELECTLINE);
     menu->Check(idMenuModeArea, isactive && isview && view_->GetDefaultMode() == ButcherViewEditor::MODE_SELECTAREA);
 
@@ -1318,31 +1369,6 @@ void HTMLButcherFrame::UpdateAppState()
 
     menu->Enable(idMenuProjectOptions, isactive);
 
-    menu->Enable(idMenuViewSelect, isactive);
-    menu->Enable(idMenuZoomIn, isactive && isview);
-    menu->Enable(idMenuZoomOut, isactive && isview);
-    menu->Enable(idMenuZoomNormal, isactive && isview);
-    menu->Enable(idMenuZoom, isactive && isview);
-
-    menu->Enable(idMenuFileAlternate, isactive && isview && view_->GetProjectView()->HaveFileAlternate());
-
-    menu->Check(idMenuFileAlternate, isactive && isview && view_->GetProjectView()->HaveFileAlternate() && view_->GetFileAlternate());
-
-    menu->Enable(idMenuShowPreview, isactive && isview);
-    menu->Enable(idMenuShowBorders, isactive && isview);
-    menu->Enable(idMenuShowAreas, isactive && isview && view_->GetProjectViewShowAreas());
-    menu->Enable(idMenuShowAreasGlobal, isactive && isview && view_->GetProjectViewShowAreasGlobal());
-    menu->Enable(idMenuShowAreasMap, isactive && isview && view_->GetProjectViewShowAreas());
-    menu->Enable(idMenuGrid, isactive && isview);
-    menu->Enable(idMenuGridSize, isactive && isview);
-    menu->Check(idMenuGrid, isactive && isview && view_->GetShowGrid());
-    menu->Check(idMenuShowPreview, isactive && isview && view_->GetShowPreview());
-    menu->Check(idMenuShowBorders, isactive && isview && view_->GetShowBorders());
-    //menu->Check(idMenuShowAreas, isactive && isview && view_->GetShowAreas());
-    //menu->Check(idMenuShowAreasGlobal, isactive && isview && view_->GetShowAreasGlobal());
-    menu->Check(idMenuShowAreas, isactive && isview && ((view_->GetAreaView()&ButcherView::AV_AREA)==ButcherView::AV_AREA));
-    menu->Check(idMenuShowAreasGlobal, isactive && isview && ((view_->GetAreaView()&ButcherView::AV_AREAGLOBAL)==ButcherView::AV_AREAGLOBAL));
-    menu->Check(idMenuShowAreasMap, isactive && isview && ((view_->GetAreaView()&ButcherView::AV_AREAMAP)==ButcherView::AV_AREAMAP));
 
     viewsctrl->Enable(isactive);
     modesctrl->Enable(isview && !isoperation);

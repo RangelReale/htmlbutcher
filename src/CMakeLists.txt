@@ -96,7 +96,7 @@ if (WIN32)
 	SOURCE_GROUP(Resources FILES ${SOURCES_RESOURCES})
 endif(WIN32)
 
-add_executable(HTMLButcher WIN32 MACOSX_BUNDLE ${SOURCES})
+add_executable(HTMLButcher MACOSX_BUNDLE ${SOURCES})
 if (HB_WITH_DEMO)
 add_executable(HTMLButcherDemo WIN32 MACOSX_BUNDLE ${SOURCES} dialogs/DialogDemo.cpp dialogs/DialogDemo.h)
 SOURCE_GROUP(Demo FILES dialogs/DialogDemo.cpp dialogs/DialogDemo.h)
