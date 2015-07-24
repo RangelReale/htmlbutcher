@@ -13,6 +13,9 @@
 
 #include <wx/wx.h>
 
+#include <QEvent>
+#include <QMetaType>
+
 class ButcherView;
 class ButcherProjectView;
 class ButcherProjectMaskLineSelect;
@@ -23,25 +26,32 @@ class ButcherProjectMaskAreaSelect;
  *
  * @brief view item selected event
  */
-DECLARE_EVENT_TYPE( wxEVT_BUTCHERSELECT_ACTION, -1 )
+//DECLARE_EVENT_TYPE( wxEVT_BUTCHERSELECT_ACTION, -1 )
 
-class ButcherViewSelectEvent : public wxEvent
+class ButcherViewSelectEvent : public QEvent // wxEvent
 {
 public:
     enum select_t { SEL_NONE, SEL_HOVER, SEL_POSITION, SEL_LINE, SEL_LINEHOVER, SEL_LINEEDIT,
         SEL_DEFLINE, SEL_AREA, SEL_AREAHOVER, SEL_AREAEDIT };
 
+	ButcherViewSelectEvent();
     ButcherViewSelectEvent(ButcherView *view, ButcherProjectView *pview,
         select_t select, long x=0, long y=0,
         ButcherProjectMaskLineSelect *lineselect = NULL,
         ButcherProjectMaskAreaSelect *areaselect = NULL,
-        int id = 0, wxEventType commandType = wxEVT_BUTCHERSELECT_ACTION);
+        int id = 0/*, wxEventType commandType = wxEVT_BUTCHERSELECT_ACTION*/);
 	// copy constructor
 	ButcherViewSelectEvent(const ButcherViewSelectEvent &event);
     virtual ~ButcherViewSelectEvent();
 
+	static QEvent::Type staticType()
+	{
+		static int type = QEvent::registerEventType();
+		return static_cast<QEvent::Type>(type);
+	}
+
     // required for sending with wxPostEvent()
-    virtual wxEvent* Clone() const;
+    //virtual wxEvent* Clone() const;
 
     ButcherView *GetView() { return view_; }
     ButcherProjectView *GetProjectView() { return pview_; }
@@ -61,6 +71,8 @@ private:
     ButcherProjectMaskAreaSelect *areaselect_;
 };
 
+#ifdef QT_HIDE_FROM
+
 typedef void (wxEvtHandler::*ButcherViewSelectEventFunction)(ButcherViewSelectEvent&);
 
 #define ButcherViewSelectEventHandler(func) \
@@ -71,6 +83,8 @@ typedef void (wxEvtHandler::*ButcherViewSelectEventFunction)(ButcherViewSelectEv
     DECLARE_EVENT_TABLE_ENTRY( wxEVT_BUTCHERSELECT_ACTION, id, -1, \
     (wxObjectEventFunction) (wxEventFunction) \
     wxStaticCastEvent( ButcherViewSelectEventFunction, & fn ), (wxObject *) NULL ),
+
+#endif //QT_HIDE_FROM
 
 
 #endif // __BVIEW_BUTCHERVIEWSELECTEVENT_H__

@@ -13,6 +13,9 @@
 
 #include <wx/wx.h>
 
+#include <QEvent>
+#include <QMetaType>
+
 class ButcherView;
 class ButcherDocument;
 
@@ -21,17 +24,24 @@ class ButcherDocument;
  *
  * @brief document draw event
  */
-DECLARE_EVENT_TYPE( wxEVT_BUTCHERDOCUMENTDRAW_ACTION, -1 )
+//DECLARE_EVENT_TYPE( wxEVT_BUTCHERDOCUMENTDRAW_ACTION, -1 )
 
-class ButcherDocumentDrawEvent : public wxEvent
+class ButcherDocumentDrawEvent : public QEvent // wxEvent
 {
 public:
+	ButcherDocumentDrawEvent();
     ButcherDocumentDrawEvent(ButcherDocument *document, wxDC *dc,
         const wxRegion &updateregion,
-        int id = 0, wxEventType commandType = wxEVT_BUTCHERDOCUMENTDRAW_ACTION);
+        int id = 0/*, wxEventType commandType = wxEVT_BUTCHERDOCUMENTDRAW_ACTION*/);
+
+	static QEvent::Type staticType()
+	{
+		static int type = QEvent::registerEventType();
+		return static_cast<QEvent::Type>(type);
+	}
 
     // required for sending with wxPostEvent()
-    virtual wxEvent* Clone() const;
+    //virtual wxEvent* Clone() const;
 
     ButcherDocument *GetDocument() { return document_; }
     wxDC *GetDC() { return dc_; }
@@ -41,6 +51,8 @@ private:
     wxDC *dc_;
     wxRegion updateregion_;
 };
+
+#ifdef QT_HIDE_FROM
 
 typedef void (wxEvtHandler::*ButcherDocumentDrawEventFunction)(ButcherDocumentDrawEvent&);
 
@@ -52,5 +64,8 @@ typedef void (wxEvtHandler::*ButcherDocumentDrawEventFunction)(ButcherDocumentDr
     DECLARE_EVENT_TABLE_ENTRY( wxEVT_BUTCHERDOCUMENTDRAW_ACTION, id, -1, \
     (wxObjectEventFunction) (wxEventFunction) \
     wxStaticCastEvent( ButcherDocumentDrawEventFunction, & fn ), (wxObject *) NULL ),
+
+#endif // QT_HIDE_FROM
+
 
 #endif // __BVIEW_BUTCHERDOCUMENTDRAWEVENT_H__

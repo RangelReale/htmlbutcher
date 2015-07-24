@@ -18,16 +18,26 @@
 //      ButcherDocumentKeyEvent
 /////////////////////////////////
 
-DEFINE_EVENT_TYPE( wxEVT_BUTCHERDOCUMENTKEY_ACTION )
+//DEFINE_EVENT_TYPE( wxEVT_BUTCHERDOCUMENTKEY_ACTION )
 
-ButcherDocumentKeyEvent::ButcherDocumentKeyEvent(wxEventType origCommandType,
-    wxEventType commandType) :
-    wxKeyEvent(commandType), orig_(origCommandType)
+ButcherDocumentKeyEvent::ButcherDocumentKeyEvent() :
+	QEvent(staticType()), orig_(QEvent::KeyPress, 0, 0)
 {
-    m_propagationLevel=wxEVENT_PROPAGATE_MAX;
+
+
+}
+
+ButcherDocumentKeyEvent::ButcherDocumentKeyEvent(QKeyEvent origCommandType/*,
+    wxEventType commandType*/) :
+    //wxKeyEvent(commandType), 
+	QEvent(staticType()),
+	orig_(origCommandType)
+{
+    //m_propagationLevel=wxEVENT_PROPAGATE_MAX;
 }
 
 
+#ifdef QT_HIDE_FROM
 
 
 ButcherDocumentKeyEvent::ButcherDocumentKeyEvent(const wxKeyEvent &event) :
@@ -47,5 +57,6 @@ wxEvent* ButcherDocumentKeyEvent::Clone() const
     return new ButcherDocumentKeyEvent(*this);
 }
 
+#endif // QT_HIDE_FROM
 
 

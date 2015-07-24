@@ -20,19 +20,28 @@
 //      ButcherViewSelectEvent
 /////////////////////////////////
 
-DEFINE_EVENT_TYPE( wxEVT_BUTCHERSELECT_ACTION )
+//DEFINE_EVENT_TYPE( wxEVT_BUTCHERSELECT_ACTION )
+
+ButcherViewSelectEvent::ButcherViewSelectEvent() :
+	//wxEvent(id, commandType), 
+	QEvent(staticType())
+{
+	//m_propagationLevel=wxEVENT_PROPAGATE_MAX; // force propagation
+}
 
 ButcherViewSelectEvent::ButcherViewSelectEvent(ButcherView *view, ButcherProjectView *pview,
         ButcherViewSelectEvent::select_t select,
         long x, long y,
         ButcherProjectMaskLineSelect *lineselect,
         ButcherProjectMaskAreaSelect *areaselect,
-        int id, wxEventType commandType) :
-    wxEvent(id, commandType), view_(view), pview_(pview), select_(select),
+        int id/*, wxEventType commandType*/) :
+    //wxEvent(id, commandType), 
+	QEvent(staticType()),
+	view_(view), pview_(pview), select_(select),
     x_(x), y_(y), lineselect_(lineselect),
     areaselect_(areaselect)
 {
-    m_propagationLevel=wxEVENT_PROPAGATE_MAX; // force propagation
+    //m_propagationLevel=wxEVENT_PROPAGATE_MAX; // force propagation
 }
 
 
@@ -47,7 +56,9 @@ ButcherViewSelectEvent::~ButcherViewSelectEvent()
 
 
 ButcherViewSelectEvent::ButcherViewSelectEvent(const ButcherViewSelectEvent &event) :
-	wxEvent(event.GetId(), event.GetEventType()), view_(event.view_), pview_(event.pview_), select_(event.select_),
+	//wxEvent(event.GetId(), event.GetEventType()), 
+	QEvent(staticType()),
+	view_(event.view_), pview_(event.pview_), select_(event.select_),
 		x_(event.x_), y_(event.y_), lineselect_(NULL),
 		areaselect_(NULL)
 {
@@ -57,6 +68,7 @@ ButcherViewSelectEvent::ButcherViewSelectEvent(const ButcherViewSelectEvent &eve
 }
 
 
+#ifdef QT_HIDE_FROM
 
 
 wxEvent* ButcherViewSelectEvent::Clone() const
@@ -70,6 +82,7 @@ wxEvent* ButcherViewSelectEvent::Clone() const
 }
 
 
+#endif // QT_HIDE_FROM
 
 
 bool ButcherViewSelectEvent::IsSameArea(const ButcherViewSelectEvent &event)

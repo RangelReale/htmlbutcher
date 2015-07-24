@@ -24,6 +24,8 @@
 //      ButcherView
 /////////////////////////////////
 
+#ifdef QT_HIDE_FROM
+
 DEFINE_EVENT_TYPE( wxEVT_BUTCHEROPERATION_ACTION )
 DEFINE_EVENT_TYPE( wxEVT_BUTCHERSCROLL_ACTION )
 
@@ -35,6 +37,7 @@ BEGIN_EVENT_TABLE(ButcherView, wxControl)
     EVT_BUTCHERSCROLL(wxID_ANY, ButcherView::OnDWindowRealWinScroll)
 END_EVENT_TABLE()
 
+#endif // QT_HIDE_FROM
 
 
 ButcherProjectArea::areaselect_t ButcherView_AreaSelect(bool showareas, bool showareasglobal)
@@ -61,14 +64,17 @@ ButcherProjectArea::areaselect_t ButcherView_AreaSelect(ButcherView::areaview_t 
 
 
 
-
+/*
 ButcherView::ButcherView(wxWindow* parent, wxWindowID id, const wxPoint& pos,
     const wxSize& size, long style,
     const wxString& name) :
     wxControl(parent, id, pos, size, style, wxDefaultValidator, name),
-    selection_(NULL), filealternate_(false), filealternateid_(-1)
+	*/
+ButcherView::ButcherView(QWidget *parent) : QWidget(parent),
+	selection_(NULL), filealternate_(false), filealternateid_(-1)
 {
-    dwindow_=new wxScrolledWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
+#ifdef QT_HIDE_FROM
+	dwindow_ = new wxScrolledWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
     dwindow_->SetScrollRate( 10, 10 );
 
     wxASSERT_MSG(wxEVT_SCROLLWIN_TOP<=wxEVT_SCROLLWIN_THUMBRELEASE, _("Logic error in scrollwin events"));
@@ -89,6 +95,7 @@ ButcherView::ButcherView(wxWindow* parent, wxWindowID id, const wxPoint& pos,
     RepositionView();
 
     SetCursor(*wxCROSS_CURSOR);
+#endif // QT_HIDE_FROM
 }
 
 
@@ -105,7 +112,8 @@ ButcherView::~ButcherView()
 
 void ButcherView::RepositionView()
 {
-    if (GetShowRulers())
+#ifdef QT_HIDE_FROM
+	if (GetShowRulers())
     {
         ruler_left_->SetSize(0, GetRulerSize(), GetRulerSize(), GetClientSize().GetHeight()-(2*GetRulerSize()));
         ruler_top_->SetSize(GetRulerSize(), 0, GetClientSize().GetWidth()-(2*GetRulerSize()), GetRulerSize());
@@ -133,6 +141,7 @@ void ButcherView::RepositionView()
     RepositionScroll();
 
     Refresh();
+#endif // QT_HIDE_FROM
 
     DoChangedEvent(ButcherViewChangedEvent::VC_VIEW);
 }
@@ -142,6 +151,7 @@ void ButcherView::RepositionView()
 
 void ButcherView::RepositionScroll(int orientation)
 {
+#ifdef QT_HIDE_FROM
     int sw, sh;
 /*
     dwindow_->GetViewStart(&sw, &sh);
@@ -176,6 +186,7 @@ void ButcherView::RepositionScroll(int orientation)
     default:
         break;
     }
+#endif // QT_HIDE_FROM
 }
 
 
@@ -191,7 +202,8 @@ void ButcherView::OnSize(wxSizeEvent &event)
 
 void ButcherView::OnDWindowWinScroll(wxScrollWinEvent &event)
 {
-    DoBeforeScroll();
+#ifdef QT_HIDE_FROM
+	DoBeforeScroll();
 
     // this event is fired BEFORE the scrolling, post another event to catch it AFTER scrolling took place
     wxScrollWinEvent evt(event);
@@ -200,6 +212,7 @@ void ButcherView::OnDWindowWinScroll(wxScrollWinEvent &event)
     wxPostEvent(this, evt);
 
     event.Skip();
+#endif // QT_HIDE_FROM
 }
 
 
@@ -207,10 +220,12 @@ void ButcherView::OnDWindowWinScroll(wxScrollWinEvent &event)
 
 void ButcherView::OnDWindowRealWinScroll(wxScrollWinEvent &event)
 {
-    DoAfterScroll();
+#ifdef QT_HIDE_FROM
+	DoAfterScroll();
 
     RepositionScroll(event.GetOrientation());
     event.Skip();
+#endif // QT_HIDE_FROM
 }
 
 
@@ -218,17 +233,20 @@ void ButcherView::OnDWindowRealWinScroll(wxScrollWinEvent &event)
 
 void ButcherView::OnSetFocus(wxFocusEvent &event)
 {
-    //wxLogDebug(wxT("Focus"));
+#ifdef QT_HIDE_FROM
+	//wxLogDebug(wxT("Focus"));
 
     //designer_->SetFocusIgnoringChildren();
     event.Skip();
+#endif // QT_HIDE_FROM
 }
 
 
 
 void ButcherView::OnDrawDocument(ButcherDocumentDrawEvent& event)
 {
-    if (GetProjectView()!=NULL) {
+#ifdef QT_HIDE_FROM
+	if (GetProjectView() != NULL) {
         // draw image
 
         if (!GetShowPreview()) // if preview, imagens will be drawn per area
@@ -266,6 +284,7 @@ void ButcherView::OnDrawDocument(ButcherDocumentDrawEvent& event)
     DoAfterDraw(event);
 
     event.Skip();
+#endif // QT_HIDE_FROM
 }
 
 
@@ -273,10 +292,12 @@ void ButcherView::OnDrawDocument(ButcherDocumentDrawEvent& event)
 
 void ButcherView::RulerPosition(long x, long y)
 {
-    ruler_left_->SetSelection(y);
+#ifdef QT_HIDE_FROM
+	ruler_left_->SetSelection(y);
     ruler_right_->SetSelection(y);
     ruler_top_->SetSelection(x);
     ruler_bottom_->SetSelection(x);
+#endif // QT_HIDE_FROM
 }
 
 

@@ -13,6 +13,9 @@
 
 #include <wx/wx.h>
 
+#include <QMouseEvent>
+#include <QMetaType>
+
 class ButcherView;
 
 /**
@@ -20,22 +23,31 @@ class ButcherView;
  *
  * @brief document mouse event
  */
-DECLARE_EVENT_TYPE( wxEVT_BUTCHERDOCUMENTMOUSE_ACTION, -1 )
+//DECLARE_EVENT_TYPE( wxEVT_BUTCHERDOCUMENTMOUSE_ACTION, -1 )
 
-class ButcherDocumentMouseEvent : public wxMouseEvent
+class ButcherDocumentMouseEvent : public QEvent //wxMouseEvent
 {
 public:
-    ButcherDocumentMouseEvent(wxEventType origCommandType,
-        wxEventType commandType = wxEVT_BUTCHERDOCUMENTMOUSE_ACTION);
-    ButcherDocumentMouseEvent(const wxMouseEvent &event);
+	ButcherDocumentMouseEvent();
+    ButcherDocumentMouseEvent(QMouseEvent origCommandType/*,
+        wxEventType commandType = wxEVT_BUTCHERDOCUMENTMOUSE_ACTION*/);
+    //ButcherDocumentMouseEvent(const wxMouseEvent &event);
+
+	static QEvent::Type staticType()
+	{
+		static int type = QEvent::registerEventType();
+		return static_cast<QEvent::Type>(type);
+	}
 
     // required for sending with wxPostEvent()
-    virtual wxEvent* Clone() const;
+    //virtual wxEvent* Clone() const;
 
-    wxEventType GetOriginEventType() { return orig_; }
+	QMouseEvent GetOriginEventType() { return orig_; }
 private:
-    wxEventType orig_;
+	QMouseEvent orig_;
 };
+
+#ifdef QT_HIDE_FROM
 
 typedef void (wxEvtHandler::*ButcherDocumentMouseEventFunction)(ButcherDocumentMouseEvent&);
 
@@ -47,5 +59,7 @@ typedef void (wxEvtHandler::*ButcherDocumentMouseEventFunction)(ButcherDocumentM
     DECLARE_EVENT_TABLE_ENTRY( wxEVT_BUTCHERDOCUMENTMOUSE_ACTION, id, -1, \
     (wxObjectEventFunction) (wxEventFunction) \
     wxStaticCastEvent( ButcherDocumentMouseEventFunction, & fn ), (wxObject *) NULL ),
+
+#endif // QT_HIDE_FROM
 
 #endif // __BVIEW_BUTCHERDOCUMENTMOUSEEVENT_H__

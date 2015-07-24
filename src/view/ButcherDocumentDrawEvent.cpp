@@ -19,21 +19,29 @@
 //      ButcherDocumentDrawEvent
 /////////////////////////////////
 
-DEFINE_EVENT_TYPE( wxEVT_BUTCHERDOCUMENTDRAW_ACTION )
+//DEFINE_EVENT_TYPE( wxEVT_BUTCHERDOCUMENTDRAW_ACTION )
 
-ButcherDocumentDrawEvent::ButcherDocumentDrawEvent(ButcherDocument *document,
-    wxDC *dc, const wxRegion &updateregion, int id, wxEventType commandType) :
-    wxEvent(id, commandType), document_(document), dc_(dc), updateregion_(updateregion)
+ButcherDocumentDrawEvent::ButcherDocumentDrawEvent() :
+	QEvent(staticType())
 {
-    m_propagationLevel=wxEVENT_PROPAGATE_MAX; // force propagation
+
 }
 
 
+ButcherDocumentDrawEvent::ButcherDocumentDrawEvent(ButcherDocument *document,
+    wxDC *dc, const wxRegion &updateregion, int id/*, wxEventType commandType*/) :
+    //wxEvent(id, commandType), 
+	QEvent(staticType()),
+	document_(document), dc_(dc), updateregion_(updateregion)
+{
+    //m_propagationLevel=wxEVENT_PROPAGATE_MAX; // force propagation
+}
 
+#ifdef QT_HIDE_FROM
 
 wxEvent* ButcherDocumentDrawEvent::Clone() const
 {
     return new ButcherDocumentDrawEvent(*this);
 }
 
-
+#endif // QT_HIDE_FROM

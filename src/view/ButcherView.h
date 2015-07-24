@@ -19,6 +19,8 @@
 #include "ButcherProjectEvent.h"
 #include "ButcherProjectArea.h"
 
+#include <QWidget>
+
 class ButcherView;
 class ButcherRuler;
 class ButcherProject;
@@ -32,6 +34,8 @@ class ButcherProjectMaskDrawSelection;
  *
  * @brief Base scrolling window
  */
+
+#ifdef QT_HIDE_FROM
 
 DECLARE_EVENT_TYPE( wxEVT_BUTCHEROPERATION_ACTION, -1 )
 
@@ -47,15 +51,20 @@ DECLARE_EVENT_TYPE( wxEVT_BUTCHERSCROLL_ACTION, -1 )
     (wxObjectEventFunction) (wxEventFunction) \
     wxStaticCastEvent( wxScrollWinEventFunction, & fn ), (wxObject *) NULL ),
 
+#endif // QT_HIDE_FROM
 
-class ButcherView : public wxControl, public ButcherViewBase {
+class ButcherView : public QWidget, public ButcherViewBase {
+	Q_OBJECT
 public:
     enum areaviewitem_t { AV_AREA=1, AV_AREAGLOBAL=2, AV_AREAMAP=4 };
     typedef unsigned short areaview_t;
 
+	/*
     ButcherView(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition,
         const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL | wxBORDER_NONE,
         const wxString& name = wxT("ButcherView"));
+	*/
+	ButcherView(QWidget *parent);
     virtual ~ButcherView();
 
     virtual ButcherProject *GetProject() = 0;
@@ -136,7 +145,7 @@ private:
     bool filealternate_;
     int filealternateid_;
 
-    DECLARE_EVENT_TABLE()
+    //DECLARE_EVENT_TABLE()
 };
 
 ButcherProjectArea::areaselect_t ButcherView_AreaSelect(bool showareas, bool showareasglobal);
