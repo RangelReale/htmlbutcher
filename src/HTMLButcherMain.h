@@ -215,42 +215,36 @@ private Q_SLOTS:
     void OnMenuMode(QAction *action);
     void OnMenuEditMode(QAction *action);
 
+	void OnMenuFiles();
+    void OnMenuMasks();
+    void OnMenuViews();
+
+    void OnMenuFilePaths();
+    void OnMenuAssortedFileGroups();
+    void OnMenuAssortedFiles();
+    void OnMenuCSSFiles();
+
+	void OnMenuImageFormats();
+
+	void OnMenuMaskCurrent();
+    void OnMenuViewCurrent();
+    void OnMenuAreasCurrent();
+
+    void OnMenuWizNewView();
+
+    void OnMenuProjectOptions();
+
+	void OnHelpHelp();
+	void OnHelpAbout();
+#ifdef HTMLBUTCHER_DEBUG
+	void OnHelpTest();
+#endif
+
 #ifdef QT_HIDE_FROM
-	void OnMenuFiles(wxCommandEvent& event);
-    void OnMenuMasks(wxCommandEvent& event);
-    void OnMenuViews(wxCommandEvent& event);
-
-    void OnMenuFilePaths(wxCommandEvent& event);
-    void OnMenuAssortedFileGroups(wxCommandEvent& event);
-    void OnMenuAssortedFiles(wxCommandEvent& event);
-    void OnMenuCSSFiles(wxCommandEvent& event);
-
-    void OnMenuMaskCurrent(wxCommandEvent& event);
-    void OnMenuViewCurrent(wxCommandEvent& event);
-    void OnMenuAreasCurrent(wxCommandEvent& event);
-
-    void OnMenuWizNewView(wxCommandEvent& event);
-
-    void OnMenuProjectOptions(wxCommandEvent& event);
-
-    void OnMenuImageFormats(wxCommandEvent& event);
-
-
 
     void OnMenuOperation(wxCommandEvent& event);
 
     void OnClose(wxCloseEvent& event);
-    void OnHelpHelp(wxCommandEvent& event);
-    void OnHelpAbout(wxCommandEvent& event);
-#ifdef HTMLBUTCHER_DEBUG
-	void OnHelpTest(wxCommandEvent& event);
-#endif
-
-    void OnAbout(wxCommandEvent& event);
-    void OnAbout2(wxCommandEvent& event);
-    void OnAbout3(wxCommandEvent& event);
-    void OnAbout4(wxCommandEvent& event);
-    void OnAbout5(wxCommandEvent& event);
 
 #endif // QT_HIDE_FROM
 
@@ -315,6 +309,9 @@ private:
 	QAction *menuShowPreview_, *menuShowBorders_, *menuShowAreas_, *menuShowAreasGlobal_, *menuShowAreasMap_, *menuGrid_, *menuGridSize_;
 	QAction *menuFileAlternate_, *menuLanguage_;
 	QAction *menuModeNone_, *menuModeLine_, *menuModeArea_, *menuEditModeBasic_, *menuEditModeNormal_, *menuEditModeAdvanced_;
+	QAction *menuFiles_, *menuMasks_, *menuViews_, *menuFilePaths_, *menuAssortedFileGroups_, *menuAssortedFiles_, *menuCSSFiles_;
+	QAction *menuImageFormats_, *menuMaskCurrent_, *menuViewCurrent_, *menuAreasCurrent_, *menuWizNewView_, *menuProjectOptions_;
+	QAction *menuHelp_, *menuAbout_, *menuHelpTest_;
 
     //DECLARE_EVENT_TABLE()
 };

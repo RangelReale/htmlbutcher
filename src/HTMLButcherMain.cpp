@@ -281,40 +281,53 @@ HTMLButcherFrame::HTMLButcherFrame()
 	menuBar()->addMenu(modeMenu);
 
     QMenu* dataMenu = new QMenu(tr("&Data"), this);
-#ifdef QT_HIDE_FROM
-	dataMenu->Append(idMenuFiles, _("&Files...\tF5"), _("Project files"));
-    dataMenu->Append(idMenuMasks, _("&Masks...\tF6"), _("Project masks"));
-    dataMenu->Append(idMenuViews, _("&Views...\tF7"), _("Project views"));
-    dataMenu->AppendSeparator();
-    dataMenu->Append(idMenuFilePaths, _("File &paths..."), _("File paths"));
-    dataMenu->Append(idMenuAssortedFileGroups, _("Assorted file &groups..."), _("Assorted file groups"));
-    dataMenu->Append(idMenuAssortedFiles, _("&Assorted files...\tCtrl-D"), _("Assorted files"));
-    dataMenu->Append(idMenuCSSFiles, _("&CSS files...\tF9"), _("CSS files"));
-    dataMenu->AppendSeparator();
-    dataMenu->Append(idMenuImageFormats, _("&Image Formats..."), _("Image formats"));
-    dataMenu->AppendSeparator();
-    dataMenu->Append(idMenuMaskCurrent, _("Current mas&k...\tCtrl-F6"), _("Edit current mask"));
-    dataMenu->Append(idMenuViewCurrent, _("&Current view...\tCtrl-F7"), _("Edit current view"));
-    dataMenu->Append(idMenuAreasCurrent, _("Current a&reas...\tCtrl-Shift-F7"), _("Edit current view's areas"));
-    dataMenu->AppendSeparator();
-    dataMenu->Append(idMenuWizNewView, _("New vie&w wizard"), _("Shows the new view wizard"));
-    dataMenu->AppendSeparator();
-    dataMenu->Append(idMenuProjectOptions, _("Project &options..."), _("Project options"));
-#endif // QT_HIDE_FROM
+	//dataMenu->Append(idMenuFiles, _("&Files...\tF5"), _("Project files"));
+	menuFiles_ = dataMenu->addAction(tr("&Files...\tF5"), this, SLOT(OnMenuFiles())); menuFiles_->setStatusTip(tr("Project files"));
+    //dataMenu->Append(idMenuMasks, _("&Masks...\tF6"), _("Project masks"));
+	menuMasks_ = dataMenu->addAction(tr("&Masks...\tF6"), this, SLOT(OnMenuMasks())); menuMasks_->setStatusTip(tr("Project masks"));
+	//dataMenu->Append(idMenuViews, _("&Views...\tF7"), _("Project views"));
+	menuViews_ = dataMenu->addAction(tr("&Views...\tF7"), this, SLOT(OnMenuViews())); menuViews_->setStatusTip(tr("Project views"));
+	dataMenu->addSeparator();
+    //dataMenu->Append(idMenuFilePaths, _("File &paths..."), _("File paths"));
+	menuFilePaths_ = dataMenu->addAction(tr("File &paths..."), this, SLOT(OnMenuFilePaths())); menuFilePaths_->setStatusTip(tr("File paths"));
+	//dataMenu->Append(idMenuAssortedFileGroups, _("Assorted file &groups..."), _("Assorted file groups"));
+	menuAssortedFileGroups_ = dataMenu->addAction(tr("Assorted file &groups..."), this, SLOT(OnMenuAssortedFileGroups())); menuAssortedFileGroups_->setStatusTip(tr("Assorted file groups"));
+	//dataMenu->Append(idMenuAssortedFiles, _("&Assorted files...\tCtrl-D"), _("Assorted files"));
+	menuAssortedFiles_ = dataMenu->addAction(tr("&Assorted files...\tCtrl-D"), this, SLOT(OnMenuAssortedFiles())); menuAssortedFiles_->setStatusTip(tr("Assorted files"));
+	//dataMenu->Append(idMenuCSSFiles, _("&CSS files...\tF9"), _("CSS files"));
+	menuCSSFiles_ = dataMenu->addAction(tr("&CSS files...\tF9"), this, SLOT(OnMenuCSSFiles())); menuCSSFiles_->setStatusTip(tr("CSS files"));
+	dataMenu->addSeparator();
+	//dataMenu->Append(idMenuImageFormats, _("&Image Formats..."), _("Image formats"));
+	menuImageFormats_ = dataMenu->addAction(tr("&Image Formats..."), this, SLOT(OnMenuImageFormats())); menuImageFormats_->setStatusTip(tr("Image formats"));
+	dataMenu->addSeparator();
+    //dataMenu->Append(idMenuMaskCurrent, _("Current mas&k...\tCtrl-F6"), _("Edit current mask"));
+	menuMaskCurrent_ = dataMenu->addAction(tr("Current mas&k...\tCtrl-F6"), this, SLOT(OnMenuMaskCurrent())); menuMaskCurrent_->setStatusTip(tr("Edit current mask"));
+	//dataMenu->Append(idMenuViewCurrent, _("&Current view...\tCtrl-F7"), _("Edit current view"));
+	menuViewCurrent_ = dataMenu->addAction(tr("&Current view...\tCtrl-F7"), this, SLOT(OnMenuViewCurrent())); menuViewCurrent_->setStatusTip(tr("Edit current view"));
+	//dataMenu->Append(idMenuAreasCurrent, _("Current a&reas...\tCtrl-Shift-F7"), _("Edit current view's areas"));
+	menuAreasCurrent_ = dataMenu->addAction(tr("Current a&reas...\tCtrl-Shift-F7"), this, SLOT(OnMenuAreasCurrent())); menuAreasCurrent_->setStatusTip(tr("Edit current view's areas"));
+	dataMenu->addSeparator();
+    //dataMenu->Append(idMenuWizNewView, _("New vie&w wizard"), _("Shows the new view wizard"));
+	menuWizNewView_ = dataMenu->addAction(tr("New vie&w wizard"), this, SLOT(OnMenuWizNewView())); menuWizNewView_->setStatusTip(tr("Shows the new view wizard"));
+	dataMenu->addSeparator();
+	//dataMenu->Append(idMenuProjectOptions, _("Project &options..."), _("Project options"));
+	menuProjectOptions_ = dataMenu->addAction(tr("Project &options..."), this, SLOT(OnMenuProjectOptions())); menuProjectOptions_->setStatusTip(tr("Project options"));
 	//mbar->Append(dataMenu, _("&Data"));
 	menuBar()->addMenu(dataMenu);
 
     QMenu* helpMenu = new QMenu(tr("&Help"), this);
-#ifdef QT_HIDE_FROM
 #ifdef BUTCHER_USE_HELP
-	helpMenu->Append(wxID_HELP, _("&Contents\tF1"), _("Help contents"));
-    helpMenu->AppendSeparator();
+	//helpMenu->Append(wxID_HELP, _("&Contents\tF1"), _("Help contents"));
+	menuHelp_ = helpMenu->addAction(tr("&Contents\tF1"), this, SLOT(OnHelpHelp())); menuHelp_->setStatusTip(tr("Help contents"));
+    helpMenu->addSeparator();
 #endif
-    helpMenu->Append(wxID_ABOUT, _("&About"), _("Show info about this application"));
+    //helpMenu->Append(wxID_ABOUT, _("&About"), _("Show info about this application"));
+	menuAbout_ = helpMenu->addAction(tr("&About"), this, SLOT(OnHelpAbout())); menuAbout_->setStatusTip(tr("Show info about this application"));
 #ifdef HTMLBUTCHER_DEBUG
-	helpMenu->Append(idMenuHelpTest, _("&Test"), _("Test"));
+	//helpMenu->Append(idMenuHelpTest, _("&Test"), _("Test"));
+	menuHelpTest_ = helpMenu->addAction(tr("&Test"), this, SLOT(OnHelpTest())); menuHelpTest_->setStatusTip(tr("Test"));
+
 #endif
-#endif // QT_HIDE_FROM
 	//mbar->Append(helpMenu, _("&Help"));
 	menuBar()->addMenu(helpMenu);
 
@@ -978,29 +991,209 @@ void HTMLButcherFrame::OnMenuEditMode(QAction *action)
 #endif // QT_HIDE_FROM
 }
 
-#ifdef QT_HIDE_FROM
 
-void HTMLButcherFrame::OnHelpHelp(wxCommandEvent& event)
+void HTMLButcherFrame::OnMenuFiles()
 {
+#ifdef QT_HIDE_FROM
+	HTMLButcherFilesDialog d(this, wxID_ANY, project_);
+	d.ShowModal();
+#endif // QT_HIDE_FROM
+}
+
+
+
+
+void HTMLButcherFrame::OnMenuMasks()
+{
+#ifdef QT_HIDE_FROM
+	HTMLButcherMasksDialog d(this, wxID_ANY, project_);
+	d.ShowModal();
+#endif // QT_HIDE_FROM
+}
+
+
+
+
+void HTMLButcherFrame::OnMenuViews()
+{
+#ifdef QT_HIDE_FROM
+	HTMLButcherViewsDialog d(this, wxID_ANY, project_);
+	d.ShowModal();
+#endif // QT_HIDE_FROM
+}
+
+
+
+
+void HTMLButcherFrame::OnMenuFilePaths()
+{
+#ifdef QT_HIDE_FROM
+	HTMLButcherFilePathsDialog d(this, wxID_ANY, project_);
+	d.ShowModal();
+#endif // QT_HIDE_FROM
+}
+
+
+
+
+void HTMLButcherFrame::OnMenuAssortedFileGroups()
+{
+#ifdef QT_HIDE_FROM
+	HTMLButcherAssortedFileGroupsDialog d(this, wxID_ANY, project_);
+	d.ShowModal();
+#endif // QT_HIDE_FROM
+}
+
+
+
+
+void HTMLButcherFrame::OnMenuAssortedFiles()
+{
+#ifdef QT_HIDE_FROM
+	HTMLButcherAssortedFilesDialog d(this, wxID_ANY, project_);
+	d.ShowModal();
+#endif // QT_HIDE_FROM
+}
+
+
+
+void HTMLButcherFrame::OnMenuCSSFiles()
+{
+#ifdef QT_HIDE_FROM
+	HTMLButcherCSSFilesDialog d(this, wxID_ANY, project_);
+	d.ShowModal();
+#endif // QT_HIDE_FROM
+}
+
+
+void HTMLButcherFrame::OnMenuImageFormats()
+{
+#ifdef QT_HIDE_FROM
+	HTMLButcherImageFormatListEditDialog d(this, wxID_ANY, project_);
+	if (view_->GetProjectView() != NULL)
+		d.SetPreview(view_->GetProjectFile()->CreateImage());
+	d.ShowModal();
+#endif //QT_HIDE_FROM
+}
+
+void HTMLButcherFrame::OnMenuMaskCurrent()
+{
+#ifdef QT_HIDE_FROM
+	if (view_->GetProjectView() == NULL) return;
+
+
+
+	unsigned long mid=view_->GetProjectView()->GetMaskId();
+
+	HTMLButcherMaskEditDialog d(this, wxID_ANY, project_);
+	//d.SetProject(project_);
+	d.SetMaskName(view_->GetProjectView()->GetMask()->GetName());
+	d.SetMaskWidth(view_->GetProjectView()->GetMask()->GetWidth());
+	d.SetMaskHeight(view_->GetProjectView()->GetMask()->GetHeight());
+	d.Load(view_->GetProjectView()->GetMask());
+	if (d.ShowModal() == wxID_OK) {
+		ButcherProjectBaseAutoUpdate upd(project_);
+
+		project_->Masks().Edit(mid, d.GetMaskName(), d.GetMaskWidth(),
+			d.GetMaskHeight());
+		d.Save(view_->GetProjectView()->GetMask());
+	}
+#endif // QT_HIDE_FROM
+}
+
+void HTMLButcherFrame::OnMenuViewCurrent()
+{
+#ifdef QT_HIDE_FROM
+	if (view_->GetProjectView() == NULL) return;
+
+
+
+	unsigned long vid=view_->GetProjectViewId();
+
+	HTMLButcherViewEditDialog d(this, wxID_ANY, project_);
+	d.Load(vid);
+	if (d.ShowModal() == wxID_OK) {
+		ButcherProjectBaseAutoUpdate upd(project_);
+		d.Save(vid);
+	}
+#endif // QT_HIDE_FROM
+}
+
+
+
+
+void HTMLButcherFrame::OnMenuAreasCurrent()
+{
+#ifdef QT_HIDE_FROM
+	if (view_->GetProjectView() == NULL) return;
+
+
+
+	HTMLButcherMaskAreaListDialog d(this, wxID_ANY, project_);
+	d.Load(view_->GetProjectView());
+	if (d.ShowModal() == wxID_OK) {
+		ButcherProjectBaseAutoUpdate upd(project_);
+		d.Save(view_->GetProjectView());
+	}
+#endif // QT_HIDE_FROM
+}
+
+void HTMLButcherFrame::OnMenuWizNewView()
+{
+#ifdef QT_HIDE_FROM
+	if (view_->GetProjectView() == NULL) return;
+
+	// Run new view wizard
+	HTMLButcherNewViewWizard nvwizard(this, wxID_ANY, project_);
+	if (nvwizard.RunWizard(nvwizard.GetFirstPage()))
+		SetView(nvwizard.GetViewId());
+#endif // QT_HIDE_FROM
+}
+
+void HTMLButcherFrame::OnMenuProjectOptions()
+{
+#ifdef QT_HIDE_FROM
+	HTMLButcherProjectOptionsDialog d(this, wxID_ANY, project_);
+	d.Load();
+	if (d.ShowModal()==wxID_OK)
+		d.Save();
+#endif // QT_HIDE_FROM
+}
+
+
+
+
+
+
+
+
+
+
+void HTMLButcherFrame::OnHelpHelp()
+{
+#ifdef QT_HIDE_FROM
 #ifdef BUTCHER_USE_HELP
 	if (!static_cast<wxHelpControllerHelpProvider*>(wxHelpProvider::Get())->GetHelpController()->DisplayContents())
 	{
 		wxMessageBox(_("No help"));
 	}
 #endif
+#endif // QT_HIDE_FROM
 }
 
 
 
 
-void HTMLButcherFrame::OnHelpAbout(wxCommandEvent& event)
+void HTMLButcherFrame::OnHelpAbout()
 {
+#ifdef QT_HIDE_FROM
 	HTMLButcherAboutDialog d(this);
 	d.ShowModal();
+#endif // QT_HIDE_FROM
 }
 
 #ifdef HTMLBUTCHER_DEBUG
-void HTMLButcherFrame::OnHelpTest(wxCommandEvent& event)
+void HTMLButcherFrame::OnHelpTest()
 {
 	//ButcherHTMLAttributeGenerator a(_("Maria=\"1\" jose'2 e demais' joaQUIm=3434"));
 	ButcherHTMLAttributeGenerator a(wxT("maria: \"1 px\"; jose: '2 e demais'; joaquim: 3434 13px"), ButcherHTMLAttributeGenerator::KIND_STYLE);
@@ -1019,180 +1212,21 @@ void HTMLButcherFrame::OnHelpTest(wxCommandEvent& event)
 
 
 
-void HTMLButcherFrame::OnMenuFiles(wxCommandEvent& event)
-{
 
 
-	HTMLButcherFilesDialog d(this, wxID_ANY, project_);
-    d.ShowModal();
-}
 
 
 
 
-void HTMLButcherFrame::OnMenuMasks(wxCommandEvent& event)
-{
 
 
-	HTMLButcherMasksDialog d(this, wxID_ANY, project_);
-    d.ShowModal();
-}
 
 
 
 
-void HTMLButcherFrame::OnMenuViews(wxCommandEvent& event)
-{
 
 
-	HTMLButcherViewsDialog d(this, wxID_ANY, project_);
-    d.ShowModal();
-}
-
-
-
-
-void HTMLButcherFrame::OnMenuFilePaths(wxCommandEvent& event)
-{
-
-
-	HTMLButcherFilePathsDialog d(this, wxID_ANY, project_);
-    d.ShowModal();
-}
-
-
-
-
-void HTMLButcherFrame::OnMenuAssortedFileGroups(wxCommandEvent& event)
-{
-    HTMLButcherAssortedFileGroupsDialog d(this, wxID_ANY, project_);
-    d.ShowModal();
-}
-
-
-
-
-void HTMLButcherFrame::OnMenuAssortedFiles(wxCommandEvent& event)
-{
-    HTMLButcherAssortedFilesDialog d(this, wxID_ANY, project_);
-    d.ShowModal();
-}
-
-
-
-void HTMLButcherFrame::OnMenuCSSFiles(wxCommandEvent& event)
-{
-
-
-	HTMLButcherCSSFilesDialog d(this, wxID_ANY, project_);
-    d.ShowModal();
-}
-
-
-
-
-void HTMLButcherFrame::OnMenuViewCurrent(wxCommandEvent& event)
-{
-    if (view_->GetProjectView() == NULL) return;
-
-
-
-    unsigned long vid=view_->GetProjectViewId();
-
-    HTMLButcherViewEditDialog d(this, wxID_ANY, project_);
-    d.Load(vid);
-    if (d.ShowModal() == wxID_OK) {
-        ButcherProjectBaseAutoUpdate upd(project_);
-        d.Save(vid);
-    }
-}
-
-
-
-
-void HTMLButcherFrame::OnMenuAreasCurrent(wxCommandEvent& event)
-{
-    if (view_->GetProjectView() == NULL) return;
-
-
-
-    HTMLButcherMaskAreaListDialog d(this, wxID_ANY, project_);
-    d.Load(view_->GetProjectView());
-    if (d.ShowModal() == wxID_OK) {
-        ButcherProjectBaseAutoUpdate upd(project_);
-        d.Save(view_->GetProjectView());
-    }
-}
-
-void HTMLButcherFrame::OnMenuWizNewView(wxCommandEvent& event)
-{
-    if (view_->GetProjectView() == NULL) return;
-
-	// Run new view wizard
-	HTMLButcherNewViewWizard nvwizard(this, wxID_ANY, project_);
-	if (nvwizard.RunWizard(nvwizard.GetFirstPage()))
-		SetView(nvwizard.GetViewId());
-}
-
-void HTMLButcherFrame::OnMenuProjectOptions(wxCommandEvent& event)
-{
-
-
-	HTMLButcherProjectOptionsDialog d(this, wxID_ANY, project_);
-	d.Load();
-	if (d.ShowModal()==wxID_OK)
-		d.Save();
-}
-
-
-
-
-void HTMLButcherFrame::OnMenuMaskCurrent(wxCommandEvent& event)
-{
-    if (view_->GetProjectView() == NULL) return;
-
-
-
-    unsigned long mid=view_->GetProjectView()->GetMaskId();
-
-    HTMLButcherMaskEditDialog d(this, wxID_ANY, project_);
-    //d.SetProject(project_);
-    d.SetMaskName(view_->GetProjectView()->GetMask()->GetName());
-    d.SetMaskWidth(view_->GetProjectView()->GetMask()->GetWidth());
-    d.SetMaskHeight(view_->GetProjectView()->GetMask()->GetHeight());
-    d.Load(view_->GetProjectView()->GetMask());
-    if (d.ShowModal() == wxID_OK) {
-        ButcherProjectBaseAutoUpdate upd(project_);
-
-        project_->Masks().Edit(mid, d.GetMaskName(), d.GetMaskWidth(),
-            d.GetMaskHeight());
-        d.Save(view_->GetProjectView()->GetMask());
-    }
-}
-
-
-
-
-void HTMLButcherFrame::OnMenuImageFormats(wxCommandEvent& event)
-{
-
-
-	HTMLButcherImageFormatListEditDialog d(this, wxID_ANY, project_);
-    if (view_->GetProjectView()!=NULL)
-        d.SetPreview(view_->GetProjectFile()->CreateImage());
-    d.ShowModal();
-}
-
-
-
-
-
-
-
-
-
-
-
+#ifdef QT_HIDE_FROM
 
 
 
@@ -1348,29 +1382,31 @@ void HTMLButcherFrame::UpdateAppState()
     menu->Check(idMenuEditModeBasic, options_.GetEditMode() == ButcherOptions::EM_BASIC);
     menu->Check(idMenuEditModeNormal, options_.GetEditMode() == ButcherOptions::EM_NORMAL);
     menu->Check(idMenuEditModeAdvanced, options_.GetEditMode() == ButcherOptions::EM_ADVANCED);
+#endif // QT_HIDE_FROM
 
-    menu->Enable(idMenuFiles, isactive);
-    menu->Enable(idMenuMasks, isactive);
-    menu->Enable(idMenuViews, isactive);
-    menu->Enable(idMenuFilePaths, isactive);
-    menu->Enable(idMenuAssortedFileGroups, isactive);
-    menu->Enable(idMenuAssortedFiles, isactive);
-    menu->Enable(idMenuCSSFiles, isactive);
+    menuFiles_->setEnabled(isactive);
+    menuMasks_->setEnabled(isactive);
+    menuViews_->setEnabled(isactive);
+    menuFilePaths_->setEnabled(isactive);
+    menuAssortedFileGroups_->setEnabled(isactive);
+    menuAssortedFiles_->setEnabled(isactive);
+    menuCSSFiles_->setEnabled(isactive);
 
-    menu->Enable(idMenuImageFormats, isactive);
-    menu->Enable(idMenuMaskCurrent, isactive && isview);
-    menu->Enable(idMenuViewCurrent, isactive && isview);
-    menu->Enable(idMenuAreasCurrent, isactive && isview);
+    menuImageFormats_->setEnabled(isactive);
+    menuMaskCurrent_->setEnabled(isactive && isview);
+    menuViewCurrent_->setEnabled(isactive && isview);
+    menuAreasCurrent_->setEnabled(isactive && isview);
 
-	menu->Enable(idMenuWizNewView, isactive &&
+	menuWizNewView_->setEnabled(isactive &&
 		(!project_->Files().IsFull() &&
 		 !project_->Masks().IsFull() &&
 		 !project_->Views().IsFull()));
 
-    menu->Enable(idMenuProjectOptions, isactive);
+    menuProjectOptions_->setEnabled(isactive);
 
 
-    viewsctrl->Enable(isactive);
+#ifdef QT_HIDE_FROM
+	viewsctrl->Enable(isactive);
     modesctrl->Enable(isview && !isoperation);
     filealternatectrl->Enable(isview);
 
