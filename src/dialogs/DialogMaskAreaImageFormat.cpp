@@ -289,7 +289,7 @@ bool HTMLButcherMaskAreaImageFormatDialog::TransferDataToWindow()
     p1formatctrl->SetSelection(p1formatctrl->Append(_("- DEFAULT -"), static_cast<wxClientData *>(new ButcherListIdClientData(0))));
     p2formatctrl->SetSelection(p2formatctrl->Append(_("- DEFAULT -"), static_cast<wxClientData *>(new ButcherListIdClientData(0))));
 
-    auto_ptr<ButcherImage> origimage(file_->GetImage()->SubImage(area_->GetGlobalRect())), fmtimage(NULL);
+    std::unique_ptr<ButcherImage> origimage(file_->GetImage()->SubImage(area_->GetGlobalRect())), fmtimage;
 
     ButcherProjectBaseAutoProgress prog(GetProject(), _("Calculating file sizes, please wait..."));
 

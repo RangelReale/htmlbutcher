@@ -61,7 +61,7 @@ ButcherImage *ButcherProjectAreaConfigPreview::GetPreview()
                     areaconfig_->GetArea()->GetDescription().c_str()));
             try
             {
-                std::auto_ptr<ButcherImage> simage(GetProject()->Views()[viewid_]->CreateAreaImage(areaconfig_->GetArea()));
+                std::unique_ptr<ButcherImage> simage(GetProject()->Views()[viewid_]->CreateAreaImage(areaconfig_->GetArea()));
                 if (HavePreview() && simage.get())
                     SetPreview(simage->Save(areaconfig_->ImageInfo().GetSaveParams()));
                 else

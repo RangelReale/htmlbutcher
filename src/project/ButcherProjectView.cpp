@@ -36,7 +36,7 @@ ButcherProjectBaseBLId(project), name_(name), layouttype_(ButcherProjectConsts::
         encoding_(ButcherHTMLConsts::BE_ISO8859_1), assortedfilegroups_(this),
         bgimage_(this), previewbgimage_(this), bgrepeat_(ButcherProjectAreaConfig::BR_NONE),
         isbgcolor_(false), isstretch_(false), styleseparated_(false),
-		bgcolor_(), previewbgimagedraw_(NULL)
+		bgcolor_(), previewbgimagedraw_()
 {
     memset(filealternateid_, 0, sizeof(filealternateid_));
 }
@@ -52,7 +52,7 @@ ButcherProjectView::ButcherProjectView(ButcherProject *project) :
         encoding_(ButcherHTMLConsts::BE_ISO8859_1), assortedfilegroups_(this),
         bgimage_(this), previewbgimage_(this), bgrepeat_(ButcherProjectAreaConfig::BR_NONE),
         isbgcolor_(false), isstretch_(false), styleseparated_(false),
-		bgcolor_(), previewbgimagedraw_(NULL)
+		bgcolor_(), previewbgimagedraw_()
 {
     memset(filealternateid_, 0, sizeof(filealternateid_));
 }
@@ -460,7 +460,7 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
 		}
 		htmlgenerator.AddBody(wxString::Format(wxT("%s"), newline.c_str()));
 
-        std::auto_ptr<ButcherProjectMaskLayout> list=auto_ptr<ButcherProjectMaskLayout>(mask->CreateLayout(curlaytype==ButcherProjectConsts::LTYPE_TABLE && level==0 && (!isstretch_)));
+        std::unique_ptr<ButcherProjectMaskLayout> list=std::unique_ptr<ButcherProjectMaskLayout>(mask->CreateLayout(curlaytype==ButcherProjectConsts::LTYPE_TABLE && level==0 && (!isstretch_)));
         ButcherProjectArea *ar=NULL;//, *mar=NULL;
         ButcherProjectAreaConfig *ac=NULL, *mac=NULL;
         wxRect sr;
@@ -472,7 +472,7 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
         {
             if (progress) progress->SetProgress();
 
-            std::auto_ptr<ButcherImage> img;
+            std::unique_ptr<ButcherImage> img;
 
             ismaskarea=list->Get(ct)->areaid>0;
 
@@ -842,7 +842,7 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
             {
 				if ((items_&ITEM_IMAGES)==ITEM_IMAGES)
 				{
-					img=std::auto_ptr<ButcherImage>(CreateAreaImage(ar));
+					img=std::unique_ptr<ButcherImage>(CreateAreaImage(ar));
 					if (img.get())
 						img->Save(ac->ImageInfo().GetSaveParams(), imgdirname+imgfilename);
 				}
@@ -906,8 +906,8 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
                     {
                         // save image
                         imgfilename=ar->GetImageFilename(GetBLId(), true, alti);
-                        //img=std::auto_ptr<ButcherImage>(GetFileCurrent(alti)->GetSubImage(ar->GetGlobalRect()));
-                        img=std::auto_ptr<ButcherImage>(CreateAreaImage(ar, alti));
+                        //img=std::unique_ptr<ButcherImage>(GetFileCurrent(alti)->GetSubImage(ar->GetGlobalRect()));
+                        img=std::unique_ptr<ButcherImage>(CreateAreaImage(ar, alti));
                         if (img.get())
                             img->Save(ac->AlternateImageInfo(alti).GetSaveParams(), imgdirname+imgfilename);
                     }
@@ -939,7 +939,7 @@ void ButcherProjectView::GenerateImages(const wxString &dirname, ButcherProjectM
     ButcherProjectAreaConfig *ac;
     wxString imgfilename;
     //ButcherListIdList ids;
-    std::auto_ptr<ButcherImage> img;
+    std::unique_ptr<ButcherImage> img;
 
     ButcherProjectFilePath::ForcePathCreate(dirname);
 
@@ -957,8 +957,8 @@ void ButcherProjectView::GenerateImages(const wxString &dirname, ButcherProjectM
                     // save image
                     imgfilename=i->GetImageFilename(GetBLId());
 
-                    //img=std::auto_ptr<ButcherImage>(GetFileCurrent(ac->GetAlternateFile())->GetSubImage(ar->GetGlobalRect()));
-                    img=std::auto_ptr<ButcherImage>(CreateAreaImage(&*i));
+                    //img=std::unique_ptr<ButcherImage>(GetFileCurrent(ac->GetAlternateFile())->GetSubImage(ar->GetGlobalRect()));
+                    img=std::unique_ptr<ButcherImage>(CreateAreaImage(&*i));
 
                     if (img.get())
                         img->Save(ac->ImageInfo().GetSaveParams(), dirname+imgfilename);
@@ -972,8 +972,8 @@ void ButcherProjectView::GenerateImages(const wxString &dirname, ButcherProjectM
                         // save image
                         imgfilename=i->GetImageFilename(GetBLId(), true, alti);
 
-                        //img=std::auto_ptr<ButcherImage>(GetFileCurrent(alti)->GetSubImage(ar->GetGlobalRect()));
-                        img=std::auto_ptr<ButcherImage>(CreateAreaImage(&*i, alti));
+                        //img=std::unique_ptr<ButcherImage>(GetFileCurrent(alti)->GetSubImage(ar->GetGlobalRect()));
+                        img=std::unique_ptr<ButcherImage>(CreateAreaImage(&*i, alti));
                         if (img.get())
                             img->Save(ac->AlternateImageInfo(alti).GetSaveParams(), dirname+imgfilename);
 
@@ -999,7 +999,7 @@ void ButcherProjectView::do_checkfile(int level, ButcherProjectViewFileCheck &ch
     {
         wxString imgfilename;//, imgbasename;
 
-        std::auto_ptr<ButcherProjectMaskLayout> list=auto_ptr<ButcherProjectMaskLayout>(mask->CreateLayout(level==0 && (!isstretch_)));
+        std::unique_ptr<ButcherProjectMaskLayout> list=std::unique_ptr<ButcherProjectMaskLayout>(mask->CreateLayout(level==0 && (!isstretch_)));
         ButcherProjectArea *ar=NULL;
         ButcherProjectAreaConfig *ac=NULL;
         bool haveimage=false, havebg=false, ismaskarea;

@@ -414,7 +414,7 @@ void HTMLButcherFileLinkDialog::ExpandLink(const ButcherProjectFileLink &link)
 {
     wxTreeCtrl *linksctrl=(wxTreeCtrl*)FindWindow(ID_LINKS);
 
-    auto_ptr<FileLinkTreeItemData> finddata(NULL);
+    std::unique_ptr<FileLinkTreeItemData> finddata;
     wxTreeItemId cid;
 
     switch (link.GetLinkType())

@@ -255,7 +255,7 @@ void ButcherMetadataData::Add(ButcherMetadataDataItem *item)
 {
     if (item->GetMetadataData() != this)
         throw ButcherException(_("This item is not for this data"));
-    data_[item->GetMetadataID()]=linked_ptr<ButcherMetadataDataItem>(item);
+    data_[item->GetMetadataID()]=std::shared_ptr<ButcherMetadataDataItem>(item);
 }
 
 ButcherMetadataData *ButcherMetadataData::MultiAdd(ButcherMetadataDataItem *item)
@@ -289,7 +289,7 @@ ButcherMetadataData &ButcherMetadataDataList::Get(int index)
 ButcherMetadataData *ButcherMetadataDataList::Add()
 {
     ButcherMetadataData *ret=new ButcherMetadataData(this);
-    datalist_.push_back(linked_ptr<ButcherMetadataData>(ret));
+    datalist_.push_back(std::shared_ptr<ButcherMetadataData>(ret));
     return ret;
 }
 
@@ -323,7 +323,7 @@ void ButcherMetadataStorage::Add(ButcherMetadataID_t id)
 {
     if (list_.find(id)==list_.end())
         listorder_.push_back(id);
-    list_[id]=linked_ptr<ButcherMetadataDataList>(new ButcherMetadataDataList(this, id));
+    list_[id]=std::shared_ptr<ButcherMetadataDataList>(new ButcherMetadataDataList(this, id));
 }
 
 bool ButcherMetadataStorage::Exists(ButcherMetadataID_t id)
@@ -415,7 +415,7 @@ bool ButcherMetadataFile::ReadMetadata(wxFile &file, ButcherMetadataStorage *sto
     butchermetadata_dataitemheader_t dataitemheader;
     ButcherMetadataDataItem *newitem;
     ButcherMetadataData *curmd=NULL;
-    //auto_ptr<char> itemdata;
+    //std::unique_ptr<char> itemdata;
     size_t n;
     bool started=false, readitemend;
 
@@ -488,11 +488,11 @@ bool ButcherMetadataFile::ReadMetadata(wxFile &file, ButcherMetadataStorage *sto
             {
                 if (newitem->ReadData())
                 {
-                    //itemdata=auto_ptr<char>(new char[dataitemheader.datasize]);
+                    //itemdata=std::unique_ptr<char>(new char[dataitemheader.datasize]);
 #ifndef _MSC_VER
 					char itemdata[dataitemheader.datasize];
 #else
-					auto_ptr<char> itemdata_auto(new char[dataitemheader.datasize]);
+					std::unique_ptr<char> itemdata_auto(new char[dataitemheader.datasize]);
 					char *itemdata=itemdata_auto.get();
 #endif
                     n=file.Read(&*itemdata, dataitemheader.datasize);
@@ -601,7 +601,7 @@ bool ButcherMetadataFile::WriteMetadata(wxFile &file, ButcherMetadataStorage *st
     ButcherMetadataDataList *curlist;
     ButcherMetadataData *curdata;
     ButcherMetadataData::data_t::const_iterator dataiterator;
-    auto_ptr<ButcherMetadataBinary> itembin;
+    std::unique_ptr<ButcherMetadataBinary> itembin;
 
     char buf[BMD_BUF_TEMP_SIZE];
     size_t nRead, nTotal;

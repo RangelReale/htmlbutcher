@@ -14,8 +14,8 @@
 #include <map>
 #include <deque>
 #include <set>
+#include <memory>
 #include <iterator>
-#include <cppcomp/linked_ptr.h>
 #include <wx/wx.h>
 #include "BExcept.h"
 
@@ -66,7 +66,7 @@ public:
     typedef ButcherListAutoUpdate<T> autoupdate_t;
 
 private:
-    typedef map< BLID_t, linked_ptr<T> > ButcherListList;
+    typedef map< BLID_t, std::shared_ptr<T> > ButcherListList;
 public:
 	//template <class T>
 	class iterator : public std::iterator<std::forward_iterator_tag, T>
@@ -136,7 +136,7 @@ public:
 protected:
     bool op_delete(BLID_t id) {
         if (can_delete(id, &*list_[id])) {
-            linked_ptr<T> d=list_[id];
+            std::shared_ptr<T> d=list_[id];
             do_deleting(id, &*d);
 
             list_.erase(id);
@@ -176,12 +176,12 @@ protected:
     virtual void do_clear() {}
 
     unsigned long op_add(T* item, BLID_t id = 0) {
-        linked_ptr<T> newitem(item);
+        std::shared_ptr<T> newitem(item);
         return op_add(newitem, id);
 /*
         if (id==0) id=++maxid_;
         else if (id>maxid_) maxid_=id;
-        list_[id]=linked_ptr<T>(item);
+        list_[id]=std::shared_ptr<T>(item);
         item->SetBLId(id);
         idlist_.insert(id);
         internal_modified(id);
@@ -195,7 +195,7 @@ protected:
         if (orig == dest) return;
 
         typename ButcherListList::iterator i=list_.find(dest);
-        linked_ptr<T> save(NULL);
+        std::shared_ptr<T> save(NULL);
         if (i!=list_.end())
             save=i->second;
         list_[dest]=list_[orig];
@@ -213,7 +213,7 @@ protected:
         list_.erase(orig);
     }
 private:
-    unsigned long op_add(linked_ptr<T> &item, BLID_t id = 0) {
+    unsigned long op_add(std::shared_ptr<T> &item, BLID_t id = 0) {
         if (id==0) id=++maxid_;
         else if (id>maxid_) maxid_=id;
         list_[id]=item;
@@ -339,7 +339,7 @@ public:
 protected:
 	bool op_delete(BLID_t id) {
 		if (Exists(id) && can_delete(id, Get(id))) {
-            linked_ptr<T> d=*fixedp_get(id);
+            std::shared_ptr<T> d=*fixedp_get(id);
             do_deleting(id, &*d);
 
 			fixed_delete(id);
@@ -404,9 +404,9 @@ protected:
         if (orig == dest) return;
 
         // add previous item at end
-        linked_ptr<T> save(NULL);
+        std::shared_ptr<T> save(NULL);
 		if (Get(dest)) {
-			save=linked_ptr<T>(Get(dest));
+			save=std::shared_ptr<T>(Get(dest));
 			op_delete(dest);
 		}
 		op_add(Get(orig), dest);
@@ -424,8 +424,8 @@ protected:
 	}
 
 	virtual void fixed_setblid(T* item, BLID_t id) = 0;
-	virtual T* fixed_get(BLID_t id) { linked_ptr<T> *f=fixedp_get(id); if (f) return f->get(); return NULL; }
-	virtual linked_ptr<T> *fixedp_get(BLID_t id) = 0;
+	virtual T* fixed_get(BLID_t id) { std::shared_ptr<T> *f=fixedp_get(id); if (f) return f->get(); return NULL; }
+	virtual std::shared_ptr<T> *fixedp_get(BLID_t id) = 0;
 	virtual unsigned long fixed_count() = 0;
 	virtual bool fixed_isfull() = 0;
 	virtual void fixed_delete(BLID_t id) = 0;
@@ -462,7 +462,7 @@ protected:
 	virtual void fixed_setblid(T* item, BLID_t id) {
 		item->SetBLId(id);
 	};
-	virtual linked_ptr<T> *fixedp_get(BLID_t id) {
+	virtual std::shared_ptr<T> *fixedp_get(BLID_t id) {
 		if (item1_.get()!=NULL && item1id_==id) return &item1_;
 		return NULL;
 	}
@@ -475,17 +475,17 @@ protected:
 		return fixed_count()==1;
 	}
 	virtual void fixed_delete(BLID_t id) {
-		if (id==item1id_) { item1_=linked_ptr<T>(NULL); item1id_=0; }
+		if (id==item1id_) { item1_=std::shared_ptr<T>(NULL); item1id_=0; }
 	}
 	virtual void fixed_clear() {
 		if (item1_.get()) {
-			item1_=linked_ptr<T>(NULL);
+			item1_=std::shared_ptr<T>(NULL);
 			item1id_=0;
 		}
 	}
 	virtual void fixed_add(T* item, BLID_t id) {
 		if (item1_.get()==NULL) {
-			item1_=linked_ptr<T>(item);
+			item1_=std::shared_ptr<T>(item);
 			item1id_=id;
 		} else
 			throw ButcherException(_("List is full"));
@@ -495,7 +495,7 @@ protected:
 	}
 private:
 	BLID_t item1id_;
-	linked_ptr<T> item1_;
+	std::shared_ptr<T> item1_;
 };
 
 /**
@@ -521,7 +521,7 @@ protected:
 	virtual void fixed_setblid(T* item, BLID_t id) {
 		item->SetBLId(id);
 	};
-	virtual linked_ptr<T> *fixedp_get(BLID_t id) {
+	virtual std::shared_ptr<T> *fixedp_get(BLID_t id) {
 		if (item1_.get()!=NULL && item1id_==id) return &item1_;
 		if (item2_.get()!=NULL && item2id_==id) return &item2_;
 		return NULL;
@@ -536,25 +536,25 @@ protected:
 		return fixed_count()==2;
 	}
 	virtual void fixed_delete(BLID_t id) {
-		if (id==item1id_) { item1_=linked_ptr<T>(NULL); item1id_=0; }
-		if (id==item2id_) { item2_=linked_ptr<T>(NULL); item2id_=0; }
+		if (id==item1id_) { item1_=std::shared_ptr<T>(NULL); item1id_=0; }
+		if (id==item2id_) { item2_=std::shared_ptr<T>(NULL); item2id_=0; }
 	}
 	virtual void fixed_clear() {
 		if (item1_.get()) {
-			item1_=linked_ptr<T>(NULL);
+			item1_=std::shared_ptr<T>(NULL);
 			item1id_=0;
 		}
 		if (item2_.get()) {
-			item2_=linked_ptr<T>(NULL);
+			item2_=std::shared_ptr<T>(NULL);
 			item2id_=0;
 		}
 	}
 	virtual void fixed_add(T* item, BLID_t id) {
 		if (item1_.get()==NULL) {
-			item1_=linked_ptr<T>(item);
+			item1_=std::shared_ptr<T>(item);
 			item1id_=id;
 		} else if (item2_.get()==NULL) {
-			item2_=linked_ptr<T>(item);
+			item2_=std::shared_ptr<T>(item);
 			item2id_=id;
 		} else
 			throw ButcherException(_("List is full"));
@@ -565,7 +565,7 @@ protected:
 	}
 private:
 	BLID_t item1id_, item2id_;
-	linked_ptr<T> item1_, item2_;
+	std::shared_ptr<T> item1_, item2_;
 };
 #endif
 

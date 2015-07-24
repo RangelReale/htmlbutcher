@@ -159,7 +159,7 @@ private:
     imagesource_t imagesource_;
     ButcherProjectFileLink imagelink_;
     ButcherProjectAreaImageInfo imageinfo_;
-    deque< linked_ptr<ButcherProjectAreaImageInfo> > altimageinfo_;
+    deque< std::shared_ptr<ButcherProjectAreaImageInfo> > altimageinfo_;
 	ButcherMargin margins_;
 };
 

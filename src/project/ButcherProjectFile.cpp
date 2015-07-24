@@ -149,7 +149,7 @@ void ButcherProjectFile::SaveOutputFile(const wxString &filename, BLID_t id)
 
     if (imagedata_)
     {
-        auto_ptr<wxInputStream> istream(imagedata_->GetData());
+        std::unique_ptr<wxInputStream> istream(imagedata_->GetData());
 
         if (!istream.get())
             throw ButcherException(_("Error loading file stream"));
@@ -247,7 +247,7 @@ ButcherImage *ButcherProjectFile::CreateImage()
     {
         if (imagedata_)
         {
-            auto_ptr<wxInputStream> istream(imagedata_->GetData());
+            std::unique_ptr<wxInputStream> istream(imagedata_->GetData());
 
             if (!istream.get())
             {

@@ -332,7 +332,7 @@ void ButcherProjectProc_AreaMenu::ProcessAreaMenu(int menuid)
             if (d.ShowModal()==wxID_OK)
             {
 				wxFileName fn(d.GetPath());
-				auto_ptr<ButcherImage> aimg(view_->GetFile()->GetSubImage(area->GetGlobalRect()));
+				std::unique_ptr<ButcherImage> aimg(view_->GetFile()->GetSubImage(area->GetGlobalRect()));
                 aimg->Save(ButcherImage::GetExtFormat(fn.GetExt()), d.GetPath(), 0);
             }
 
@@ -349,7 +349,7 @@ void ButcherProjectProc_AreaMenu::ProcessAreaMenu(int menuid)
                 wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
             if (d.ShowModal()==wxID_OK)
             {
-				auto_ptr<ButcherImage> img(view_->CreateAreaImage(area));
+				std::unique_ptr<ButcherImage> img(view_->CreateAreaImage(area));
 				if (img.get())
 					img->Save(area->Configs().Get(view_->GetBLId())->ImageInfo().GetSaveParams(), d.GetPath());
 				else

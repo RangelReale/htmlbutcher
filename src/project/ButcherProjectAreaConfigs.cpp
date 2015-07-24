@@ -56,7 +56,7 @@ void ButcherProjectAreaConfigs::Add(BLID_t id)
 
 	if (list_.find(id)==list_.end())
     {
-        list_[id]=linked_ptr<ButcherProjectAreaConfig>(new ButcherProjectAreaConfig(area_, id));
+        list_[id]=std::shared_ptr<ButcherProjectAreaConfig>(new ButcherProjectAreaConfig(area_, id));
 /*
 		// set new configs as kind mask
 		if (area_->GetAreaClass()==ButcherProjectArea::AC_DEFAULT && id>DEFAULT_CONFIG)
@@ -212,7 +212,7 @@ BLID_t ButcherProjectAreaConfigs::Add(ButcherMetadataData *metadata)
 	}
 	// COMPAT END
 
-    list_[mdadd->GetBLId()]=linked_ptr<ButcherProjectAreaConfig>(mdadd);
+    list_[mdadd->GetBLId()]=std::shared_ptr<ButcherProjectAreaConfig>(mdadd);
     return mdadd->GetBLId();
 }
 

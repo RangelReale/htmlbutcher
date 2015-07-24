@@ -212,7 +212,7 @@ void HTMLButcherMaskAreaFileAlternateDialog::Load(ButcherProjectView *view, Butc
 
     for (int i=0; i<BUTCHERCONST_VIEW_MAXALTERNATE; i++)
     {
-        altimageinfo_.push_back(linked_ptr<ButcherProjectAreaImageInfo>(new ButcherProjectAreaImageInfo(loadconfig->AlternateImageInfo(i))));
+        altimageinfo_.push_back(std::shared_ptr<ButcherProjectAreaImageInfo>(new ButcherProjectAreaImageInfo(loadconfig->AlternateImageInfo(i))));
         altimageinfo_[i]->ResetAreaConfig();
     }
 }

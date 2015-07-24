@@ -14,10 +14,9 @@
 
 #include <deque>
 #include <map>
+#include <memory>
 #include <wx/wx.h>
 #include <wx/file.h>
-#include <cppcomp/linked_ptr.h>
-
 #include <wx/sstream.h>
 #include <wx/mstream.h>
 
@@ -298,7 +297,7 @@ public:
     ButcherMetadataDataItem &Get(ButcherMetadataID_t id);
 
 
-    typedef map< ButcherMetadataID_t, linked_ptr< ButcherMetadataDataItem > > data_t;
+    typedef map< ButcherMetadataID_t, std::shared_ptr< ButcherMetadataDataItem > > data_t;
 
     const data_t &GetData() { return data_; }
 
@@ -320,7 +319,7 @@ private:
 class ButcherMetadataDataList
 {
 public:
-    typedef deque< linked_ptr< ButcherMetadataData > > datalist_t;
+    typedef deque< std::shared_ptr< ButcherMetadataData > > datalist_t;
 
     ButcherMetadataDataList(ButcherMetadataStorage *storage, ButcherMetadataID_t metadataid);
 
@@ -363,7 +362,7 @@ public:
 protected:
     friend class ButcherMetadataFile;
 private:
-    typedef map< ButcherMetadataID_t, linked_ptr< ButcherMetadataDataList > > list_t;
+    typedef map< ButcherMetadataID_t, std::shared_ptr< ButcherMetadataDataList > > list_t;
     list_t list_;
     listorder_t listorder_;
 };

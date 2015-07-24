@@ -361,7 +361,7 @@ bool wxFreeImage::Save(wxImage &image)
 {
     CheckOk();
 
-    auto_ptr<wxFreeImage> simg(this->Clone());
+    std::unique_ptr<wxFreeImage> simg(this->Clone());
 
     simg->Convert(CV_24BITS);
     //simg->Flip(wxFreeImage::FL_VERTICAL); // don't flip here, we need to compare the pixels to do the transparency
@@ -603,7 +603,7 @@ void wxFreeImage::Composite(bool usefilebg, RGBQUAD *bkcolor, wxFreeImage *bg)
         // must be 8 or 32 bits
         Convert(CV_32BITS);
 
-    auto_ptr<wxFreeImage> newbg(NULL);
+    std::unique_ptr<wxFreeImage> newbg;
     if (bg->GetBPP()!=24)
     {
         // must be 24 bits
@@ -620,7 +620,7 @@ void wxFreeImage::Composite(bool usefilebg, RGBQUAD *bkcolor, wxFreeImage *bg)
 
 void wxFreeImage::CompositeFG(wxFreeImage *fg, bool usefilebg, RGBQUAD *bkcolor)
 {
-    auto_ptr<wxFreeImage> newfg(NULL);
+    std::unique_ptr<wxFreeImage> newfg;
     if (fg->GetBPP()!=32)
     {
         // must be 8 or 32 bits
@@ -741,8 +741,8 @@ bool wxFreeImage::ApplyTransparentColors(const wxFreeImageColorList_t *colors,
 			unsigned char srcindices[paltranslist.size()];
             unsigned char dstindices[paltranslist.size()];
 #else
-			auto_ptr<unsigned char> srcindices_data(new unsigned char[paltranslist.size()]);
-			auto_ptr<unsigned char> dstindices_data(new unsigned char[paltranslist.size()]);
+			std::unique_ptr<unsigned char> srcindices_data(new unsigned char[paltranslist.size()]);
+			std::unique_ptr<unsigned char> dstindices_data(new unsigned char[paltranslist.size()]);
 			unsigned char *srcindices=srcindices_data.get();
             unsigned char *dstindices=dstindices_data.get();
 #endif

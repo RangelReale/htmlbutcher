@@ -12,7 +12,7 @@
 #define __BPROJECT_BUTCHERPROJECTAREACONFIGS_H__
 
 #include <wx/wx.h>
-#include <cppcomp/linked_ptr.h>
+#include <memory>
 #include "BList.h"
 #include "ButcherProjectBaseModify.h"
 #include "ButcherProjectAreaConfig.h"
@@ -52,7 +52,7 @@ protected:
 
     virtual void SendProjectModified(ButcherProjectEvent::event_t mod, BLID_t id, BLID_t id2);
 private:
-    typedef map< BLID_t, linked_ptr<ButcherProjectAreaConfig> >  list_t;
+    typedef map< BLID_t, std::shared_ptr<ButcherProjectAreaConfig> >  list_t;
     BLID_t Add(ButcherMetadataData *metadata);
 
     ButcherProjectArea *area_;

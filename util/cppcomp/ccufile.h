@@ -242,7 +242,7 @@ T ccu_Path<T>::GetPath(const ccu_Path<T> &basepath, bool trailing, pathformat_t 
     if (pformat == PPF_URL)
         pformat=PPF_UNIX;
 
-    auto_ptr< ccu_Path<T> > opath(NULL);
+    std::unique_ptr< ccu_Path<T> > opath;
     if (basepath.IsEmpty())
         opath.reset(new ccu_Path<T>(*this));
     else

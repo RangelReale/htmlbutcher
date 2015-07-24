@@ -245,7 +245,7 @@ bool HTMLButcherNewViewFileWizardPage::TransferDataFromWindow()
         return false;
     }
 
-	auto_ptr<ButcherImage> limg(ButcherImageFactory::Load(fn.GetFullPath()));
+	std::unique_ptr<ButcherImage> limg(ButcherImageFactory::Load(fn.GetFullPath()));
 	if (!limg.get())
     {
         wxMessageBox(_("Unknown image file format."), _("Error"),

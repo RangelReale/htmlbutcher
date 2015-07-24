@@ -566,7 +566,7 @@ void ButcherProject::DoLoad(const wxString &filename, ButcherProjectBaseAutoProg
         procprojectfile_=NULL;
     }
 
-    auto_ptr<ButcherProjectMetadataFile> mdf(new ButcherProjectMetadataFile());
+    std::unique_ptr<ButcherProjectMetadataFile> mdf(new ButcherProjectMetadataFile());
 
     mdf->Load(filename);
     if (progress) progress->SetProgress();
@@ -628,7 +628,7 @@ void ButcherProject::DoSave(const wxString &filename, ButcherProjectBaseAutoProg
         procprojectfile_=NULL;
     }
 
-    auto_ptr<ButcherProjectMetadataFile> mdf(new ButcherProjectMetadataFile());
+    std::unique_ptr<ButcherProjectMetadataFile> mdf(new ButcherProjectMetadataFile());
 
     // save all data
 /*

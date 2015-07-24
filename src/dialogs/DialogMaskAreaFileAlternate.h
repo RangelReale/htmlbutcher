@@ -68,7 +68,7 @@ private:
     ButcherProjectArea *area_;
     ButcherProjectAreaConfig *config_;
 
-    deque< linked_ptr<ButcherProjectAreaImageInfo> > altimageinfo_;
+    deque< std::shared_ptr<ButcherProjectAreaImageInfo> > altimageinfo_;
 };
 
 #endif //__DIALOGMASKAERAFILEALTERNATE_H__

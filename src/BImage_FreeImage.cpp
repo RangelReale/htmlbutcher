@@ -166,7 +166,7 @@ ButcherImage *ButcherImage_FreeImage::SubImage(const wxRect &r)
 {
     try
     {
-        auto_ptr<wxFreeImage> si(new wxFreeImage());
+        std::unique_ptr<wxFreeImage> si(new wxFreeImage());
         image_->Copy(*si, r);
         return new ButcherImage_FreeImage(si.release());
     } catch (wxFreeImageException &e) {
@@ -190,7 +190,7 @@ wxFreeImage *ButcherImage_FreeImage::ImageFormatPrepare(format_t format, int fla
         {
             if (image_->GetBPP() > 8 || (tcolors && tcolors->size()>0))
             {
-                auto_ptr<wxFreeImage> img(new wxFreeImage(*image_));
+                std::unique_ptr<wxFreeImage> img(new wxFreeImage(*image_));
                 if (image_->GetBPP() > 8)
                 {
                     // must be 24 bits do quantize
@@ -214,7 +214,7 @@ wxFreeImage *ButcherImage_FreeImage::ImageFormatPrepare(format_t format, int fla
             // convert to 24 bits
             if (image_->NeedConvert(wxFreeImage::CV_24BITS))
             {
-                auto_ptr<wxFreeImage> img(new wxFreeImage(*image_));
+                std::unique_ptr<wxFreeImage> img(new wxFreeImage(*image_));
                 img->Convert(wxFreeImage::CV_24BITS);
                 return img.release();
             }
@@ -231,7 +231,7 @@ wxFreeImage *ButcherImage_FreeImage::ImageFormatPrepare(format_t format, int fla
 
             if (image_->NeedConvert(cv) || (tcolors && tcolors->size()>0))
             {
-                auto_ptr<wxFreeImage> img(new wxFreeImage(*image_));
+                std::unique_ptr<wxFreeImage> img(new wxFreeImage(*image_));
                 // convert
                 if (image_->NeedConvert(cv))
                 {
@@ -375,7 +375,7 @@ void ButcherImage_FreeImage::Composite(const wxBitmap &bitmap)
         d.rgbBlue=255;
 
         wxImage img(bitmap.ConvertToImage());
-        auto_ptr<wxFreeImage> cmp(new wxFreeImage(img));
+        std::unique_ptr<wxFreeImage> cmp(new wxFreeImage(img));
         cmp->Convert(wxFreeImage::CV_32BITS);
         cmp->ApplyColorMapping(&s, &d, 1, false);
 

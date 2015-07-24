@@ -182,7 +182,7 @@ private:
     bool isbgcolor_, isstretch_, styleseparated_;
     wxColor bgcolor_;
 
-    auto_ptr<ButcherImage> previewbgimagedraw_;
+    std::unique_ptr<ButcherImage> previewbgimagedraw_;
 };
 
 #endif // __BPROJECT_BUTCHERPROJECTVIEW_H__

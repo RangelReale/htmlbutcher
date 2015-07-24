@@ -37,7 +37,7 @@ ButcherProjectAreaConfigBase::ButcherProjectAreaConfigBase(ButcherProjectArea *a
 
     imageinfo_.SetEnabled(true);
     for (int i=0; i<BUTCHERCONST_VIEW_MAXALTERNATE; i++)
-        altimageinfo_.push_back(linked_ptr<ButcherProjectAreaImageInfo>(new ButcherProjectAreaImageInfo(this, i)));
+        altimageinfo_.push_back(std::shared_ptr<ButcherProjectAreaImageInfo>(new ButcherProjectAreaImageInfo(this, i)));
 }
 
 
