@@ -194,6 +194,12 @@ private Q_SLOTS:
 #ifndef HTMLBUTCHER_DEMO
     void OnMenuHistory(wxCommandEvent &event);
 #endif
+#endif // QT_HIDE_FROM
+
+	void OnMenuViewSelect();
+	void OnMenuZoom(QAction *action);
+
+#ifdef QT_HIDE_FROM
 
     void OnMenuMode(wxCommandEvent& event);
     void OnMenuEditMode(wxCommandEvent& event);
@@ -222,8 +228,6 @@ private Q_SLOTS:
     void OnMenuShowAreas(wxCommandEvent& event);
     void OnMenuShowAreasGlobal(wxCommandEvent& event);
     void OnMenuShowAreasMap(wxCommandEvent& event);
-    void OnMenuZoom(wxCommandEvent& event);
-    void OnMenuViewSelect(wxCommandEvent& event);
     void OnMenuGrid(wxCommandEvent& event);
     void OnMenuGridSize(wxCommandEvent& event);
     void OnMenuFileAlternate(wxCommandEvent& event);
@@ -307,6 +311,7 @@ private:
     ButcherOptions options_;
 
 	QAction *menuNew_, *menuOpen_, *menuClose_, *menuSave_, *menuSaveAs_, *menuSaveForWeb_, *menuSaveForWebMultiple_, *menuOptions_, *menuQuit_;
+	QAction *menuViewSelect_, *menuZoomOut_, *menuZoomIn_, *menuZoomNormal_, *menuZoom_;
 
     //DECLARE_EVENT_TABLE()
 };

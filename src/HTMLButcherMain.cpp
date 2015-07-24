@@ -50,6 +50,7 @@
 #endif
 
 #include <QMenuBar>
+#include <QActionGroup>
 
 /*
 BEGIN_EVENT_TABLE(HTMLButcherFrame, wxFrame)
@@ -148,51 +149,43 @@ HTMLButcherFrame::HTMLButcherFrame()
     QMenu* fileMenu = new QMenu(tr("&File"), this);
 
     //fileMenu->Append(idMenuNew, _("&New\tCtrl-N"), _("Create new project"));
-	menuNew_ = new QAction(tr("&New\tCtrl-N"), this); menuNew_->setStatusTip(tr("Create new project")); fileMenu->addAction(menuNew_);
-	connect(menuNew_, SIGNAL(triggered()), this, SLOT(OnMenuNew()));
+	//menuNew_ = new QAction(tr("&New\tCtrl-N"), this); menuNew_->setStatusTip(tr("Create new project")); fileMenu->addAction(menuNew_);
+	menuNew_ = fileMenu->addAction(tr("&New\tCtrl-N"), this, SLOT(OnMenuNew())); menuNew_->setStatusTip(tr("Create new project"));
 
 #ifndef HTMLBUTCHER_DEMO
     //fileMenu->Append(idMenuOpen, _("&Open...\tCtrl-O"), _("Open project"));
-	menuOpen_ = new QAction(tr("&Open...\tCtrl-O"), this); menuOpen_->setStatusTip(tr("Open project")); fileMenu->addAction(menuOpen_);
-	connect(menuOpen_, SIGNAL(triggered()), this, SLOT(OnMenuOpen()));
+	menuOpen_ = fileMenu->addAction(tr("&Open...\tCtrl-O"), this, SLOT(OnMenuOpen())); menuOpen_->setStatusTip(tr("Open project"));
 #endif
     //fileMenu->Append(idMenuClose, _("C&lose"), _("Close project"));
-	menuClose_ = new QAction(tr("C&lose"), this); menuClose_->setStatusTip(tr("Close project")); fileMenu->addAction(menuClose_);
-	connect(menuClose_, SIGNAL(triggered()), this, SLOT(OnMenuClose()));
+	menuClose_ = fileMenu->addAction(tr("C&lose"), this, SLOT(OnMenuClose())); menuClose_->setStatusTip(tr("Close project"));
 
 #ifndef HTMLBUTCHER_DEMO
     //fileMenu->Append(idMenuSave, _("&Save\tCtrl-S"), _("Save project"));
-	menuSave_ = new QAction(tr("&Save\tCtrl-S"), this); menuSave_->setStatusTip(tr("Save project")); fileMenu->addAction(menuSave_);
-	connect(menuSave_, SIGNAL(triggered()), this, SLOT(OnMenuSave()));
+	menuSave_ = fileMenu->addAction(tr("&Save\tCtrl-S"), this, SLOT(OnMenuSave())); menuSave_->setStatusTip(tr("Save project"));
 
     //fileMenu->Append(idMenuSaveAs, _("Save &as..."), _("Save project with a different file name"));
-	menuSaveAs_ = new QAction(tr("Save &as..."), this); menuSaveAs_->setStatusTip(tr("Save project with a different file name")); fileMenu->addAction(menuSaveAs_);
-	connect(menuSaveAs_, SIGNAL(triggered()), this, SLOT(OnMenuSaveAs()));
+	menuSaveAs_ = fileMenu->addAction(tr("Save &as..."), this, SLOT(OnMenuSaveAs())); menuSaveAs_->setStatusTip(tr("Save project with a different file name"));
 
 #endif
 	fileMenu->addSeparator();
 
     //fileMenu->Append(idMenuSaveForWeb, _("Save for &Web...\tCtrl-W"), _("Export HTML"));
-	menuSaveForWeb_ = new QAction(tr("Save for &Web...\tCtrl-W"), this); menuSaveForWeb_->setStatusTip(tr("Export HTML")); fileMenu->addAction(menuSaveForWeb_);
-	connect(menuSaveForWeb_, SIGNAL(triggered()), this, SLOT(OnMenuSaveForWeb()));
+	menuSaveForWeb_ = fileMenu->addAction(tr("Save for &Web...\tCtrl-W"), this, SLOT(OnMenuSaveForWeb())); menuSaveForWeb_->setStatusTip(tr("Export HTML"));
 
 #ifndef HTMLBUTCHER_DEMO
     //fileMenu->Append(idMenuSaveForWebMultiple, _("Save all for We&b..."), _("Export multiple views HTML"));
-	menuSaveForWebMultiple_ = new QAction(tr("Save all for We&b..."), this); menuSaveForWebMultiple_->setStatusTip(tr("Export multiple views HTML")); fileMenu->addAction(menuSaveForWebMultiple_);
-	connect(menuSaveForWebMultiple_, SIGNAL(triggered()), this, SLOT(OnMenuSaveForWebMultiple()));
+	menuSaveForWebMultiple_ = fileMenu->addAction(tr("Save all for We&b..."), this, SLOT(OnMenuSaveForWebMultiple())); menuSaveForWebMultiple_->setStatusTip(tr("Export multiple views HTML"));
 #endif
 
 	fileMenu->addSeparator();
 
     //fileMenu->Append(wxID_PREFERENCES, _("&Preferences..."), _("Program preferences"));
-	menuOptions_ = new QAction(tr("&Preferences..."), this); menuOptions_->setStatusTip(tr("Program preferences")); fileMenu->addAction(menuOptions_);
-	connect(menuOptions_, SIGNAL(triggered()), this, SLOT(OnMenuOptions()));
+	menuOptions_ = fileMenu->addAction(tr("&Preferences..."), this, SLOT(OnMenuOptions())); menuOptions_->setStatusTip(tr("Program preferences"));
 
 	fileMenu->addSeparator();
 
     //fileMenu->Append(wxID_EXIT, _("E&xit\tAlt-F4"), _("Exit the application"));
-	menuQuit_ = new QAction(tr("E&xit\tAlt-F4"), this); menuQuit_->setStatusTip(tr("Exit the application")); fileMenu->addAction(menuQuit_);
-	connect(menuQuit_, SIGNAL(triggered()), this, SLOT(OnMenuQuit()));
+	menuQuit_ = fileMenu->addAction(tr("E&xit\tAlt-F4"), this, SLOT(OnMenuQuit())); menuQuit_->setStatusTip(tr("Exit the application"));
 
 
 #ifdef QT_HIDE_FROM
@@ -210,19 +203,30 @@ HTMLButcherFrame::HTMLButcherFrame()
 
     QMenu* viewMenu = new QMenu(tr("&View"), this);
 
-#ifdef QT_HIDE_FROM
 	//wxMenu* viewviewMenu = new wxMenu(_T(""));
     //viewMenu->Append(idMenuViewSelect, _("&View"), _("View"));
     //viewMenu->Append(idMenuViewSelect, wxT("&View"), viewviewMenu, wxT("View"));
-	viewMenu->Append(idMenuViewSelect, _("&View"), _("View"));
 
-    viewMenu->AppendSeparator();
-    viewMenu->Append(idMenuZoomOut, _("Zoom &Out\t-"), _("Zoom out"));
-    viewMenu->Append(idMenuZoomIn, _("Zoom &In\t+"), _("Zoom in"));
-    viewMenu->Append(idMenuZoomNormal, _("Zoom &Normal\t/"), _("Zoom normal"));
-    viewMenu->Append(idMenuZoom, _("&Zoom...\tCtrl-Z"), _("Zoom"));
-    viewMenu->AppendSeparator();
-    viewMenu->AppendCheckItem(idMenuShowPreview, _("&Preview\tCTRL-V"), _("Show/hide preview"));
+	//viewMenu->Append(idMenuViewSelect, _("&View"), _("View"));
+	menuViewSelect_ = viewMenu->addAction(tr("&View")); menuViewSelect_->setStatusTip(tr("View"));
+
+    viewMenu->addSeparator();
+
+	QActionGroup *agZoom = new QActionGroup(this);
+    //viewMenu->Append(idMenuZoomOut, _("Zoom &Out\t-"), _("Zoom out"));
+	menuZoomOut_ = viewMenu->addAction(tr("Zoom &Out\t-")); menuZoomOut_->setStatusTip(tr("Zoom out")); agZoom->addAction(menuZoomOut_);
+    //viewMenu->Append(idMenuZoomIn, _("Zoom &In\t+"), _("Zoom in"));
+	menuZoomIn_ = viewMenu->addAction(tr("Zoom &In\t+")); menuZoomIn_->setStatusTip(tr("Zoom in")); agZoom->addAction(menuZoomIn_);
+	//viewMenu->Append(idMenuZoomNormal, _("Zoom &Normal\t/"), _("Zoom normal"));
+	menuZoomNormal_ = viewMenu->addAction(tr("Zoom &Normal\t/")); menuZoomNormal_->setStatusTip(tr("Zoom normal")); agZoom->addAction(menuZoomNormal_);
+	//viewMenu->Append(idMenuZoom, _("&Zoom...\tCtrl-Z"), _("Zoom"));
+	menuZoom_ = viewMenu->addAction(tr("&Zoom...\tCtrl-Z")); menuZoom_->setStatusTip(tr("Zoom")); agZoom->addAction(menuZoom_);
+	connect(agZoom, SIGNAL(triggered(QAction*)), this, SLOT(OnMenuZoom(QAction*)));
+
+    viewMenu->addSeparator();
+
+#ifdef QT_HIDE_FROM
+	viewMenu->AppendCheckItem(idMenuShowPreview, _("&Preview\tCTRL-V"), _("Show/hide preview"));
     viewMenu->AppendCheckItem(idMenuShowBorders, _("&Borders\tCTRL-B"), _("Show/hide borders"));
     viewMenu->AppendCheckItem(idMenuShowAreas, _("&Areas\tCTRL-A"), _("Show/hide areas"));
     viewMenu->AppendCheckItem(idMenuShowAreasGlobal, _("G&lobal Areas\tCTRL-L"), _("Show/hide global areas"));
@@ -770,8 +774,45 @@ void HTMLButcherFrame::OnMenuHistory(wxCommandEvent &event)
 }
 #endif
 
+#endif // QT_HIDE_FROM
 
 
+void HTMLButcherFrame::OnMenuViewSelect()
+{
+#ifdef QT_HIDE_FROM
+	SetView(event.GetId() - idMenuViewSelect);
+#endif // QT_HIDE_FROM
+}
+
+void HTMLButcherFrame::OnMenuZoom(QAction *action)
+{
+	if (view_->GetProjectView() == NULL) return;
+
+	long z;
+
+
+	if (action == menuZoomIn_)
+		view_->SetZoom(view_->GetZoom() + 10);
+	else if (action == menuZoomOut_)
+	{
+		if (view_->GetZoom() > 10)
+			view_->SetZoom(view_->GetZoom() - 10);
+	}
+	else if (action == menuZoomNormal_)
+		view_->SetZoom(100);
+	else if (action == menuZoom_)
+	{
+#ifdef QT_HIDE_FROM
+		z = wxGetNumberFromUser(_("Enter zoom"), _("Zoom: 1-500%"), _("Zoom"),
+			view_->GetZoom(), 1, 500, this);
+		if (z>1)
+			view_->SetZoom(z);
+#endif // QT_HIDE_FROM
+	}
+}
+
+
+#ifdef QT_HIDE_FROM
 
 void HTMLButcherFrame::OnHelpHelp(wxCommandEvent& event)
 {
@@ -1026,38 +1067,7 @@ void HTMLButcherFrame::OnMenuImageFormats(wxCommandEvent& event)
 
 
 
-void HTMLButcherFrame::OnMenuZoom(wxCommandEvent& event)
-{
-    if (view_->GetProjectView() == NULL) return;
 
-    long z;
-
-    switch (event.GetId()) {
-    case idMenuZoomIn:
-        view_->SetZoom(view_->GetZoom() + 10);
-        break;
-    case idMenuZoomOut:
-        if (view_->GetZoom() > 10)
-            view_->SetZoom(view_->GetZoom() - 10);
-        break;
-    case idMenuZoomNormal:
-        view_->SetZoom(100);
-        break;
-    case idMenuZoom:
-        z=wxGetNumberFromUser(_("Enter zoom"), _("Zoom: 1-500%"), _("Zoom"),
-            view_->GetZoom(), 1, 500, this);
-        if (z>1)
-            view_->SetZoom(z);
-        break;
-    }
-}
-
-
-
-void HTMLButcherFrame::OnMenuViewSelect(wxCommandEvent& event)
-{
-    SetView(event.GetId()-idMenuViewSelect);
-}
 
 
 
