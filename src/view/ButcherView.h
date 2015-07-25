@@ -20,6 +20,7 @@
 #include "ButcherProjectArea.h"
 
 #include <QWidget>
+#include <QScrollArea>
 
 class ButcherView;
 class ButcherRuler;
@@ -98,7 +99,7 @@ public:
     void SetFileAlternate(bool s, bool refresh = true);
 
     int GetFileAlternateId() { return filealternateid_; }
-    void SetFileAlternateId(int s, bool refresh = true) { filealternateid_=s; if (refresh) Refresh(); }
+    void SetFileAlternateId(int s, bool refresh = true) { filealternateid_=s; if (refresh) update(); }
 
     virtual void SelectionClear(bool refresh = true, bool hoveronly = false);
 
@@ -115,6 +116,8 @@ public:
     void ViewCenter(long x, long y);
 
     virtual void SetFocus();
+Q_SIGNALS:
+	void viewChangedEvent(ButcherViewChangedEvent &event);
 protected:
     void RepositionView();
     void RepositionScroll(int orientation = wxBOTH);
@@ -127,10 +130,13 @@ protected:
     virtual void DoAfterScroll() {}
 
     ButcherDocument *designer_;
-    wxScrolledWindow *dwindow_;
+    //wxScrolledWindow *dwindow_;
+	QScrollArea *dwindow_;
     ButcherProjectMaskDrawSelection *selection_;
 
     virtual void ProjectChanged();
+private Q_SLOTS:
+	void OnDrawDocument(const ButcherDocumentDrawEvent& event);
 private:
 
     void OnSize(wxSizeEvent &event);
@@ -139,7 +145,6 @@ private:
     void OnSetFocus(wxFocusEvent &event);
 
     void OnProjectEvent(ButcherProjectEvent& event);
-    void OnDrawDocument(ButcherDocumentDrawEvent& event);
 
     ButcherRuler *ruler_left_, *ruler_top_, *ruler_right_, *ruler_bottom_;
     bool filealternate_;

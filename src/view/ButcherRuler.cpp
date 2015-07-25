@@ -20,17 +20,22 @@
 // CLASS
 //      ButcherRuler
 /////////////////////////////////
+
+#ifdef QT_HIDE_FROM
+
 BEGIN_EVENT_TABLE(ButcherRuler, wxControl)
     EVT_PAINT(ButcherRuler::OnPaint)
     EVT_ERASE_BACKGROUND(ButcherRuler::OnEraseBackground)
 END_EVENT_TABLE()
 
+#endif // QT_HIDE_FROM
 
 
-ButcherRuler::ButcherRuler(ButcherView* parent, rulerkind_t kind, wxWindowID id,
+ButcherRuler::ButcherRuler(ButcherView* parent, rulerkind_t kind/*, wxWindowID id,
     const wxPoint& pos, const wxSize& size, long style,
-    const wxString& name) :
-    wxControl(parent, id, pos, size, style, wxDefaultValidator, name),
+    const wxString& name*/) :
+    //wxControl(parent, id, pos, size, style, wxDefaultValidator, name),
+	QWidget(parent),
     view_(parent), kind_(kind), linesmallpct_(25), linebigpct_(50),
     start_(0), position_(-1)
 {
@@ -49,7 +54,8 @@ void ButcherRuler::OnEraseBackground(wxEraseEvent &event)
 
 void ButcherRuler::OnPaint(wxPaintEvent &event)
 {
-    wxBufferedPaintDC dc(this);
+#ifdef QT_HIDE_FROM
+	wxBufferedPaintDC dc(this);
     //dc.SetPen(*wxBLACK_PEN);
     dc.SetPen(*wxTRANSPARENT_PEN);
     dc.SetBrush(*wxTheBrushList->FindOrCreateBrush(wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE)));
@@ -201,6 +207,7 @@ void ButcherRuler::OnPaint(wxPaintEvent &event)
     dc.SetFont(wxNullFont);
     dc.SetPen(wxNullPen);
     dc.SetBrush(wxNullBrush);
+#endif // QT_HIDE_FROM
 }
 
 
@@ -212,12 +219,14 @@ void ButcherRuler::SetSelection(long position)
         long oldpos=position_;
         position_=position;
         // clean old rectangle
-        RefreshRect(PosRect(oldpos, 1), false);
+        ///RefreshRect(PosRect(oldpos, 1), false);
+		update(); // TODO
 
         if (position_>=0 && position_>start_)
         {
             // draw new rectangle
-            RefreshRect(PosRect(position_, 1), false);
+            ///RefreshRect(PosRect(position_, 1), false);
+			update(); // TODO
         }
     }
 }
@@ -232,12 +241,14 @@ wxRect ButcherRuler::PosRect(long position, long spacing)
     switch (kind_) {
     case BRK_LEFT:
     case BRK_RIGHT:
-        return wxRect(wxPoint(0, clientpos-spacing), wxPoint(GetClientSize().GetWidth(), clientpos+spacing));
+        ///return wxRect(wxPoint(0, clientpos-spacing), wxPoint(GetClientSize().GetWidth(), clientpos+spacing));
+		return wxRect(wxPoint(0, clientpos - spacing), wxPoint(rect().width(), clientpos + spacing));
         break;
 
     case BRK_TOP:
     case BRK_BOTTOM:
-        return wxRect(wxPoint(clientpos-spacing, 0), wxPoint(clientpos+spacing, GetClientSize().GetWidth()));
+        ///return wxRect(wxPoint(clientpos-spacing, 0), wxPoint(clientpos+spacing, GetClientSize().GetWidth()));
+		return wxRect(wxPoint(clientpos - spacing, 0), wxPoint(clientpos + spacing, rect().width()));
         break;
     }
     return wxRect(0, 0, 0, 0);

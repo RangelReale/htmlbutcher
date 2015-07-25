@@ -29,10 +29,10 @@ ButcherDocumentDrawEvent::ButcherDocumentDrawEvent() :
 
 
 ButcherDocumentDrawEvent::ButcherDocumentDrawEvent(ButcherDocument *document,
-    wxDC *dc, const wxRegion &updateregion, int id/*, wxEventType commandType*/) :
+    QPainter *painter, /*const wxRegion &updateregion,*/ int id/*, wxEventType commandType*/) :
     //wxEvent(id, commandType), 
 	QEvent(staticType()),
-	document_(document), dc_(dc), updateregion_(updateregion)
+	document_(document), painter_(painter) /*, updateregion_(updateregion)*/
 {
     //m_propagationLevel=wxEVENT_PROPAGATE_MAX; // force propagation
 }

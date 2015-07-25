@@ -11,18 +11,17 @@
 
 #include "ButcherDocument.h"
 #include "ButcherView.h"
-#include "ButcherDocumentKeyEvent.h"
-#include "ButcherDocumentDrawEvent.h"
-#include "ButcherDocumentMouseEvent.h"
 
 #include <wx/dcbuffer.h>
 
-
+#include <QPainter>
 
 /////////////////////////////////
 // CLASS
 //      ButcherDocument
 /////////////////////////////////
+
+#ifdef QT_HIDE_FROM
 
 DEFINE_EVENT_TYPE( wxEVT_BUTCHERDOCUMENTKEYBOARD_ACTION )
 
@@ -37,39 +36,80 @@ BEGIN_EVENT_TABLE(ButcherDocument, wxControl)
     //EVT_CHAR(ButcherDocument::OnKeyboard)
 END_EVENT_TABLE()
 
-ButcherDocument::ButcherDocument(ButcherView* view, wxWindow *parent,
+#endif // QT_HIDE_FROM
+
+
+ButcherDocument::ButcherDocument(ButcherView* view, QWidget *parent /*,
     wxWindowID id,
     const wxPoint& pos, const wxSize& size,
-    long style, const wxString& name) :
-    wxControl(parent, id, pos, size, style | wxWANTS_CHARS, wxDefaultValidator, name),
+    long style, const wxString& name*/) :
+    //wxControl(parent, id, pos, size, style | wxWANTS_CHARS, wxDefaultValidator, name),
+	QWidget(parent),
     view_(view)
 {
 
 }
 
-
-
-
-void ButcherDocument::OnPaint(wxPaintEvent &event)
+void ButcherDocument::paintEvent(QPaintEvent *event)
 {
-    wxBufferedPaintDC dc(this);
+	QPainter painter(this);
 
-    dc.SetPen(*wxTRANSPARENT_PEN);
-    //dc.SetBrush(*wxWHITE_BRUSH);
-	dc.SetBrush(*wxBLACK_BRUSH);
+	painter.fillRect(rect(), Qt::black);
 
-    dc.DrawRectangle(0, 0, GetClientSize().GetWidth(), GetClientSize().GetHeight());
+	ButcherDocumentDrawEvent evt(this, &painter);
+	emit documentDrawEvent(evt);
+}
 
-    ButcherDocumentDrawEvent evt(this, &dc, GetUpdateRegion());
-    evt.SetEventObject(this);
-    ProcessEvent(evt);
+void ButcherDocument::mouseMoveEvent(QMouseEvent *event)
+{
+	ButcherDocumentMouseEvent newe(*event);
+	emit documentMouseEvent(newe);
+}
 
-    dc.SetPen(wxNullPen);
-    dc.SetBrush(wxNullBrush);
+void ButcherDocument::mousePressEvent(QMouseEvent *event)
+{
+	ButcherDocumentMouseEvent newe(*event);
+	emit documentMouseEvent(newe);
+}
+
+void ButcherDocument::mouseReleaseEvent(QMouseEvent *event)
+{
+	ButcherDocumentMouseEvent newe(*event);
+	emit documentMouseEvent(newe);
+}
+
+void ButcherDocument::keyPressEvent(QKeyEvent *event)
+{
+	ButcherDocumentKeyEvent newe(*event);
+	emit documentKeyEvent(newe);
+}
+
+void ButcherDocument::keyReleaseEvent(QKeyEvent *event)
+{
+	ButcherDocumentKeyEvent newe(*event);
+	emit documentKeyEvent(newe);
 }
 
 
+#ifdef QT_HIDE_FROM
 
+void ButcherDocument::OnPaint(wxPaintEvent &event)
+{
+	wxBufferedPaintDC dc(this);
+
+	dc.SetPen(*wxTRANSPARENT_PEN);
+	//dc.SetBrush(*wxWHITE_BRUSH);
+	dc.SetBrush(*wxBLACK_BRUSH);
+
+	dc.DrawRectangle(0, 0, GetClientSize().GetWidth(), GetClientSize().GetHeight());
+
+	ButcherDocumentDrawEvent evt(this, &dc, GetUpdateRegion());
+	evt.SetEventObject(this);
+	ProcessEvent(evt);
+
+	dc.SetPen(wxNullPen);
+	dc.SetBrush(wxNullBrush);
+}
 
 void ButcherDocument::OnEraseBackground(wxEraseEvent &event)
 {
@@ -151,4 +191,5 @@ void ButcherDocument::OnChildFocus(wxChildFocusEvent &event)
 	// Prevents the scrolling window from jumping on ACTIVATE events
 }
 
+#endif // QT_HIDE_FROM
 

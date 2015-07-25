@@ -23,16 +23,22 @@
 //      ButcherViewEditor
 /////////////////////////////////
 
+#ifdef QT_HIDE_FROM
+
 BEGIN_EVENT_TABLE(ButcherViewEditor, ButcherView)
     EVT_BUTCHERDOCUMENTMOUSE(wxID_ANY, ButcherViewEditor::OnDocumentMouse)
     EVT_BUTCHERDOCUMENTKEY(wxID_ANY, ButcherViewEditor::OnDocumentKey)
     EVT_BUTCHERVIEWSELECT(wxID_ANY, ButcherViewEditor::OnBViewSelect)
 END_EVENT_TABLE()
 
-ButcherViewEditor::ButcherViewEditor(wxWindow* parent, wxWindowID id, const wxPoint& pos,
+#endif // QT_HIDE_FROM
+
+
+ButcherViewEditor::ButcherViewEditor(QWidget* parent/*, wxWindowID id, const wxPoint& pos,
     const wxSize& size, long style,
-    const wxString& name) :
-    ButcherView(parent, id, pos, size, style, name),
+    const wxString& name*/) :
+    //ButcherView(parent, id, pos, size, style, name),
+	ButcherView(parent),
     zoom_(100), rulersize_(26), designwidth_(200), designheight_(200),
     showrulers_(true), showgrid_(false), showpreview_(false), showborders_(true),
     showareasglobal_(true), showareas_(true),
@@ -41,7 +47,10 @@ ButcherViewEditor::ButcherViewEditor(wxWindow* parent, wxWindowID id, const wxPo
     lineshover_(NULL), areashover_(NULL), band_(-1, -1, -1, -1),
     areaview_(AV_AREA|AV_AREAGLOBAL|AV_AREAMAP)
 {
-    designer_->Connect(wxID_ANY, wxEVT_LEAVE_WINDOW, wxMouseEventHandler(ButcherViewEditor::OnDWindowLeave), NULL, this);
+    //designer_->Connect(wxID_ANY, wxEVT_LEAVE_WINDOW, wxMouseEventHandler(ButcherViewEditor::OnDWindowLeave), NULL, this);
+
+	connect(designer_, SIGNAL(documentMouseEvent(const ButcherDocumentMouseEvent &)), this, SLOT(OnDocumentMouse(const ButcherDocumentMouseEvent&)));
+	connect(designer_, SIGNAL(documentKeyEvent(const ButcherDocumentKeyEvent &)), this, SLOT(OnDocumentKey(const ButcherDocumentKeyEvent&)));
 
     RepositionView();
 }
@@ -78,7 +87,7 @@ void ButcherViewEditor::OnDWindowLeave(wxMouseEvent &event)
 
 
 
-void ButcherViewEditor::OnProjectEvent(ButcherProjectEvent& event)
+void ButcherViewEditor::OnProjectEvent(const ButcherProjectEvent& event)
 {
     //wxMessageBox(wxT("Project event"), wxT("Event"), wxOK | wxICON_INFORMATION);
 
@@ -86,7 +95,7 @@ void ButcherViewEditor::OnProjectEvent(ButcherProjectEvent& event)
     case ButcherProjectEvent::BPE_FILEMODIFIED:
         if (GetProjectView()!=NULL && (event.GetEId() == 0 || event.GetEId() == GetProjectView()->GetFileId()))
         {
-            Refresh();
+            update();
             DoChangedEvent(ButcherViewChangedEvent::VC_VIEW);
         }
         break;
@@ -134,8 +143,9 @@ void ButcherViewEditor::OnProjectEvent(ButcherProjectEvent& event)
 
 
 
-void ButcherViewEditor::OnDocumentMouse(ButcherDocumentMouseEvent& event)
+void ButcherViewEditor::OnDocumentMouse(const ButcherDocumentMouseEvent& event)
 {
+#ifdef QT_HIDE_FROM
     if (event.GetOriginEventType() == wxEVT_LEFT_DOWN) {
         DoModeEvent(ME_MOUSELDOWN, event.GetX(), event.GetY());
     } else if (event.GetOriginEventType() == wxEVT_RIGHT_DOWN) {
@@ -153,13 +163,15 @@ void ButcherViewEditor::OnDocumentMouse(ButcherDocumentMouseEvent& event)
     DoChangedEvent(ButcherViewChangedEvent::VC_MOVE, event.GetX(), event.GetY());
 
     event.Skip();
+#endif // QT_HIDE_FROM
 }
 
 
 
-void ButcherViewEditor::OnDocumentKey(ButcherDocumentKeyEvent& event)
+void ButcherViewEditor::OnDocumentKey(const ButcherDocumentKeyEvent& event)
 {
-    if (event.GetOriginEventType() == wxEVT_KEY_DOWN) {
+#ifdef QT_HIDE_FROM
+	if (event.GetOriginEventType() == wxEVT_KEY_DOWN) {
         switch (event.GetKeyCode()) {
         case WXK_ESCAPE:
             if (GetOperation()!=OP_NONE)
@@ -218,14 +230,16 @@ void ButcherViewEditor::OnDocumentKey(ButcherDocumentKeyEvent& event)
         }
     }
     event.Skip();
+#endif // QT_HIDE_FROM
 }
 
 
 
 
-void ButcherViewEditor::OnBViewSelect(ButcherViewSelectEvent& event)
+void ButcherViewEditor::OnBViewSelect(const ButcherViewSelectEvent& event)
 {
-	bool evtfwd=false; // if in operation, only forward hover events
+#ifdef QT_HIDE_FROM
+	bool evtfwd = false; // if in operation, only forward hover events
 	if (event.GetSelect() == ButcherViewSelectEvent::SEL_LINEHOVER) {
         // DRAW SELECTED LINES
         DoDrawHover(event.GetLineSelect());
@@ -511,6 +525,9 @@ void ButcherViewEditor::OnBViewSelect(ButcherViewSelectEvent& event)
             break;
     }
     //event.Skip();
+#endif // QT_HIDE_FROM
+
+	emit OnViewBViewSelect(event);
 }
 
 
@@ -630,9 +647,10 @@ void ButcherViewEditor::DoSelectEvent(ButcherViewSelectEvent::select_t sel,
 {
     if (GetProjectView()!=NULL) {
         ButcherViewSelectEvent event(this, GetProjectView(), sel, x, y, lineselect, areaselect);
-        event.SetEventObject(this);
+		OnBViewSelect(event);
+        ///event.SetEventObject(this);
 
-        ProcessEvent(event);
+        ///ProcessEvent(event);
     }
 }
 
@@ -642,9 +660,12 @@ void ButcherViewEditor::DoSelectEvent(ButcherViewSelectEvent::select_t sel,
 void ButcherViewEditor::DoStatusEvent(ButcherStatusEvent::status_t st, const wxString &message)
 {
     ButcherStatusEvent event(st, message);
-    event.SetEventObject(this);
 
-    ProcessEvent(event);
+	emit OnViewStatus(event);
+
+    //event.SetEventObject(this);
+
+    //ProcessEvent(event);
 }
 
 
@@ -652,10 +673,12 @@ void ButcherViewEditor::DoStatusEvent(ButcherStatusEvent::status_t st, const wxS
 
 void ButcherViewEditor::DoOperationEvent()
 {
-    wxCommandEvent event(wxEVT_BUTCHEROPERATION_ACTION, GetId());
+#ifdef QT_HIDE_FROM
+	wxCommandEvent event(wxEVT_BUTCHEROPERATION_ACTION, GetId());
     event.SetEventObject(this);
 
     ProcessEvent(event);
+#endif // QT_HIDE_FROM
 }
 
 
@@ -667,7 +690,7 @@ void ButcherViewEditor::StartOperation(ButcherViewEditor::operation_t operation)
 
 	DoOperationStart(operation);
     DoOperationEvent();
-    Refresh();
+    update();
 }
 
 
@@ -683,7 +706,7 @@ void ButcherViewEditor::StopOperation()
         operationline_=NULL;
         DoStatusEvent(ButcherStatusEvent::ST_OPERATION, wxEmptyString);
         DoOperationEvent();
-        Refresh();
+        update();
     }
 }
 
@@ -751,20 +774,20 @@ void ButcherViewEditor::DoOperationStart(ButcherViewEditor::operation_t operatio
 
 void ButcherViewEditor::SetProject(ButcherProject *project)
 {
-#ifdef QT_HIDE_FROM
 	if (project == project_) return;
 
-    if (project_)
-        project_->Disconnect(wxID_ANY, wxEVT_BUTCHERPROJECT_ACTION,
-            ButcherProjectEventHandler(ButcherViewEditor::OnProjectEvent),
-            NULL, this);
+	if (project_)
+		disconnect(project_, SIGNAL(projectEvent(const ButcherProjectEvent&)), this, SLOT(OnProjectEvent(const ButcherProjectEvent&)));
+        ///project_->Disconnect(wxID_ANY, wxEVT_BUTCHERPROJECT_ACTION,
+            ///ButcherProjectEventHandler(ButcherViewEditor::OnProjectEvent),
+            ///NULL, this);
     project_=project;
     if (project_!=NULL)
-        project_->Connect(wxID_ANY, wxEVT_BUTCHERPROJECT_ACTION,
-            ButcherProjectEventHandler(ButcherViewEditor::OnProjectEvent),
-            NULL, this);
+		connect(project_, SIGNAL(projectEvent(const ButcherProjectEvent&)), this, SLOT(OnProjectEvent(const ButcherProjectEvent&)));
+		///project_->Connect(wxID_ANY, wxEVT_BUTCHERPROJECT_ACTION,
+            ///ButcherProjectEventHandler(ButcherViewEditor::OnProjectEvent),
+            ///NULL, this);
     ProjectChanged();
-#endif // QT_HIDE_FROM
 }
 
 
@@ -786,7 +809,7 @@ void ButcherViewEditor::SetProjectViewId(BLID_t projectviewid)
             GetProjectView()->GetMask()->GetHeight());
     } else
         SetDesignSize(0, 0);
-    Refresh();
+    update();
 
     DoChangedEvent(ButcherViewChangedEvent::VC_VIEW);
 }
@@ -801,7 +824,7 @@ void ButcherViewEditor::ProjectChanged()
     StopOperation();
     projectviewid_=0;
     ProjectViewChanged();
-    Refresh();
+    update();
 
     DoChangedEvent(ButcherViewChangedEvent::VC_VIEW);
 }
@@ -816,9 +839,11 @@ void ButcherViewEditor::ProjectViewChanged()
     if (GetProjectView())
     {
         // check if file is loadable
-        if (!GetProjectView()->GetFile()->GetImage())
+#ifdef QT_HIDE_FROM
+		if (!GetProjectView()->GetFile()->GetImage())
             wxMessageBox(_("Could not load image data"), _("Error"), wxOK|wxICON_ERROR, this);
-    }
+#endif // QT_HIDE_FROM
+	}
     SetFileAlternate(false, false);
 }
 
@@ -867,7 +892,8 @@ void ButcherViewEditor::SetZoom(unsigned short z)
 
 void ButcherViewEditor::DoDrawBand(wxRect bandrect, bool clear)
 {
-    wxWindowDC dc(designer_);
+#ifdef QT_HIDE_FROM
+	wxWindowDC dc(designer_);
 
     if (!clear)
         DoClearBand();
@@ -876,6 +902,7 @@ void ButcherViewEditor::DoDrawBand(wxRect bandrect, bool clear)
 
     if (!clear)
         band_=bandrect;
+#endif // QT_HIDE_FROM
 }
 
 
@@ -883,7 +910,8 @@ void ButcherViewEditor::DoDrawBand(wxRect bandrect, bool clear)
 
 void ButcherViewEditor::InternalDrawBand(wxDC &dc, wxRect bandrect)
 {
-    dc.SetBrush(*wxTRANSPARENT_BRUSH);
+#ifdef QT_HIDE_FROM
+	dc.SetBrush(*wxTRANSPARENT_BRUSH);
     dc.SetPen(*wxBLACK_PEN);
 
     dc.SetLogicalFunction(wxINVERT);
@@ -896,6 +924,7 @@ void ButcherViewEditor::InternalDrawBand(wxDC &dc, wxRect bandrect)
     dc.SetPen(wxNullPen);
 
     dc.SetLogicalFunction(wxCOPY);
+#endif // QT_HIDE_FROM
 }
 
 
@@ -923,7 +952,8 @@ void ButcherViewEditor::DrawHover(ButcherProjectMaskLineSelect *lineshover,
     ButcherProjectMaskLineSelect *newlineshover, bool hover,
     bool checkredraw)
 {
-    bool needredraw=false;
+#ifdef QT_HIDE_FROM
+	bool needredraw = false;
     wxWindowDC wdc(designer_);
     //wxBufferedDC dc(&wdc);
 
@@ -947,9 +977,10 @@ void ButcherViewEditor::DrawHover(ButcherProjectMaskLineSelect *lineshover,
 
     if (checkredraw && needredraw)
     {
-        Refresh();
+        update();
         DrawHover(lineshover, newlineshover, hover, false);
     }
+#endif // QT_HIDE_FROM
 }
 
 
@@ -958,6 +989,8 @@ void ButcherViewEditor::DrawHover(ButcherProjectMaskLineSelect *lineshover,
 void ButcherViewEditor::DrawHover(ButcherProjectMaskAreaSelect *areashover,
     ButcherProjectMaskAreaSelect *newareashover, bool hover, bool checkredraw)
 {
+#ifdef QT_HIDE_FROM
+
 #ifdef __WXMAC__
 	// On MAC drawing outside the paint event isn't reliable, must repaint every time
 	Refresh();
@@ -996,6 +1029,7 @@ void ButcherViewEditor::DrawHover(ButcherProjectMaskAreaSelect *areashover,
         DrawHover(areashover, newareashover, hover, false);
     }
 #endif
+#endif // QT_HIDE_FROM
 }
 
 
@@ -1086,7 +1120,8 @@ ButcherProjectLine* ButcherViewEditor::DoMenuSelectLine(ButcherProjectMaskLineSe
     }
     else if (lines->GetCount() > 0)
     {
-        wxPopupMenu linemenu(_("Lines"));
+#ifdef QT_HIDE_FROM
+		wxPopupMenu linemenu(_("Lines"));
 
         for (unsigned long i=0; i<lines->GetCount(); i++)
         {
@@ -1094,10 +1129,11 @@ ButcherProjectLine* ButcherViewEditor::DoMenuSelectLine(ButcherProjectMaskLineSe
             //itemmenu->SetEventHandler(&linemenu);
         }
 
-        PopupMenu(&linemenu);
+		PopupMenu(&linemenu);
         if (linemenu.GetSelectedId()!=-1)
             return lines->GetItem(linemenu.GetSelectedId()-wxID_HIGHEST-100);
-    }
+#endif // QT_HIDE_FROM
+	}
     return NULL;
 }
 
@@ -1112,7 +1148,8 @@ ButcherProjectArea* ButcherViewEditor::DoMenuSelectArea(ButcherProjectMaskAreaSe
     }
     else if (areas->GetCount() > 0)
     {
-        wxPopupMenu areamenu(_("Areas"));
+#ifdef QT_HIDE_FROM
+		wxPopupMenu areamenu(_("Areas"));
 
         for (unsigned long i=0; i<areas->GetCount(); i++)
         {
@@ -1123,7 +1160,8 @@ ButcherProjectArea* ButcherViewEditor::DoMenuSelectArea(ButcherProjectMaskAreaSe
         PopupMenu(&areamenu);
         if (areamenu.GetSelectedId()!=-1)
             return areas->GetItem(areamenu.GetSelectedId()-wxID_HIGHEST-100);
-    }
+#endif // QT_HIDE_FROM
+	}
     return NULL;
 }
 
@@ -1161,7 +1199,7 @@ void ButcherViewEditor::SetShowPreview(bool s)
         //Update(); // call update to generate preview images
     }
 
-    Refresh();
+    update();
 }
 
 
@@ -1227,7 +1265,8 @@ ButcherProjectMaskDrawSelection *ButcherViewEditor::GetSelection()
 void ButcherViewEditor::DoAfterDraw(ButcherDocumentDrawEvent& event)
 {
     ButcherView::DoAfterDraw(event);
-    // redraw rubber band of repaint regions
+#ifdef QT_HIDE_FROM
+	// redraw rubber band of repaint regions
     if (band_.GetX()>-1)
     {
         if (event.GetUpdateRegion().IsEmpty())
@@ -1248,6 +1287,7 @@ void ButcherViewEditor::DoAfterDraw(ButcherDocumentDrawEvent& event)
             break;
         }
     }
+#endif // QT_HIDE_FROM
 }
 
 

@@ -13,6 +13,8 @@
 
 #include <wx/wx.h>
 
+#include <QWidget>
+
 class ButcherView;
 
 /**
@@ -20,15 +22,17 @@ class ButcherView;
  *
  * @brief Ruler control
  */
-class ButcherRuler : public wxControl {
+class ButcherRuler : public QWidget // wxControl 
+{
+	Q_OBJECT
 public:
     enum rulerkind_t { BRK_TOP, BRK_LEFT, BRK_BOTTOM, BRK_RIGHT };
 
-    ButcherRuler(ButcherView* parent, rulerkind_t kind, wxWindowID id = wxID_ANY,
+    ButcherRuler(ButcherView* parent, rulerkind_t kind/*, wxWindowID id = wxID_ANY,
         const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
-        long style = wxTAB_TRAVERSAL | wxBORDER_NONE, const wxString& name = wxT("ButcherRuler"));
+        long style = wxTAB_TRAVERSAL | wxBORDER_NONE, const wxString& name = wxT("ButcherRuler")*/);
 
-    void SetStart(unsigned int start) { start_=start; Refresh(); }
+    void SetStart(unsigned int start) { start_=start; update(); }
     void SetSelection(long position);
 private:
     void OnPaint(wxPaintEvent &event);
@@ -42,7 +46,7 @@ private:
     int start_;
     long position_;
 
-    DECLARE_EVENT_TABLE()
+    //DECLARE_EVENT_TABLE()
 };
 
 #endif // __BVIEW_BUTCHERRULER_H__

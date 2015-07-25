@@ -49,7 +49,7 @@ public:
 #endif
     bool DoCloseProject();
 public Q_SLOTS:
-	void OnProjectEvent(ButcherProjectEvent& event);
+	void OnProjectEvent(const ButcherProjectEvent& event);
 private:
     enum
     {

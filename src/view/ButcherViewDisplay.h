@@ -14,6 +14,8 @@
 #include <wx/wx.h>
 #include "ButcherView.h"
 
+#include <QWidget>
+
 /**
  * @class ButcherViewDisplay
  *
@@ -21,9 +23,9 @@
  */
 class ButcherViewDisplay : public ButcherView {
 public:
-    ButcherViewDisplay(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition,
+    ButcherViewDisplay(QWidget* parent/*, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition,
         const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL,
-        const wxString& name = wxT("ButcherViewDisplay"));
+        const wxString& name = wxT("ButcherViewDisplay")*/);
     virtual ~ButcherViewDisplay();
 
     ButcherView *GetParentView() { return parentview_; }
@@ -61,7 +63,7 @@ private:
     bool showrulers_, showgrid_, showpreview_, showborders_, showareasglobal_, showareas_;
     wxPoint drawtarget_;
 
-    DECLARE_EVENT_TABLE()
+    //DECLARE_EVENT_TABLE()
 };
 
 #endif // __BVIEW_BUTCHERVIEWDISPLAY_H__

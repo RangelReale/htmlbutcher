@@ -53,6 +53,7 @@
 #include <QActionGroup>
 #include <QToolBar>
 #include <QStatusBar>
+#include <QFileDialog>
 
 /*
 BEGIN_EVENT_TABLE(HTMLButcherFrame, wxFrame)
@@ -567,8 +568,10 @@ HTMLButcherFrame::HTMLButcherFrame()
 
     szBase_ = new wxBoxSizer( wxVERTICAL );
 
-    //view_ = new ButcherView(panBase, wxID_ANY, wxPoint(10, 10), wxSize(100, 100), wxBORDER_SUNKEN);
-    view_ = new ButcherViewEditor(panBase_, idView, wxDefaultPosition, wxDefaultSize, wxBORDER_SIMPLE );
+#endif // QT_HIDE_FROM
+
+	//view_ = new ButcherView(panBase, wxID_ANY, wxPoint(10, 10), wxSize(100, 100), wxBORDER_SUNKEN);
+    view_ = new ButcherViewEditor(panBase_/*, idView, wxDefaultPosition, wxDefaultSize, wxBORDER_SIMPLE*/ );
     //view_->SetBackgroundColour(*wxBLUE);
 
 /*
@@ -576,16 +579,19 @@ HTMLButcherFrame::HTMLButcherFrame()
     viewzoom_->SetParentView(view_);
 */
 
-    szBase_->Add(
+#ifdef QT_HIDE_FROM
+	szBase_->Add(
         view_,
         1,            // make vertically stretchable
         wxEXPAND |    // make horizontally stretchable
         wxALL,        //   and make border all around
         0 );         // set border width to 10
+#endif // QT_HIDE_FROM
 
     view_->SetDesignWidth(201);
     view_->SetDesignHeight(201);
 
+#ifdef QT_HIDE_FROM
 	//viewinfo_ = new ButcherControl_SelectionDisplay(panBase_, idViewInfo, wxDefaultPosition, wxSize(-1, 150));
 	//szBase_->Add(viewinfo_, 0, wxEXPAND|wxALL, 0);
 
@@ -606,7 +612,7 @@ HTMLButcherFrame::HTMLButcherFrame()
         ButcherProjectEventHandler(HTMLButcherFrame::OnProjectEvent),
         NULL, this);
 	*/
-	connect(project_, SIGNAL(projectEvent(ButcherProjectEvent &)), this, SLOT(OnProjectEvent(ButcherProjectEvent &)));
+	connect(project_, SIGNAL(projectEvent(const ButcherProjectEvent &)), this, SLOT(OnProjectEvent(const ButcherProjectEvent &)));
 
     UpdateAppState();
 
@@ -638,7 +644,7 @@ HTMLButcherFrame::~HTMLButcherFrame()
         ButcherProjectEventHandler(HTMLButcherFrame::OnProjectEvent),
         NULL, this);
 	*/
-	disconnect(project_, SIGNAL(projectEvent(ButcherProjectEvent &)), this, SLOT(projectEvent(ButcherProjectEvent &)));
+	disconnect(project_, SIGNAL(projectEvent(const ButcherProjectEvent&)), this, SLOT(OnProjectEvent(const ButcherProjectEvent&)));
 
     view_->SetProject(NULL);
 
@@ -709,6 +715,15 @@ void HTMLButcherFrame::OnMenuOpen()
         DoOpenProject(d.GetPath());
     }
 #endif // QT_HIDE_FROM
+
+	QFileDialog d(this, tr("Load project"));
+	QStringList dfilters;
+	dfilters << "HTMLButcher Project (*.hbp)" << "All files (*.*)";
+	d.setNameFilters(dfilters);
+	if (d.exec())
+	{
+		//DoOpenProject(d.selectedFiles().first());
+	}
 }
 #endif
 
@@ -1495,7 +1510,7 @@ void HTMLButcherFrame::UpdateAppState()
 
 
 
-void HTMLButcherFrame::OnProjectEvent(ButcherProjectEvent& event)
+void HTMLButcherFrame::OnProjectEvent(const ButcherProjectEvent& event)
 {
     //wxMessageBox(_("Project event"), _("Event"), wxOK | wxICON_INFORMATION);
 
@@ -1767,7 +1782,8 @@ void HTMLButcherFrame::OnDocumentMouse(ButcherDocumentMouseEvent& event)
 
 void HTMLButcherFrame::OnDocumentKey(ButcherDocumentKeyEvent& event)
 {
-    if (event.GetOriginEventType() == wxEVT_KEY_DOWN) {
+#ifdef QT_HIDE_FROM
+	if (event.GetOriginEventType() == wxEVT_KEY_DOWN) {
         switch (event.GetKeyCode()) {
         case WXK_ADD:
             view_->SetZoom(view_->GetZoom()+10);
@@ -1793,6 +1809,7 @@ void HTMLButcherFrame::OnDocumentKey(ButcherDocumentKeyEvent& event)
         }
     }
     event.Skip();
+#endif // QT_HIDE_FROM
 }
 
 

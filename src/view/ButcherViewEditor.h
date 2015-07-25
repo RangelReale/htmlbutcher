@@ -20,12 +20,16 @@
 #include "ButcherView.h"
 #include "ButcherStatusEvent.h"
 
+#include <QWidget>
+
 /**
  * @class ButcherViewEditor
  *
  * @brief Butcher main editor class
  */
-class ButcherViewEditor : public ButcherView {
+class ButcherViewEditor : public ButcherView 
+{
+	Q_OBJECT
 public:
     enum mode_t { MODE_DEFAULT, MODE_SELECTPOSITION, MODE_SELECTLINE,
         MODE_SELECTHLINE, MODE_SELECTVLINE, MODE_SELECTAREA, MODE_SELECTAREAGLOBAL, MODE_SELECTAREAMAP,
@@ -34,9 +38,9 @@ public:
     enum operation_t { OP_NONE, OP_INSERTVLINE, OP_INSERTHLINE, OP_DELETELINE, OP_MOVELINE,
         OP_INSERTAREAGLOBAL, OP_DELETEAREAGLOBAL, OP_INSERTAREAMAP, OP_DELETEAREAMAP};
 
-    ButcherViewEditor(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition,
+    ButcherViewEditor(QWidget* parent/*, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition,
         const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL,
-        const wxString& name = wxT("ButcherViewEditor"));
+        const wxString& name = wxT("ButcherViewEditor")*/);
     virtual ~ButcherViewEditor();
 
     virtual ButcherProject *GetProject() { return project_; }
@@ -60,20 +64,20 @@ public:
     virtual unsigned int GetRulerSize() { return rulersize_; }
 
     virtual bool GetShowGrid() { return showgrid_; }
-    void SetShowGrid(bool s) { showgrid_=s; Refresh(); }
+    void SetShowGrid(bool s) { showgrid_=s; update(); }
     virtual int GetGridSize() { return gridsize_; }
-    void SetGridSize(int gs) { gridsize_=gs; if (showgrid_) Refresh(); }
+    void SetGridSize(int gs) { gridsize_=gs; if (showgrid_) update(); }
 
     virtual bool GetShowPreview() { return showpreview_; }
     void SetShowPreview(bool s);
 
     virtual bool GetShowBorders() { return showborders_; }
     virtual bool GetShowBordersCurrent() { if (operation_!=OP_NONE) return true; return showborders_; }
-    void SetShowBorders(bool s) { showborders_=s; Refresh(); }
+    void SetShowBorders(bool s) { showborders_=s; update(); }
 
     virtual areaview_t GetAreaView() { return areaview_; }
     virtual areaview_t GetAreaViewCurrent();
-    void SetAreaView(areaview_t av) { areaview_=av; DoDrawHoverClear(); Refresh(); }
+    void SetAreaView(areaview_t av) { areaview_=av; DoDrawHoverClear(); update(); }
 
     bool GetProjectViewShowAreas();
     bool GetProjectViewShowAreasGlobal();
@@ -81,7 +85,7 @@ public:
     mode_t GetMode() { if (mode_==MODE_DEFAULT) return defaultmode_; return mode_; }
 
     mode_t GetDefaultMode() { return defaultmode_; }
-    void SetDefaultMode(mode_t m) { defaultmode_=m; if (mode_==MODE_DEFAULT) { SelectionClear(); Refresh(); } }
+    void SetDefaultMode(mode_t m) { defaultmode_=m; if (mode_==MODE_DEFAULT) { SelectionClear(); update(); } }
 
     //void HoverClear() { DoDrawHoverClear(); }
 
@@ -101,18 +105,24 @@ protected:
     virtual void DoAfterDraw(ButcherDocumentDrawEvent& event);
 
     ButcherProjectMaskDrawSelection *GetSelection();
+Q_SIGNALS:
+	void OnViewDocumentMouse(const ButcherDocumentMouseEvent& event);
+	void OnViewDocumentKey(const ButcherDocumentKeyEvent& event);
+	void OnViewBViewSelect(const ButcherViewSelectEvent& event);
+	void OnViewStatus(const ButcherStatusEvent &event);
+private Q_SLOTS:
+	void OnDocumentMouse(const ButcherDocumentMouseEvent& event);
+	void OnDocumentKey(const ButcherDocumentKeyEvent& event);
+	void OnProjectEvent(const ButcherProjectEvent& event);
 private:
     void OnDWindowLeave(wxMouseEvent &event);
 
-    void OnProjectEvent(ButcherProjectEvent& event);
-    void OnDocumentMouse(ButcherDocumentMouseEvent& event);
-    void OnDocumentKey(ButcherDocumentKeyEvent& event);
-    void OnBViewSelect(ButcherViewSelectEvent& event);
+    void OnBViewSelect(const ButcherViewSelectEvent& event);
 
     virtual void ProjectChanged();
     void ProjectViewChanged();
 
-    void SetMode(mode_t m) { mode_=m; Refresh(); }
+    void SetMode(mode_t m) { mode_=m; update(); }
 
     void DoModeEvent(modeevent_t me, long x, long y);
 
@@ -168,7 +178,7 @@ private:
     wxRect band_;
     areaview_t areaview_;
 
-    DECLARE_EVENT_TABLE()
+    //DECLARE_EVENT_TABLE()
 };
 
 #endif // __BVIEW_BUTCHERVIEWEDITOR_H__

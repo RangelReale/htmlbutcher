@@ -19,21 +19,27 @@
 //      ButcherViewDisplay
 /////////////////////////////////
 
+#ifdef QT_HIDE_FROM
+
 BEGIN_EVENT_TABLE(ButcherViewDisplay, ButcherView)
 END_EVENT_TABLE()
 
-ButcherViewDisplay::ButcherViewDisplay(wxWindow* parent, wxWindowID id, const wxPoint& pos,
+#endif // QT_HIDE_FROM
+
+ButcherViewDisplay::ButcherViewDisplay(QWidget* parent/*, wxWindowID id, const wxPoint& pos,
     const wxSize& size, long style,
-    const wxString& name) :
-    ButcherView(parent, id, pos, size, style, name), parentview_(NULL),
+    const wxString& name*/) :
+    //ButcherView(parent, id, pos, size, style, name), 
+	ButcherView(parent),
+	parentview_(NULL),
     zoom_(100), drawtarget_(-1, -1)
 {
     //dwindow_->SetScrollbars(0, 0, 0, 0);
-    dwindow_->SetScrollRate( 1, 1 );
+    ///dwindow_->SetScrollRate( 1, 1 );
     //dwindow_->EnableScrolling(false, false);
 
-    dwindow_->SetWindowStyleFlag( dwindow_->GetWindowStyle() & ~ wxHSCROLL );
-    dwindow_->SetWindowStyleFlag( dwindow_->GetWindowStyle() & ~ wxVSCROLL );
+    ///dwindow_->SetWindowStyleFlag( dwindow_->GetWindowStyle() & ~ wxHSCROLL );
+    ///dwindow_->SetWindowStyleFlag( dwindow_->GetWindowStyle() & ~ wxVSCROLL );
 }
 
 
@@ -51,7 +57,8 @@ void ButcherViewDisplay::SetParentView(ButcherView *pv)
 {
     if (pv==parentview_) return;
 
-    if (parentview_)
+#ifdef QT_HIDE_FROM
+	if (parentview_)
         parentview_->Disconnect(wxID_ANY, wxEVT_BUTCHERVIEWCHANGED_ACTION,
             ButcherViewChangedEventHandler(ButcherViewDisplay::OnViewChanged),
             NULL, this);
@@ -60,6 +67,7 @@ void ButcherViewDisplay::SetParentView(ButcherView *pv)
         parentview_->Connect(wxID_ANY, wxEVT_BUTCHERVIEWCHANGED_ACTION,
             ButcherViewChangedEventHandler(ButcherViewDisplay::OnViewChanged),
             NULL, this);
+#endif // QT_HIDE_FROM
 
     parentview_=pv;
     ParentViewChanged();
@@ -137,14 +145,15 @@ void ButcherViewDisplay::OnViewChanged(ButcherViewChangedEvent &event)
         SetParentView(NULL);
         break;
     }
-    event.Skip();
+    ///event.Skip();
 }
 
 
 
 void ButcherViewDisplay::DrawTarget(long x, long y, wxDC *dc)
 {
-    if (drawtarget_.x>-1)
+#ifdef QT_HIDE_FROM
+	if (drawtarget_.x>-1)
     {
         int vx, vy;
         dwindow_->GetViewStart(&vx, &vy);
@@ -176,7 +185,7 @@ void ButcherViewDisplay::DrawTarget(long x, long y, wxDC *dc)
 
     if (!isdc)
         delete dc;
-
+#endif // QT_HIDE_FROM
 }
 
 

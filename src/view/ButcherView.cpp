@@ -73,11 +73,12 @@ ButcherView::ButcherView(wxWindow* parent, wxWindowID id, const wxPoint& pos,
 ButcherView::ButcherView(QWidget *parent) : QWidget(parent),
 	selection_(NULL), filealternate_(false), filealternateid_(-1)
 {
-#ifdef QT_HIDE_FROM
-	dwindow_ = new wxScrolledWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
-    dwindow_->SetScrollRate( 10, 10 );
+	///dwindow_ = new wxScrolledWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
+	dwindow_ = new QScrollArea(this);
+	///dwindow_->SetScrollRate(10, 10);
 
-    wxASSERT_MSG(wxEVT_SCROLLWIN_TOP<=wxEVT_SCROLLWIN_THUMBRELEASE, _("Logic error in scrollwin events"));
+#ifdef QT_HIDE_FROM
+	wxASSERT_MSG(wxEVT_SCROLLWIN_TOP<=wxEVT_SCROLLWIN_THUMBRELEASE, _("Logic error in scrollwin events"));
     for (int i=wxEVT_SCROLLWIN_TOP; i<=wxEVT_SCROLLWIN_THUMBRELEASE; i++) {
         dwindow_->Connect(wxID_ANY, i,
             wxScrollWinEventHandler(ButcherView::OnDWindowWinScroll), NULL, this);
@@ -88,13 +89,17 @@ ButcherView::ButcherView(QWidget *parent) : QWidget(parent),
     ruler_top_=new ButcherRuler(this, ButcherRuler::BRK_TOP);//, wxID_ANY, wxDefaultPosition, wxSize(-1, rulersize_));
     ruler_right_=new ButcherRuler(this, ButcherRuler::BRK_RIGHT);//, wxID_ANY, wxDefaultPosition, wxSize(rulersize_, -1));
     ruler_bottom_=new ButcherRuler(this, ButcherRuler::BRK_BOTTOM);//, wxID_ANY, wxDefaultPosition, wxSize(-1, rulersize_));
+#endif // QT_HIDE_FROM
 
     designer_ = new ButcherDocument(this, dwindow_/*, wxID_ANY, wxPoint(rulersize_, rulersize_), wxSize(designwidth_, designheight_)*/);
     //designer_->SetBackgroundColour(*wxGREEN);
 
+	connect(designer_, SIGNAL(documentDrawEvent(const ButcherDocumentDrawEvent&)), this, SLOT(OnDrawDocument(const ButcherDocumentDrawEvent&)));
+
     RepositionView();
 
-    SetCursor(*wxCROSS_CURSOR);
+#ifdef QT_HIDE_FROM
+	SetCursor(*wxCROSS_CURSOR);
 #endif // QT_HIDE_FROM
 }
 
@@ -115,7 +120,7 @@ void ButcherView::RepositionView()
 #ifdef QT_HIDE_FROM
 	if (GetShowRulers())
     {
-        ruler_left_->SetSize(0, GetRulerSize(), GetRulerSize(), GetClientSize().GetHeight()-(2*GetRulerSize()));
+		ruler_left_->SetSize(0, GetRulerSize(), GetRulerSize(), GetClientSize().GetHeight()-(2*GetRulerSize()));
         ruler_top_->SetSize(GetRulerSize(), 0, GetClientSize().GetWidth()-(2*GetRulerSize()), GetRulerSize());
         ruler_right_->SetSize(GetClientSize().GetWidth()-GetRulerSize(), GetRulerSize(), GetRulerSize(), GetClientSize().GetHeight()-(2*GetRulerSize()));
         ruler_bottom_->SetSize(GetRulerSize(), GetClientSize().GetHeight()-GetRulerSize(), GetClientSize().GetWidth()-(2*GetRulerSize()), GetRulerSize());
@@ -124,8 +129,12 @@ void ButcherView::RepositionView()
     }
     else
     {
-        dwindow_->SetSize(0, 0, GetClientSize().GetWidth(), GetClientSize().GetHeight());
-    }
+#endif // QT_HIDE_FROM
+		//dwindow_->SetSize(0, 0, GetClientSize().GetWidth(), GetClientSize().GetHeight());
+		dwindow_->move(0, 0);
+		dwindow_->resize(rect().width(), rect().height());
+#ifdef QT_HIDE_FROM
+	}
     ruler_left_->Show(GetShowRulers());
     ruler_top_->Show(GetShowRulers());
     ruler_right_->Show(GetShowRulers());
@@ -133,15 +142,19 @@ void ButcherView::RepositionView()
 
     dwindow_->SetVirtualSize( PosToClient(GetDesignWidth())+10, PosToClient(GetDesignHeight())+10 );
 
-    int sw, sh;
-    dwindow_->CalcUnscrolledPosition(0, 0, &sw, &sh);
+#endif // QT_HIDE_FROM
+	int sw = 0, sh = 0;
+#ifdef QT_HIDE_FROM
+	dwindow_->CalcUnscrolledPosition(0, 0, &sw, &sh);
+#endif // QT_HIDE_FROM
 
-    designer_->SetSize(0-sw, 0-sh, PosToClient(GetDesignWidth()), PosToClient(GetDesignHeight()));
+    ///designer_->SetSize(0-sw, 0-sh, PosToClient(GetDesignWidth()), PosToClient(GetDesignHeight()));
+	designer_->move(0 - sw, 0 - sh);
+	designer_->resize(PosToClient(GetDesignWidth()), PosToClient(GetDesignHeight()));
 
     RepositionScroll();
 
-    Refresh();
-#endif // QT_HIDE_FROM
+    update();
 
     DoChangedEvent(ButcherViewChangedEvent::VC_VIEW);
 }
@@ -243,7 +256,7 @@ void ButcherView::OnSetFocus(wxFocusEvent &event)
 
 
 
-void ButcherView::OnDrawDocument(ButcherDocumentDrawEvent& event)
+void ButcherView::OnDrawDocument(const ButcherDocumentDrawEvent& event)
 {
 #ifdef QT_HIDE_FROM
 	if (GetProjectView() != NULL) {
@@ -341,9 +354,10 @@ void ButcherView::DoChangedEvent(ButcherViewChangedEvent::change_t change, long 
 {
     ButcherViewChangedEvent event(change);
     event.SetMove(movex, movey);
-    event.SetEventObject(this);
+    //event.SetEventObject(this);
 
-    ProcessEvent(event);
+    //ProcessEvent(event);
+	emit viewChangedEvent(event);
 }
 
 
@@ -351,11 +365,13 @@ void ButcherView::DoChangedEvent(ButcherViewChangedEvent::change_t change, long 
 
 void ButcherView::ViewCenter(long x, long y)
 {
-    int xu, yu;
+#ifdef QT_HIDE_FROM
+	int xu, yu;
     dwindow_->GetScrollPixelsPerUnit(&xu, &yu);
 
     dwindow_->Scroll(PosToClient(x/xu)-(GetClientSize().GetWidth()/2/xu),
         PosToClient(y/yu)-(GetClientSize().GetHeight()/2/yu));
+#endif // QT_HIDE_FROM
 }
 
 
@@ -363,7 +379,7 @@ void ButcherView::ViewCenter(long x, long y)
 
 void ButcherView::SetFocus()
 {
-    designer_->SetFocus();
+    designer_->setFocus();
     //SetFocusIgnoringChildren();
 }
 
@@ -385,7 +401,7 @@ void ButcherView::SelectionClear(bool refresh, bool hoveronly)
             selection_->Set(ButcherProjectMask::DM_HOVER, static_cast<ButcherProjectMaskLineSelect*>(NULL));
         }
         if (refresh)
-            Refresh();
+            update();
     }
 }
 
@@ -416,7 +432,7 @@ void ButcherView::SetFileAlternate(bool s, bool refresh)
         }
     }
     if (refresh)
-        Refresh();
+        update();
 }
 
 

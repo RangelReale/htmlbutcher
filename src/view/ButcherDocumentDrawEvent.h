@@ -15,6 +15,7 @@
 
 #include <QEvent>
 #include <QMetaType>
+#include <QPainter>
 
 class ButcherView;
 class ButcherDocument;
@@ -30,8 +31,8 @@ class ButcherDocumentDrawEvent : public QEvent // wxEvent
 {
 public:
 	ButcherDocumentDrawEvent();
-    ButcherDocumentDrawEvent(ButcherDocument *document, wxDC *dc,
-        const wxRegion &updateregion,
+    ButcherDocumentDrawEvent(ButcherDocument *document, QPainter *painter,
+        //const wxRegion &updateregion,
         int id = 0/*, wxEventType commandType = wxEVT_BUTCHERDOCUMENTDRAW_ACTION*/);
 
 	static QEvent::Type staticType()
@@ -44,12 +45,14 @@ public:
     //virtual wxEvent* Clone() const;
 
     ButcherDocument *GetDocument() { return document_; }
-    wxDC *GetDC() { return dc_; }
-    const wxRegion &GetUpdateRegion() { return updateregion_; }
+    //wxDC *GetDC() { return dc_; }
+	QPainter *GetPainter() { return painter_; }
+    //const wxRegion &GetUpdateRegion() { return updateregion_; }
 private:
     ButcherDocument *document_;
-    wxDC *dc_;
-    wxRegion updateregion_;
+    //wxDC *dc_;
+	QPainter *painter_;
+    //wxRegion updateregion_;
 };
 
 #ifdef QT_HIDE_FROM

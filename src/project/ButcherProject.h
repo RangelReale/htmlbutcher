@@ -107,7 +107,7 @@ public:
     ButcherOptions *GetOptions() { return options_; }
     void SetOptions(ButcherOptions *options) { options_=options; }
 Q_SIGNALS:
-	void projectEvent(ButcherProjectEvent &event);
+	void projectEvent(const ButcherProjectEvent &event);
 protected:
     friend class ButcherProjectBase;
 private:
