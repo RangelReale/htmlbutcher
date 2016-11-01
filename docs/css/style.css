@@ -1,0 +1,156 @@
+body
+{
+	font-family: Verdana;
+	font-size: 14px;
+}
+
+a:link { 
+	font-family: Verdana; 
+	color:#FF6600; 
+	text-decoration: underline;	
+	font-size: 15px;
+	font-weight: normal;
+}
+a:visited { 
+	font-family: Verdana; 
+	color:#FF6600; 
+	text-decoration: underline;	
+	font-size: 15px;
+	font-weight: normal;
+}
+
+a:hover { 
+	font-family: Verdana; 
+	color:#FF6600; 
+	text-decoration: underline;	
+	font-size: 15px;
+	font-weight: normal;
+}
+
+.title
+{
+	font-family: Tahoma;
+	font-size: 26px;
+	font-weight: bold;
+	color: #FF6600;
+}
+
+.smtitle
+{
+	font-family: Tahoma;
+	font-size: 16px;
+	font-weight: bold;
+	color: #FF6600;
+}
+
+.newtitle
+{
+	font-family: Tahoma;
+	font-size: 16px;
+	font-weight: bold;
+	color: #FF0000;
+}
+
+.redborder
+{
+	border: 1px solid red;
+	/*border-color: #FF0000;*/
+}
+
+.priceold
+{
+	font-family: Tahoma;
+	font-size: 16px;
+	font-weight: normal;
+	text-decoration: line-through;
+	color: #FF6600;
+}
+
+.price
+{
+	font-family: Tahoma;
+	font-size: 16px;
+	font-weight: bold;
+	color: #FF6600;
+}
+
+.menu
+{
+	font-family: Verdana;
+	font-size: 15px;
+	font-weight: bold;
+	color: #ffffff;
+}
+
+a.menu:link { 
+	font-family: Verdana; 
+	color:#ffffff; 
+	text-decoration: none;	
+	font-size: 15px;
+	font-weight: bold;
+}
+a.menu:visited { 
+	font-family: Verdana; 
+	color:#ffffff; 
+	text-decoration: none;	
+	font-size: 15px;
+	font-weight: bold;
+}
+
+a.menu:hover { 
+	font-family: Verdana; 
+	color:#ffffff; 
+	text-decoration: underline;	
+	font-size: 15px;
+	font-weight: bold;
+}
+
+hr {
+	border: 0;
+	color: #FF6600;
+	background-color: #FF6600;
+}
+
+table.form-contact
+{
+	width: 100%;
+}
+
+table.form-contact td
+{
+	padding: 2px 10px 2px 10px;
+	vertical-align: top;
+}
+
+table.form-contact td.form-title
+{
+	width: 15%;
+	text-align: right;
+}
+
+.errorSummary
+{
+	border: 2px solid #C00;
+	padding: 7px 7px 12px 7px;
+	margin: 0 0 20px 0;
+	background: #FEE;
+	xfont-size: 0.9em;
+}
+
+.errorMessage
+{
+	color: red;
+	float: left;
+}
+
+.errorSummary p
+{
+	margin: 0;
+	padding: 5px;
+}
+
+.errorSummary ul
+{
+	margin: 0;
+	padding: 0 0 0 20px;
+}
