@@ -146,7 +146,7 @@ HTMLButcherNewViewIntroWizardPage::HTMLButcherNewViewIntroWizardPage(wxWizard *p
 
     // divider line
     wxStaticLine *line2 = new wxStaticLine(this, wxID_STATIC, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
-    mainSizer->Add(line2, 0, wxGROW|wxALL|wxALIGN_BOTTOM, 3);
+    mainSizer->Add(line2, 0, wxGROW|wxALL, 3);
 
     mainSizer->Add(
         new wxStaticText(this, wxID_ANY,
@@ -192,7 +192,7 @@ HTMLButcherNewViewFileWizardPage::HTMLButcherNewViewFileWizardPage(wxWizard *par
 
     // divider line
     wxStaticLine *line2 = new wxStaticLine(this, wxID_STATIC, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
-    mainSizer->Add(line2, 0, wxGROW|wxALL|wxALIGN_BOTTOM, 3);
+    mainSizer->Add(line2, 0, wxGROW|wxALL, 3);
 
     // FILE
     mainSizer->Add(
@@ -290,7 +290,7 @@ HTMLButcherNewViewMaskWizardPage::HTMLButcherNewViewMaskWizardPage(wxWizard *par
 
     // divider line
     wxStaticLine *line2 = new wxStaticLine(this, wxID_STATIC, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
-    mainSizer->Add(line2, 0, wxGROW|wxALL|wxALIGN_BOTTOM, 3);
+    mainSizer->Add(line2, 0, wxGROW|wxALL, 3);
 
 
 
@@ -498,7 +498,7 @@ HTMLButcherNewViewViewWizardPage::HTMLButcherNewViewViewWizardPage(wxWizard *par
 
     // divider line
     wxStaticLine *line2 = new wxStaticLine(this, wxID_STATIC, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
-    mainSizer->Add(line2, 0, wxGROW|wxALL|wxALIGN_BOTTOM, 3);
+    mainSizer->Add(line2, 0, wxGROW|wxALL, 3);
 
     // NAME
     mainSizer->Add(
@@ -616,7 +616,7 @@ HTMLButcherNewViewLastWizardPage::HTMLButcherNewViewLastWizardPage(wxWizard *par
 
     // divider line
     wxStaticLine *line2 = new wxStaticLine(this, wxID_STATIC, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
-    mainSizer->Add(line2, 0, wxGROW|wxALL|wxALIGN_BOTTOM, 3);
+    mainSizer->Add(line2, 0, wxGROW|wxALL, 3);
 
     // NAME
     mainSizer->Add(

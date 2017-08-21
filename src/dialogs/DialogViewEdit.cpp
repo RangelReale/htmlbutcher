@@ -284,7 +284,7 @@ void HTMLButcherViewEditDialog::CreateControls()
 
         // Groups
         groupssizer->Add(new wxStaticText(nbMain, wxID_STATIC, _("&Assorted file groups:"), wxDefaultPosition, wxDefaultSize, 0),
-            0, wxALIGN_CENTER_VERTICAL|wxALL, 3);
+            0, wxALL, 3);
 
         wxCheckListBox *groupsctrl = new wxCheckListBox(nbMain, ID_ASSORTEDFILEGROUPS, wxDefaultPosition, wxDefaultSize);
         groupssizer->Add(groupsctrl, 1, wxGROW|wxALL, 3);

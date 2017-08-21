@@ -73,7 +73,7 @@ void HTMLButcherMaskEditDialog::CreateControls()
     wxBoxSizer *topsizer = new wxBoxSizer(wxVERTICAL);
 
     wxBoxSizer *boxsizer = new wxBoxSizer(wxVERTICAL);
-    topsizer->Add(boxsizer, 1, wxALIGN_CENTER_HORIZONTAL|wxALL|wxGROW, 3);
+    topsizer->Add(boxsizer, 1, wxALL|wxGROW, 3);
 
     // Name
     wxStaticText *namelabel = new wxStaticText(this, wxID_STATIC, _("&Name:"), wxDefaultPosition, wxDefaultSize, 0);
@@ -153,19 +153,19 @@ void HTMLButcherMaskEditDialog::CreateControls()
 
     // divider line
     wxStaticLine *line2 = new wxStaticLine(this, wxID_STATIC, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
-    boxsizer->Add(line2, 0, wxGROW|wxALL|wxALIGN_BOTTOM, 3);
+    boxsizer->Add(line2, 0, wxGROW|wxALL, 3);
 
     // BUTTONS
     wxBoxSizer *buttonsizer = new wxBoxSizer(wxHORIZONTAL);
-    boxsizer->Add(buttonsizer, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 3);
+    boxsizer->Add(buttonsizer, 0, wxALL, 3);
 
     // ok button
     wxButton* ok = new wxButton ( this, wxID_OK, _("&OK"), wxDefaultPosition, wxDefaultSize, 0 );
-    buttonsizer->Add(ok, 0, wxALIGN_CENTER_VERTICAL|wxALL, 3);
+    buttonsizer->Add(ok, 0, wxALL, 3);
 
     // cancel button
     wxButton* cancel = new wxButton ( this, wxID_CANCEL, _("&Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
-    buttonsizer->Add(cancel, 0, wxALIGN_CENTER_VERTICAL|wxALL, 3);
+    buttonsizer->Add(cancel, 0, wxALL, 3);
 
     // validators
 

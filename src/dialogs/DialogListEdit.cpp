@@ -94,25 +94,25 @@ void HTMLButcherListEditDialog::CreateControls()
 
     // add button
     wxButton* add = new wxButton ( this, ID_ADD, _("&Add"), wxDefaultPosition, wxDefaultSize, 0 );
-    opbuttonsizer->Add(add, 0, wxALIGN_CENTER_VERTICAL|wxALL, 1);
+    opbuttonsizer->Add(add, 0, wxALL, 1);
 
     // edit button
     wxButton* edit = new wxButton ( this, ID_EDIT, _("&Edit"), wxDefaultPosition, wxDefaultSize, 0 );
-    opbuttonsizer->Add(edit, 0, wxALIGN_CENTER_VERTICAL|wxALL, 1);
+    opbuttonsizer->Add(edit, 0, wxALL, 1);
 
     // remove button
     wxButton* remove = new wxButton ( this, ID_REMOVE, _("&Remove"), wxDefaultPosition, wxDefaultSize, 0 );
-    opbuttonsizer->Add(remove, 0, wxALIGN_CENTER_VERTICAL|wxALL, 1);
+    opbuttonsizer->Add(remove, 0, wxALL, 1);
 
     // duplicate button
     wxButton* duplicate = new wxButton ( this, ID_DUPLICATE, _("&Duplicate"), wxDefaultPosition, wxDefaultSize, 0 );
-    opbuttonsizer->Add(duplicate, 0, wxALIGN_CENTER_VERTICAL|wxALL, 1);
+    opbuttonsizer->Add(duplicate, 0, wxALL, 1);
     duplicate->Enable(false);
 
 #ifdef BUTCHER_USE_HELP
     // help button
     wxButton* help = new wxButton ( this, wxID_HELP, _("&Help"), wxDefaultPosition, wxDefaultSize, 0 );
-    opbuttonsizer->Add(help, 0, wxALIGN_CENTER_VERTICAL|wxALL, 1);
+    opbuttonsizer->Add(help, 0, wxALL, 1);
 #endif
 
     // SIZER ADD: OPBUTTON
@@ -130,7 +130,7 @@ void HTMLButcherListEditDialog::CreateControls()
 
     // close button
     wxButton* close = new wxButton ( this, wxID_CANCEL, _("&Close"), wxDefaultPosition, wxDefaultSize, 0 );
-    buttonsizer->Add(close, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 3);
+    buttonsizer->Add(close, 0, wxALL, 3);
 
     // SIZER ADD: BUTTON
     topsizer_->Add(buttonsizer, 0, wxALIGN_CENTRE, 3);
