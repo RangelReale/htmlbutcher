@@ -647,7 +647,7 @@ void HTMLButcherFrame::OnMenuSaveForWebMultiple(wxCommandEvent& event)
         ids.Add(i.first());
 	}
 
-    if (wxGetMultipleChoices(sel, _("Select views to save:"), _("Save all for Web"), views, this)>0 &&
+    if (wxGetSelectedChoices(sel, _("Select views to save:"), _("Save all for Web"), views, this)>0 &&
         sel.GetCount()>0)
     {
         wxBusyCursor bc;
