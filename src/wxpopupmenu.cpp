@@ -21,15 +21,15 @@ bool wxPopupMenu::ProcessEvent(wxEvent& event)
 wxMenuItem* wxPopupMenu::DoAppend(wxMenuItem *item)
 {
     // must set this as event handler, or submenus don't send events in wxGTK
-    if (item->IsSubMenu())
-        item->GetSubMenu()->SetEventHandler(this);
+    //if (item->IsSubMenu())
+        //item->GetSubMenu()->SetEventHandler(this);
     return wxMenu::DoAppend(item);
 }
 
 wxMenuItem* wxPopupMenu::DoInsert(size_t pos, wxMenuItem *item)
 {
     // must set this as event handler, or submenus don't send events in wxGTK
-    if (item->IsSubMenu())
-        item->GetSubMenu()->SetEventHandler(this);
+    //if (item->IsSubMenu())
+        //item->GetSubMenu()->SetEventHandler(this);
     return wxMenu::DoInsert(pos, item);
 }

@@ -197,11 +197,11 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
 #endif
     mbar->Append(viewMenu, _("&View"));
 
-    wxMenu* modeMenu = new wxMenu(_T(""));
+    wxMenu* modeMenu = new wxMenu;
     modeMenu->AppendRadioItem(idMenuModeNone, _("&None"), _("No selection mode"));
     modeMenu->AppendRadioItem(idMenuModeLine, _("&Line\tF2"), _("Line selection mode"));
     modeMenu->AppendRadioItem(idMenuModeArea, _("&Area\tF3"), _("Area selection mode"));
-    wxMenu* editmodeMenu = new wxMenu(wxEmptyString);
+    wxMenu* editmodeMenu = new wxMenu;
     editmodeMenu->AppendRadioItem(idMenuEditModeBasic, _("&Basic"), _("Basic edit mode"));
     editmodeMenu->AppendRadioItem(idMenuEditModeNormal, _("&Normal"), _("Normal edit mode"));
     editmodeMenu->AppendRadioItem(idMenuEditModeAdvanced, _("&Advanced"), _("Advanced edit mode"));
@@ -1348,7 +1348,7 @@ void HTMLButcherFrame::LoadViews(bool check)
 
     if (!check)
     {
-        viewmenu=new wxMenu(wxEmptyString);
+        viewmenu=new wxMenu;
 
         viewsctrl->Clear();
 

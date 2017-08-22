@@ -103,15 +103,15 @@ wxMenu* ButcherProjectProc_AreaMenu::BuildAreaMenu(wxMenu *rootmenu,
 		if (area->Editable(view_->GetBLId()))
 		{
 			// KIND
-			wxMenu *amkind=new wxMenu(_("Kind"));
+			wxMenu *amkind = new wxMenu;
 			amkind->AppendRadioItem(amenustart+ID_AREAMENU_KINDNONE, _("&None"), _("None"))->Check(acfg->GetAreaKind() == ButcherProjectAreaConfig::AK_NONE);
 			amkind->AppendRadioItem(amenustart+ID_AREAMENU_KINDIMAGE, _("&Image"), _("Image"))->Check(acfg->GetAreaKind() == ButcherProjectAreaConfig::AK_IMAGE);
 			amkind->AppendRadioItem(amenustart+ID_AREAMENU_KINDMASK, _("&Mask"), _("Mask"))->Check(acfg->GetAreaKind() == ButcherProjectAreaConfig::AK_MASK);
-			ret->Append(wxID_ANY, _("&Kind"), amkind, _("Area kind"));
-			amkind->SetEventHandler(rootmenu);
+			ret->AppendSubMenu(amkind, _("Area kind"));
+			//amkind->SetEventHandler(rootmenu);
 
 			// IMAGE FORMAT
-			wxMenu *amformat=new wxMenu(_("&Image Format"));
+			wxMenu *amformat=new wxMenu;
 
 			for (ButcherProjectImageFormats::iterator fmtaddi=area->GetProject()->ImageFormats().begin(); fmtaddi!=area->GetProject()->ImageFormats().end(); fmtaddi++)
 			{
@@ -125,7 +125,7 @@ wxMenu* ButcherProjectProc_AreaMenu::BuildAreaMenu(wxMenu *rootmenu,
 			amformat->AppendSeparator();
 			amformat->Append(amenustart+ID_AREAMENU_IMAGEFORMAT_SELECT, _("&Select"), _("Select image format"));
 			ret->Append(wxID_ANY, _("&Image Format"), amformat, _("Image format"));
-			amformat->SetEventHandler(rootmenu);
+			//amformat->SetEventHandler(rootmenu);
 
 			if (area->GetAreaClass() != ButcherProjectArea::AC_GLOBAL)
 				// BACKGROUND
@@ -209,9 +209,7 @@ void ButcherProjectProc_AreaMenu::ShowAreaMenu()
             acfg=select_->GetItem(i)->Configs().Get(view_->GetBLId());
 
             itemmenu=BuildAreaMenu(&areamenu, i, select_->GetItem(i));
-            areamenu.Append(wxID_ANY,
-                itemmenu->GetTitle(),
-                itemmenu);
+			areamenu.AppendSubMenu(itemmenu, itemmenu->GetTitle());
     }
 
     window_->PopupMenu(&areamenu);
