@@ -9,9 +9,9 @@ and produces an HTML page that reproduces the layout, cutting the image into pie
 either a nested `<table>` structure or absolutely-positioned `<div>`s, so text and images can be
 edited independently afterwards.
 
-wxWidgets 2.8-era C++ desktop GUI application, CMake build, BSD-3 licensed, open-sourced in 2013.
-The tree targets wx 2.8; the only version conditional anywhere is a `wxCHECK_VERSION(2, 9, 0)`
-compatibility patch in `src/HTMLButcherApp.cpp`.
+wxWidgets C++ desktop GUI application, CMake build, BSD-3 licensed, open-sourced in 2013. It began
+on wxWidgets 2.8 and now targets **wx 3.2**. The style still reads as 2.8-era (see Conventions), but
+nothing requires 2.8 any more and there are no `wxCHECK_VERSION` forks left in the tree.
 
 ## Build
 
@@ -20,17 +20,24 @@ cmake -S . -B build
 cmake --build build --config Release
 ```
 
-Output goes to `<source-dir>/bin` (pinned to `CMAKE_SOURCE_DIR`, not the build dir). Requires
-wxWidgets 2.8 Unicode + FreeImage, plus GTK2 on Linux. Options: `HB_WITH_DEMO`, `HB_WITH_UTILS`
-(both `OFF`).
+On Windows and macOS that downloads and builds wxWidgets 3.2 and FreeImage; on Linux it uses the
+distro packages (`libwxgtk3.2-dev`, `libfreeimage-dev`). The switch is `HB_FETCH_DEPS`, defaulted
+per platform — `ON` on Windows/macOS, `OFF` on Linux. Output goes to `<source-dir>/bin` (pinned to
+`CMAKE_SOURCE_DIR`, not the build dir). Other options: `HB_WITH_DEMO`, `HB_WITH_UTILS` (both `OFF`).
 
-**See `BUILDING.md`** for prerequisites and how each dependency is discovered, per-platform notes,
-regenerating the checked-in generated files, packaging, and the list of known build-system defects.
-Two of those defects bite often enough to repeat here:
+**See `BUILDING.md`** for prerequisites, packaging and release steps. Two invariants from it are
+worth repeating, because breaking either yields a build that compiles and links but fails at
+runtime:
 
-- `find_package(FreeImage REQUIRED)` **cannot fail** — the bundled Find module ignores `REQUIRED`,
-  so a missing FreeImage shows up as a link error, not a configure error.
-- wxStEdit is effectively Windows-only; its Find module's Unix branch searches for the wrong header.
+- **`FREEIMAGE_LIB` must be defined only for a static FreeImage.** `src/wxFreeImage.cpp` guards its
+  `FreeImage_Initialise()` on it, so a static build without it registers no format plugins and every
+  load and save fails silently. The `freeimage` target carries the definition — never add it by hand.
+- **FreeImage must be BGR-ordered.** `src/wxFreeImage.cpp` unconditionally swaps red and blue, so an
+  RGB-ordered build inverts every image. The fetch path pins `FREEIMAGE_COLORORDER=0`.
+
+Also, in the top-level `CMakeLists.txt` the dependency block must stay **above** the
+`add_definitions(-DUNICODE)` call and the output-directory settings — both are directory-scoped and
+would otherwise leak into the fetched dependencies.
 
 Two things to know before editing:
 
@@ -243,8 +250,8 @@ Match the surrounding code; there is no `.clang-format` or `.editorconfig`.
 - `friend class` is used pervasively so collections can construct and mutate their items; the
   protected default constructor plus friend collection is how metadata loading creates blank
   objects.
-- wx style is 2.8-era: static `DECLARE_EVENT_TABLE()`/`BEGIN_EVENT_TABLE` macro tables rather than
-  `Bind()`, `wxT()` around every literal, `_()` for translations. Custom events follow an identical
+- wx style is 2.8-era and deliberately left that way: static
+  `DECLARE_EVENT_TABLE()`/`BEGIN_EVENT_TABLE` macro tables rather than `Bind()`, `wxT()` around every literal, `_()` for translations. Custom events follow an identical
   boilerplate triple: an event class with `Clone()`, a `…EventFunction` typedef, a
   `…EventHandler(func)` cast macro and an `EVT_…(id, fn)` table macro.
 - Indentation is tabs. Dead code is commented out in place rather than deleted.
@@ -252,8 +259,8 @@ Match the surrounding code; there is no `.clang-format` or `.editorconfig`.
 ## Compile-time switches
 
 `HTMLBUTCHER_DEBUG` and `HTMLBUTCHER_KEEPOLDSAVE` (both automatic in Debug configs),
-`BUTCHER_USE_STEDIT`, `BUTCHER_USE_HELP` (MSW-only, set in `src/BConsts.h`), `NEED_CHOOSELANG_UI`,
-and `HTMLBUTCHER_DEMO`.
+`BUTCHER_USE_HELP` (MSW-only, set in `src/BConsts.h`), `NEED_CHOOSELANG_UI`, and
+`HTMLBUTCHER_DEMO`.
 
 `HTMLBUTCHER_DEMO` is far more invasive than it looks, and demo-guarded code must be kept
 compiling:
@@ -275,10 +282,18 @@ compiling:
   `resources/htmlbutcher.xrc` and regenerate; never hand-edit the generated file.
 - The version string is duplicated across four files; see the release checklist in `BUILDING.md`.
 - `origin/qt` holds an incomplete Qt port, 11 commits ahead of `master`. `cpp11` is already merged.
-- Command line: `htmlbutcher [-h|--help] [-l|--license-file <file>] [project.hbp]`. The switch character is
-  forced to `-` only, so that `/path` arguments still work.
+- Command line: `htmlbutcher [-h|--help] [-l|--license-file <file>] [project.hbp]`. The switch
+  character is forced to `-` only, so that `/path` arguments still work.
+- The CSS/HTML editor (`ButcherControl_FmtTextCtrl` in `src/BControls.h`) derives from wx's
+  `wxStyledTextCtrl`. It used to optionally derive from the third-party `wxSTEditor`, with a plain
+  `wxTextCtrl` fallback; both are gone, so syntax highlighting is now unconditional. `SetEditFormat`
+  maps to Scintilla lexers.
 
 ## Repo conventions
 
 Commit messages are a single line prefixed with `* ` — e.g. `* Fix layout asserts`,
 `* Remove title from radio button menus because of wx bug`.
+
+Line endings are pinned by `.gitattributes`: all text is stored LF. Shell scripts and the Debian
+`control`/`postinst`/`postrm` files stay LF in the working tree too (`/bin/sh` and `dpkg-deb` break
+on CRLF); `.bat`, `.iss` and `.rc` are CRLF; `.hbp` is binary. Do not "fix" line endings by hand.

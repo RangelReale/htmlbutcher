@@ -1,142 +1,136 @@
 # Building HTMLButcher
 
-HTMLButcher 1.1.0.28 is a wxWidgets 2.8-era C++ desktop application built with CMake. This
-document covers prerequisites, building, regenerating the checked-in generated files, and
-packaging.
+HTMLButcher 1.1.0.28 is a wxWidgets C++ desktop application built with CMake.
 
-## Prerequisites
-
-| Dependency | Required | Notes |
-|---|---|---|
-| CMake | yes | 2.6+ per `CMakeLists.txt`. See the CMake 4.x note below. |
-| A C++ compiler | yes | MSVC on Windows, GCC/Clang elsewhere. C++11 is required. |
-| wxWidgets | yes | **Unicode** build, 2.8 series. Components: `core base aui html xrc adv xml` |
-| FreeImage | yes | All image decoding, cropping, quantization, transparency and saving |
-| GTK2 | Linux only | Not needed on Windows or macOS |
-| wxStEdit | optional | Syntax-highlighted CSS/HTML editing. Windows only in practice |
-
-### wxWidgets
-
-The code targets the **2.8** series — the reference build was wxMSW 2.8.9. There is exactly one
-version conditional in the whole tree, a `wxCHECK_VERSION(2, 9, 0)` compatibility patch in
-`src/HTMLButcherApp.cpp`, so 2.9 mostly works but is not the primary target.
-
-Discovery uses CMake's stock `FindwxWidgets`, so set `wxWidgets_ROOT_DIR` (and `wxWidgets_LIB_DIR`
-on Windows) if wx is not in a default location.
-
-### FreeImage
-
-Located by `cmake/modules/FindFreeImage.cmake`, which searches:
-
-- **Windows** — `%PROGRAMFILES%/FreeImage/include`, `$ENV{FREEIMAGE}/Dist`,
-  `${PROJECT_SOURCE_DIR}/FreeImage/include`, and for the library `%PROGRAMFILES%/FreeImage/lib`,
-  `$ENV{FREEIMAGE}/Dist`, `${PROJECT_SOURCE_DIR}/FreeImage/{bin,lib}`
-- **Unix** — `/usr/include`, `/usr/local/include`, `/sw/include`, `/opt/local/include`, and
-  `/usr/lib64`, `/usr/lib`, `/usr/local/lib64`, `/usr/local/lib`, `/sw/lib`, `/opt/local/lib`
-
-The easiest route on Windows is to point the `FREEIMAGE` environment variable at the FreeImage
-distribution so that `$ENV{FREEIMAGE}/Dist` contains both `FreeImage.h` and `FreeImage.lib`.
-
-> **Careful:** `find_package(FreeImage REQUIRED)` does **not** fail when FreeImage is absent. The
-> bundled Find module never calls `find_package_handle_standard_args`, so the `REQUIRED` keyword is
-> inert — configuration continues with `FREEIMAGE_FOUND=FALSE` and an empty `FREEIMAGE_LIBRARIES`,
-> and you get an unexplained *link* error much later. If linking fails on FreeImage symbols, check
-> `FREEIMAGE_INCLUDE_PATH` and `FREEIMAGE_LIBRARY` in your `CMakeCache.txt` rather than trusting
-> that configuration succeeded.
-
-### wxStEdit (optional)
-
-When found, `BUTCHER_USE_STEDIT` is defined and `ButcherControl_FmtTextCtrl` derives from
-`wxSTEditor` instead of `wxTextCtrl`, giving syntax-highlighted CSS/HTML editing. It is a
-compile-time base-class swap, so the feature cannot be toggled at runtime.
-
-`cmake/modules/Findwxstedit.cmake` looks under `%PROGRAMFILES%/wxstedit`, `$ENV{wxstedit}`, or
-`${PROJECT_SOURCE_DIR}/wxstedit` for `wx/stedit/stedit.h` and `wxcode_msw28u_stedit`.
-
-> **Careful:** the module's Unix branch is broken — it searches for `GL/glew.h` instead of the
-> wxStEdit header (copy-pasted from a `FindGLEW`). On a Unix machine without GLEW, wxStEdit is
-> simply never found; on one *with* GLEW it is falsely reported found and the build then tries to
-> link the Windows-only `wxcode_msw28u_stedit`. Treat wxStEdit as Windows-only until that module is
-> fixed.
-
-### CMake 4.x
-
-`CMakeLists.txt` declares `cmake_minimum_required(VERSION 2.6)`. CMake 3.x only warns:
-
-```
-CMake Deprecation Warning at CMakeLists.txt:3 (cmake_minimum_required):
-  Compatibility with CMake < 2.8.12 will be removed from a future version of CMake.
-```
-
-CMake **4.x removes that compatibility entirely** and will hard-error. Until the minimum is raised,
-configure with `-DCMAKE_POLICY_VERSION_MINIMUM=3.5`.
-
-## Building
+On **Windows and macOS** the build downloads and compiles its own dependencies, so a clean checkout
+plus CMake and a compiler is enough:
 
 ```sh
 cmake -S . -B build
 cmake --build build --config Release
 ```
 
-### Options
+On **Linux** it uses the distribution's packages instead, because wxGTK needs the GTK development
+packages present regardless — a downloaded wxWidgets would not make the build self-contained there.
+
+## Dependencies
+
+| Dependency | Required | Fetched? | Notes |
+|---|---|---|---|
+| CMake ≥ 3.16 | yes | — | 3.16 is the floor; `FetchContent_MakeAvailable` needs ≥ 3.14 |
+| A C++11 compiler | yes | — | MSVC, GCC or Clang |
+| wxWidgets 3.2 | yes | on Windows/macOS | Components: `core base aui html xrc xml stc` |
+| FreeImage 3.18 | yes | on Windows/macOS | All image decoding, cropping, quantization, transparency and saving |
+| GTK | Linux only | never | Comes in with the wxGTK development package |
+
+### `HB_FETCH_DEPS`
+
+Controls where dependencies come from. The default is per-platform: **`ON`** on Windows and macOS,
+**`OFF`** on Linux.
+
+```sh
+cmake -S . -B build -DHB_FETCH_DEPS=ON    # download and build wxWidgets + FreeImage
+cmake -S . -B build -DHB_FETCH_DEPS=OFF   # use system libraries
+```
+
+With it `ON`, CMake fetches pinned source archives (verified by SHA256) into the build tree and
+builds them as part of the project:
+
+- **wxWidgets 3.2.6** — the release tarball, which carries wx's own bundled zlib, libpng, libjpeg,
+  libtiff, expat and Scintilla. This is what makes a Windows build self-contained. It is configured
+  static and Unicode (`src/ButcherFileDefs.h` hard-errors on a non-Unicode build).
+- **FreeImage 3.18.0** — the source distribution. FreeImage ships no CMake build of its own, so
+  `cmake/freeimage/CMakeLists.txt` supplies one; see the note below.
+
+Nothing is written into the source tree, and `/build` is gitignored.
+
+With it `OFF`, `find_package` is used for both. On Debian/Ubuntu:
+
+```sh
+sudo apt install build-essential cmake libwxgtk3.2-dev libfreeimage-dev
+```
+
+`libwxgtk3.2-dev` pulls in the GTK development packages. On Fedora the equivalents are
+`wxGTK-devel` and `freeimage-devel`.
+
+A system FreeImage is located by `cmake/modules/FindFreeImage.cmake`, which honours the `FREEIMAGE`
+environment variable as well as the usual system prefixes.
+
+## Two invariants to preserve
+
+Both of these produce a build that compiles and links but misbehaves at runtime, so they are worth
+knowing before touching the dependency wiring.
+
+1. **`FREEIMAGE_LIB` must be defined when, and only when, FreeImage is static.**
+   `src/wxFreeImage.cpp` guards its `FreeImage_Initialise()` / `FreeImage_DeInitialise()` calls on
+   that macro. A static FreeImage has no library constructor, so without the definition **no image
+   format plugin is ever registered and every load and save fails silently**. A shared FreeImage
+   registers them itself, so there the definition must be absent.
+
+   This is handled by the `freeimage` target exporting `FREEIMAGE_LIB` as a `PUBLIC` compile
+   definition in the fetch path, and the imported target deliberately not doing so in the system
+   path. Do not add it by hand.
+
+2. **FreeImage's colour order must be BGR.** `src/wxFreeImage.cpp` unconditionally swaps red and
+   blue when handing scanlines to `wxImage`. A FreeImage built with `FREEIMAGE_COLORORDER_RGB`
+   inverts every image. The fetch path pins `FREEIMAGE_COLORORDER=0` explicitly rather than relying
+   on the endianness-based default.
+
+There is also an ordering constraint in the top-level `CMakeLists.txt`: the dependency block must
+stay **above** the `add_definitions(-DUNICODE -D_UNICODE)` call and the `CMAKE_*_OUTPUT_DIRECTORY`
+settings. Both are directory-scoped and would otherwise leak into the fetched dependencies —
+`UNICODE` in particular would reach FreeImage's ~15 bundled third-party C libraries, none of which
+are Unicode builds. There is a comment saying so in the file; please leave it there.
+
+## Build options
 
 | Option | Default | Effect |
 |---|---|---|
+| `HB_FETCH_DEPS` | platform | Download and build dependencies (see above) |
 | `HB_WITH_DEMO` | `OFF` | Also build `HTMLButcherDemo`, the feature-limited demo binary |
-| `HB_WITH_UTILS` | `OFF` | Also build `MetadataFileViewer`, a debug tool that dumps a project file's metadata tree |
+| `HB_WITH_UTILS` | `OFF` | Also build `MetadataFileViewer`, which dumps a project file's metadata tree |
 
 ### Targets
 
 - `HTMLButcher` — the application
 - `hbcppcomp` — small in-tree static helper library (`util/cppcomp`), always built
-- `HTMLButcherDemo` — only with `HB_WITH_DEMO=ON`
-- `MetadataFileViewer` — only with `HB_WITH_UTILS=ON`
+- `HTMLButcherDemo`, `MetadataFileViewer` — only with the options above
 
 ### Output location
 
-Binaries go to **`<source-dir>/bin`** and libraries to **`<source-dir>/lib`**, not into the build
-directory — the root `CMakeLists.txt` pins `CMAKE_RUNTIME_OUTPUT_DIRECTORY`,
-`CMAKE_LIBRARY_OUTPUT_DIRECTORY` and `CMAKE_ARCHIVE_OUTPUT_DIRECTORY` to `${CMAKE_SOURCE_DIR}`.
-Both directories are gitignored, so an out-of-tree build still writes into the source tree.
-
-With multi-config generators (Visual Studio) the executable lands in `bin/<Config>/`, e.g.
-`bin/Release/HTMLButcher.exe` — which is why the Windows installer script expects
+Binaries go to `<source-dir>/bin` and libraries to `<source-dir>/lib`, not into the build
+directory. With multi-config generators (Visual Studio) the executable lands in `bin/<Config>/`,
+e.g. `bin/Release/HTMLButcher.exe` — which is why the Windows installer script expects
 `bin\Release\htmlbutcher.exe`. Single-config generators (Makefiles, Ninja) write straight to `bin/`.
+
+Both directories are gitignored.
 
 ### Compiler definitions
 
-Set automatically; you do not normally pass these yourself:
+Set automatically:
 
-- Windows: `_CRT_SECURE_NO_WARNINGS`, `UNICODE`, `_UNICODE`; the app links as a `WIN32` subsystem
-  executable
+- Windows: `_CRT_SECURE_NO_WARNINGS`, `UNICODE`, `_UNICODE`; links as a `WIN32` subsystem executable
 - Debug configurations: `HTMLBUTCHER_DEBUG`, `HTMLBUTCHER_KEEPOLDSAVE`, `__WXDEBUG__`
-- With wxStEdit found: `BUTCHER_USE_STEDIT`
 - Demo target: `HTMLBUTCHER_DEMO`
-- macOS: builds a `MACOSX_BUNDLE` with `CMAKE_OSX_ARCHITECTURES x86_64`; this is the only platform
-  where CPack is configured (`cpack` installs to `/Applications`)
+- macOS: a `MACOSX_BUNDLE` with `CMAKE_OSX_ARCHITECTURES x86_64`; the only platform where CPack is
+  configured (`cpack` installs to `/Applications`)
 
-> **No `-std=` flag is set anywhere.** Commit `26b6301` converted the codebase to C++11
-> (`std::unique_ptr`/`shared_ptr` replacing an in-tree `linked_ptr`), but no standard is requested
-> in any `CMakeLists.txt`. This is fine for MSVC and for GCC/Clang versions that default to C++11
-> or later; on an older GCC you must add `-std=c++11` yourself.
+C++11 is requested explicitly via `CMAKE_CXX_STANDARD`.
 
 ### Adding source files
 
-The source lists in `src/CMakeLists.txt` are **explicit — there is no globbing**. A new file must
-be added by hand to the appropriate variable (`SOURCES_MAIN`, `SOURCES_DIALOG`, `SOURCES_PROJECT`,
-`SOURCES_VIEW`, `SOURCES_UTILS`) along with its `SOURCE_GROUP` entry, or it will simply not be
-compiled.
+The source lists in `src/CMakeLists.txt` are **explicit — there is no globbing**. A new file must be
+added by hand to the appropriate variable (`SOURCES_MAIN`, `SOURCES_DIALOG`, `SOURCES_PROJECT`,
+`SOURCES_VIEW`, `SOURCES_UTILS`) along with its `SOURCE_GROUP` entry, or it is simply not compiled.
 
 `src`, `src/dialogs`, `src/project` and `src/view` are all on the include path, so headers are
-included by bare filename regardless of which subdirectory they live in.
+included by bare filename regardless of subdirectory.
 
 ## Regenerating checked-in files
 
-Some generated files are committed and must be regenerated by hand after editing their sources.
-
 ### XRC resources
 
-`resources/htmlbutcher_resources.cpp` is a `wxrc`-generated C++ blob containing the XRC layouts and
+`resources/htmlbutcher_resources.cpp` is a `wxrc`-generated C++ blob holding the XRC layouts and
 icons, compiled into the binary and loaded by `InitXmlResource()`. **Never hand-edit it.** Edit
 `resources/htmlbutcher.xrc`, then regenerate:
 
@@ -144,14 +138,13 @@ icons, compiled into the binary and loaded by `InitXmlResource()`. **Never hand-
 wxrc htmlbutcher.xrc -v -c -o htmlbutcher_resources.cpp
 ```
 
-`resources/compile.bat` does this but hardcodes a path into a wxMSW 2.8.9 source tree; adjust it to
-your own `wxrc`.
+In the fetch path `wxrc` is built as part of wxWidgets, under the build tree.
 
 ### Translations
 
-Sources are `locale/*.po` (currently `ja` and `pt_BR`). `locale/install.sh` compiles each with
-`msgfmt` into `<lang>/htmlbutcher.mo`. `locale/install.bat` does the same on Windows and also
-copies the matching wxWidgets catalog from `deps/wx/locale` as `wxstd.mo`.
+Sources are `locale/*.po` (`ja`, `pt_BR`). `locale/install.sh` compiles each with `msgfmt` into
+`<lang>/htmlbutcher.mo`. `locale/install.bat` does the same on Windows and also copies the matching
+wxWidgets catalog from `deps/wx/locale` as `wxstd.mo`.
 
 ### Manual
 
@@ -171,92 +164,81 @@ Requires `xsltproc`, `zip` and `dblatex`. The `.bat` equivalents hardcode a `lib
 
 ## Packaging
 
-All packaging scripts consume already-built artifacts, and they fail confusingly if run too early.
-Before packaging:
+Packaging scripts consume already-built artifacts and fail confusingly if run too early. Before
+packaging:
 
-1. Build the binary into `bin/` (and `HTMLButcherDemo` too, if you want the demo package).
+1. Build the binary into `bin/` (and `HTMLButcherDemo` too, for the demo package).
 2. **Generate the help file** — Linux packages copy `doc/docbook/htmlbutcher.htb`; the Windows
    installer copies `doc/docbook/htmlhelp/htmlbutcher.chm`.
 
 ### Debian / Ubuntu / Raspberry Pi / Pandora
 
-Run `build_htmlbutcher.sh` from inside the relevant `setup/` directory (`setup/ubuntu`,
-`setup/debian`, `setup/rpi`, `setup/pandora`). The script re-executes itself under `sudo`, then
-stages a package tree under `build/`: copies and `strip`s the binary, installs the desktop/MIME
-files from `data/`, adds the `.htb` help file, compiles each `.po` into
-`usr/share/locale/<lang>/LC_MESSAGES/`, substitutes `%%SIZE%%` in `DEBIAN/control` with the staged
-size from `du`, and finally runs `dpkg-deb --build`.
-
-It builds the demo package too, but only if `bin/HTMLButcherDemo` exists — detection is a plain
-`[ -f ../../bin/HTMLButcherDemo ]` test.
-
-The variants differ mainly in their `DEBIAN/control`: Ubuntu is `i386` / `1.1.0.28-ubuntu0`,
-Raspberry Pi is `armhf` / `1.1.0.28-raspbian0`. Declared runtime dependencies are `libc6 (>= 2.4)`,
-`libstdc++6 (>= 4.2)`, `libgtk2.0-0 (>= 2.12.0)`, `libglib2.0-0 (>= 2.16.0)`, `libx11-6`.
+Run `build_htmlbutcher.sh` from inside the relevant `setup/` directory. It re-executes itself under
+`sudo`, stages a package tree under `build/`, strips the binary, installs the desktop/MIME files
+from `data/`, adds the `.htb` help file, compiles each `.po`, substitutes `%%SIZE%%` in
+`DEBIAN/control` from `du`, and runs `dpkg-deb --build`. The demo package is built only if
+`bin/HTMLButcherDemo` exists.
 
 Requires `dpkg-deb`, `msgfmt` and root.
 
+> The `setup/ubuntu` and `setup/rpi` `DEBIAN/control` files declare neither `libfreeimage3` nor a
+> `libwxgtk*` dependency, unlike `setup/debian`. Those two packages are incomplete as shipped.
+
 ### Windows
 
-Inno Setup scripts: `setup/win32/htmlbutcher.iss` and `setup/win64/htmlbutcher.iss` (plus
-`htmlbutcherdemo.iss` and `htmlbutcher-locale-files.iss`). They use `SourceDir=..\..` and expect
-`bin\Release\htmlbutcher.exe` and `doc\docbook\htmlhelp\htmlbutcher.chm`, and they bundle the
+Inno Setup scripts under `setup/win32` and `setup/win64`. They use `SourceDir=..\..` and expect
+`bin\Release\htmlbutcher.exe` plus `doc\docbook\htmlhelp\htmlbutcher.chm`, and bundle the
 redistributable from `setup/win*/redist`.
 
-> The scripts **hardcode `m:\prog\src\FreeImage\Dist\FreeImage.dll`** as the source of the bundled
-> FreeImage DLL. Edit that path before building an installer on any other machine.
+> The scripts still copy `m:\prog\src\FreeImage\Dist\FreeImage.dll`, an absolute path from the
+> original author's machine. A fetched FreeImage is linked **statically**, so that line is no longer
+> needed for a fetch-path build — the executable has no FreeImage DLL dependency.
 
 ### Red Hat / Fedora
 
-RPM spec files in `setup/redhat/fedora9/` (`htmlbutcher.spec`, `htmlbutcher-demo.spec`), driven by
-`setup/redhat/build_htmlbutcher.sh`.
+RPM specs in `setup/redhat/fedora9/`, driven by `setup/redhat/build_htmlbutcher.sh`.
 
 ### macOS
 
-Either `cpack` (configured in the root `CMakeLists.txt`, installs to `/Applications`) or the
-PackageMaker project at `setup/macosx/htmlbutcher.pmproj`. Note `HTMLButcher-Info.plist` still
-carries a placeholder `CFBundleIdentifier` of `com.yourcompany.Debug`.
+Either `cpack` (installs to `/Applications`) or `setup/macosx/htmlbutcher.pmproj` (PackageMaker).
+Note `HTMLButcher-Info.plist` still carries a placeholder `CFBundleIdentifier` of
+`com.yourcompany.Debug`.
 
 ## Releasing
 
-The version number is duplicated in four places and they must be changed together:
+The version number is duplicated in four places that must change together:
 
 1. `src/HTMLButcherVersion.h` — `HTMLBUTCHERVERSION_1..4`, `..._NUMBER`, `..._STRING`
 2. root `CMakeLists.txt` — the `MACOSX_BUNDLE_*_VERSION*` values and the CPack major/minor/patch
-   fields
 3. `setup/win32/*.iss` and `setup/win64/*.iss` — `AppVerName`, `VersionInfoVersion`,
    `OutputBaseFilename`
 4. `setup/*/htmlbutcher*/DEBIAN/control` — `Version`
 
-The project-file format has its own separate version (`BFILE_VERSION` in `src/ButcherFileDefs.h`,
-currently 2), with a change log in `doc/bfileversion.txt`. Bump it only when the `.hbp` layout
-changes.
+The project-file format has its own version (`BFILE_VERSION` in `src/ButcherFileDefs.h`, currently
+2), with a change log in `doc/bfileversion.txt`. Bump it only when the `.hbp` layout changes.
 
 ## Tests
 
 There is no test suite. `util/HBTest/HBTMain.cpp` looks like a Google Test suite but is dead code:
-no `CMakeLists.txt` references it, the repo contains no `enable_testing()`, `add_test()` or
-`find_package(GTest)`, and the file still includes a `BProject.h` that no longer exists — so it
-would not compile as written. There is no CI configuration either.
+no `CMakeLists.txt` references it, the repo has no `enable_testing()`, `add_test()` or
+`find_package(GTest)`, and it includes a `BProject.h` that no longer exists — so it would not
+compile. There is no CI configuration either.
 
-Verification is manual: build, run the binary, and open a project such as
+Verification is manual: build, run, and open a project such as
 `doc/manual/tutorial/simple_apple/apple.hbp`.
+
+## Line endings
+
+`.gitattributes` pins the policy: all text is stored LF in the repository. Shell scripts and the
+Debian `control`/`postinst`/`postrm` files are forced to LF in the working tree too, since `/bin/sh`
+and `dpkg-deb` break on stray carriage returns; `.bat`, `.iss` and `.rc` are CRLF. `.hbp` files are
+marked binary — they are HTMLButcher's own binary format and EOL translation would corrupt them.
 
 ## Known build-system defects
 
-Collected here so they are not re-diagnosed each time:
-
-- `find_package(FreeImage REQUIRED)` (`CMakeLists.txt:29`) cannot fail — the bundled Find module
-  ignores `REQUIRED`, so a missing FreeImage surfaces as a link error instead. Its `DOC` strings
-  also still mention GLEW.
-- `Findwxstedit.cmake`'s Unix branch searches for `GL/glew.h`, so wxStEdit is never correctly found
-  on Unix and is falsely found if GLEW is installed.
-- The wxStEdit link line hardcodes wx 2.8 MSW library names (`wxmsw28ud_stc.lib` /
-  `wxmsw28u_stc.lib`), so it cannot work against another wx version or platform.
-- `include_directories(${HTMLButcher_SOURCE_DIR}/secure)` (`CMakeLists.txt:61`) points at a
-  directory that does not exist — the licensing code was removed before the project was
-  open-sourced. Harmless, but misleading.
-- `util/MetadataFileViewer/CMakeLists.txt` links `${Cryptopp_LIBRARIES}`, a variable never defined
-  anywhere; it expands to nothing.
+- `util/MetadataFileViewer` compiles `src/ButcherMetadataFile.cpp` from the main tree rather than
+  linking anything, so the two can drift.
 - `doc/htmlbutcher.Doxyfile` has absolute `INPUT` and `OUTPUT_DIRECTORY` paths pointing at
   `C:/prog/personal/HTMLButcher`.
+- `resources/compile.bat` hardcodes a path into a wxMSW 2.8.9 source tree for `wxrc`.
+- The `.iss` installers hardcode `m:\prog\src\...\FreeImage.dll` (see Packaging).
