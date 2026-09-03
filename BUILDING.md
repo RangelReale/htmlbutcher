@@ -190,9 +190,9 @@ Inno Setup scripts under `setup/win32` and `setup/win64`. They use `SourceDir=..
 `bin\Release\htmlbutcher.exe` plus `doc\docbook\htmlhelp\htmlbutcher.chm`, and bundle the
 redistributable from `setup/win*/redist`.
 
-> The scripts still copy `m:\prog\src\FreeImage\Dist\FreeImage.dll`, an absolute path from the
-> original author's machine. A fetched FreeImage is linked **statically**, so that line is no longer
-> needed for a fetch-path build — the executable has no FreeImage DLL dependency.
+> The scripts still copy `FreeImage.dll` from an absolute path on the machine they were written
+> on, so that line needs editing anywhere else. A fetched FreeImage is linked **statically**, so
+> it is not needed for a fetch-path build at all — the executable has no FreeImage DLL dependency.
 
 ### Red Hat / Fedora
 
@@ -238,7 +238,7 @@ marked binary — they are HTMLButcher's own binary format and EOL translation w
 
 - `util/MetadataFileViewer` compiles `src/ButcherMetadataFile.cpp` from the main tree rather than
   linking anything, so the two can drift.
-- `doc/htmlbutcher.Doxyfile` has absolute `INPUT` and `OUTPUT_DIRECTORY` paths pointing at
-  `C:/prog/personal/HTMLButcher`.
+- `doc/htmlbutcher.Doxyfile` has absolute `INPUT` and `OUTPUT_DIRECTORY` paths baked in, pointing
+  at wherever the project happened to live when it was written.
 - `resources/compile.bat` hardcodes a path into a wxMSW 2.8.9 source tree for `wxrc`.
-- The `.iss` installers hardcode `m:\prog\src\...\FreeImage.dll` (see Packaging).
+- The `.iss` installers hardcode an absolute path to `FreeImage.dll` (see Packaging).

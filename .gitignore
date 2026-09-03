@@ -16,3 +16,6 @@
 /setup/rpi/build
 /setup/rpi/*.deb
 
+
+# Local, machine-specific Claude notes (paths on this machine)
+/CLAUDE.local.md
