@@ -1,0 +1,70 @@
+# Line-ending policy.
+#
+# Every text file is stored in the repository with LF endings, regardless of
+# each developer's core.autocrlf setting. Without this file the behaviour
+# depends on personal git configuration: a contributor with core.autocrlf=false
+# commits CRLF and produces whole-file diffs, while one with autocrlf=true sees
+# "LF will be replaced by CRLF" warnings on every add.
+#
+# text=auto only controls what is stored. What lands in the working tree is
+# still governed by core.autocrlf/core.eol, except where eol= is given below.
+
+* text=auto
+
+# ---------------------------------------------------------------------------
+# Must be LF in the working tree as well as in the repository.
+#
+# These are consumed by Unix tooling that breaks outright on CRLF: /bin/sh
+# fails with "bad interpreter", and dpkg-deb rejects control files with stray
+# carriage returns.
+# ---------------------------------------------------------------------------
+*.sh              text eol=lf
+*.po              text eol=lf
+*.spec            text eol=lf
+*.desktop         text eol=lf
+*.mime            text eol=lf
+*.keys            text eol=lf
+*.applications    text eol=lf
+
+# Debian packaging: control plus the maintainer scripts, which have no
+# extension of their own.
+setup/**/DEBIAN/control    text eol=lf
+setup/**/DEBIAN/postinst   text eol=lf
+setup/**/DEBIAN/postrm     text eol=lf
+setup/**/copyright         text eol=lf
+
+# ---------------------------------------------------------------------------
+# Must be CRLF in the working tree: Windows-only tooling.
+# ---------------------------------------------------------------------------
+*.bat             text eol=crlf
+*.iss             text eol=crlf
+*.rc              text eol=crlf
+
+# XPM is not an image format as far as git is concerned -- it is C source (a
+# static char*[] array that HTMLButcherApp.cpp #includes), so it stays text.
+*.xpm             text
+
+# ---------------------------------------------------------------------------
+# Binary -- never convert, never diff as text.
+#
+# .hbp matters most here: they are HTMLButcher's own binary project files
+# (signature "BPRJ", with embedded images), and any end-of-line translation
+# would corrupt them.
+# ---------------------------------------------------------------------------
+*.hbp             binary
+*.png             binary
+*.gif             binary
+*.jpg             binary
+*.jpeg            binary
+*.tif             binary
+*.tiff            binary
+*.ico             binary
+*.icns            binary
+*.psd             binary
+*.mo              binary
+*.pdf             binary
+*.chm             binary
+*.htb             binary
+*.exe             binary
+*.gz              binary
+*.zip             binary
