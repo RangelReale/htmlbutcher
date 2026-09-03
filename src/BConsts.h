@@ -7,12 +7,6 @@
 #define BUTCHERCONST_VIEW_MAXALTERNATE  1 // MAXIMUM IS 9
 #endif
 
-/*
-#ifdef __WXMAC__
-    #define BUTCHER_USE_STEDIT  1
-#endif
-*/
-
 #ifdef __WXMSW__
     #define BUTCHER_USE_HELP  1
 #endif

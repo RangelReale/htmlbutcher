@@ -24,9 +24,7 @@
 #include "BImageView.h"
 #include "ButcherViewSelectEvent.h"
 
-#ifdef BUTCHER_USE_STEDIT
-    #include <wx/stedit/stedit.h>
-#endif
+#include <wx/stc/stc.h>
 
 using namespace std;
 
@@ -163,48 +161,27 @@ private:
  *
  * @brief Fromatted text control
  */
-class ButcherControl_FmtTextCtrl : public
-#ifdef BUTCHER_USE_STEDIT
-    wxSTEditor
-#else
-    wxTextCtrl
-#endif
+class ButcherControl_FmtTextCtrl : public wxStyledTextCtrl
 {
 public:
     enum editformat_t { FMT_NONE, FMT_CSS, FMT_HTML };
 
-    ButcherControl_FmtTextCtrl() :
-#ifdef BUTCHER_USE_STEDIT
-        wxSTEditor() { Init(); }
-#else
-        wxTextCtrl() { Init(); }
-#endif
+    ButcherControl_FmtTextCtrl() : wxStyledTextCtrl() { Init(); }
 
     ButcherControl_FmtTextCtrl(wxWindow* parent, wxWindowID id,
         const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
-#ifdef BUTCHER_USE_STEDIT
         long style = 0,
-#else
-        long style = wxTE_MULTILINE|wxTE_BESTWRAP,
-#endif
         const wxValidator& validator = wxDefaultValidator,
         const wxString& name = wxT("fmttextctrl")) ;
 
     bool Create(wxWindow* parent, wxWindowID id,
         const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
-#ifdef BUTCHER_USE_STEDIT
         long style = 0,
-#else
-        long style = wxTE_MULTILINE|wxTE_BESTWRAP,
-#endif
         const wxValidator& validator = wxDefaultValidator,
         const wxString& name = wxT("fmttextctrl"));
 
     void SetEditFormat(editformat_t fmt);
 
-#ifdef BUTCHER_USE_STEDIT
-    void SetValue(const wxString &value) { SetText(value); }
-#endif
 
     bool GetAllowFileLink() { return allowfilelink_; }
     void SetAllowFileLink(ButcherProject *project, bool a) { project_=project; allowfilelink_=a; }

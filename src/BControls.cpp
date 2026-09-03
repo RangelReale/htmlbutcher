@@ -268,11 +268,7 @@ void ButcherControl_FileLink::OnSize(wxSizeEvent& WXUNUSED(event))
 //      ButcherControl_FmtTextCtrl
 /////////////////////////////////
 
-#ifdef BUTCHER_USE_STEDIT
-BEGIN_EVENT_TABLE(ButcherControl_FmtTextCtrl, wxSTEditor)
-#else
-BEGIN_EVENT_TABLE(ButcherControl_FmtTextCtrl, wxTextCtrl)
-#endif
+BEGIN_EVENT_TABLE(ButcherControl_FmtTextCtrl, wxStyledTextCtrl)
     EVT_RIGHT_DOWN(ButcherControl_FmtTextCtrl::OnRMouseDown)
 END_EVENT_TABLE()
 
@@ -280,24 +276,32 @@ END_EVENT_TABLE()
 
 void ButcherControl_FmtTextCtrl::Init()
 {
-#ifdef BUTCHER_USE_STEDIT
-    RegisterPrefs(wxSTEditorPrefs::GetGlobalEditorPrefs());
-    RegisterStyles(wxSTEditorStyles::GetGlobalEditorStyles());
-    RegisterLangs(wxSTEditorLangs::GetGlobalEditorLangs());
-#ifdef __WXGTK__
-    GetEditorStyles().SetSize(STE_STYLE_DEFAULT, 10);
-#endif
-#endif
+    // wxStEdit used to supply the editor preferences, styles and language
+    // definitions here. wx ships Scintilla itself, so the few settings that
+    // were actually being relied on are applied directly.
+    //
+    // Guarded because the default constructor runs Init() before the control
+    // exists; every call site uses the parameterised constructor, which
+    // builds the base window first.
+    if (!GetHandle())
+        return;
+
+    wxFont font(10, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+    StyleSetFont(wxSTC_STYLE_DEFAULT, font);
+    StyleClearAll();
+
+    // The old non-wxStEdit path used wxTE_MULTILINE|wxTE_BESTWRAP, so keep
+    // word wrapping and drop the margins Scintilla shows by default.
+    SetWrapMode(wxSTC_WRAP_WORD);
+    SetMarginWidth(0, 0);
+    SetMarginWidth(1, 0);
+    SetMarginWidth(2, 0);
 }
 
 ButcherControl_FmtTextCtrl::ButcherControl_FmtTextCtrl(wxWindow* parent, wxWindowID id,
     const wxPoint& pos, const wxSize& size, long style, const wxValidator& validator,
     const wxString& name)
-#ifdef BUTCHER_USE_STEDIT
-        : wxSTEditor(parent, id, pos, size, style, name)
-#else
-        : wxTextCtrl(parent, id, wxEmptyString, pos, size, style, validator, name)
-#endif
+        : wxStyledTextCtrl(parent, id, pos, size, style, name)
     , project_(NULL), allowfilelink_(false), filelinkseltypes_(0)
 {
     Init();
@@ -315,19 +319,18 @@ bool ButcherControl_FmtTextCtrl::Create(wxWindow* parent, wxWindowID id,
 
 void ButcherControl_FmtTextCtrl::SetEditFormat(editformat_t fmt)
 {
-#ifdef BUTCHER_USE_STEDIT
     switch (fmt)
     {
     case FMT_CSS:
-        SetLanguage(STE_LANG_CSS);
+        SetLexer(wxSTC_LEX_CSS);
         break;
     case FMT_HTML:
-        SetLanguage(STE_LANG_HTML);
+        SetLexer(wxSTC_LEX_HTML);
         break;
     default:
+        SetLexer(wxSTC_LEX_NULL);
         break;
     }
-#endif
 }
 
 void ButcherControl_FmtTextCtrl::OnRMouseDown(wxMouseEvent &event)
@@ -366,11 +369,9 @@ bool ButcherControl_GenericValidator::TransferToWindow()
     if ( !m_validatorWindow )
         return false;
 
-#ifdef BUTCHER_USE_STEDIT
-    // wxSTEdit
-    if (m_validatorWindow->IsKindOf(CLASSINFO(wxSTEditor)) )
+    if (m_validatorWindow->IsKindOf(CLASSINFO(wxStyledTextCtrl)))
     {
-        wxSTEditor* pControl = (wxSTEditor*) m_validatorWindow;
+        wxStyledTextCtrl* pControl = (wxStyledTextCtrl*) m_validatorWindow;
         if (m_pString)
         {
             pControl->SetText(*m_pString) ;
@@ -384,7 +385,6 @@ bool ButcherControl_GenericValidator::TransferToWindow()
             return true;
         }
     }
-#endif
     return wxGenericValidator::TransferToWindow();
 }
 
@@ -395,10 +395,9 @@ bool ButcherControl_GenericValidator::TransferFromWindow()
     if ( !m_validatorWindow )
         return false;
 
-#ifdef BUTCHER_USE_STEDIT
-    if (m_validatorWindow->IsKindOf(CLASSINFO(wxSTEditor)) )
+    if (m_validatorWindow->IsKindOf(CLASSINFO(wxStyledTextCtrl)))
     {
-        wxSTEditor* pControl = (wxSTEditor*) m_validatorWindow;
+        wxStyledTextCtrl* pControl = (wxStyledTextCtrl*) m_validatorWindow;
         if (m_pString)
         {
             *m_pString = pControl->GetValue() ;
@@ -410,7 +409,6 @@ bool ButcherControl_GenericValidator::TransferFromWindow()
             return true;
         }
     }
-#endif
     return wxGenericValidator::TransferFromWindow();
 }
 
