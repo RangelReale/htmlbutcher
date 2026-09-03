@@ -104,39 +104,22 @@ endif (HB_WITH_DEMO)
 
 
 
-target_link_libraries(HTMLButcher ${FREEIMAGE_LIBRARIES} ${CPPCOMP_LIBRARIES} ${wxWidgets_LIBRARIES} )
+# FREEIMAGE_LIB is not set here on purpose. A fetched FreeImage is static and
+# its target exports FREEIMAGE_LIB as a PUBLIC definition, which is what makes
+# src/wxFreeImage.cpp call FreeImage_Initialise() and register the format
+# plugins. A system FreeImage is shared and registers them from its own library
+# constructor, so the definition must stay absent there. Letting the target
+# carry it keeps both cases correct.
+target_link_libraries(HTMLButcher PRIVATE
+	FreeImage::FreeImage
+	${CPPCOMP_LIBRARIES}
+	hb_wx)
 if (HB_WITH_DEMO)
-target_link_libraries(HTMLButcherDemo ${FREEIMAGE_LIBRARIES} ${CPPCOMP_LIBRARIES} ${wxWidgets_LIBRARIES})
+target_link_libraries(HTMLButcherDemo PRIVATE
+	FreeImage::FreeImage
+	${CPPCOMP_LIBRARIES}
+	hb_wx)
 endif (HB_WITH_DEMO)
-
-#if (wxstedit_FOUND)
-#	add_definitions(-DBUTCHER_USE_STEDIT)
-#endif (wxstedit_FOUND)
-
-
-#set_target_properties(HTMLButcherDemo PROPERTIES COMPILE_DEFINITIONS HTMLBUTCHER_DEMO)
-
-if (wxstedit_FOUND)
-	set(HB_CDEF "${HB_CDEF};BUTCHER_USE_STEDIT")
-	set(HBDEMO_CDEF "${HBDEMO_CDEF};BUTCHER_USE_STEDIT")
-	
-        target_link_libraries(HTMLButcher ${wxstedit_LIBRARIES} debug ${wxWidgets_LIB_DIR}/wxmsw28ud_stc.lib optimized ${wxWidgets_LIB_DIR}/wxmsw28u_stc.lib)
-	#set_target_properties(HTMLButcher PROPERTIES COMPILE_DEFINITIONS BUTCHER_USE_STEDIT)
-	
-        if (HB_WITH_DEMO)
-                target_link_libraries(HTMLButcherDemo ${wxstedit_LIBRARIES} debug ${wxWidgets_LIB_DIR}/wxmsw28ud_stc.lib optimized ${wxWidgets_LIB_DIR}/wxmsw28u_stc.lib)
-                #set_target_properties(HTMLButcherDemo PROPERTIES COMPILE_DEFINITIONS BUTCHER_USE_STEDIT)
-        endif (HB_WITH_DEMO)
-endif(wxstedit_FOUND)
-
-if (UNIX)
-	if (GTK2_FOUND)
-		TARGET_LINK_LIBRARIES(HTMLButcher ${GTK2_LIBRARIES})
-                if (HB_WITH_DEMO)
-                        TARGET_LINK_LIBRARIES(HTMLButcherDemo ${GTK2_LIBRARIES})
-                endif (HB_WITH_DEMO)
-	endif (GTK2_FOUND)
-endif (UNIX)
 
 
 set_target_properties(HTMLButcher PROPERTIES COMPILE_DEFINITIONS "${HB_CDEF}")
