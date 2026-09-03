@@ -17,7 +17,7 @@ packages present regardless — a downloaded wxWidgets would not make the build 
 
 | Dependency | Required | Fetched? | Notes |
 |---|---|---|---|
-| CMake ≥ 3.16 | yes | — | 3.16 is the floor; `FetchContent_MakeAvailable` needs ≥ 3.14 |
+| CMake ≥ 3.18 | yes | — | 3.18 is the floor, for `file(ARCHIVE_EXTRACT)` |
 | A C++11 compiler | yes | — | MSVC, GCC or Clang |
 | wxWidgets 3.2 | yes | on Windows/macOS | Components: `core base aui html xrc xml stc` |
 | FreeImage 3.18 | yes | on Windows/macOS | All image decoding, cropping, quantization, transparency and saving |

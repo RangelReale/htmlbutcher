@@ -728,7 +728,6 @@ void ButcherProjectMask::DrawPreviewArea(ButcherViewBase *view, wxDC *dc, Butche
         (acfg->GetAreaKind() == ButcherProjectAreaConfig::AK_IMAGE && acfg->GetBackground())))
     {
         wxHtmlDCRenderer htmlrender;
-        wxArrayInt unused;
 
         wxString tdprop=wxEmptyString;
         // ALIGN
@@ -766,7 +765,7 @@ void ButcherProjectMask::DrawPreviewArea(ButcherViewBase *view, wxDC *dc, Butche
         htmlrender.SetDC(dc, view->GetPixelSize());
         htmlrender.SetSize(arearect.GetWidth(), arearect.GetHeight());
         htmlrender.SetHtmlText(htmldata);
-        htmlrender.Render(arearect.GetLeft(), arearect.GetTop(), unused);
+        htmlrender.Render(arearect.GetLeft(), arearect.GetTop());
         dc->SetUserScale(1.0, 1.0);
     }
 

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.18)
 project(HTMLButcher CXX C)
 
 # CMP0135: URL downloads get the extraction timestamp, not the archive's.
@@ -67,17 +67,34 @@ if(HB_FETCH_DEPS)
     URL      https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.6/wxWidgets-3.2.6.tar.bz2
     URL_HASH SHA256=939e5b77ddc5b6092d1d7d29491fe67010a2433cf9b9c0d841ee4d04acb9dce7)
 
-  # --- FreeImage -------------------------------------------------------------
-  # FreeImage ships no CMake build, so ours is copied in over the extracted
-  # tree. See cmake/freeimage/CMakeLists.txt.
-  FetchContent_Declare(freeimage
-    URL      https://downloads.sourceforge.net/freeimage/FreeImage3180.zip
-    URL_HASH SHA256=f41379682f9ada94ea7b34fe86bf9ee00935a3147be41b6569c9605a53e438fd
-    PATCH_COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                  "${CMAKE_CURRENT_SOURCE_DIR}/cmake/freeimage/CMakeLists.txt"
-                  "<SOURCE_DIR>/CMakeLists.txt")
+  FetchContent_MakeAvailable(wxwidgets)
 
-  FetchContent_MakeAvailable(wxwidgets freeimage)
+  # --- FreeImage -------------------------------------------------------------
+  # FreeImage ships no CMake build at all, so cmake/freeimage/CMakeLists.txt
+  # supplies one. It is added as a subdirectory of *this* project, pointed at
+  # the extracted sources through HB_FREEIMAGE_DIR, rather than being copied
+  # into the extracted tree: a FetchContent PATCH_COMMAND only runs when the
+  # source is first populated, so edits to our build script would silently not
+  # be picked up on later configures.
+  set(_fi_deps    "${CMAKE_BINARY_DIR}/_deps")
+  set(_fi_src     "${_fi_deps}/freeimage-src")
+  set(_fi_archive "${_fi_deps}/FreeImage3180.zip")
+
+  if(NOT EXISTS "${_fi_src}/Makefile.srcs")
+    message(STATUS "Downloading FreeImage 3.18.0")
+    file(DOWNLOAD
+      https://downloads.sourceforge.net/freeimage/FreeImage3180.zip
+      "${_fi_archive}"
+      EXPECTED_HASH SHA256=f41379682f9ada94ea7b34fe86bf9ee00935a3147be41b6569c9605a53e438fd
+      SHOW_PROGRESS)
+    file(ARCHIVE_EXTRACT INPUT "${_fi_archive}" DESTINATION "${_fi_deps}/freeimage-extract")
+    # The archive holds a single top-level FreeImage/ directory.
+    file(RENAME "${_fi_deps}/freeimage-extract/FreeImage" "${_fi_src}")
+    file(REMOVE_RECURSE "${_fi_deps}/freeimage-extract")
+  endif()
+
+  set(HB_FREEIMAGE_DIR "${_fi_src}")
+  add_subdirectory(cmake/freeimage "${CMAKE_BINARY_DIR}/freeimage-build")
 
   foreach(_comp IN LISTS HB_WX_COMPONENTS)
     target_link_libraries(hb_wx INTERFACE wx::${_comp})
