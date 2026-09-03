@@ -92,7 +92,7 @@ wxMenu* ButcherProjectProc_AreaMenu::BuildAreaMenu(wxMenu *rootmenu,
 						amcopy->Append(amenustart+ID_AREAMENU_COPY_ITEMBEGIN+i.first(),
 							i->GetName(), i->GetName());
 				}
-				ret->Append(wxID_ANY, _("Cop&y from"), amcopy, _("Copy from"));
+				ret->AppendSubMenu(amcopy, _("Cop&y from"), _("Copy from"));
 
 				// SEPARATOR
 				ret->AppendSeparator();
@@ -124,7 +124,7 @@ wxMenu* ButcherProjectProc_AreaMenu::BuildAreaMenu(wxMenu *rootmenu,
 
 			amformat->AppendSeparator();
 			amformat->Append(amenustart+ID_AREAMENU_IMAGEFORMAT_SELECT, _("&Select"), _("Select image format"));
-			ret->Append(wxID_ANY, _("&Image Format"), amformat, _("Image format"));
+			ret->AppendSubMenu(amformat, _("&Image Format"), _("Image format"));
 			//amformat->SetEventHandler(rootmenu);
 
 			if (area->GetAreaClass() != ButcherProjectArea::AC_GLOBAL)

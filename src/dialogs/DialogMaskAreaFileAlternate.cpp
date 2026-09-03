@@ -138,7 +138,7 @@ void HTMLButcherMaskAreaFileAlternateDialog::CreateControls()
         wxButton *ialtformatbtn = new wxButton(ialtpanel, ID_ALTERNATE_IMAGEFORMATBUTTON+altidadd, _("Format"), wxDefaultPosition, wxDefaultSize);
         ialtformatbtn->Connect(ID_ALTERNATE_IMAGEFORMATBUTTON+altidadd, wxEVT_COMMAND_BUTTON_CLICKED,
             wxCommandEventHandler(HTMLButcherMaskAreaFileAlternateDialog::OnAlternateImageFormat), NULL, this);
-        enabledsizer->Add(ialtformatbtn, 0, wxGROW|wxALL|wxALIGN_RIGHT, 3);
+        enabledsizer->Add(ialtformatbtn, 0, wxGROW|wxALL, 3);
 
         // image format
         ialtfieldssizer->Add(

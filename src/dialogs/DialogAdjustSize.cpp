@@ -71,7 +71,7 @@ void HTMLButcherAdjustSizeDialog::CreateControls()
     wxBoxSizer *topsizer = new wxBoxSizer(wxVERTICAL);
 
     wxBoxSizer *boxsizer = new wxBoxSizer(wxVERTICAL);
-    topsizer->Add(boxsizer, 1, wxALIGN_CENTER_HORIZONTAL|wxALL|wxGROW, 3);
+    topsizer->Add(boxsizer, 1, wxALL|wxGROW, 3);
 
     // BODY
     wxBoxSizer *bodysizer = new wxBoxSizer(wxHORIZONTAL);

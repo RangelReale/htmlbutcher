@@ -71,9 +71,14 @@ ButcherView::ButcherView(wxWindow* parent, wxWindowID id, const wxPoint& pos,
     dwindow_=new wxScrolledWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
     dwindow_->SetScrollRate( 10, 10 );
 
-    wxASSERT_MSG(wxEVT_SCROLLWIN_TOP<=wxEVT_SCROLLWIN_THUMBRELEASE, _("Logic error in scrollwin events"));
-    for (int i=wxEVT_SCROLLWIN_TOP; i<=wxEVT_SCROLLWIN_THUMBRELEASE; i++) {
-        dwindow_->Connect(wxID_ANY, i,
+    const wxEventType scrollwin_events[] = {
+        wxEVT_SCROLLWIN_TOP,        wxEVT_SCROLLWIN_BOTTOM,
+        wxEVT_SCROLLWIN_LINEUP,     wxEVT_SCROLLWIN_LINEDOWN,
+        wxEVT_SCROLLWIN_PAGEUP,     wxEVT_SCROLLWIN_PAGEDOWN,
+        wxEVT_SCROLLWIN_THUMBTRACK, wxEVT_SCROLLWIN_THUMBRELEASE
+    };
+    for (size_t i=0; i<WXSIZEOF(scrollwin_events); i++) {
+        dwindow_->Connect(wxID_ANY, scrollwin_events[i],
             wxScrollWinEventHandler(ButcherView::OnDWindowWinScroll), NULL, this);
     }
     //dwindow_->Connect(wxID_ANY, wxEVT_LEAVE_WINDOW, wxMouseEventHandler(ButcherViewEditor::OnDWindowLeave), NULL, this);

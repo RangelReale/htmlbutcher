@@ -309,7 +309,6 @@ void HTMLButcherApp::HandleEvent(wxEvtHandler *handler,
 
 
 
-#if wxCHECK_VERSION(2, 9, 0)
 static const wxCmdLineEntryDesc g_cmdLineDesc [] =
 {
      { wxCMD_LINE_SWITCH, "h", "help", _("displays help on the command line parameters"),
@@ -318,16 +317,6 @@ static const wxCmdLineEntryDesc g_cmdLineDesc [] =
      { wxCMD_LINE_PARAM,  NULL, NULL, _("input project file"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
      { wxCMD_LINE_NONE }
 };
-#else
-static const wxCmdLineEntryDesc g_cmdLineDesc [] =
-{
-    { wxCMD_LINE_SWITCH, wxT("h"), wxT("help"), _("displays help on the command line parameters"),
-        wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
-    { wxCMD_LINE_OPTION, wxT("l"), wxT("license-file"),   wxT("license file") },
-    { wxCMD_LINE_PARAM,  NULL, NULL, _("input project file"), wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
-    { wxCMD_LINE_NONE }
-};
-#endif
 
 
 

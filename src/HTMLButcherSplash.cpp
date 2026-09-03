@@ -19,10 +19,6 @@
 
 #if wxUSE_SPLASH
 
-#ifdef __WXGTK20__
-    #include <gtk/gtk.h>
-#endif
-
 #include "HTMLButcherSplash.h"
 
 #ifndef WX_PRECOMP
@@ -54,13 +50,10 @@ END_EVENT_TABLE()
 HTMLButcherSplashScreen::HTMLButcherSplashScreen(const wxBitmap& bitmap, long splashStyle, int milliseconds, wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style):
     wxFrame(parent, id, wxEmptyString, wxPoint(0,0), wxSize(100, 100), style)
 {
-    // At least for GTK+ 2.0, this hint is not available.
-#if defined(__WXGTK20__)
-#if GTK_CHECK_VERSION(2,2,0)
-    gtk_window_set_type_hint(GTK_WINDOW(m_widget),
-                             GDK_WINDOW_TYPE_HINT_SPLASHSCREEN);
-#endif
-#endif
+    // The GTK splash-screen window type hint was previously set here with a
+    // direct gtk_window_set_type_hint() call, which made this project depend
+    // on the GTK development headers on Linux. Modern wxGTK sets the hint
+    // itself, so that call -- and find_package(GTK2) with it -- was dropped.
 
     m_window = NULL;
     m_splashStyle = splashStyle;
