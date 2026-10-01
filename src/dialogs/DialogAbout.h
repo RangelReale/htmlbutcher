@@ -5,14 +5,14 @@
 
 class HTMLButcherAboutDialog: public wxDialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherAboutDialog( wxWindow* parent,
         wxWindowID id = wxID_ANY,
         const wxString& caption = _("About"),
         const wxPoint& pos = wxDefaultPosition,
         const wxSize& size = wxDefaultSize,
-        long style = wxNO_BORDER|wxFRAME_NO_TASKBAR|wxSTAY_ON_TOP|wxFRAME_SHAPED );
+        long style = wxBORDER_NONE|wxFRAME_NO_TASKBAR|wxSTAY_ON_TOP|wxFRAME_SHAPED );
 
     void Init();
     void CreateControls();

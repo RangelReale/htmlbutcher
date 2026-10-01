@@ -28,7 +28,7 @@ class FileLinkTreeItemData;
 
 class HTMLButcherFileLinkDialog: public ButcherControl_Dialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     enum seltype_t { ST_IMAGEONLY = 1, ST_ALLOWNONE = 2 };
     typedef int seltypes_t;

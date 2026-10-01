@@ -30,8 +30,8 @@ using namespace std;
  */
 class HTMLButcherProgressDialog: public wxFrame
 {
-    DECLARE_CLASS( HTMLButcherProgressDialog )
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_CLASS( HTMLButcherProgressDialog );
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherProgressDialog();
     HTMLButcherProgressDialog( wxWindow* parent,

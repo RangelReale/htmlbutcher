@@ -44,7 +44,7 @@ ButcherProjectMask::ButcherProjectMask(ButcherProject *project, ButcherProjectAr
         configs_=new ButcherProjectMaskConfigs(this);
 
     if (configs_)
-        configs_->Add(wxT("DEFAULT"), 1);
+        configs_->Add("DEFAULT", 1);
 */
 }
 
@@ -52,7 +52,7 @@ ButcherProjectMask::ButcherProjectMask(ButcherProject *project, ButcherProjectAr
 
 
 ButcherProjectMask::ButcherProjectMask(ButcherProject *project) :
-    ButcherProjectBaseBLId(project), parent_(NULL), name_(wxT("__TEMP__")),
+    ButcherProjectBaseBLId(project), parent_(NULL), name_("__TEMP__"),
     width_(0), height_(0),
     tabletagadd_(wxEmptyString),
     containers_()
@@ -532,7 +532,7 @@ bool ButcherProjectMask::DrawArea(ButcherViewBase *view, wxDC *dc, ButcherProjec
     wxPoint curtdrw(view->GetDesignLeft()+view->PosToClient(r.GetX()+GetDrawStartX()+(5*GetLevel())),
         view->GetDesignTop()+view->PosToClient(r.GetY()+GetDrawStartY())+(curtsz.GetHeight()*GetLevel()));
 
-    wxSize dfontsize=dc->GetTextExtent(wxT("abcdefghijklmnopqrstuvwxyz"));
+    wxSize dfontsize=dc->GetTextExtent("abcdefghijklmnopqrstuvwxyz");
     // dont draw title if area is too small
     bool drawtitle_current=true;
 
@@ -556,8 +556,8 @@ bool ButcherProjectMask::DrawArea(ButcherViewBase *view, wxDC *dc, ButcherProjec
             {
                 if (tarea->GetAreaClass() != ButcherProjectArea::AC_MAP &&
                     (tarea==area || area->IsFirst()))
-                    //anamefmt+=wxString::Format(wxT(" [%s]"), tacfg->GetAreaKindID().c_str());
-                    anamefmt+=wxString::Format(wxT(" [%s]"), tacfg->GetFlagsDescription().c_str());
+                    //anamefmt+=wxString::Format(" [%s]", tacfg->GetAreaKindID());
+                    anamefmt+=wxString::Format(" [%s]", tacfg->GetFlagsDescription());
 
 
                 dc->SetBrush(*GetDrawBrush(drawmode, area, selection));
@@ -607,9 +607,9 @@ bool ButcherProjectMask::DrawArea(ButcherViewBase *view, wxDC *dc, ButcherProjec
         {
             if (acfg->GetPreview(projectview->GetBLId())->GetPreview()->GetFileSize() >= 0)
             {
-                anamefmt=wxString::Format(wxT("%s - %s"),
-                    acfg->ImageInfo().GetImageFormat()->GetName().c_str(),
-                    wxFileName::GetHumanReadableSize(acfg->GetPreview(projectview->GetBLId())->GetPreview()->GetFileSize(), wxT("0")).c_str());
+                anamefmt=wxString::Format("%s - %s",
+                    acfg->ImageInfo().GetImageFormat()->GetName(),
+                    wxFileName::GetHumanReadableSize(acfg->GetPreview(projectview->GetBLId())->GetPreview()->GetFileSize(), "0"));
                 if (acfg->GetBackground())
                     anamefmt=wxString(_("BG:"))+anamefmt;
                 psz=dc->GetTextExtent(anamefmt);
@@ -732,35 +732,35 @@ void ButcherProjectMask::DrawPreviewArea(ButcherViewBase *view, wxDC *dc, Butche
         wxString tdprop=wxEmptyString;
         // ALIGN
         if (acfg->GetAlign()==ButcherProjectAreaConfigBase::AA_LEFT)
-            tdprop+=wxT(" align=\"left\"");
+            tdprop+=" align=\"left\"";
         else if (acfg->GetAlign()==ButcherProjectAreaConfigBase::AA_CENTER)
-            tdprop+=wxT(" align=\"center\"");
+            tdprop+=" align=\"center\"";
         else if (acfg->GetAlign()==ButcherProjectAreaConfigBase::AA_RIGHT)
-            tdprop+=wxT(" align=\"right\"");
+            tdprop+=" align=\"right\"";
 
         // VALIGN
         if (acfg->GetVAlign()==ButcherProjectAreaConfigBase::AV_MIDDLE)
-            tdprop+=wxT(" valign=\"middle\"");
+            tdprop+=" valign=\"middle\"";
         else if (acfg->GetVAlign()==ButcherProjectAreaConfigBase::AV_TOP)
-            tdprop+=wxT(" valign=\"top\"");
+            tdprop+=" valign=\"top\"";
         else if (acfg->GetVAlign()==ButcherProjectAreaConfigBase::AV_BOTTOM)
-            tdprop+=wxT(" valign=\"bottom\"");
+            tdprop+=" valign=\"bottom\"";
 
         // CELL TAG APPEND
         if (!acfg->GetCellTagAppend().IsEmpty())
         {
-            tdprop+=wxT(" ");
+            tdprop+=" ";
             tdprop+=acfg->GetCellTagAppend();
         }
 
         wxString htmldata(wxEmptyString);
-        htmldata+=wxString::Format(wxT("<html><body><table width=\"100%%\" cellspacing=\"0\" cellpadding=\"0\"><tr><td %s>"),
-            /*arearect.GetWidth(), */tdprop.c_str());
+        htmldata+=wxString::Format("<html><body><table width=\"100%%\" cellspacing=\"0\" cellpadding=\"0\"><tr><td %s>",
+            /*arearect.GetWidth(), */tdprop);
 
         ButcherProjectTemplateParser contentparser(GetProject(), acfg->GetContent());
         //htmldata+=acfg->GetContent();
         htmldata+=contentparser.GetResult();
-        htmldata+=wxT("</td></tr></table></body></html>");
+        htmldata+="</td></tr></table></body></html>";
 
         htmlrender.SetDC(dc, view->GetPixelSize());
         htmlrender.SetSize(arearect.GetWidth(), arearect.GetHeight());
@@ -983,7 +983,7 @@ void ButcherProjectMask::LoadMetadata(ButcherMetadataData *metadata, int loadid)
         if (!configs_)
         {
             configs_=new ButcherProjectMaskConfigs(this);
-            configs_->Add(wxT("DEFAULT"), 1);
+            configs_->Add("DEFAULT", 1);
         }
     }
     else if (configs_)

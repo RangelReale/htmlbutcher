@@ -42,7 +42,7 @@ public:
                    wxWindow* parent, wxWindowID id,
                    const wxPoint& pos = wxDefaultPosition,
                    const wxSize& size = wxDefaultSize,
-                   long style = wxSIMPLE_BORDER|wxFRAME_NO_TASKBAR|wxSTAY_ON_TOP);
+                   long style = wxBORDER_SIMPLE|wxFRAME_NO_TASKBAR|wxSTAY_ON_TOP);
     virtual ~HTMLButcherSplashScreen();
 
     void OnCloseWindow(wxCloseEvent& event);
@@ -60,9 +60,9 @@ protected:
     int                     m_milliseconds;
     wxTimer                 m_timer;
 
-    DECLARE_DYNAMIC_CLASS(HTMLButcherSplashScreen)
-    DECLARE_EVENT_TABLE()
-    DECLARE_NO_COPY_CLASS(HTMLButcherSplashScreen)
+    wxDECLARE_DYNAMIC_CLASS(HTMLButcherSplashScreen);
+    wxDECLARE_EVENT_TABLE();
+    wxDECLARE_NO_COPY_CLASS(HTMLButcherSplashScreen);
 };
 
 /*
@@ -72,7 +72,7 @@ protected:
 class WXDLLIMPEXP_ADV HTMLButcherSplashScreenWindow: public wxWindow
 {
 public:
-    HTMLButcherSplashScreenWindow(const wxBitmap& bitmap, wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxNO_BORDER);
+    HTMLButcherSplashScreenWindow(const wxBitmap& bitmap, wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxBORDER_NONE);
 
     void OnPaint(wxPaintEvent& event);
     void OnEraseBackground(wxEraseEvent& event);
@@ -85,8 +85,8 @@ public:
 protected:
     wxBitmap    m_bitmap;
 
-    DECLARE_EVENT_TABLE()
-    DECLARE_NO_COPY_CLASS(HTMLButcherSplashScreenWindow)
+    wxDECLARE_EVENT_TABLE();
+    wxDECLARE_NO_COPY_CLASS(HTMLButcherSplashScreenWindow);
 };
 
 

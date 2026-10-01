@@ -27,8 +27,8 @@
 
 
 
-BEGIN_EVENT_TABLE(HTMLButcherAssortedFileEditDialog, ButcherControl_Dialog)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(HTMLButcherAssortedFileEditDialog, ButcherControl_Dialog)
+wxEND_EVENT_TABLE()
 
 HTMLButcherAssortedFileEditDialog::HTMLButcherAssortedFileEditDialog( wxWindow* parent,
     wxWindowID id,
@@ -48,7 +48,7 @@ void HTMLButcherAssortedFileEditDialog::Init()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-assortedfiles.html"));
+	SetHelpSection("dialog-assortedfiles.html");
 #endif
 
 	filename_=wxEmptyString;
@@ -180,8 +180,8 @@ bool HTMLButcherAssortedFileEditDialog::TransferDataToWindow()
 	for (ButcherProjectFilePaths::iterator i=GetProject()->FilePaths().begin(); 
 		i!=GetProject()->FilePaths().end(); i++)
 	{
-        tmp=wxString::Format(wxT("%s"),
-            i->GetName().c_str());
+        tmp=wxString::Format("%s",
+            i->GetName());
 
         newitem=filepathctrl->Append(tmp,
             static_cast<wxClientData *>(new ButcherListIdClientData(i.first())));

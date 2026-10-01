@@ -23,7 +23,8 @@ class ButcherImageViewControl;
  *
  * @brief Color event
  */
-DECLARE_EVENT_TYPE( wxEVT_BUTCHERIMAGEVIEWCOLOR_ACTION, -1 )
+class ButcherImageViewColorEvent;
+wxDECLARE_EVENT(wxEVT_BUTCHERIMAGEVIEWCOLOR_ACTION, ButcherImageViewColorEvent);
 
 class ButcherImageViewColorEvent : public wxEvent
 {
@@ -49,20 +50,18 @@ private:
 typedef void (wxEvtHandler::*ButcherImageViewColorEventFunction)(ButcherImageViewColorEvent&);
 
 #define ButcherImageViewColorEventHandler(func) \
-	(wxObjectEventFunction)(wxEventFunction) \
-	wxStaticCastEvent(ButcherImageViewColorEventFunction, &func)
+	wxEVENT_HANDLER_CAST(ButcherImageViewColorEventFunction, func)
 
 #define EVT_BUTCHERIMAGEVIEW_COLOR(id, fn) \
-    DECLARE_EVENT_TABLE_ENTRY( wxEVT_BUTCHERIMAGEVIEWCOLOR_ACTION, id, -1, \
-    (wxObjectEventFunction) (wxEventFunction) \
-    wxStaticCastEvent( ButcherImageViewColorEventFunction, & fn ), (wxObject *) NULL ),
+    wx__DECLARE_EVT1(wxEVT_BUTCHERIMAGEVIEWCOLOR_ACTION, id, ButcherImageViewColorEventHandler(fn))
 
 /**
  * @class ButcherImageViewDrawEvent
  *
  * @brief image draw event
  */
-DECLARE_EVENT_TYPE( wxEVT_BUTCHERIMAGEVIEWAFTERPAINT_ACTION, -1 )
+class ButcherImageViewDrawEvent;
+wxDECLARE_EVENT(wxEVT_BUTCHERIMAGEVIEWAFTERPAINT_ACTION, ButcherImageViewDrawEvent);
 
 class ButcherImageViewDrawEvent : public wxEvent
 {
@@ -86,13 +85,10 @@ private:
 typedef void (wxEvtHandler::*ButcherImageViewDrawEventFunction)(ButcherImageViewDrawEvent&);
 
 #define ButcherImageViewDrawEventHandler(func) \
-	(wxObjectEventFunction)(wxEventFunction) \
-	wxStaticCastEvent(ButcherImageViewDrawEventFunction, &func)
+	wxEVENT_HANDLER_CAST(ButcherImageViewDrawEventFunction, func)
 
 #define EVT_BUTCHERIMAGEVIEW_AFTERPAINT(id, fn) \
-    DECLARE_EVENT_TABLE_ENTRY( wxEVT_BUTCHERIMAGEVIEWAFTERPAINT_ACTION, id, -1, \
-    (wxObjectEventFunction) (wxEventFunction) \
-    wxStaticCastEvent( ButcherImageViewDrawEventFunction, & fn ), (wxObject *) NULL ),
+    wx__DECLARE_EVT1(wxEVT_BUTCHERIMAGEVIEWAFTERPAINT_ACTION, id, ButcherImageViewDrawEventHandler(fn))
 
 
 /**
@@ -101,19 +97,17 @@ typedef void (wxEvtHandler::*ButcherImageViewDrawEventFunction)(ButcherImageView
  * @brief Image view control
  */
 
-DECLARE_EVENT_TYPE( wxEVT_BUTCHERIMAGEVIEWMENU_ACTION, -1 )
+wxDECLARE_EVENT(wxEVT_BUTCHERIMAGEVIEWMENU_ACTION, wxCommandEvent);
 
 #define EVT_BUTCHERIMAGEVIEW_MENU(id, fn) \
-    DECLARE_EVENT_TABLE_ENTRY( wxEVT_BUTCHERIMAGEVIEWMENU_ACTION, id, -1, \
-    (wxObjectEventFunction) (wxEventFunction) \
-    wxStaticCastEvent( wxCommandEventFunction, & fn ), (wxObject *) NULL ),
+    wx__DECLARE_EVT1(wxEVT_BUTCHERIMAGEVIEWMENU_ACTION, id, wxCommandEventHandler(fn))
 
 class ButcherImageViewControl : public wxControl
 {
 public:
     ButcherImageViewControl(wxWindow* parent, wxWindowID id,
         const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
-        long style = wxNO_BORDER, const wxValidator &validator = wxDefaultValidator,
+        long style = wxBORDER_NONE, const wxValidator &validator = wxDefaultValidator,
         const wxString& name = wxPanelNameStr);
     ~ButcherImageViewControl();
 
@@ -157,7 +151,7 @@ private:
     unsigned char repeat_;
     wxString emptytitle_;
 
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 };
 
 /**
@@ -166,19 +160,17 @@ private:
  * @brief Image view display
  */
 
-DECLARE_EVENT_TYPE( wxEVT_BUTCHERIMAGEVIEWSAVEFILE_ACTION, -1 )
+wxDECLARE_EVENT(wxEVT_BUTCHERIMAGEVIEWSAVEFILE_ACTION, wxCommandEvent);
 
 #define EVT_BUTCHERIMAGEVIEW_SAVEFILE(id, fn) \
-    DECLARE_EVENT_TABLE_ENTRY( wxEVT_BUTCHERIMAGEVIEWSAVEFILE_ACTION, id, -1, \
-    (wxObjectEventFunction) (wxEventFunction) \
-    wxStaticCastEvent( wxCommandEventFunction, & fn ), (wxObject *) NULL ),
+    wx__DECLARE_EVT1(wxEVT_BUTCHERIMAGEVIEWSAVEFILE_ACTION, id, wxCommandEventHandler(fn))
 
 class ButcherImageView : public wxControl
 {
 public:
     ButcherImageView(wxWindow* parent, wxWindowID id,
         const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
-        long style = wxNO_BORDER, const wxValidator &validator = wxDefaultValidator,
+        long style = wxBORDER_NONE, const wxValidator &validator = wxDefaultValidator,
         const wxString& name = wxPanelNameStr);
     virtual ~ButcherImageView();
 
@@ -224,7 +216,7 @@ private:
     bool fullsize_;
     unsigned int margin_;
 
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 };
 
 #endif //__BIMAGEVIEW_H__

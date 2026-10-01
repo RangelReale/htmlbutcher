@@ -34,7 +34,7 @@ class HTMLButcherNewViewLastWizardPage;
  */
 class HTMLButcherNewViewWizard: public wxWizard
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherNewViewWizard( wxWindow* parent,
         wxWindowID id,
@@ -72,7 +72,7 @@ private:
  */
 class HTMLButcherNewViewIntroWizardPage : public wxWizardPageSimple
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
 	HTMLButcherNewViewIntroWizardPage(wxWizard *parent);
 private:
@@ -86,7 +86,7 @@ private:
  */
 class HTMLButcherNewViewFileWizardPage : public wxWizardPageSimple
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
 	HTMLButcherNewViewFileWizardPage(wxWizard *parent);
 
@@ -111,7 +111,7 @@ private:
  */
 class HTMLButcherNewViewMaskWizardPage : public wxWizardPageSimple
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
 	HTMLButcherNewViewMaskWizardPage(wxWizard *parent);
 
@@ -157,7 +157,7 @@ private:
  */
 class HTMLButcherNewViewViewWizardPage : public wxWizardPageSimple
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
 	HTMLButcherNewViewViewWizardPage(wxWizard *parent);
 
@@ -185,7 +185,7 @@ private:
  */
 class HTMLButcherNewViewLastWizardPage : public wxWizardPageSimple
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
 	HTMLButcherNewViewLastWizardPage(wxWizard *parent);
 

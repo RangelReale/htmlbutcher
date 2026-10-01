@@ -41,14 +41,14 @@ wxMenu* ButcherProjectProc_AreaMenu::BuildAreaMenu(wxMenu *rootmenu,
 
     wxString mtit=area->GetFullDescription();
     if (area->GetAreaClass() != ButcherProjectArea::AC_MAP)
-        mtit+=wxString::Format(wxT(" [%s]"), acfg->GetFlagsDescription().c_str());
+        mtit+=wxString::Format(" [%s]", acfg->GetFlagsDescription());
 
     // image format
     if (acfg->GetAreaKind()==ButcherProjectAreaConfig::AK_IMAGE||acfg->GetBackground())
     {
-        mtit+=wxString::Format(wxT(" [%s%s]"),
-            (acfg->GetBackground()?_("BG:"):wxT("")),
-            acfg->ImageInfo().GetImageFormat()->GetName().c_str());
+        mtit+=wxString::Format(" [%s%s]",
+            (acfg->GetBackground()?_("BG:"):""),
+            acfg->ImageInfo().GetImageFormat()->GetName());
 
         // preview format/size
         if (showpreview_ &&
@@ -58,7 +58,7 @@ wxMenu* ButcherProjectProc_AreaMenu::BuildAreaMenu(wxMenu *rootmenu,
         {
             if (acfg->GetPreview(view_->GetBLId())->GetPreview()->GetFileSize() >= 0)
             {
-                mtit+=wxFileName::GetHumanReadableSize(acfg->GetPreview(view_->GetBLId())->GetPreview()->GetFileSize(), wxT("0")).c_str();
+                mtit+=wxFileName::GetHumanReadableSize(acfg->GetPreview(view_->GetBLId())->GetPreview()->GetFileSize(), "0");
             }
         }
     }
@@ -343,7 +343,7 @@ void ButcherProjectProc_AreaMenu::ProcessAreaMenu(int menuid)
 			wxFileName fn(imgfilename);
 
 			wxFileDialog d(window_, _("Save file"), wxEmptyString, imgfilename,
-				wxString::Format(wxT("*.%s"), fn.GetExt().c_str()),
+				wxString::Format("*.%s", fn.GetExt()),
                 wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
             if (d.ShowModal()==wxID_OK)
             {

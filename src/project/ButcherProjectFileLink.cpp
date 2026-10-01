@@ -375,7 +375,7 @@ wxString ButcherProjectFileLink::GetFileURL() const
 
 wxString ButcherProjectFileLink::GetBURL() const
 {
-    wxString ret=wxT("burl:");
+    wxString ret="burl:";
     switch (linktype_)
     {
     case IL_NONE:
@@ -383,22 +383,22 @@ wxString ButcherProjectFileLink::GetBURL() const
     case IL_AREA:
     case IL_GLOBALAREA:
         if (linktype_==IL_AREA)
-            ret+=wxT("area");
+            ret+="area";
         else
-            ret+=wxT("garea");
-        ret+=wxString::Format(wxT("@%d"), id_);
+            ret+="garea";
+        ret+=wxString::Format("@%d", id_);
         for (arealist_t::const_iterator i=arealist_.begin(); i!=arealist_.end(); i++)
         {
-            ret+=wxString::Format(wxT("/%d"), *i);
+            ret+=wxString::Format("/%d", *i);
         }
         if (alternate_>=0)
-            ret+=wxString::Format(wxT("#%d"), alternate_);
+            ret+=wxString::Format("#%d", alternate_);
         break;
     case IL_FILE:
-        ret+=wxString::Format(wxT("file@%d"), id_);
+        ret+=wxString::Format("file@%d", id_);
         break;
     case IL_ASSORTEDFILE:
-        ret+=wxString::Format(wxT("assortedfile@%d"), id_);
+        ret+=wxString::Format("assortedfile@%d", id_);
         break;
     default:
         break;
@@ -416,7 +416,7 @@ void ButcherProjectFileLink::SetBURL(const wxString &burl)
     SetNone();
     if (burl.IsEmpty()) return;
 
-    wxStringTokenizer burltok(burl, wxT(":@/#"));
+    wxStringTokenizer burltok(burl, ":@/#");
     wxString t;
     linktype_t ltype=IL_NONE;
     BLID_t bid=0;
@@ -428,17 +428,17 @@ void ButcherProjectFileLink::SetBURL(const wxString &burl)
         switch (ct)
         {
         case 0: // burl:
-            if (/*t!=wxT("burl") || */burltok.GetLastDelimiter()!=wxString(wxT(":")))
+            if (/*t!="burl" || */burltok.GetLastDelimiter()!=wxString(":"))
                 throw ButcherException(_("Invalid BURL (0)"));
             break;
         case 1: // linktype_;
-            if (t==wxT("area"))
+            if (t=="area")
                 ltype=IL_AREA;
-            else if (t==wxT("garea"))
+            else if (t=="garea")
                 ltype=IL_GLOBALAREA;
-            else if (t==wxT("file"))
+            else if (t=="file")
                 ltype=IL_FILE;
-            else if (t==wxT("assortedfile"))
+            else if (t=="assortedfile")
                 ltype=IL_ASSORTEDFILE;
             else
                 throw ButcherException(_("Invalid BURL (1)"));
@@ -474,7 +474,7 @@ void ButcherProjectFileLink::SetBURL(const wxString &burl)
                             throw ButcherException(_("Invalid BURL (A4)"));
                         alternate_=bid;
                     }
-                    if (burltok.GetLastDelimiter()==wxString(wxT("#")))
+                    if (burltok.GetLastDelimiter()==wxString("#"))
                         isalternate=true;
                 }
                 break;
@@ -527,7 +527,7 @@ void ButcherProjectFileLink::SendProjectModified(ButcherProjectEvent::event_t mo
 
 wxString ButcherProjectFileLink::GetDescription() const
 {
-    if (linktype_!=IL_NONE && !IsValid()) return wxString::Format(_("INVALID LINK: %s"), GetBURL().c_str());
+    if (linktype_!=IL_NONE && !IsValid()) return wxString::Format(_("INVALID LINK: %s"), GetBURL());
 
     wxString ret=wxEmptyString;
     switch (linktype_)
@@ -539,9 +539,9 @@ wxString ButcherProjectFileLink::GetDescription() const
     case IL_GLOBALAREA:
         {
             if (linktype_==IL_AREA)
-                ret=ret+_("Area")+wxT(" ");
+                ret=ret+_("Area")+" ";
             else
-                ret=ret+_("Global Area")+wxT(" ");
+                ret=ret+_("Global Area")+" ";
 
             ret+=GetView()->GetName();
 
@@ -555,19 +555,19 @@ wxString ButcherProjectFileLink::GetDescription() const
                 //if (!container->Areas().Exists(*i))
                     //throw ButcherException(_("Linked area not found"));
                 curarea=container->Areas().Get(*i);
-                ret+=wxString::Format(wxT(" -> %s [%s]"), curarea->GetDescription().c_str(),
-                    curarea->Configs().Get(GetView()->GetBLId())->GetFlagsDescription().c_str());
+                ret+=wxString::Format(" -> %s [%s]", curarea->GetDescription(),
+                    curarea->Configs().Get(GetView()->GetBLId())->GetFlagsDescription());
                 container=curarea->Configs().Get(GetView()->GetBLId())->GetInnerMask()->Container(ButcherProjectArea::AC_DEFAULT);
             }
             if (alternate_>=0)
-                ret+=wxT("->")+wxString::Format(_("Alternate %d"), alternate_+1);
+                ret+="->"+wxString::Format(_("Alternate %d"), alternate_+1);
         }
         break;
     case IL_FILE:
-        ret+=wxString::Format(_("File #%d (%s)"), id_, GetProject()->Files()[id_]->GetDisplayName().c_str());
+        ret+=wxString::Format(_("File #%d (%s)"), id_, GetProject()->Files()[id_]->GetDisplayName());
         break;
     case IL_ASSORTEDFILE:
-        ret+=wxString::Format(_("Assorted File #%d (%s)"), id_, GetProject()->AssortedFiles()[id_]->GetPathFile().c_str());
+        ret+=wxString::Format(_("Assorted File #%d (%s)"), id_, GetProject()->AssortedFiles()[id_]->GetPathFile());
         break;
     default:
         ret+=_("Unknown link");

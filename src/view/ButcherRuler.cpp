@@ -20,10 +20,10 @@
 // CLASS
 //      ButcherRuler
 /////////////////////////////////
-BEGIN_EVENT_TABLE(ButcherRuler, wxControl)
+wxBEGIN_EVENT_TABLE(ButcherRuler, wxControl)
     EVT_PAINT(ButcherRuler::OnPaint)
     EVT_ERASE_BACKGROUND(ButcherRuler::OnEraseBackground)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 
 
@@ -93,7 +93,7 @@ void ButcherRuler::OnPaint(wxPaintEvent &event)
     font.SetPointSize(7);
     //wxFont font(12, wxFONTFAMILY_SWISS, wxNORMAL, wxNORMAL, false);
     dc.SetFont(font);
-    dc.SetBackgroundMode(wxTRANSPARENT);
+    dc.SetBackgroundMode(wxBRUSHSTYLE_TRANSPARENT);
     dc.SetTextForeground(*wxBLACK);
 
     wxString postext;
@@ -105,7 +105,7 @@ void ButcherRuler::OnPaint(wxPaintEvent &event)
     // adjust start position
     max+=start_; d_start+=start_;
 
-    postext=wxString::Format(wxT("%d"), max);
+    postext=wxString::Format("%d", max);
     dc.GetTextExtent(postext, &postextw, &postexth);
 
     if (postextw > view_->PosToClient(d_mult)-2) {
@@ -127,7 +127,7 @@ void ButcherRuler::OnPaint(wxPaintEvent &event)
         lsize=(isbig?lbig:lsmall);
 
         if (isbig) {
-            postext=wxString::Format(wxT("%d"), p);
+            postext=wxString::Format("%d", p);
             dc.GetTextExtent(postext, &postextw, &postexth);
         }
 

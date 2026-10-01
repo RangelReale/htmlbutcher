@@ -17,10 +17,10 @@
 // CLASS
 //      HTMLButcherProgressDialog
 /////////////////////////////////
-BEGIN_EVENT_TABLE(HTMLButcherProgressDialog, wxFrame)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(HTMLButcherProgressDialog, wxFrame)
+wxEND_EVENT_TABLE()
 
-IMPLEMENT_CLASS(HTMLButcherProgressDialog, wxFrame)
+wxIMPLEMENT_CLASS(HTMLButcherProgressDialog, wxFrame)
 
 
 

@@ -24,8 +24,8 @@
 
 
 
-BEGIN_EVENT_TABLE(HTMLButcherFilePathEditDialog, ButcherControl_Dialog)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(HTMLButcherFilePathEditDialog, ButcherControl_Dialog)
+wxEND_EVENT_TABLE()
 
 
 
@@ -48,7 +48,7 @@ void HTMLButcherFilePathEditDialog::Init()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-filepaths.html"));
+	SetHelpSection("dialog-filepaths.html");
 #endif
 
 	name_=wxEmptyString;

@@ -19,8 +19,8 @@
 //      ButcherViewDisplay
 /////////////////////////////////
 
-BEGIN_EVENT_TABLE(ButcherViewDisplay, ButcherView)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(ButcherViewDisplay, ButcherView)
+wxEND_EVENT_TABLE()
 
 ButcherViewDisplay::ButcherViewDisplay(wxWindow* parent, wxWindowID id, const wxPoint& pos,
     const wxSize& size, long style,
@@ -52,14 +52,10 @@ void ButcherViewDisplay::SetParentView(ButcherView *pv)
     if (pv==parentview_) return;
 
     if (parentview_)
-        parentview_->Disconnect(wxID_ANY, wxEVT_BUTCHERVIEWCHANGED_ACTION,
-            ButcherViewChangedEventHandler(ButcherViewDisplay::OnViewChanged),
-            NULL, this);
+        parentview_->Unbind(wxEVT_BUTCHERVIEWCHANGED_ACTION, &ButcherViewDisplay::OnViewChanged, this);
     parentview_=pv;
     if (parentview_)
-        parentview_->Connect(wxID_ANY, wxEVT_BUTCHERVIEWCHANGED_ACTION,
-            ButcherViewChangedEventHandler(ButcherViewDisplay::OnViewChanged),
-            NULL, this);
+        parentview_->Bind(wxEVT_BUTCHERVIEWCHANGED_ACTION, &ButcherViewDisplay::OnViewChanged, this);
 
     parentview_=pv;
     ParentViewChanged();

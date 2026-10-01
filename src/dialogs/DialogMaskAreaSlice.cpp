@@ -32,11 +32,11 @@
 
 
 
-BEGIN_EVENT_TABLE(HTMLButcherMaskAreaSliceDialog, ButcherControl_Dialog)
+wxBEGIN_EVENT_TABLE(HTMLButcherMaskAreaSliceDialog, ButcherControl_Dialog)
     EVT_BUTCHERIMAGEVIEW_AFTERPAINT(ID_PREVIEW, HTMLButcherMaskAreaSliceDialog::OnAfterDraw)
     EVT_SPINCTRL(ID_ROWS, HTMLButcherMaskAreaSliceDialog::OnChangeSize)
     EVT_SPINCTRL(ID_COLS, HTMLButcherMaskAreaSliceDialog::OnChangeSize)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 HTMLButcherMaskAreaSliceDialog::HTMLButcherMaskAreaSliceDialog( wxWindow* parent,
     wxWindowID id,
@@ -58,7 +58,7 @@ void HTMLButcherMaskAreaSliceDialog::Init()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-gridslice.html"));
+	SetHelpSection("dialog-gridslice.html");
 #endif
 }
 

@@ -55,8 +55,8 @@ public:
     void SetColor(unsigned int colorid, const wxColour &color);
     wxColour GetColor(unsigned int colorid);
 
-    wxPen *GetPen(unsigned int colorid, int width = 1, int style = wxSOLID);
-    wxBrush *GetBrush(unsigned int colorid, int style = wxSOLID);
+    wxPen *GetPen(unsigned int colorid, int width = 1, wxPenStyle style = wxPENSTYLE_SOLID);
+    wxBrush *GetBrush(unsigned int colorid, wxBrushStyle style = wxBRUSHSTYLE_SOLID);
     wxPen *GetSelectionPen(unsigned int colorid, int width = 1, selectionpen_t selectionpen = SP_DEFAULT);
 
     void LoadMetadata(ButcherMetadataData *metadata);

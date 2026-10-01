@@ -23,7 +23,7 @@ using namespace std;
 
 class HTMLButcherAssortedFileEditDialog: public ButcherControl_Dialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherAssortedFileEditDialog( wxWindow* parent,
         wxWindowID id,

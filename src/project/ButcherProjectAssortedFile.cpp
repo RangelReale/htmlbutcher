@@ -71,7 +71,7 @@ void ButcherProjectAssortedFile::SetFilename(const wxString &f)
 
 wxString ButcherProjectAssortedFile::GetOutputFileURL(BLID_t id)
 {
-    wxString p=(filepath_>0?GetProject()->FilePaths().Get(filepath_)->GetFormattedPath():wxT(""));
+    wxString p=(filepath_>0?GetProject()->FilePaths().Get(filepath_)->GetFormattedPath():"");
     wxFileName fn;
     if (!savefilename_.IsEmpty())
     {

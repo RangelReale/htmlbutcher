@@ -29,8 +29,8 @@
 
 
 
-BEGIN_EVENT_TABLE(HTMLButcherCSSFileEditDialog, ButcherControl_Dialog)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(HTMLButcherCSSFileEditDialog, ButcherControl_Dialog)
+wxEND_EVENT_TABLE()
 
 
 
@@ -53,7 +53,7 @@ void HTMLButcherCSSFileEditDialog::Init()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-cssfile.html"));
+	SetHelpSection("dialog-cssfile.html");
 #endif
 
 	name_=wxEmptyString;
@@ -178,8 +178,8 @@ bool HTMLButcherCSSFileEditDialog::TransferDataToWindow()
 	for (ButcherProjectFilePaths::iterator i=GetProject()->FilePaths().begin(); 
 		i!=GetProject()->FilePaths().end(); i++)
 	{
-        tmp=wxString::Format(wxT("%s"),
-            i->GetName().c_str());
+        tmp=wxString::Format("%s",
+            i->GetName());
 
         wxccu_control_append_select(filepathctrl, tmp, i.first(), filepathid_);
 	}

@@ -44,7 +44,7 @@ ButcherProjectBaseBLId(project), name_(name), layouttype_(ButcherProjectConsts::
 
 
 ButcherProjectView::ButcherProjectView(ButcherProject *project) :
-    ButcherProjectBaseBLId(project), name_(wxT("__TEMP__")), layouttype_(ButcherProjectConsts::LTYPE_DEFAULT), fileid_(0),
+    ButcherProjectBaseBLId(project), name_("__TEMP__"), layouttype_(ButcherProjectConsts::LTYPE_DEFAULT), fileid_(0),
         maskid_(0), COMPATmaskconfigid_(0),
         imagefilepathid_(project->FilePaths().DefaultId()), cssfileid_(0),
         items_(ITEM_HTML|ITEM_IMAGES|ITEM_IMAGESGLOBAL), filename_(wxEmptyString), bodytagadd_(wxEmptyString),
@@ -155,7 +155,7 @@ ButcherImage *ButcherProjectView::CreateAreaErrorImage(ButcherProjectArea *area)
     wmdc.DrawRectangle(wxPoint(0, 0), wxSize(area->GetWidth(), area->GetHeight()));
     //wxFont cfont(wmdc.GetFont());
     //wmdc.SetFont(
-    wmdc.SetTextForeground(wxColour(wxT("WHITE")));
+    wmdc.SetTextForeground(wxColour("WHITE"));
     wmdc.DrawText(_("IMAGE ERROR"), 10, 10);
 
     wxImage img(wm.ConvertToImage());
@@ -168,7 +168,7 @@ ButcherImage *ButcherProjectView::CreateAreaErrorImage(ButcherProjectArea *area)
 wxString ButcherProjectView::GetBaseFilename()
 {
     if (name_.IsEmpty())
-        return wxString::Format(wxT("view%d"), GetBLId());
+        return wxString::Format("view%d", GetBLId());
     return ButcherProjectFilePath::GetValidFilename(name_);
 }
 
@@ -177,8 +177,8 @@ wxString ButcherProjectView::GetBaseFilename()
 wxString ButcherProjectView::GetDefaultFilename()
 {
     if (!filename_.IsEmpty()) return ButcherProjectFilePath::GetValidFilename(filename_);
-    if (!name_.IsEmpty()) return ButcherProjectFilePath::GetValidFilename(name_)+wxT(".html");
-    return GetBaseFilename()+wxT(".html");
+    if (!name_.IsEmpty()) return ButcherProjectFilePath::GetValidFilename(name_)+".html";
+    return GetBaseFilename()+".html";
 }
 
 
@@ -187,20 +187,20 @@ wxString ButcherProjectView::GetDefaultFilename()
 wxString ButcherProjectView::GetImageDir(const wxString &basepath, bool formatted)
 {
     return GetProject()->FilePaths().GetFilePath(imagefilepathid_,
-        basepath, true, wxT("images"));
+        basepath, true, "images");
 
 
 /*
-    wxString ret=wxT("images");
+    wxString ret="images";
     if (imagefilepathid_>0)
         ret=GetProject()->FilePaths().Get(imagefilepathid_)->GetPath();
 
     if (formatted)
     {
-        ret.Replace(wxT("\\"), wxT("/"));
+        ret.Replace("\\", "/");
 
-        if (!ret.EndsWith(wxT("/")))
-            ret+=wxT("/");
+        if (!ret.EndsWith("/"))
+            ret+="/";
     }
 
     return ret;
@@ -280,7 +280,7 @@ void ButcherProjectView::GenerateHTML(const wxString &filename)
     wxString dirname;
 
 /*
-    wxStringTokenizer pathtk(GetImageDir(true), wxT("/"));
+    wxStringTokenizer pathtk(GetImageDir(true), "/");
     if (pathtk.HasMoreTokens())
     {
         while (pathtk.HasMoreTokens())
@@ -322,10 +322,10 @@ void ButcherProjectView::GenerateHTML(const wxString &filename)
     wxString htmlhead(wxEmptyString);
     if (cssfileid_>0)
     {
-        htmlhead+=wxString::Format(wxT("<link rel=\"stylesheet\" href=\"%s\" type=\"text/css\" />"),
-            GetProject()->CSSFiles().Get(cssfileid_)->GetOutputFileURL().c_str());
+        htmlhead+=wxString::Format("<link rel=\"stylesheet\" href=\"%s\" type=\"text/css\" />",
+            GetProject()->CSSFiles().Get(cssfileid_)->GetOutputFileURL());
         if (!head_.IsEmpty())
-            htmlhead+=wxT("\n");
+            htmlhead+="\n";
 
         GetProject()->CSSFiles().Get(cssfileid_)->SaveFileToPath(dirname);
     }
@@ -335,38 +335,38 @@ void ButcherProjectView::GenerateHTML(const wxString &filename)
     // BODY tag
 	ButcherHTMLAttributeGenerator bodyattr, bodystylesttr(true);
     //wxString bodytag(wxEmptyString), bodystyle(wxEmptyString);
-	bodyattr.Add(wxT("leftmargin"), wxT("0"));
-	bodyattr.Add(wxT("topmargin"), wxT("0"));
-	bodyattr.Add(wxT("rightmargin"), wxT("0"));
-	bodyattr.Add(wxT("bottommargin"), wxT("0"));
-	bodyattr.Add(wxT("marginwidth"), wxT("0"));
-	bodyattr.Add(wxT("marginheight"), wxT("0"));
+	bodyattr.Add("leftmargin", "0");
+	bodyattr.Add("topmargin", "0");
+	bodyattr.Add("rightmargin", "0");
+	bodyattr.Add("bottommargin", "0");
+	bodyattr.Add("marginwidth", "0");
+	bodyattr.Add("marginheight", "0");
 
     if (isbgcolor_)
-        //bodystyle+=wxString::Format(wxT("background-color: %s; "), bgcolor_.GetAsString(wxC2S_HTML_SYNTAX).c_str());
-		bodystylesttr.Add(wxT("background-color"), bgcolor_.GetAsString(wxC2S_HTML_SYNTAX));
+        //bodystyle+=wxString::Format("background-color: %s; ", bgcolor_.GetAsString(wxC2S_HTML_SYNTAX));
+		bodystylesttr.Add("background-color", bgcolor_.GetAsString(wxC2S_HTML_SYNTAX));
     if (bgimage_.GetLinkType()!=ButcherProjectFileLink::IL_NONE && bgimage_.IsImage())
     {
 /*
-		bodystyle+=wxString::Format(wxT("background-image: url('%s'); "),
-            bgimage_.GetFilename().c_str());
+		bodystyle+=wxString::Format("background-image: url('%s'); ",
+            bgimage_.GetFilename());
 */
-		bodystylesttr.Add(wxT("background-image"), wxString::Format(wxT("url('%s'); "),
-			bgimage_.GetFileURL().c_str()));
+		bodystylesttr.Add("background-image", wxString::Format("url('%s'); ",
+			bgimage_.GetFileURL()));
 
         switch (bgrepeat_)
         {
         case ButcherProjectAreaConfigBase::BR_HORIZONTAL:
-			//bodystyle+=wxT("background-repeat: repeat-x; ");
-			bodystylesttr.Add(wxT("background-repeat"), wxT("repeat-x"));
+			//bodystyle+="background-repeat: repeat-x; ";
+			bodystylesttr.Add("background-repeat", "repeat-x");
 			break;
         case ButcherProjectAreaConfigBase::BR_VERTICAL:
-			//bodystyle+=wxT("background-repeat: repeat-y; ");
-			bodystylesttr.Add(wxT("background-repeat"), wxT("repeat-y"));
+			//bodystyle+="background-repeat: repeat-y; ";
+			bodystylesttr.Add("background-repeat", "repeat-y");
 			break;
         case ButcherProjectAreaConfigBase::BR_NONE:
-			//bodystyle+=wxT("background-repeat: no-repeat; ");
-			bodystylesttr.Add(wxT("background-repeat"), wxT("no-repeat"));
+			//bodystyle+="background-repeat: no-repeat; ";
+			bodystylesttr.Add("background-repeat", "no-repeat");
 			break;
         default:
 			break;
@@ -374,11 +374,11 @@ void ButcherProjectView::GenerateHTML(const wxString &filename)
     }
 
     //if (!bodystyle.IsEmpty())
-        //bodytag+=wxString::Format(wxT(" style=\"%s\""), bodystyle.c_str());
+        //bodytag+=wxString::Format(" style=\"%s\"", bodystyle);
 	if (!bodystylesttr.IsEmpty())
-		bodyattr.Add(wxT("STYLE"), bodystylesttr.Generate(ButcherHTMLAttributeGenerator::KIND_STYLE));
+		bodyattr.Add("STYLE", bodystylesttr.Generate(ButcherHTMLAttributeGenerator::KIND_STYLE));
     if (!bodytagadd_.IsEmpty())
-        //bodytag+=wxT(" ")+bodytagadd_;
+        //bodytag+=" "+bodytagadd_;
 		bodyattr.Add(ButcherHTMLAttributeGenerator(bodytagadd_));
 
     // HTML generation
@@ -420,7 +420,7 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
 			throw ButcherException(_("Invalid layout type"));
 
 
-		newline.Append(wxT("\n"));
+		newline.Append("\n");
         newline.Pad(level*10);
         tdnewline=newline;
         wxString tmp;
@@ -433,7 +433,7 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
             tmp=mask->GetTableTagAdd();
 /*
 		if (!tmp.IsEmpty())
-            tmp.Prepend(wxT(" "));
+            tmp.Prepend(" ");
 */
 
 
@@ -441,24 +441,24 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
 		if (curlaytype==ButcherProjectConsts::LTYPE_TABLE)
 		{
 			ButcherHTMLAttributeGenerator tableattr;
-			tableattr.Add(wxT("WIDTH"), (GetIsStretch()&&mask->HaveVariableSizeArea(GetBLId())?wxT("100%"):wxString::Format(wxT("%d"), mask->Areas()->GetClientWidth())));
-			tableattr.Add(wxT("CELLSPACING"), wxT("0"));
-			tableattr.Add(wxT("CELLPADDING"), wxT("0"));
+			tableattr.Add("WIDTH", (GetIsStretch()&&mask->HaveVariableSizeArea(GetBLId())?"100%":wxString::Format("%d", mask->Areas()->GetClientWidth())));
+			tableattr.Add("CELLSPACING", "0");
+			tableattr.Add("CELLPADDING", "0");
 			tableattr.Add(ButcherHTMLAttributeGenerator(tmp));
 
-			htmlgenerator.AddBody(wxString::Format(wxT("%s%s%s  <tr>"),
-				newline.c_str(),
-				tableattr.Generate(ButcherHTMLAttributeGenerator::KIND_TAG, wxT("TABLE")).c_str(),
-				newline.c_str()));
+			htmlgenerator.AddBody(wxString::Format("%s%s%s  <tr>",
+				newline,
+				tableattr.Generate(ButcherHTMLAttributeGenerator::KIND_TAG, "TABLE"),
+				newline));
 
 /*
-			htmlgenerator.AddBody(wxString::Format(wxT("%s<TABLE WIDTH=\"%s\" CELLSPACING=\"0\" CELLPADDING=\"0\"%s>%s  <TR>"),
-				newline.c_str(),
-				(GetIsStretch()&&mask->HaveVariableSizeArea(GetBLId())?wxT("100%"):wxString::Format(wxT("%d"), mask->Areas()->GetClientWidth()).c_str()),
-				tmp.c_str(), newline.c_str()));
+			htmlgenerator.AddBody(wxString::Format("%s<TABLE WIDTH=\"%s\" CELLSPACING=\"0\" CELLPADDING=\"0\"%s>%s  <TR>",
+				newline,
+				(GetIsStretch()&&mask->HaveVariableSizeArea(GetBLId())?"100%":wxString::Format("%d", mask->Areas()->GetClientWidth())),
+				tmp, newline));
 */
 		}
-		htmlgenerator.AddBody(wxString::Format(wxT("%s"), newline.c_str()));
+		htmlgenerator.AddBody(wxString::Format("%s", newline));
 
         std::unique_ptr<ButcherProjectMaskLayout> list=std::unique_ptr<ButcherProjectMaskLayout>(mask->CreateLayout(curlaytype==ButcherProjectConsts::LTYPE_TABLE && level==0 && (!isstretch_)));
         ButcherProjectArea *ar=NULL;//, *mar=NULL;
@@ -519,64 +519,64 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
 			imgattr.Clear();
 
             if (list->Get(ct)->colspan>1)
-                //tdadd+=wxString::Format(wxT(" COLSPAN=\"%d\""), list->Get(ct)->colspan);
-				tdattr.Add(wxT("COLSPAN"), wxString::Format(wxT("%d"), list->Get(ct)->colspan));
+                //tdadd+=wxString::Format(" COLSPAN=\"%d\"", list->Get(ct)->colspan);
+				tdattr.Add("COLSPAN", wxString::Format("%d", list->Get(ct)->colspan));
             if (list->Get(ct)->rowspan>1)
-                //tdadd+=wxString::Format(wxT(" ROWSPAN=\"%d\""), list->Get(ct)->rowspan);
-				tdattr.Add(wxT("ROWSPAN"), wxString::Format(wxT("%d"), list->Get(ct)->rowspan));
+                //tdadd+=wxString::Format(" ROWSPAN=\"%d\"", list->Get(ct)->rowspan);
+				tdattr.Add("ROWSPAN", wxString::Format("%d", list->Get(ct)->rowspan));
             if (list->Get(ct)->forcewidth>0)
-                //tdadd+=wxString::Format(wxT(" WIDTH=\"%d\""), list->Get(ct)->forcewidth);
-				tdattr.Add(wxT("WIDTH"), wxString::Format(wxT("%d"), list->Get(ct)->forcewidth));
+                //tdadd+=wxString::Format(" WIDTH=\"%d\"", list->Get(ct)->forcewidth);
+				tdattr.Add("WIDTH", wxString::Format("%d", list->Get(ct)->forcewidth));
             if (list->Get(ct)->forceheight>0)
-                //tdadd+=wxString::Format(wxT(" HEIGHT=\"%d\""), list->Get(ct)->forceheight);
-				tdattr.Add(wxT("HEIGHT"), wxString::Format(wxT("%d"), list->Get(ct)->forceheight));
+                //tdadd+=wxString::Format(" HEIGHT=\"%d\"", list->Get(ct)->forceheight);
+				tdattr.Add("HEIGHT", wxString::Format("%d", list->Get(ct)->forceheight));
 
             if (ismaskarea)
             {
-				//aptladd=wxString::Format(wxT("ID=\"%s\""), ar->GetImageFilename(GetBLId(), false).c_str());
-				aptlattr.Add(wxT("ID"), ar->GetImageFilename(GetBLId(), false));
+				//aptladd=wxString::Format("ID=\"%s\"", ar->GetImageFilename(GetBLId(), false));
+				aptlattr.Add("ID", ar->GetImageFilename(GetBLId(), false));
 /*
-				aptlstyle=wxString::Format(wxT("position: absolute; left: %dpx; top: %dpx; width: %dpx; height: %dpx; z-index: %d;"),
+				aptlstyle=wxString::Format("position: absolute; left: %dpx; top: %dpx; width: %dpx; height: %dpx; z-index: %d;",
 					sr.GetLeft(), sr.GetTop(), sr.GetWidth(), sr.GetHeight(), ct);
 */
 				aptlstyleattr.
-					MultiAdd(wxT("position"), wxT("absolute")).
-					//MultiAdd(wxT("overflow"), wxT("auto")).
-					MultiAdd(wxT("left"), wxString::Format(wxT("%dpx"), sr.GetLeft())).
-					MultiAdd(wxT("top"), wxString::Format(wxT("%dpx"), sr.GetTop())).
-					MultiAdd(wxT("width"), wxString::Format(wxT("%dpx"), sr.GetWidth())).
-					MultiAdd(wxT("height"), wxString::Format(wxT("%dpx"), sr.GetHeight())).
-					MultiAdd(wxT("z-index"), wxString::Format(wxT("%d"), ct));
+					MultiAdd("position", "absolute").
+					//MultiAdd("overflow", "auto").
+					MultiAdd("left", wxString::Format("%dpx", sr.GetLeft())).
+					MultiAdd("top", wxString::Format("%dpx", sr.GetTop())).
+					MultiAdd("width", wxString::Format("%dpx", sr.GetWidth())).
+					MultiAdd("height", wxString::Format("%dpx", sr.GetHeight())).
+					MultiAdd("z-index", wxString::Format("%d", ct));
 
 				if (!ac->GetVariableSize() && list->Get(ct)->forcewidth<=0)
-					tdattr.Add(wxT("WIDTH"), GetIsStretch()&&ac->GetAreaKind()==ButcherProjectAreaConfigBase::AK_MASK&&ac->GetInnerMask()->HaveVariableSizeArea(GetBLId())?wxT("100%"):wxString::Format(wxT("%d"), sr.GetWidth()));
+					tdattr.Add("WIDTH", GetIsStretch()&&ac->GetAreaKind()==ButcherProjectAreaConfigBase::AK_MASK&&ac->GetInnerMask()->HaveVariableSizeArea(GetBLId())?"100%":wxString::Format("%d", sr.GetWidth()));
 /*
-					tdadd+=wxString::Format(wxT(" WIDTH=\"%s\""),
-					(GetIsStretch()&&ac->GetAreaKind()==ButcherProjectAreaConfigBase::AK_MASK&&ac->GetInnerMask()->HaveVariableSizeArea(GetBLId())?wxT("100%"):wxString::Format(wxT("%d"), sr.GetWidth()).c_str()));
+					tdadd+=wxString::Format(" WIDTH=\"%s\"",
+					(GetIsStretch()&&ac->GetAreaKind()==ButcherProjectAreaConfigBase::AK_MASK&&ac->GetInnerMask()->HaveVariableSizeArea(GetBLId())?"100%":wxString::Format("%d", sr.GetWidth())));
 */
                 if (/*!ac->GetVariableSize() && */list->Get(ct)->forceheight<=0)
-                    //tdadd+=wxString::Format(wxT(" HEIGHT=\"%d\""), sr.GetHeight());
-					tdattr.Add(wxT("HEIGHT"), wxString::Format(wxT("%d"), sr.GetHeight()));
+                    //tdadd+=wxString::Format(" HEIGHT=\"%d\"", sr.GetHeight());
+					tdattr.Add("HEIGHT", wxString::Format("%d", sr.GetHeight()));
 
                 switch (ac->GetAlign())
                 {
                 case ButcherProjectAreaConfigBase::AA_LEFT:
-					//tdadd+=wxT(" ALIGN=\"LEFT\"");
-					//aptlstyle+=wxT(" text-align: left;");
-					tdattr.Add(wxT("ALIGN"), wxT("left"));
-					aptlstyleattr.Add(wxT("text-align"), wxT("left"));
+					//tdadd+=" ALIGN=\"LEFT\"";
+					//aptlstyle+=" text-align: left;";
+					tdattr.Add("ALIGN", "left");
+					aptlstyleattr.Add("text-align", "left");
 					break;
                 case ButcherProjectAreaConfigBase::AA_CENTER:
-					//tdadd+=wxT(" ALIGN=\"CENTER\"");
-					//aptlstyle+=wxT(" text-align: center;");
-					tdattr.Add(wxT("ALIGN"), wxT("center"));
-					aptlstyleattr.Add(wxT("text-align"), wxT("center"));
+					//tdadd+=" ALIGN=\"CENTER\"";
+					//aptlstyle+=" text-align: center;";
+					tdattr.Add("ALIGN", "center");
+					aptlstyleattr.Add("text-align", "center");
 					break;
                 case ButcherProjectAreaConfigBase::AA_RIGHT:
-					//tdadd+=wxT(" ALIGN=\"RIGHT\"");
-					//aptlstyle+=wxT(" text-align: right;");
-					tdattr.Add(wxT("ALIGN"), wxT("right"));
-					aptlstyleattr.Add(wxT("text-align"), wxT("right"));
+					//tdadd+=" ALIGN=\"RIGHT\"";
+					//aptlstyle+=" text-align: right;";
+					tdattr.Add("ALIGN", "right");
+					aptlstyleattr.Add("text-align", "right");
 					break;
                 default:
 					break;
@@ -584,58 +584,58 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
                 switch (ac->GetVAlign())
                 {
                 case ButcherProjectAreaConfigBase::AV_TOP:
-					//tdadd+=wxT(" VALIGN=\"TOP\"");
-					//aptlstyle+=wxT(" vertical-align: top;");
-					tdattr.Add(wxT("VALIGN"), wxT("top"));
-					aptlstyleattr.Add(wxT("vertical-align"), wxT("top"));
+					//tdadd+=" VALIGN=\"TOP\"";
+					//aptlstyle+=" vertical-align: top;";
+					tdattr.Add("VALIGN", "top");
+					aptlstyleattr.Add("vertical-align", "top");
 					break;
                 case ButcherProjectAreaConfigBase::AV_MIDDLE:
-					//tdadd+=wxT(" VALIGN=\"MIDDLE\"");
-					//aptlstyle+=wxT(" vertical-align: middle;");
-					tdattr.Add(wxT("VALIGN"), wxT("middle"));
-					aptlstyleattr.Add(wxT("vertical-align"), wxT("middle"));
+					//tdadd+=" VALIGN=\"MIDDLE\"";
+					//aptlstyle+=" vertical-align: middle;";
+					tdattr.Add("VALIGN", "middle");
+					aptlstyleattr.Add("vertical-align", "middle");
 					break;
                 case ButcherProjectAreaConfigBase::AV_BOTTOM:
-					//tdadd+=wxT(" VALIGN=\"BOTTOM\"");
-					//aptlstyle+=wxT(" vertical-align: bottom;");
-					tdattr.Add(wxT("VALIGN"), wxT("bottom"));
-					aptlstyleattr.Add(wxT("vertical-align"), wxT("bottom"));
+					//tdadd+=" VALIGN=\"BOTTOM\"";
+					//aptlstyle+=" vertical-align: bottom;";
+					tdattr.Add("VALIGN", "bottom");
+					aptlstyleattr.Add("vertical-align", "bottom");
 					break;
                 default: break;
                 }
                 switch (ac->GetBGRepeat())
                 {
                 case ButcherProjectAreaConfigBase::BR_HORIZONTAL:
-					//tdstyle+=wxT("background-repeat: repeat-x; ");
-					//aptlstyle+=wxT("background-repeat: repeat-x; ");
-					tdstyleattr.Add(wxT("background-repeat"), wxT("repeat-x"));
-					aptlstyleattr.Add(wxT("background-repeat"), wxT("repeat-x"));
+					//tdstyle+="background-repeat: repeat-x; ";
+					//aptlstyle+="background-repeat: repeat-x; ";
+					tdstyleattr.Add("background-repeat", "repeat-x");
+					aptlstyleattr.Add("background-repeat", "repeat-x");
 					break;
                 case ButcherProjectAreaConfigBase::BR_VERTICAL:
-					//tdstyle+=wxT("background-repeat: repeat-y; ");
-					//aptlstyle+=wxT("background-repeat: repeat-y; ");
-					tdstyleattr.Add(wxT("background-repeat"), wxT("repeat-y"));
-					aptlstyleattr.Add(wxT("background-repeat"), wxT("repeat-y"));
+					//tdstyle+="background-repeat: repeat-y; ";
+					//aptlstyle+="background-repeat: repeat-y; ";
+					tdstyleattr.Add("background-repeat", "repeat-y");
+					aptlstyleattr.Add("background-repeat", "repeat-y");
 					break;
                 case ButcherProjectAreaConfigBase::BR_NONE:
-					//tdstyle+=wxT("background-repeat: no-repeat; ");
-					//aptlstyle+=wxT("background-repeat: no-repeat; ");
-					tdstyleattr.Add(wxT("background-repeat"), wxT("no-repeat"));
-					aptlstyleattr.Add(wxT("background-repeat"), wxT("no-repeat"));
+					//tdstyle+="background-repeat: no-repeat; ";
+					//aptlstyle+="background-repeat: no-repeat; ";
+					tdstyleattr.Add("background-repeat", "no-repeat");
+					aptlstyleattr.Add("background-repeat", "no-repeat");
 					break;
                 default:
 					break;
                 }
                 if (ac->GetIsBGColor())
 				{
-                    //tdstyle+=wxString::Format(wxT("background-color: %s; "), ac->GetBGColor().GetAsString(wxC2S_HTML_SYNTAX).c_str());
-                    //aptlstyle+=wxString::Format(wxT("background-color: %s; "), ac->GetBGColor().GetAsString(wxC2S_HTML_SYNTAX).c_str());
-					tdstyleattr.Add(wxT("background-color"), ac->GetBGColor().GetAsString(wxC2S_HTML_SYNTAX));
-					aptlstyleattr.Add(wxT("background-color"), ac->GetBGColor().GetAsString(wxC2S_HTML_SYNTAX));
+                    //tdstyle+=wxString::Format("background-color: %s; ", ac->GetBGColor().GetAsString(wxC2S_HTML_SYNTAX));
+                    //aptlstyle+=wxString::Format("background-color: %s; ", ac->GetBGColor().GetAsString(wxC2S_HTML_SYNTAX));
+					tdstyleattr.Add("background-color", ac->GetBGColor().GetAsString(wxC2S_HTML_SYNTAX));
+					aptlstyleattr.Add("background-color", ac->GetBGColor().GetAsString(wxC2S_HTML_SYNTAX));
 				}
                 if (haveimagemap)
-                    //imgadd+=wxString::Format(wxT(" USEMAP=\"%s\""), imagemapname.c_str());
-					imgattr.Add(wxT("USEMAP"), imagemapname);
+                    //imgadd+=wxString::Format(" USEMAP=\"%s\"", imagemapname);
+					imgattr.Add("USEMAP", imagemapname);
 
                 switch (ac->GetAreaKind())
                 {
@@ -648,43 +648,43 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
                         if (!ac->GetImageURL().IsEmpty())
                         {
 							ButcherHTMLAttributeGenerator aattr;
-							aattr.Add(wxT("HREF"), ac->GetImageURL());
+							aattr.Add("HREF", ac->GetImageURL());
                             if (!ac->GetImageURLTagAppend().IsEmpty())
 								aattr.Add(ButcherHTMLAttributeGenerator(ac->GetImageURLTagAppend()));
 
 /*
 							wxString ut=wxEmptyString;
                             if (!ac->GetImageURLTagAppend().IsEmpty())
-                                ut=wxString::Format(wxT(" target=\"%s\""), ac->GetImageURLTagAppend().c_str());
+                                ut=wxString::Format(" target=\"%s\"", ac->GetImageURLTagAppend());
 
-                            tdcnt+=wxString::Format(wxT("<a href=\"%s\"%s>"), ac->GetImageURL().c_str(), ut.c_str());
+                            tdcnt+=wxString::Format("<a href=\"%s\"%s>", ac->GetImageURL(), ut);
 */
-							tdcnt+=aattr.Generate(ButcherHTMLAttributeGenerator::KIND_TAG, wxT("A"));
+							tdcnt+=aattr.Generate(ButcherHTMLAttributeGenerator::KIND_TAG, "A");
                         }
 
 						imgattr.
-							MultiAdd(wxT("SRC"), wxString::Format(wxT("%s%s"), GetImageDir(wxEmptyString, true).c_str(), imgfilename.c_str())).
-							MultiAdd(wxT("WIDTH"), wxString::Format(wxT("%d"),
+							MultiAdd("SRC", wxString::Format("%s%s", GetImageDir(wxEmptyString, true), imgfilename)).
+							MultiAdd("WIDTH", wxString::Format("%d",
 							sr.GetWidth())).
-							MultiAdd(wxT("HEIGHT"), wxString::Format(wxT("%d"),
+							MultiAdd("HEIGHT", wxString::Format("%d",
 							sr.GetHeight())).
-							MultiAdd(wxT("BORDER"), wxT("0"));
+							MultiAdd("BORDER", "0");
 
 						if (!ac->GetImageTagAppend().IsEmpty())
-							//imgadd+=wxString::Format(wxT(" %s"), ac->GetImageTagAppend().c_str());
+							//imgadd+=wxString::Format(" %s", ac->GetImageTagAppend());
 							imgattr.Add(ButcherHTMLAttributeGenerator(ac->GetImageTagAppend()));
 
 /*
-						tdcnt+=wxString::Format(wxT("<IMG SRC=\"%s%s\" WIDTH=\"%d\" HEIGHT=\"%d\" BORDER=\"0\"%s>"),
-                            GetImageDir(wxEmptyString, true).c_str(), imgfilename.c_str(),
+						tdcnt+=wxString::Format("<IMG SRC=\"%s%s\" WIDTH=\"%d\" HEIGHT=\"%d\" BORDER=\"0\"%s>",
+                            GetImageDir(wxEmptyString, true), imgfilename,
 							sr.GetWidth(), sr.GetHeight(),
-                            imgadd.c_str()); // can't put \n, will break in IE
+                            imgadd); // can't put \n, will break in IE
 */
-						tdcnt+=imgattr.Generate(ButcherHTMLAttributeGenerator::KIND_TAG, wxT("IMG"), true); // can't put \n, will break in IE
+						tdcnt+=imgattr.Generate(ButcherHTMLAttributeGenerator::KIND_TAG, "IMG", true); // can't put \n, will break in IE
 
 						if (!ac->GetImageURL().IsEmpty())
                         {
-                            tdcnt+=wxString::Format(wxT("</a>"));
+                            tdcnt+=wxString::Format("</a>");
                         }
                     }
                     break;
@@ -697,21 +697,21 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
                 {
                     haveimage=true;
 /*
-					tdstyle+=wxString::Format(wxT("background-image:url('%s%s'); "),
-                        GetImageDir(wxEmptyString, true).c_str(), imgfilename.c_str());
-                    aptlstyle+=wxString::Format(wxT("background-image:url('%s%s'); "),
-                        GetImageDir(wxEmptyString, true).c_str(), imgfilename.c_str());
+					tdstyle+=wxString::Format("background-image:url('%s%s'); ",
+                        GetImageDir(wxEmptyString, true), imgfilename);
+                    aptlstyle+=wxString::Format("background-image:url('%s%s'); ",
+                        GetImageDir(wxEmptyString, true), imgfilename);
 */
-					tdstyleattr.Add(wxT("background-image"),
-						wxString::Format(wxT("url('%s%s')"), GetImageDir(wxEmptyString, true).c_str(), imgfilename.c_str()));
-					aptlstyleattr.Add(wxT("background-image"),
-						wxString::Format(wxT("url('%s%s')"), GetImageDir(wxEmptyString, true).c_str(), imgfilename.c_str()));
+					tdstyleattr.Add("background-image",
+						wxString::Format("url('%s%s')", GetImageDir(wxEmptyString, true), imgfilename));
+					aptlstyleattr.Add("background-image",
+						wxString::Format("url('%s%s')", GetImageDir(wxEmptyString, true), imgfilename));
                 }
 
                 // DATA
                 if (!ac->GetCellTagAppend().IsEmpty())
                 {
-                    //tdadd+=wxT(" ");
+                    //tdadd+=" ";
                     //tdadd+=ac->GetCellTagAppend();
 					tdattr.Add(ButcherHTMLAttributeGenerator(ac->GetCellTagAppend()));
 					aptlattr.Add(ButcherHTMLAttributeGenerator(ac->GetCellTagAppend()));
@@ -721,58 +721,58 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
 			else if (curlaytype==ButcherProjectConsts::LTYPE_TABLE)
             {
                 // !ismaskarea
-                wxString trfmt(wxT("  "));
+                wxString trfmt("  ");
 				trfmt+=_("<!-- alignment row -->");
-				trfmt+=wxT("%s");
-				tradd=tradd+wxString::Format(trfmt, newline.c_str());
+				trfmt+="%s";
+				tradd=tradd+wxString::Format(trfmt, newline);
                 tdnewline=wxEmptyString;
             }
 
             // ROW BEGIN
             if (curlaytype==ButcherProjectConsts::LTYPE_TABLE && list->Get(ct)->skipline)
-                htmlgenerator.AddBody(wxString::Format(wxT("  </tr>%s%s  <tr>%s"),
-                    newline.c_str(), tradd.c_str(), tdnewline.c_str()));
+                htmlgenerator.AddBody(wxString::Format("  </tr>%s%s  <tr>%s",
+                    newline, tradd, tdnewline));
 
             // CELL BEGIN
 /*
 			if (!tdstyle.IsEmpty())
-                tdstyle=wxT(" STYLE=\"")+tdstyle+wxT("\"");
+                tdstyle=" STYLE=\""+tdstyle+"\"";
 */
 			if (!tdstyleattr.IsEmpty())
 			{
-				if (tdattr.Exists(wxT("STYLE")))
-					tdstyleattr.Add(ButcherHTMLAttributeGenerator(tdattr.Get(wxT("STYLE")), ButcherHTMLAttributeGenerator::KIND_STYLE));
-				tdattr.Add(wxT("STYLE"), tdstyleattr.Generate(ButcherHTMLAttributeGenerator::KIND_STYLE));
+				if (tdattr.Exists("STYLE"))
+					tdstyleattr.Add(ButcherHTMLAttributeGenerator(tdattr.Get("STYLE"), ButcherHTMLAttributeGenerator::KIND_STYLE));
+				tdattr.Add("STYLE", tdstyleattr.Generate(ButcherHTMLAttributeGenerator::KIND_STYLE));
 			}
 			if (!aptlstyleattr.IsEmpty())
 			{
-				if (aptlattr.Exists(wxT("STYLE")))
-					aptlstyleattr.Add(ButcherHTMLAttributeGenerator(aptlattr.Get(wxT("STYLE")), ButcherHTMLAttributeGenerator::KIND_STYLE));
-				aptlattr.Add(wxT("STYLE"), aptlstyleattr.Generate(ButcherHTMLAttributeGenerator::KIND_STYLE));
+				if (aptlattr.Exists("STYLE"))
+					aptlstyleattr.Add(ButcherHTMLAttributeGenerator(aptlattr.Get("STYLE"), ButcherHTMLAttributeGenerator::KIND_STYLE));
+				aptlattr.Add("STYLE", aptlstyleattr.Generate(ButcherHTMLAttributeGenerator::KIND_STYLE));
 			}
 
 			switch (curlaytype)
 			{
 			case ButcherProjectConsts::LTYPE_TABLE:
-				//htmlgenerator.AddBody(wxString::Format(wxT("    <TD %s%s>%s"),
-				htmlgenerator.AddBody(wxString::Format(wxT("    %s%s"),
-					tdattr.Generate(ButcherHTMLAttributeGenerator::KIND_TAG, wxT("TD")).c_str(),
-					//tdadd.c_str(), tdstyle.c_str(), tdnewline.c_str()));
-					tdnewline.c_str()));
+				//htmlgenerator.AddBody(wxString::Format("    <TD %s%s>%s",
+				htmlgenerator.AddBody(wxString::Format("    %s%s",
+					tdattr.Generate(ButcherHTMLAttributeGenerator::KIND_TAG, "TD"),
+					//tdadd, tdstyle, tdnewline));
+					tdnewline));
 				break;
 			case ButcherProjectConsts::LTYPE_APTABLELESS:
-				if (styleseparated_ && aptlattr.Exists(wxT("STYLE")))
+				if (styleseparated_ && aptlattr.Exists("STYLE"))
 				{
-					htmlgenerator.AddStyles(wxString::Format(wxT("#%s { %s }\n"),
-						aptlattr.Get(wxT("ID")).c_str(), aptlattr.Get(wxT("STYLE")).c_str()));
-					aptlattr.Remove(wxT("STYLE"));
+					htmlgenerator.AddStyles(wxString::Format("#%s { %s }\n",
+						aptlattr.Get("ID"), aptlattr.Get("STYLE")));
+					aptlattr.Remove("STYLE");
 				}
 
-				//htmlgenerator.AddBody(wxString::Format(wxT("    <DIV %s STYLE=\"%s\">%s"),
-				htmlgenerator.AddBody(wxString::Format(wxT("    %s%s"),
-					aptlattr.Generate(ButcherHTMLAttributeGenerator::KIND_TAG, wxT("DIV")).c_str(),
-					//aptladd.c_str(), aptlstyle.c_str(), tdnewline.c_str()));
-					tdnewline.c_str()));
+				//htmlgenerator.AddBody(wxString::Format("    <DIV %s STYLE=\"%s\">%s",
+				htmlgenerator.AddBody(wxString::Format("    %s%s",
+					aptlattr.Generate(ButcherHTMLAttributeGenerator::KIND_TAG, "DIV"),
+					//aptladd, aptlstyle, tdnewline));
+					tdnewline));
 				break;
             default:
                 break;
@@ -784,17 +784,17 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
                 if (ac->GetInnerScrollable() && sr.GetWidth()>20 && sr.GetHeight()>20) // 20 is scrollbar width/height
                 {
                     // put inside scrollable div
-                    htmlgenerator.AddBody(wxT("      "));
+                    htmlgenerator.AddBody("      ");
                     htmlgenerator.AddBody(wxString::Format(
-                        wxT("<div style=\"width: %dpx; height:%dpx; overflow: auto;\">%s"),
-                        sr.GetWidth()-20, sr.GetHeight()-20, tdnewline.c_str()));
+                        "<div style=\"width: %dpx; height:%dpx; overflow: auto;\">%s",
+                        sr.GetWidth()-20, sr.GetHeight()-20, tdnewline));
                 }
             }
 
             // CELL BODY
             if (!tdcnt.IsEmpty())
             {
-                htmlgenerator.AddBody(wxT("      "));
+                htmlgenerator.AddBody("      ");
                 htmlgenerator.AddBody(tdcnt);
             }
 
@@ -803,7 +803,7 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
                 // CELL BODY - INNER MASK
                 if (ar->Configs().Get(GetBLId())->GetAreaKind()==ButcherProjectAreaConfig::AK_MASK)
                 {
-                    htmlgenerator.AddBody(wxT("\n"));
+                    htmlgenerator.AddBody("\n");
                     do_genhtml(level+1, htmlgenerator, dirname, ar->Configs().Get(GetBLId())->GetInnerMask(), progress);
                     htmlgenerator.AddBody(tdnewline);
                 }
@@ -815,24 +815,24 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
                 if (ac->GetInnerScrollable())
                 {
                     // put inside scrollable div
-                    htmlgenerator.AddBody(wxT("      "));
+                    htmlgenerator.AddBody("      ");
                     htmlgenerator.AddBody(wxString::Format(
-                        wxT("</div>%s"),
-                        tdnewline.c_str()));
+                        "</div>%s",
+                        tdnewline));
                 }
             }
 
             // CELL END
 			if (skipcellline)
-				htmlgenerator.AddBody(wxString::Format(wxT("%s    "), tdnewline.c_str()));
+				htmlgenerator.AddBody(wxString::Format("%s    ", tdnewline));
 
 			switch (curlaytype)
 			{
 			case ButcherProjectConsts::LTYPE_TABLE:
-				htmlgenerator.AddBody(wxString::Format(wxT("</td>%s"), tdnewline.c_str()));
+				htmlgenerator.AddBody(wxString::Format("</td>%s", tdnewline));
 				break;
 			case ButcherProjectConsts::LTYPE_APTABLELESS:
-				htmlgenerator.AddBody(wxString::Format(wxT("</div>%s"), tdnewline.c_str()));
+				htmlgenerator.AddBody(wxString::Format("</div>%s", tdnewline));
 				break;
             default:
                 break;
@@ -850,7 +850,7 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
                 // IMAGEMAP
                 if (haveimagemap)
                 {
-                    imagemap=wxString::Format(wxT("<map name=\"%s\">\n"), imagemapname.c_str());
+                    imagemap=wxString::Format("<map name=\"%s\">\n", imagemapname);
 
 					for (ButcherProjectAreas::iterator i=ac->GetInnerMask()->AreasMap()->Areas().begin();
 						i!=ac->GetInnerMask()->AreasMap()->Areas().end(); i++)
@@ -858,40 +858,40 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
                         mac=i->Configs().Get(GetBLId());
 
 						ButcherHTMLAttributeGenerator aattr;
-						aattr.Add(wxT("SHAPE"), wxT("rect"));
-						aattr.Add(wxT("COORDS"), wxString::Format(wxT(" coords=\"%d,%d,%d,%d\""),
+						aattr.Add("SHAPE", "rect");
+						aattr.Add("COORDS", wxString::Format(" coords=\"%d,%d,%d,%d\"",
                             i->GetLeft()->GetPosition(),
                             i->GetTop()->GetPosition(),
                             i->GetRight()->GetPosition()-1,
                             i->GetBottom()->GetPosition()-1));
 
                         if (!mac->GetImageURL().IsEmpty())
-							aattr.Add(wxT("HREF"), mac->GetImageURL());
+							aattr.Add("HREF", mac->GetImageURL());
 						if (!mac->GetImageURLTagAppend().IsEmpty())
 							aattr.Add(ButcherHTMLAttributeGenerator(mac->GetImageURLTagAppend()));
                         if (!mac->GetImageTagAppend().IsEmpty())
-							aattr.Add(wxT("ALT"), mac->GetImageTagAppend());
+							aattr.Add("ALT", mac->GetImageTagAppend());
 
-						imagemap+=aattr.Generate(ButcherHTMLAttributeGenerator::KIND_TAG, wxT("AREA"), true);
-                        imagemap+=wxT("\n");
+						imagemap+=aattr.Generate(ButcherHTMLAttributeGenerator::KIND_TAG, "AREA", true);
+                        imagemap+="\n";
 
 /*
-						tmp=wxString::Format(wxT(" coords=\"%d,%d,%d,%d\""),
+						tmp=wxString::Format(" coords=\"%d,%d,%d,%d\"",
                             i->GetLeft()->GetPosition(),
                             i->GetTop()->GetPosition(),
                             i->GetRight()->GetPosition()-1,
                             i->GetBottom()->GetPosition()-1);
                         if (!mac->GetImageURL().IsEmpty())
-                            tmp+=wxString::Format(wxT(" href=\"%s\""), mac->GetImageURL().c_str());
+                            tmp+=wxString::Format(" href=\"%s\"", mac->GetImageURL());
                         if (!mac->GetImageURLTagAppend().IsEmpty())
-                            tmp+=wxString::Format(wxT(" target=\"%s\""), mac->GetImageURLTagAppend().c_str());
+                            tmp+=wxString::Format(" target=\"%s\"", mac->GetImageURLTagAppend());
                         if (!mac->GetImageTagAppend().IsEmpty())
-                            tmp+=wxString::Format(wxT(" alt=\"%s\""), mac->GetImageTagAppend().c_str());
+                            tmp+=wxString::Format(" alt=\"%s\"", mac->GetImageTagAppend());
 
-                        imagemap+=wxString::Format(wxT("<area share=\"rect\"%s>\n"), tmp.c_str());
+                        imagemap+=wxString::Format("<area share=\"rect\"%s>\n", tmp);
 */
 					}
-                    imagemap+=wxT("</map>\n");
+                    imagemap+="</map>\n";
 
                     htmlgenerator.AddBodyFooter(imagemap);
                 }
@@ -922,7 +922,7 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
         }
 
 		if (curlaytype==ButcherProjectConsts::LTYPE_TABLE)
-			htmlgenerator.AddBody(wxString::Format(wxT("  </tr>%s</table>\n"), newline.c_str()));
+			htmlgenerator.AddBody(wxString::Format("  </tr>%s</table>\n", newline));
     }
 
     // GLOBAL AREAS
@@ -1050,7 +1050,7 @@ void ButcherProjectView::do_checkfile(int level, ButcherProjectViewFileCheck &ch
 
             if (ismaskarea && haveimage)
             {
-                check.Add(GetBLId(), wxString::Format(_("Area: %s"), ar->GetDescription().c_str()),
+                check.Add(GetBLId(), wxString::Format(_("Area: %s"), ar->GetDescription()),
                     imgpath.GetPath(wxEmptyString, true, ccu_Path_wxString::PPF_URL)+imgfilename);
             }
 
@@ -1064,7 +1064,7 @@ void ButcherProjectView::do_checkfile(int level, ButcherProjectViewFileCheck &ch
                         // save image
                         imgfilename=ar->GetImageFilename(GetBLId(), true, alti);
 
-                        check.Add(GetBLId(), wxString::Format(_("Area: %s alternate %d"), ar->GetDescription().c_str(), alti+1),
+                        check.Add(GetBLId(), wxString::Format(_("Area: %s alternate %d"), ar->GetDescription(), alti+1),
                             imgpath.GetPath(wxEmptyString, true, ccu_Path_wxString::PPF_URL)+imgfilename);
                     }
                 }
@@ -1077,7 +1077,7 @@ void ButcherProjectView::do_checkfile(int level, ButcherProjectViewFileCheck &ch
                     {
                         bpath=GetProject()->AssortedFiles().Get(*i)->GetOutputFileURL();
                         check.Add(GetBLId(), wxString::Format(_("Assorted file: %d - %s"), *i,
-                            GetProject()->AssortedFiles().Get(*i)->GetPathFile().c_str()),
+                            GetProject()->AssortedFiles().Get(*i)->GetPathFile()),
                             bpath.GetPath(wxEmptyString, true, ccu_Path_wxString::PPF_URL));
                     }
                 }
@@ -1116,7 +1116,7 @@ void ButcherProjectView::do_checkimages(ButcherProjectViewFileCheck &check, Butc
 				{
 					// save image
 					imgfilename=i->GetImageFilename(GetBLId());
-					check.Add(GetBLId(), wxString::Format(_("Global Area: %s"), i->GetDescription().c_str()),
+					check.Add(GetBLId(), wxString::Format(_("Global Area: %s"), i->GetDescription()),
 						imgpath.GetPath(wxEmptyString, true, ccu_Path_wxString::PPF_URL)+imgfilename);
 				}
 
@@ -1128,7 +1128,7 @@ void ButcherProjectView::do_checkimages(ButcherProjectViewFileCheck &check, Butc
 						// save image
 						imgfilename=i->GetImageFilename(GetBLId(), true, alti);
 
-						check.Add(GetBLId(), wxString::Format(_("Global Area: %s alternate %d"), i->GetDescription().c_str(), alti),
+						check.Add(GetBLId(), wxString::Format(_("Global Area: %s alternate %d"), i->GetDescription(), alti),
 							imgpath.GetPath(wxEmptyString, true, ccu_Path_wxString::PPF_URL)+imgfilename);
 					}
 				}

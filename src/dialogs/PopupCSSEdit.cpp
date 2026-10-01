@@ -29,8 +29,8 @@
 
 
 
-BEGIN_EVENT_TABLE(HTMLButcherPopupCSSEditDialog, ButcherControl_Dialog)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(HTMLButcherPopupCSSEditDialog, ButcherControl_Dialog)
+wxEND_EVENT_TABLE()
 
 HTMLButcherPopupCSSEditDialog::HTMLButcherPopupCSSEditDialog( wxWindow* parent,
     wxWindowID id,

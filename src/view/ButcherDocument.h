@@ -21,20 +21,18 @@ class ButcherView;
  * @brief document control
  */
 
-DECLARE_EVENT_TYPE( wxEVT_BUTCHERDOCUMENTKEYBOARD_ACTION, -1 )
+wxDECLARE_EVENT(wxEVT_BUTCHERDOCUMENTKEYBOARD_ACTION, wxKeyEvent);
 
 
 #define EVT_BUTCHERDOCUMENTKEYBOARD(id, fn) \
-    DECLARE_EVENT_TABLE_ENTRY( wxEVT_BUTCHERDOCUMENTKEYBOARD_ACTION, id, -1, \
-    (wxObjectEventFunction) (wxEventFunction) \
-    wxStaticCastEvent( wxKeyEventFunction, & fn ), (wxObject *) NULL ),
+    wx__DECLARE_EVT1(wxEVT_BUTCHERDOCUMENTKEYBOARD_ACTION, id, wxKeyEventHandler(fn))
 
 
 class ButcherDocument : public wxControl {
 public:
     ButcherDocument(ButcherView* view, wxWindow *parent, wxWindowID id = wxID_ANY,
         const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
-        long style = wxTAB_TRAVERSAL | wxBORDER_NONE, const wxString& name = wxT("ButcherDocument"));
+        long style = wxTAB_TRAVERSAL | wxBORDER_NONE, const wxString& name = "ButcherDocument");
 
     ButcherView *GetView() { return view_; }
 
@@ -48,7 +46,7 @@ private:
 
     ButcherView* view_;
 
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 };
 
 #endif // __BVIEW_BUTCHERDOCUMENT_H__

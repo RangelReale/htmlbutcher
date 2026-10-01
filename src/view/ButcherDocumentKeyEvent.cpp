@@ -18,7 +18,7 @@
 //      ButcherDocumentKeyEvent
 /////////////////////////////////
 
-DEFINE_EVENT_TYPE( wxEVT_BUTCHERDOCUMENTKEY_ACTION )
+wxDEFINE_EVENT(wxEVT_BUTCHERDOCUMENTKEY_ACTION, ButcherDocumentKeyEvent);
 
 ButcherDocumentKeyEvent::ButcherDocumentKeyEvent(wxEventType origCommandType,
     wxEventType commandType) :

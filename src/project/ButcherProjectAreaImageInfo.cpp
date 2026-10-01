@@ -81,7 +81,7 @@ void ButcherProjectAreaImageInfo::Copy(const ButcherProjectAreaImageInfo &other)
 wxString ButcherProjectAreaImageInfo::GetOutputFileURL(BLID_t id)
 {
     return
-        (id>0?GetProject()->Views()[id]->GetImageDir(wxEmptyString):wxT(""))+
+        (id>0?GetProject()->Views()[id]->GetImageDir(wxEmptyString):"")+
         areaconfig_->GetArea()->GetImageFilename(id, true, infoid_);
 }
 
@@ -94,7 +94,7 @@ wxString ButcherProjectAreaImageInfo::GetOutputFilename(const wxString &basepath
 
 
 	return
-        (id>0?GetProject()->Views()[id]->GetImageDir(basepath):wxT(""))+
+        (id>0?GetProject()->Views()[id]->GetImageDir(basepath):"")+
         areaconfig_->GetArea()->GetImageFilename(id, true, infoid_);
 }
 

@@ -36,10 +36,10 @@ ButcherHTMLAttributeGenerator::~ButcherHTMLAttributeGenerator()
 void ButcherHTMLAttributeGenerator::Add(const wxString &name, const wxString &value)
 {
 	wxString nvalue(value);
-	if (nvalue.Find(wxT("\""))!=wxNOT_FOUND)
-		nvalue.Replace(wxT("\""), wxEmptyString);
+	if (nvalue.Find("\"")!=wxNOT_FOUND)
+		nvalue.Replace("\"", wxEmptyString);
 	else
-		nvalue.Replace(wxT("'"), wxEmptyString);
+		nvalue.Replace("'", wxEmptyString);
 	attributes_[name]=nvalue;
 }
 
@@ -83,10 +83,10 @@ void ButcherHTMLAttributeGenerator::Parse(const wxString &attributes, kind_t kin
 	switch (kind)
 	{
 	case KIND_TAG:
-		retags.Compile(wxT("(\\w+)(?:\\s*=\\s*(\"[^\"]*\"|'[^']*'|[^\\s>]*))?"), wxRE_ADVANCED);
+		retags.Compile("(\\w+)(?:\\s*=\\s*(\"[^\"]*\"|'[^']*'|[^\\s>]*))?", wxRE_ADVANCED);
 		break;
 	case KIND_STYLE:
-		retags.Compile(wxT("(\\w+)(?:\\s*:\\s*(\"[^\"]*\"|'[^']*'|[^;>]*))?"), wxRE_ADVANCED);
+		retags.Compile("(\\w+)(?:\\s*:\\s*(\"[^\"]*\"|'[^']*'|[^;>]*))?", wxRE_ADVANCED);
 		break;
 	}
 	wxString procattr(attributes);
@@ -103,28 +103,28 @@ wxString ButcherHTMLAttributeGenerator::Generate(kind_t kind, const wxString &ta
     bool closetag)
 {
 	wxString ret(wxEmptyString);
-	wxString quotechar(usesinglequotes_?wxT("'"):wxT("\""));
+	wxString quotechar(usesinglequotes_?"'":"\"");
 	if (kind==KIND_STYLE && !tagname.IsEmpty())
-		quotechar=wxT("'");
+		quotechar="'";
 
 	for (attributes_t::const_iterator i=attributes_.begin();
 		i!=attributes_.end(); i++)
 	{
 		if (!i->second.IsEmpty())
 		{
-			if (!ret.IsEmpty()) ret+=wxT(" ");
+			if (!ret.IsEmpty()) ret+=" ";
 			switch (kind)
 			{
 			case KIND_TAG:
-				ret+=wxString::Format(wxT("%s=%s%s%s"), i->first.Lower().c_str(),
-					quotechar.c_str(), i->second.c_str(), quotechar.c_str());
+				ret+=wxString::Format("%s=%s%s%s", i->first.Lower(),
+					quotechar, i->second, quotechar);
 				break;
 			case KIND_STYLE:
-				if (i->second.Find(wxT(" "))==wxNOT_FOUND)
-					ret+=wxString::Format(wxT("%s: %s;"), i->first.Lower().c_str(), i->second.c_str());
+				if (i->second.Find(" ")==wxNOT_FOUND)
+					ret+=wxString::Format("%s: %s;", i->first.Lower(), i->second);
 				else
-					ret+=wxString::Format(wxT("%s: %s%s%s;"), i->first.Lower().c_str(),
-						quotechar.c_str(), i->second.c_str(), quotechar.c_str());
+					ret+=wxString::Format("%s: %s%s%s;", i->first.Lower(),
+						quotechar, i->second, quotechar);
 				break;
 			}
 		}
@@ -135,11 +135,11 @@ wxString ButcherHTMLAttributeGenerator::Generate(kind_t kind, const wxString &ta
 		switch (kind)
 		{
 		case KIND_TAG:
-			ret=wxString::Format(wxT("<%s %s%s>"), tagname.Lower().c_str(), ret.c_str(),
-				closetag?wxT(" /"):wxEmptyString);
+			ret=wxString::Format("<%s %s%s>", tagname.Lower(), ret,
+				closetag?" /":"");
 			break;
 		case KIND_STYLE:
-			ret=wxString::Format(wxT("%s=\"%s\""), tagname.Lower().c_str(), ret.c_str());
+			ret=wxString::Format("%s=\"%s\"", tagname.Lower(), ret);
 			break;
 		}
 	}
@@ -156,7 +156,7 @@ wxString ButcherHTMLAttributeGenerator::Generate(kind_t kind, const wxString &ta
 /////////////////////////////////
 ButcherHTMLGenerator::ButcherHTMLGenerator() :
     body_(wxEmptyString), bodyheader_(wxEmptyString), bodyfooter_(wxEmptyString),
-    bodytagadd_(wxEmptyString), head_(wxEmptyString), title_(wxT("HTMLButcher")),
+    bodytagadd_(wxEmptyString), head_(wxEmptyString), title_("HTMLButcher"),
 	styles_(wxEmptyString),
     encoding_(ButcherHTMLConsts::BE_ISO8859_1)
 {
@@ -186,25 +186,25 @@ void ButcherHTMLGenerator::Save(wxFile &savefile)
 {
 	wxString tmp;
 
-	savefile.Write(wxT("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">"));
+	savefile.Write("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">");
 	
-	savefile.Write(wxT("<html>\n"), GetMBConv());
+	savefile.Write("<html>\n", GetMBConv());
 
 	tmp=head_;
     if (!tmp.IsEmpty())
-        tmp.Append(wxT("\n"));
+        tmp.Append("\n");
 	if (!styles_.IsEmpty())
-		tmp.Append(wxString::Format(wxT("<style type=\"text/css\">\n%s</style>\n"), styles_.c_str()));
-    savefile.Write(wxString::Format(wxT("<head>\n<title>%s</title>\n%s</head>\n"), title_.c_str(), tmp.c_str()), GetMBConv());
+		tmp.Append(wxString::Format("<style type=\"text/css\">\n%s</style>\n", styles_));
+    savefile.Write(wxString::Format("<head>\n<title>%s</title>\n%s</head>\n", title_, tmp), GetMBConv());
 
     tmp=bodytagadd_;
     if (!tmp.IsEmpty())
-        tmp.Prepend(wxT(" "));
-    savefile.Write(wxString::Format(wxT("<body%s>\n\n"), tmp.c_str()), GetMBConv());
+        tmp.Prepend(" ");
+    savefile.Write(wxString::Format("<body%s>\n\n", tmp), GetMBConv());
 
     savefile.Write(bodyheader_, GetMBConv());
     savefile.Write(body_, GetMBConv());
     savefile.Write(bodyfooter_, GetMBConv());
 
-    savefile.Write(wxT("\n\n</body>\n</html>"), GetMBConv());
+    savefile.Write("\n\n</body>\n</html>", GetMBConv());
 }

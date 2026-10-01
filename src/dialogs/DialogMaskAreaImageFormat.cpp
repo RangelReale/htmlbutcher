@@ -69,12 +69,12 @@ private:
 
 
 
-BEGIN_EVENT_TABLE(HTMLButcherMaskAreaImageFormatDialog, ButcherControl_Dialog)
+wxBEGIN_EVENT_TABLE(HTMLButcherMaskAreaImageFormatDialog, ButcherControl_Dialog)
     EVT_COMBOBOX(ID_IMAGEFORMAT, HTMLButcherMaskAreaImageFormatDialog::OnImageFormatPreview)
     EVT_COMBOBOX(ID_PREVIEW2FORMAT, HTMLButcherMaskAreaImageFormatDialog::OnImageFormatPreview)
     EVT_LISTBOX_DCLICK(ID_TRANSPARENTCOLOR, HTMLButcherMaskAreaImageFormatDialog::OnTColorDClick)
     EVT_LISTBOX_DCLICK(ID_TRANSPARENTPIXEL, HTMLButcherMaskAreaImageFormatDialog::OnTPixelDClick)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 
 
@@ -99,7 +99,7 @@ void HTMLButcherMaskAreaImageFormatDialog::Init()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-imageformatprop.html"));
+	SetHelpSection("dialog-imageformatprop.html");
 #endif
 
 	imageformat_=0;
@@ -174,11 +174,10 @@ void HTMLButcherMaskAreaImageFormatDialog::CreateControls()
 
     preview1ctrl_ = new ButcherImageView(this, ID_PREVIEW1, wxDefaultPosition, wxSize(400, 200));
     preview1ctrl_->SetSelectColor(true);
-    preview1ctrl_->Connect(wxID_ANY, wxEVT_BUTCHERIMAGEVIEWCOLOR_ACTION,
-        ButcherImageViewColorEventHandler(HTMLButcherMaskAreaImageFormatDialog::OnSelectColor), NULL, this);
+    preview1ctrl_->Bind(wxEVT_BUTCHERIMAGEVIEWCOLOR_ACTION, &HTMLButcherMaskAreaImageFormatDialog::OnSelectColor, this);
     //preview1ctrl_->SetFullSize(true);
     preview1ctrl_->SetMargin(10);
-    preview1ctrl_->SetBGColor(wxTheColourDatabase->Find(wxT("MEDIUM VIOLET RED")));
+    preview1ctrl_->SetBGColor(wxTheColourDatabase->Find("MEDIUM VIOLET RED"));
 
     previewsizer->Add(preview1ctrl_, 1, wxEXPAND|wxALL, 2);
 
@@ -194,11 +193,10 @@ void HTMLButcherMaskAreaImageFormatDialog::CreateControls()
     // preview image 2
     preview2ctrl_ = new ButcherImageView(this, ID_PREVIEW2, wxDefaultPosition, wxSize(400, 200));
     preview2ctrl_->SetSelectColor(true);
-    preview2ctrl_->Connect(wxID_ANY, wxEVT_BUTCHERIMAGEVIEWCOLOR_ACTION,
-        ButcherImageViewColorEventHandler(HTMLButcherMaskAreaImageFormatDialog::OnSelectColor), NULL, this);
+    preview2ctrl_->Bind(wxEVT_BUTCHERIMAGEVIEWCOLOR_ACTION, &HTMLButcherMaskAreaImageFormatDialog::OnSelectColor, this);
     //preview2ctrl_->SetFullSize(true);
     preview2ctrl_->SetMargin(10);
-    preview2ctrl_->SetBGColor(wxTheColourDatabase->Find(wxT("MEDIUM VIOLET RED")));
+    preview2ctrl_->SetBGColor(wxTheColourDatabase->Find("MEDIUM VIOLET RED"));
 
     previewsizer->Add(preview2ctrl_, 1, wxEXPAND|wxALL, 2);
 
@@ -212,7 +210,7 @@ void HTMLButcherMaskAreaImageFormatDialog::CreateControls()
         0, wxALIGN_LEFT|wxALL, 2);
 
     wxTextCtrl *pchoverctrl = new wxTextCtrl(this, ID_PROC_HOVERCOLOR, wxEmptyString, wxDefaultPosition, wxDefaultSize,
-        wxTE_READONLY|wxTE_CENTRE|wxNO_BORDER);
+        wxTE_READONLY|wxTE_CENTRE|wxBORDER_NONE);
     previewcolorsizer->Add(pchoverctrl, 1, wxGROW|wxALL, 2);
 
     // selected color
@@ -221,7 +219,7 @@ void HTMLButcherMaskAreaImageFormatDialog::CreateControls()
         0, wxALIGN_LEFT|wxALL, 2);
 
     wxTextCtrl *pcselectedctrl = new wxTextCtrl(this, ID_PROC_SELCOLOR, wxEmptyString, wxDefaultPosition, wxDefaultSize,
-        wxTE_READONLY|wxTE_CENTRE|wxNO_BORDER);
+        wxTE_READONLY|wxTE_CENTRE|wxBORDER_NONE);
     previewcolorsizer->Add(pcselectedctrl, 1, wxGROW|wxALL, 2);
 
 
@@ -299,9 +297,9 @@ bool HTMLButcherMaskAreaImageFormatDialog::TransferDataToWindow()
 		i!=file_->GetProject()->ImageFormats().end(); i++)
 	{
         fmtimage.reset(origimage->Save(i->GetFormat(), i->GetFlags()));
-        fmtdesc=wxString::Format(wxT("%s   [%s - %s bytes]"), i->GetName().c_str(),
-            wxFileName::GetHumanReadableSize(fmtimage->GetFileSize(), wxT("0")).c_str(),
-                    wxString(ccustring_numberformat(fmtimage->GetFileSize(), NF_THOUSANDS).c_str(), wxConvUTF8).c_str());
+        fmtdesc=wxString::Format("%s   [%s - %s bytes]", i->GetName(),
+            wxFileName::GetHumanReadableSize(fmtimage->GetFileSize(), "0"),
+                    wxString(ccustring_numberformat(fmtimage->GetFileSize(), NF_THOUSANDS).c_str(), wxConvUTF8));
 
         newi=p1formatctrl->Append(fmtdesc,
             static_cast<wxClientData *>(new ButcherListIdClientData(i.first())));
@@ -361,8 +359,8 @@ void HTMLButcherMaskAreaImageFormatDialog::UpdateDisplay(bool isfirst)
 
 /*
     ButcherImage::transparentcolors_t tcolors;
-    tcolors.push_back(wxColour(wxT("#66282A")));
-    tcolors.push_back(wxColour(wxT("#67282A")));
+    tcolors.push_back(wxColour("#66282A"));
+    tcolors.push_back(wxColour("#67282A"));
     tcolors.push_back(wxColour(0xFF, 0xFF, 0xFF));
 */
 
@@ -409,8 +407,8 @@ void HTMLButcherMaskAreaImageFormatDialog::OnSelectColor(ButcherImageViewColorEv
 
     ct->SetForegroundColour(colFg);
     ct->SetBackgroundColour(event.GetColor());
-    ct->SetValue(wxString::Format(wxT("%s (%d,%d)"),
-        event.GetColor().GetAsString(wxC2S_HTML_SYNTAX).c_str(),
+    ct->SetValue(wxString::Format("%s (%d,%d)",
+        event.GetColor().GetAsString(wxC2S_HTML_SYNTAX),
         event.GetPixel().x, event.GetPixel().y));
 
     event.Skip();
@@ -444,10 +442,10 @@ void HTMLButcherMaskAreaImageFormatDialog::AddTColor(const wxColour &color)
     wxColour colFg(~color.Red(), ~color.Green(), ~color.Blue());
 
 
-    tcolorsctrl->Append(wxString::Format(wxT("<table bgcolor=\"%s\" width=\"100%%\"><tr><td><font color=\"%s\">%s</font></td></tr></table>"),
-        color.GetAsString(wxC2S_HTML_SYNTAX).c_str(),
-        colFg.GetAsString(wxC2S_HTML_SYNTAX).c_str(),
-        color.GetAsString(wxC2S_HTML_SYNTAX).c_str()),
+    tcolorsctrl->Append(wxString::Format("<table bgcolor=\"%s\" width=\"100%%\"><tr><td><font color=\"%s\">%s</font></td></tr></table>",
+        color.GetAsString(wxC2S_HTML_SYNTAX),
+        colFg.GetAsString(wxC2S_HTML_SYNTAX),
+        color.GetAsString(wxC2S_HTML_SYNTAX)),
         new ButcherColorClientData(color));
 }
 
@@ -507,7 +505,7 @@ void HTMLButcherMaskAreaImageFormatDialog::AddTPixel(const wxPoint &pixel)
             return;
     }
 
-    tpixelsctrl->Append(wxString::Format(wxT("(%d, %d)"),
+    tpixelsctrl->Append(wxString::Format("(%d, %d)",
         pixel.x,
         pixel.y),
         new ButcherPointClientData(pixel));

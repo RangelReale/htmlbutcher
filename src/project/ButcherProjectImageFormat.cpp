@@ -28,7 +28,7 @@ ButcherProjectImageFormat::ButcherProjectImageFormat(ButcherProject *project,
 
 
 ButcherProjectImageFormat::ButcherProjectImageFormat(ButcherProject *project) :
-    ButcherProjectBaseBLId(project), name_(wxT("TEMP")),
+    ButcherProjectBaseBLId(project), name_("TEMP"),
         format_(ButcherImage::FMT_JPG), flags_(0)
 {
 

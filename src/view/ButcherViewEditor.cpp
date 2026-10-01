@@ -23,11 +23,11 @@
 //      ButcherViewEditor
 /////////////////////////////////
 
-BEGIN_EVENT_TABLE(ButcherViewEditor, ButcherView)
+wxBEGIN_EVENT_TABLE(ButcherViewEditor, ButcherView)
     EVT_BUTCHERDOCUMENTMOUSE(wxID_ANY, ButcherViewEditor::OnDocumentMouse)
     EVT_BUTCHERDOCUMENTKEY(wxID_ANY, ButcherViewEditor::OnDocumentKey)
     EVT_BUTCHERVIEWSELECT(wxID_ANY, ButcherViewEditor::OnBViewSelect)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 ButcherViewEditor::ButcherViewEditor(wxWindow* parent, wxWindowID id, const wxPoint& pos,
     const wxSize& size, long style,
@@ -41,7 +41,7 @@ ButcherViewEditor::ButcherViewEditor(wxWindow* parent, wxWindowID id, const wxPo
     lineshover_(NULL), areashover_(NULL), band_(-1, -1, -1, -1),
     areaview_(AV_AREA|AV_AREAGLOBAL|AV_AREAMAP)
 {
-    designer_->Connect(wxID_ANY, wxEVT_LEAVE_WINDOW, wxMouseEventHandler(ButcherViewEditor::OnDWindowLeave), NULL, this);
+    designer_->Bind(wxEVT_LEAVE_WINDOW, &ButcherViewEditor::OnDWindowLeave, this);
 
     RepositionView();
 }
@@ -52,9 +52,7 @@ ButcherViewEditor::ButcherViewEditor(wxWindow* parent, wxWindowID id, const wxPo
 ButcherViewEditor::~ButcherViewEditor()
 {
     if (project_) {
-        project_->Disconnect(wxID_ANY, wxEVT_BUTCHERPROJECT_ACTION,
-            ButcherProjectEventHandler(ButcherViewEditor::OnProjectEvent),
-            NULL, this);
+        project_->Unbind(wxEVT_BUTCHERPROJECT_ACTION, &ButcherViewEditor::OnProjectEvent, this);
         project_=NULL;
     }
     if (lineshover_)
@@ -78,7 +76,7 @@ void ButcherViewEditor::OnDWindowLeave(wxMouseEvent &event)
 
 void ButcherViewEditor::OnProjectEvent(ButcherProjectEvent& event)
 {
-    //wxMessageBox(wxT("Project event"), wxT("Event"), wxOK | wxICON_INFORMATION);
+    //wxMessageBox("Project event", "Event", wxOK | wxICON_INFORMATION);
 
     switch (event.GetEvent()) {
     case ButcherProjectEvent::BPE_FILEMODIFIED:
@@ -750,14 +748,10 @@ void ButcherViewEditor::SetProject(ButcherProject *project)
     if (project==project_) return;
 
     if (project_)
-        project_->Disconnect(wxID_ANY, wxEVT_BUTCHERPROJECT_ACTION,
-            ButcherProjectEventHandler(ButcherViewEditor::OnProjectEvent),
-            NULL, this);
+        project_->Unbind(wxEVT_BUTCHERPROJECT_ACTION, &ButcherViewEditor::OnProjectEvent, this);
     project_=project;
     if (project_!=NULL)
-        project_->Connect(wxID_ANY, wxEVT_BUTCHERPROJECT_ACTION,
-            ButcherProjectEventHandler(ButcherViewEditor::OnProjectEvent),
-            NULL, this);
+        project_->Bind(wxEVT_BUTCHERPROJECT_ACTION, &ButcherViewEditor::OnProjectEvent, this);
     ProjectChanged();
 }
 
@@ -1234,7 +1228,7 @@ void ButcherViewEditor::DoAfterDraw(ButcherDocumentDrawEvent& event)
         {
         case wxInRegion:
         case wxPartRegion:
-            event.GetDC()->SetClippingRegion(event.GetUpdateRegion());
+            event.GetDC()->SetDeviceClippingRegion(event.GetUpdateRegion());
             InternalDrawBand(*event.GetDC(), band_);
             event.GetDC()->DestroyClippingRegion();
             break;

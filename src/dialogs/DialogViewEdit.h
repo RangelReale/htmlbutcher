@@ -29,7 +29,7 @@ using namespace cppcomp;
  */
 class HTMLButcherViewEditDialog: public ButcherControl_Dialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherViewEditDialog( wxWindow* parent,
         wxWindowID id,

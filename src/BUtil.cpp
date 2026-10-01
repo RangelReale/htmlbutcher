@@ -28,15 +28,15 @@ void ButcherOptions::Load(wxConfigBase &config)
 {
     long rlong;
 
-    config.SetPath(wxT("/options"));
-    config.Read(wxT("editmode"), &rlong, EM_ADVANCED);
+    config.SetPath("/options");
+    config.Read("editmode", &rlong, EM_ADVANCED);
     editmode_=static_cast<editmode_t>(rlong);
 }
 
 void ButcherOptions::Save(wxConfigBase &config)
 {
-    config.SetPath(wxT("/options"));
-    config.Write(wxT("editmode"), static_cast<int>(editmode_));
+    config.SetPath("/options");
+    config.Write("editmode", static_cast<int>(editmode_));
 }
 
 ButcherOptions::editmode_t ButcherOptions::GetEditMode(ButcherOptions *options)

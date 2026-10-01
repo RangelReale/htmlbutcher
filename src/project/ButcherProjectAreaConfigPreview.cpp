@@ -58,7 +58,7 @@ ButcherImage *ButcherProjectAreaConfigPreview::GetPreview()
         {
             ButcherProjectBaseAutoProgress progress(this,
                 wxString::Format(_("Generating preview for %s, please wait..."),
-                    areaconfig_->GetArea()->GetDescription().c_str()));
+                    areaconfig_->GetArea()->GetDescription()));
             try
             {
                 std::unique_ptr<ButcherImage> simage(GetProject()->Views()[viewid_]->CreateAreaImage(areaconfig_->GetArea()));

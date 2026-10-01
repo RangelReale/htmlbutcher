@@ -747,6 +747,6 @@ bool ButcherMetadataFile::Rename(const wxString &newfilename)
 
 void ButcherMetadataFile::do_invalidfile(const wxString &message)
 {
-    throw ButcherException(wxString::Format(_("Invalid file: %s"), message.c_str()));
+    throw ButcherException(wxString::Format(_("Invalid file: %s"), message));
 }
 

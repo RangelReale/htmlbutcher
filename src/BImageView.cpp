@@ -24,7 +24,7 @@
 //      ButcherImageViewColorEvent
 /////////////////////////////////
 
-DEFINE_EVENT_TYPE( wxEVT_BUTCHERIMAGEVIEWCOLOR_ACTION )
+wxDEFINE_EVENT(wxEVT_BUTCHERIMAGEVIEWCOLOR_ACTION, ButcherImageViewColorEvent);
 
 ButcherImageViewColorEvent::ButcherImageViewColorEvent(const wxColor &color,
     select_t select, const wxPoint &pixel, int id, wxEventType commandType) :
@@ -45,7 +45,7 @@ wxEvent* ButcherImageViewColorEvent::Clone() const
 
 
 
-DEFINE_EVENT_TYPE( wxEVT_BUTCHERIMAGEVIEWAFTERPAINT_ACTION )
+wxDEFINE_EVENT(wxEVT_BUTCHERIMAGEVIEWAFTERPAINT_ACTION, ButcherImageViewDrawEvent);
 
 ButcherImageViewDrawEvent::ButcherImageViewDrawEvent(ButcherImageViewControl *control,
     wxDC *dc, const wxRegion &updateregion, int id, wxEventType commandType) :
@@ -67,9 +67,9 @@ wxEvent* ButcherImageViewDrawEvent::Clone() const
 //      ButcherImageViewControl
 /////////////////////////////////
 
-DEFINE_EVENT_TYPE( wxEVT_BUTCHERIMAGEVIEWMENU_ACTION )
+wxDEFINE_EVENT(wxEVT_BUTCHERIMAGEVIEWMENU_ACTION, wxCommandEvent);
 
-BEGIN_EVENT_TABLE(ButcherImageViewControl, wxControl)
+wxBEGIN_EVENT_TABLE(ButcherImageViewControl, wxControl)
     EVT_ERASE_BACKGROUND(ButcherImageViewControl::OnErase)
     EVT_PAINT(ButcherImageViewControl::OnPaint)
     EVT_LEFT_DOWN(ButcherImageViewControl::OnMouse)
@@ -77,7 +77,7 @@ BEGIN_EVENT_TABLE(ButcherImageViewControl, wxControl)
     EVT_RIGHT_DOWN(ButcherImageViewControl::OnMouse)
     EVT_MOTION(ButcherImageViewControl::OnMouse)
 	EVT_CHILD_FOCUS(ButcherImageViewControl::OnChildFocus)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 ButcherImageViewControl::ButcherImageViewControl(wxWindow* parent, wxWindowID id,
     const wxPoint& pos, const wxSize& size,
@@ -309,13 +309,13 @@ void ButcherImageViewControl::SetSelectColor(bool s)
 //      ButcherImageView
 /////////////////////////////////
 
-DEFINE_EVENT_TYPE( wxEVT_BUTCHERIMAGEVIEWSAVEFILE_ACTION )
+wxDEFINE_EVENT(wxEVT_BUTCHERIMAGEVIEWSAVEFILE_ACTION, wxCommandEvent);
 
-BEGIN_EVENT_TABLE(ButcherImageView, wxControl)
+wxBEGIN_EVENT_TABLE(ButcherImageView, wxControl)
     EVT_SIZE(ButcherImageView::OnSize)
     EVT_BUTCHERIMAGEVIEW_MENU(wxID_ANY, ButcherImageView::OnViewMenu)
     EVT_RIGHT_DOWN(ButcherImageView::OnMouseRight)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 
 
@@ -343,7 +343,7 @@ void ButcherImageView::FullsizeChanged()
             scr_=new wxScrolledWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxBORDER_NONE);
             scr_->SetScrollRate(10, 10);
             scr_->SetBackgroundColour(GetBackgroundColour());
-            scr_->Connect(wxID_ANY, wxEVT_RIGHT_DOWN, wxMouseEventHandler(ButcherImageView::OnMouseRight), NULL, this);
+            scr_->Bind(wxEVT_RIGHT_DOWN, &ButcherImageView::OnMouseRight, this);
         }
         view_->Reparent(scr_);
         view_->SetFit(false);

@@ -22,7 +22,7 @@
 
 class HTMLButcherAdjustSizeDialog: public ButcherControl_Dialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherAdjustSizeDialog( wxWindow* parent,
         wxWindowID id,

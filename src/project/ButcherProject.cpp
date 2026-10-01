@@ -148,7 +148,7 @@ void ButcherProject::Save(bool force)
 
     // save to temporary file first
     wxFileName tempfile;
-    tempfile.AssignTempFileName(wxT("HBP"));
+    tempfile.AssignTempFileName("HBP");
     if (!tempfile.IsOk())
         throw ButcherException(_("Could not create temporary save file"));
 
@@ -168,11 +168,11 @@ void ButcherProject::Save(bool force)
         {
 #ifdef HTMLBUTCHER_KEEPOLDSAVE
             curtmpfn.Assign(filename_);
-            curtmpfn.SetName(wxString::Format(wxT("%s-%s"),
-                curtmpfn.GetName().c_str(),
-                wxDateTime::Now().Format(wxT("%Y%m%d_%H%M%S")).c_str()));
+            curtmpfn.SetName(wxString::Format("%s-%s",
+                curtmpfn.GetName(),
+                wxDateTime::Now().Format("%Y%m%d_%H%M%S")));
 #else //HTMLBUTCHER_KEEPOLDSAVE
-            curtmpfn.AssignTempFileName(wxT("SHBP"));
+            curtmpfn.AssignTempFileName("SHBP");
 #endif //HTMLBUTCHER_KEEPOLDSAVE
             if (!projectfile_)
             {

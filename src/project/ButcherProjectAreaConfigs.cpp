@@ -182,19 +182,19 @@ BLID_t ButcherProjectAreaConfigs::Add(ButcherMetadataData *metadata)
 	{
 		if (mdadd->GetBLId()>1) {
 			BLID_t newid=0;
-			wxLogDebug(wxT("Area configs = mask %d area %d config %d (%s)"),
+			wxLogDebug("Area configs = mask %d area %d config %d (%s)",
 				area_->GetMaskRoot()->GetBLId(), area_->GetBLId(), mdadd->GetBLId(),
-				area_->GetFullDescription().c_str());
+				area_->GetFullDescription());
 
 
 			for (ButcherProjectViews::iterator i=GetProject()->Views().begin(); i!=GetProject()->Views().end(); i++)
 			{
-				//wxLogDebug(wxT("** View %d mask %d config %d"), *i, GetProject()->Views()[*i]->GetMaskId(), GetProject()->Views()[*i]->GetMaskConfigId());
+				//wxLogDebug("** View %d mask %d config %d", *i, GetProject()->Views()[*i]->GetMaskId(), GetProject()->Views()[*i]->GetMaskConfigId());
 
 				if (i->GetMaskId()==area_->GetMaskRoot()->GetBLId() &&
 					i->GetCOMPATMaskConfigId()==mdadd->GetBLId())
 				{
-					wxLogDebug(wxT("-- Area config view [mask %d area %d config %d] = %d"), area_->GetMaskRoot()->GetBLId(), area_->GetBLId(), mdadd->GetBLId(), i.first());
+					wxLogDebug("-- Area config view [mask %d area %d config %d] = %d", area_->GetMaskRoot()->GetBLId(), area_->GetBLId(), mdadd->GetBLId(), i.first());
 					newid=i.first();
 				}
 			}

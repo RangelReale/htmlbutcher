@@ -47,7 +47,7 @@
     #include "../resources/htmlbutcher.xpm"
 #endif
 
-IMPLEMENT_APP(HTMLButcherApp);
+wxIMPLEMENT_APP(HTMLButcherApp);
 
 
 
@@ -56,31 +56,31 @@ bool HTMLButcherApp::OnInit()
 	if (!wxApp::OnInit()) return false;
 
 #if defined(__WXMSW__) || !defined(HTMLBUTCHER_DEMO)
-	SetAppName(wxT("HTMLButcher"));
+	SetAppName("HTMLButcher");
 #else
-	SetAppName(wxT("HTMLButcher-Demo"));
+	SetAppName("HTMLButcher-Demo");
 #endif
 
 #ifdef HTMLBUTCHER_DEBUG
 	wxFileName kf(wxStandardPaths::Get().GetExecutablePath());
-	kf.SetFullName(wxT("default.po"));
-	kf.AppendDir(wxT(".."));
-	kf.AppendDir(wxT(".."));
-	kf.AppendDir(wxT("locale"));
+	kf.SetFullName("default.po");
+	kf.AppendDir("..");
+	kf.AppendDir("..");
+	kf.AppendDir("locale");
 	kf.Normalize();
 
 	locale_.AddCatalogLookupPathPrefix(kf.GetPath());
 #endif
-	locale_.AddCatalogLookupPathPrefix(wxStandardPaths::Get().GetDataDir() + wxT("/share/locale"));
+	locale_.AddCatalogLookupPathPrefix(wxStandardPaths::Get().GetDataDir() + "/share/locale");
 
 
 	locale_.Init(GetUILanguage());
 		
-	locale_.AddCatalog(wxT("htmlbutcher"));
+	locale_.AddCatalog("htmlbutcher");
 
 #ifdef __WXGTK__
     wxFileName::Mkdir(wxStandardPaths::Get().GetUserDataDir(), 0777, wxPATH_MKDIR_FULL); // must create dir for wxConfig
-    wxConfig::Set(new wxFileConfig(wxString::Format(wxT("%s/config"), wxTheApp->GetAppName().c_str())));
+    wxConfig::Set(new wxFileConfig(wxString::Format("%s/config", wxTheApp->GetAppName())));
 #endif
 
 
@@ -103,37 +103,37 @@ bool HTMLButcherApp::OnInit()
     provider->SetHelpController(&help_);
 #ifdef __WXMSW__
 	wxFileName fn(wxStandardPaths::Get().GetExecutablePath());
-	fn.SetFullName(wxT("htmlbutcher.chm"));
+	fn.SetFullName("htmlbutcher.chm");
 #else
 #ifdef HTMLBUTCHER_DEBUG
 	wxFileName fn(wxStandardPaths::Get().GetExecutablePath());
-	fn.SetFullName(wxT("htmlbutcher.htb"));
+	fn.SetFullName("htmlbutcher.htb");
 #else
 	wxFileName fn(wxStandardPaths::Get().GetResourcesDir().Lower(), wxEmptyString);
-	fn.SetFullName(wxT("htmlbutcher.htb"));
+	fn.SetFullName("htmlbutcher.htb");
     if (!fn.FileExists())
     {
-        fn.AssignDir(wxString::Format(wxT("/usr/share/%s"), wxTheApp->GetAppName().Lower().c_str()));
-        fn.SetFullName(wxT("htmlbutcher.htb"));
+        fn.AssignDir(wxString::Format("/usr/share/%s", wxTheApp->GetAppName().Lower()));
+        fn.SetFullName("htmlbutcher.htb");
     }
 
 #endif
 #endif
 	if (!help_.Initialize(fn.GetFullPath()))
 	{
-        wxLogError(wxT("Cannot initialize the help system, aborting."));
+        wxLogError("Cannot initialize the help system, aborting.");
         return false;
 	}
 #endif
 
 
 	// main frame
-	HTMLButcherFrame* frame = new HTMLButcherFrame(0L, wxT("HTMLButcher"));
+	HTMLButcherFrame* frame = new HTMLButcherFrame(0L, "HTMLButcher");
 
 	// splash screen
     {
         wxLogNull logNo;
-        wxBitmap rbitmap(wxXmlResource::Get()->LoadBitmap(wxT("b_splash")));
+        wxBitmap rbitmap(wxXmlResource::Get()->LoadBitmap("b_splash"));
 
         wxImage simage(rbitmap.ConvertToImage());
         simage.ConvertAlphaToMask();
@@ -141,7 +141,7 @@ bool HTMLButcherApp::OnInit()
         HTMLButcherSplashScreen *splash = new HTMLButcherSplashScreen(bitmap,
                 wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_TIMEOUT,
                 4000, frame, -1, wxDefaultPosition, wxDefaultSize,
-                wxNO_BORDER|wxFRAME_NO_TASKBAR|wxSTAY_ON_TOP|wxSPLASH_CENTRE_ON_SCREEN|wxFRAME_SHAPED);
+                wxBORDER_NONE|wxFRAME_NO_TASKBAR|wxSTAY_ON_TOP|wxSPLASH_CENTRE_ON_SCREEN|wxFRAME_SHAPED);
         splash->Update();
     }
 
@@ -181,7 +181,7 @@ int HTMLButcherApp::OnExit()
 void HTMLButcherApp::OnFatalException()
 {
     wxMessageBox(_("Fatal error - please restart the application"),
-                 wxT("HTMLButcher"), wxOK | wxICON_ERROR);
+                 "HTMLButcher", wxOK | wxICON_ERROR);
 
 }
 
@@ -195,22 +195,22 @@ bool HTMLButcherApp::OnExceptionInMainLoop()
     catch ( ButcherException& e )
     {
         wxMessageBox(e.what(),
-                     wxT("HTMLButcher"), wxOK | wxICON_ERROR);
+                     "HTMLButcher", wxOK | wxICON_ERROR);
     }
     catch ( wxFreeImageException& e )
     {
         wxMessageBox(e.what(),
-                     wxT("HTMLButcher*"), wxOK | wxICON_ERROR);
+                     "HTMLButcher*", wxOK | wxICON_ERROR);
     }
     catch ( std::runtime_error& e )
     {
         wxMessageBox(wxString(e.what(), wxConvUTF8),
-                     wxT("HTMLButcher"), wxOK | wxICON_ERROR);
+                     "HTMLButcher", wxOK | wxICON_ERROR);
     }
     catch ( ... )
     {
         wxMessageBox(_("Unhandled exception caught, program will terminate."),
-                     wxT("HTMLButcher"), wxOK | wxICON_ERROR);
+                     "HTMLButcher", wxOK | wxICON_ERROR);
     }
     return true;
 }
@@ -228,22 +228,22 @@ void HTMLButcherApp::OnUnhandledException()
     catch ( ButcherException& e )
     {
         wxMessageBox(e.what(),
-                     wxT("HTMLButcher"), wxOK | wxICON_ERROR);
+                     "HTMLButcher", wxOK | wxICON_ERROR);
     }
     catch ( wxFreeImageException& e )
     {
         wxMessageBox(e.what(),
-                     wxT("HTMLButcher"), wxOK | wxICON_ERROR);
+                     "HTMLButcher", wxOK | wxICON_ERROR);
     }
     catch ( std::runtime_error& e )
     {
         wxMessageBox(wxString(e.what(), wxConvUTF8),
-                     wxT("HTMLButcher"), wxOK | wxICON_ERROR);
+                     "HTMLButcher", wxOK | wxICON_ERROR);
     }
     catch ( ... )
     {
         wxMessageBox(_("Unhandled exception caught, program will terminate."),
-                     wxT("HTMLButcher"), wxOK | wxICON_ERROR);
+                     "HTMLButcher", wxOK | wxICON_ERROR);
     }
 
 }
@@ -256,22 +256,22 @@ int HTMLButcherApp::OnRun()
     catch ( ButcherException& e )
     {
         wxMessageBox(e.what(),
-                     wxT("HTMLButcher"), wxOK | wxICON_ERROR);
+                     "HTMLButcher", wxOK | wxICON_ERROR);
     }
     catch ( wxFreeImageException& e )
     {
         wxMessageBox(e.what(),
-                     wxT("HTMLButcher"), wxOK | wxICON_ERROR);
+                     "HTMLButcher", wxOK | wxICON_ERROR);
     }
     catch ( std::runtime_error& e )
     {
         wxMessageBox(wxString(e.what(), wxConvUTF8),
-                     wxT("HTMLButcher"), wxOK | wxICON_ERROR);
+                     "HTMLButcher", wxOK | wxICON_ERROR);
     }
     catch ( ... )
     {
         wxMessageBox(_("Unhandled exception caught, program will terminate."),
-                     wxT("HTMLButcher"), wxOK | wxICON_ERROR);
+                     "HTMLButcher", wxOK | wxICON_ERROR);
     }
 
     return 0;
@@ -288,22 +288,22 @@ void HTMLButcherApp::HandleEvent(wxEvtHandler *handler,
     catch ( ButcherException& e )
     {
         wxMessageBox(e.what(),
-                     wxT("HTMLButcher"), wxOK | wxICON_ERROR);
+                     "HTMLButcher", wxOK | wxICON_ERROR);
     }
     catch ( wxFreeImageException& e )
     {
         wxMessageBox(e.what(),
-                     wxT("HTMLButcher"), wxOK | wxICON_ERROR);
+                     "HTMLButcher", wxOK | wxICON_ERROR);
     }
     catch ( std::runtime_error& e )
     {
         wxMessageBox(wxString(e.what(), wxConvUTF8),
-                     wxT("HTMLButcher"), wxOK | wxICON_ERROR);
+                     "HTMLButcher", wxOK | wxICON_ERROR);
     }
     catch ( ... )
     {
         wxMessageBox(_("Unhandled exception caught, program will terminate."),
-                     wxT("HTMLButcher"), wxOK | wxICON_ERROR);
+                     "HTMLButcher", wxOK | wxICON_ERROR);
     }
 }
 #endif
@@ -326,7 +326,7 @@ void HTMLButcherApp::OnInitCmdLine(wxCmdLineParser& parser)
 {
     parser.SetDesc (g_cmdLineDesc);
     // must refuse '/' as parameter starter or cannot use "/path" style paths
-    parser.SetSwitchChars (wxT("-"));
+    parser.SetSwitchChars ("-");
 }
 
 
@@ -334,8 +334,8 @@ void HTMLButcherApp::OnInitCmdLine(wxCmdLineParser& parser)
 
 bool HTMLButcherApp::OnCmdLineParsed(wxCmdLineParser& parser)
 {
-    //silent_mode = parser.Found(wxT("s"));
-	if (!parser.Found(wxT("l"), &licfile_))
+    //silent_mode = parser.Found("s");
+	if (!parser.Found("l", &licfile_))
 		licfile_.clear();
 
     // open file name

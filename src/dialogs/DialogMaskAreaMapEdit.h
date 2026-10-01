@@ -21,7 +21,7 @@
 
 class HTMLButcherMaskAreaMapEditDialog: public ButcherControl_Dialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherMaskAreaMapEditDialog( wxWindow* parent,
         wxWindowID id,

@@ -27,8 +27,8 @@
 
 
 
-BEGIN_EVENT_TABLE(HTMLButcherMaskAreaMapEditDialog, ButcherControl_Dialog)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(HTMLButcherMaskAreaMapEditDialog, ButcherControl_Dialog)
+wxEND_EVENT_TABLE()
 
 
 
@@ -62,7 +62,7 @@ void HTMLButcherMaskAreaMapEditDialog::Init()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-area.html"));
+	SetHelpSection("dialog-area.html");
 #endif
 
 	imageurl_=wxEmptyString;

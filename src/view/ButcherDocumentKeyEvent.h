@@ -20,7 +20,8 @@ class ButcherView;
  *
  * @brief document keyboard event
  */
-DECLARE_EVENT_TYPE( wxEVT_BUTCHERDOCUMENTKEY_ACTION, -1 )
+class ButcherDocumentKeyEvent;
+wxDECLARE_EVENT(wxEVT_BUTCHERDOCUMENTKEY_ACTION, ButcherDocumentKeyEvent);
 
 class ButcherDocumentKeyEvent : public wxKeyEvent
 {
@@ -40,12 +41,9 @@ private:
 typedef void (wxEvtHandler::*ButcherDocumentKeyEventFunction)(ButcherDocumentKeyEvent&);
 
 #define ButcherDocumentKeyEventHandler(func) \
-	(wxObjectEventFunction)(wxEventFunction) \
-	wxStaticCastEvent(ButcherDocumentKeyEventFunction, &func)
+	wxEVENT_HANDLER_CAST(ButcherDocumentKeyEventFunction, func)
 
 #define EVT_BUTCHERDOCUMENTKEY(id, fn) \
-    DECLARE_EVENT_TABLE_ENTRY( wxEVT_BUTCHERDOCUMENTKEY_ACTION, id, -1, \
-    (wxObjectEventFunction) (wxEventFunction) \
-    wxStaticCastEvent( ButcherDocumentKeyEventFunction, & fn ), (wxObject *) NULL ),
+    wx__DECLARE_EVT1(wxEVT_BUTCHERDOCUMENTKEY_ACTION, id, ButcherDocumentKeyEventHandler(fn))
 
 #endif // __BVIEW_BUTCHERDOCUMENTKEYEVENT_H__

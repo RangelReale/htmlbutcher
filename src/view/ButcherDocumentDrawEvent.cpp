@@ -19,7 +19,7 @@
 //      ButcherDocumentDrawEvent
 /////////////////////////////////
 
-DEFINE_EVENT_TYPE( wxEVT_BUTCHERDOCUMENTDRAW_ACTION )
+wxDEFINE_EVENT(wxEVT_BUTCHERDOCUMENTDRAW_ACTION, ButcherDocumentDrawEvent);
 
 ButcherDocumentDrawEvent::ButcherDocumentDrawEvent(ButcherDocument *document,
     wxDC *dc, const wxRegion &updateregion, int id, wxEventType commandType) :

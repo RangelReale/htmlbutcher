@@ -31,7 +31,7 @@ ButcherProjectColorScheme::ButcherProjectColorScheme(ButcherProject *project, co
 
 
 ButcherProjectColorScheme::ButcherProjectColorScheme(ButcherProject *project) :
-    ButcherProjectBaseBLId(project), cscheme_(), name_(wxT("_TEMP_"))
+    ButcherProjectBaseBLId(project), cscheme_(), name_("_TEMP_")
 {
     Initialize();
 }
@@ -44,9 +44,9 @@ void ButcherProjectColorScheme::Initialize()
     ButcherProjectBaseAutoDisable autodis(this);
 
     SetColor(BCOLOR_AREABORDER, *wxGREEN);
-    SetColor(BCOLOR_AREAGLOBALBORDER, wxTheColourDatabase->Find(wxT("YELLOW")));
-    //SetColor(BCOLOR_AREAMAPBORDER, wxTheColourDatabase->Find(wxT("GREEN YELLOW")));
-    SetColor(BCOLOR_AREAMAPBORDER, wxTheColourDatabase->Find(wxT("BROWN")));
+    SetColor(BCOLOR_AREAGLOBALBORDER, wxTheColourDatabase->Find("YELLOW"));
+    //SetColor(BCOLOR_AREAMAPBORDER, wxTheColourDatabase->Find("GREEN YELLOW"));
+    SetColor(BCOLOR_AREAMAPBORDER, wxTheColourDatabase->Find("BROWN"));
     SetColor(BCOLOR_AREABORDERSELECTED, *wxBLUE);
     SetColor(BCOLOR_AREABORDERHOVER, *wxRED);
     SetColor(BCOLOR_AREATEXT, *wxBLACK);
@@ -74,7 +74,7 @@ wxColour ButcherProjectColorScheme::GetColor(unsigned int colorid)
 
 
 
-wxPen *ButcherProjectColorScheme::GetPen(unsigned int colorid, int width, int style)
+wxPen *ButcherProjectColorScheme::GetPen(unsigned int colorid, int width, wxPenStyle style)
 {
     return wxThePenList->FindOrCreatePen(GetColor(colorid), width, style);
 }
@@ -89,12 +89,12 @@ wxPen *ButcherProjectColorScheme::GetSelectionPen(unsigned int colorid, int widt
     switch (selectionpen)
     {
     case SP_HIDDEN:
-        ret=wxThePenList->FindOrCreatePen(GetColor(colorid), width, wxUSER_DASH);
+        ret=wxThePenList->FindOrCreatePen(GetColor(colorid), width, wxPENSTYLE_USER_DASH);
         ret->SetDashes(ButcherProjectHiddenDashCount, ButcherProjectHiddenDash);
 		//ret=const_cast<wxPen*>(wxTRANSPARENT_PEN);
         break;
     default:
-        ret=wxThePenList->FindOrCreatePen(GetColor(colorid), width, /*wxUSER_DASH*/wxSOLID);
+        ret=wxThePenList->FindOrCreatePen(GetColor(colorid), width, /*wxPENSTYLE_USER_DASH*/wxPENSTYLE_SOLID);
         ret->SetDashes(ButcherProjectSelectionDashCount, ButcherProjectSelectionDash);
         break;
     }
@@ -103,7 +103,7 @@ wxPen *ButcherProjectColorScheme::GetSelectionPen(unsigned int colorid, int widt
 
 
 
-wxBrush *ButcherProjectColorScheme::GetBrush(unsigned int colorid, int style)
+wxBrush *ButcherProjectColorScheme::GetBrush(unsigned int colorid, wxBrushStyle style)
 {
     return wxTheBrushList->FindOrCreateBrush(GetColor(colorid), style);
 }

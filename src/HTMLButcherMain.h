@@ -284,7 +284,7 @@ private:
 #endif
     ButcherOptions options_;
 
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 };
 
 

@@ -32,7 +32,7 @@ using namespace cppcomp;
  */
 class HTMLButcherImageFormatListEditDialog: public HTMLButcherListEditDialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherImageFormatListEditDialog( wxWindow* parent,
         wxWindowID id,
@@ -79,7 +79,7 @@ private:
  */
 class HTMLButcherImageFormatEditDialog: public ButcherControl_Dialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherImageFormatEditDialog( wxWindow* parent,
         wxWindowID id,

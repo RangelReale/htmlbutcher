@@ -9,7 +9,7 @@ wxPopupMenu::wxPopupMenu(const wxString& title, long style) :
 
 bool wxPopupMenu::ProcessEvent(wxEvent& event)
 {
-    if (event.GetEventType() == wxEVT_COMMAND_MENU_SELECTED)
+    if (event.GetEventType() == wxEVT_MENU)
     {
         selectedid_=event.GetId();
         return true;

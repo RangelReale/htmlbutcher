@@ -9,9 +9,9 @@ static void SaveUILanguage(wxLanguage lang)
     if (lang == wxLANGUAGE_UNKNOWN)
         return;
     if (lang == wxLANGUAGE_DEFAULT)
-        wxConfig::Get()->Write(_T("ui_language"), _T("default"));
+        wxConfig::Get()->Write("ui_language", "default");
     else
-        wxConfig::Get()->Write(_T("ui_language"),
+        wxConfig::Get()->Write("ui_language",
                                wxLocale::GetLanguageInfo(lang)->CanonicalName);
 }
 #endif // NEED_CHOOSELANG_UI
@@ -25,7 +25,7 @@ wxLanguage GetUILanguage()
     return wxLANGUAGE_ENGLISH_US;
 #else
     wxLanguage lang(wxLANGUAGE_DEFAULT);
-    wxString lng = wxConfig::Get()->Read(_T("ui_language"));
+    wxString lng = wxConfig::Get()->Read("ui_language");
     if (lng.empty())
     {
         lang = ChooseLanguage();
@@ -34,13 +34,13 @@ wxLanguage GetUILanguage()
         else
             lang = wxLANGUAGE_DEFAULT;
     }
-    else if (lng != _T("default"))
+    else if (lng != "default")
     {
         const wxLanguageInfo *info = wxLocale::FindLanguageInfo(lng);
         if (info != NULL)
             lang = (wxLanguage)info->Language;
         else
-            wxLogError(_("Uknown locale code '%s' in registry."), lng.c_str());
+            wxLogError(_("Uknown locale code '%s' in registry."), lng);
     }
     return lang;
 #endif // NEED_CHOOSELANG_UI
@@ -64,7 +64,7 @@ wxLanguage ChooseLanguage()
 #ifdef HTMLBUTCHER_DEBUG
 		{ _("Japanese"), wxLANGUAGE_JAPANESE },
 #endif
-        { _T(""), wxLANGUAGE_UNKNOWN }
+        { "", wxLANGUAGE_UNKNOWN }
     };
 
     wxArrayString arr;
@@ -88,7 +88,7 @@ void ChangeUILanguage()
         return;
     SaveUILanguage(lang);
     wxMessageBox(_("You must restart HTMLButcher for this change to take effect."),
-                 wxT("HTMLButcher"),
+                 "HTMLButcher",
                  wxOK | wxCENTRE | wxICON_INFORMATION);
 }
 

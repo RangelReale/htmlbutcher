@@ -40,9 +40,9 @@ using namespace cppcomp;
 // CLASS
 //      HTMLButcherImageFormatListEditDialog
 /////////////////////////////////
-BEGIN_EVENT_TABLE(HTMLButcherImageFormatListEditDialog, HTMLButcherListEditDialog)
+wxBEGIN_EVENT_TABLE(HTMLButcherImageFormatListEditDialog, HTMLButcherListEditDialog)
     EVT_CHECKBOX(ID_AUTOUPDATE, HTMLButcherImageFormatListEditDialog::OnAutoUpdate)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 HTMLButcherImageFormatListEditDialog::~HTMLButcherImageFormatListEditDialog()
 {
@@ -84,7 +84,7 @@ void HTMLButcherImageFormatListEditDialog::do_load()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-imageformats.html"));
+	SetHelpSection("dialog-imageformats.html");
 #endif
 
 	for (ButcherProjectImageFormats::iterator i=GetProject()->ImageFormats().begin(); 
@@ -207,9 +207,9 @@ void HTMLButcherImageFormatListEditDialog::UpdatePreview(BLID_t id)
             previewformat_=preview_->Save(GetProject()->ImageFormats().Get(id)->GetFormat(),
                 GetProject()->ImageFormats().Get(id)->GetFlags());
             previewlabel_->SetLabel(wxString::Format(_("Preview (%s - size %s [%s bytes]):"),
-                GetProject()->ImageFormats().Get(id)->GetName().c_str(),
-                    wxFileName::GetHumanReadableSize(previewformat_->GetFileSize(), wxT("0")).c_str(),
-                    wxString(ccustring_numberformat(previewformat_->GetFileSize(), NF_THOUSANDS).c_str(), wxConvUTF8).c_str()));
+                GetProject()->ImageFormats().Get(id)->GetName(),
+                    wxFileName::GetHumanReadableSize(previewformat_->GetFileSize(), "0"),
+                    wxString(ccustring_numberformat(previewformat_->GetFileSize(), NF_THOUSANDS).c_str(), wxConvUTF8)));
 
             previewctrl_->SetImage(previewformat_, false);
         }
@@ -237,12 +237,12 @@ void HTMLButcherImageFormatListEditDialog::OnAutoUpdate(wxCommandEvent &event)
 //      HTMLButcherImageFormatEditDialog
 /////////////////////////////////
 
-BEGIN_EVENT_TABLE(HTMLButcherImageFormatEditDialog, ButcherControl_Dialog)
+wxBEGIN_EVENT_TABLE(HTMLButcherImageFormatEditDialog, ButcherControl_Dialog)
     EVT_CHECKBOX(ID_AUTOUPDATE, HTMLButcherImageFormatEditDialog::OnAutoUpdate)
     EVT_COMBOBOX(ID_FORMAT, HTMLButcherImageFormatEditDialog::OnFormatChange)
 
     EVT_COMBOBOX(ID_FORMAT, HTMLButcherImageFormatEditDialog::OnCtrlChanged)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 HTMLButcherImageFormatEditDialog::HTMLButcherImageFormatEditDialog( wxWindow* parent,
     wxWindowID id,
@@ -275,18 +275,18 @@ void HTMLButcherImageFormatEditDialog::Init()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-imageformats.html"));
+	SetHelpSection("dialog-imageformats.html");
 #endif
 
 	format_=ButcherImage::FMT_JPG;
     flags_=ButcherImage::JPG_QUAL_75;
 
-    imageformatimap_.Add(ButcherImage::FMT_JPG, wxT("JPEG"));
-    imageformatimap_.Add(ButcherImage::FMT_GIF, wxT("GIF"));
-    imageformatimap_.Add(ButcherImage::FMT_PNG, wxT("PNG"));
-	imageformatimap_.Add(ButcherImage::FMT_BMP, wxT("BMP"));
-	imageformatimap_.Add(ButcherImage::FMT_TIFF, wxT("TIFF"));
-	imageformatimap_.Add(ButcherImage::FMT_XPM, wxT("XPM"));
+    imageformatimap_.Add(ButcherImage::FMT_JPG, "JPEG");
+    imageformatimap_.Add(ButcherImage::FMT_GIF, "GIF");
+    imageformatimap_.Add(ButcherImage::FMT_PNG, "PNG");
+	imageformatimap_.Add(ButcherImage::FMT_BMP, "BMP");
+	imageformatimap_.Add(ButcherImage::FMT_TIFF, "TIFF");
+	imageformatimap_.Add(ButcherImage::FMT_XPM, "XPM");
 
     jpegcompressionimap_.Add(ButcherImage::GEN_NOFLAG, _("Use default compression"));
     jpegcompressionimap_.Add(ButcherImage::JPG_QUAL_100, _("Maximum (100%)"));
@@ -566,8 +566,8 @@ void HTMLButcherImageFormatEditDialog::UpdatePreview()
             }
             previewformat_=preview_->Save(DialogFormat(), DialogFlags());
             previewlabel_->SetLabel(wxString::Format(_("Preview (size %s [%s bytes]):"),
-                wxFileName::GetHumanReadableSize(previewformat_->GetFileSize(), wxT("0")).c_str(),
-                wxString(ccustring_numberformat(previewformat_->GetFileSize(), NF_THOUSANDS).c_str(), wxConvUTF8).c_str()));
+                wxFileName::GetHumanReadableSize(previewformat_->GetFileSize(), "0"),
+                wxString(ccustring_numberformat(previewformat_->GetFileSize(), NF_THOUSANDS).c_str(), wxConvUTF8)));
 
             previewctrl_->SetImage(previewformat_, false);
         }

@@ -24,7 +24,7 @@
 
 
 
-BEGIN_EVENT_TABLE(HTMLButcherAdjustSizeDialog, ButcherControl_Dialog)
+wxBEGIN_EVENT_TABLE(HTMLButcherAdjustSizeDialog, ButcherControl_Dialog)
     EVT_SPINCTRL(ID_LEFT, HTMLButcherAdjustSizeDialog::OnChangeLeft)
     EVT_SPINCTRL(ID_TOP, HTMLButcherAdjustSizeDialog::OnChangeTop)
     EVT_SPINCTRL(ID_RIGHT, HTMLButcherAdjustSizeDialog::OnChangeRight)
@@ -34,7 +34,7 @@ BEGIN_EVENT_TABLE(HTMLButcherAdjustSizeDialog, ButcherControl_Dialog)
     EVT_SPINCTRL(ID_WIDTH, HTMLButcherAdjustSizeDialog::OnChangeWidth)
     EVT_SPINCTRL(ID_HEIGHT, HTMLButcherAdjustSizeDialog::OnChangeHeight)
     EVT_BUTTON(ID_REVERT, HTMLButcherAdjustSizeDialog::OnRevert)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 
 
@@ -59,7 +59,7 @@ void HTMLButcherAdjustSizeDialog::Init()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-positionandsize.html"));
+	SetHelpSection("dialog-positionandsize.html");
 #endif
 }
 
@@ -88,7 +88,7 @@ void HTMLButcherAdjustSizeDialog::CreateControls()
     previewctrl_ = new ButcherImageView(this, wxID_ANY, wxDefaultPosition, wxSize(300, 300));
     previewctrl_->SetFullSize(true);
     previewctrl_->SetMargin(10);
-    previewctrl_->SetBGColor(wxTheColourDatabase->Find(wxT("MEDIUM VIOLET RED")));
+    previewctrl_->SetBGColor(wxTheColourDatabase->Find("MEDIUM VIOLET RED"));
 
     previewsizer->Add(previewctrl_, 1, wxEXPAND|wxALL, 3);
 
@@ -122,7 +122,7 @@ void HTMLButcherAdjustSizeDialog::CreateControls()
         wxSP_ARROW_KEYS, 0, 10000, 0);
     positionsizer->Add(mtopctrl, 0, wxALIGN_CENTER_VERTICAL|wxALL, 3);
 
-    wxStaticText *ltopctrl = new wxStaticText(this, ID_TOPGLOBAL, wxT("(00000)"));
+    wxStaticText *ltopctrl = new wxStaticText(this, ID_TOPGLOBAL, "(00000)");
     positionsizer->Add(ltopctrl, 0, wxALIGN_CENTER_VERTICAL|wxALL, 3);
 
     positionsizer->AddSpacer(0);
@@ -137,7 +137,7 @@ void HTMLButcherAdjustSizeDialog::CreateControls()
         wxSP_ARROW_KEYS, 0, 10000, 0);
     positionsizer->Add(mleftctrl, 0, wxALIGN_CENTER_VERTICAL|wxALL, 3);
 
-    wxStaticText *lleftctrl = new wxStaticText(this, ID_LEFTGLOBAL, wxT("(00000)"));
+    wxStaticText *lleftctrl = new wxStaticText(this, ID_LEFTGLOBAL, "(00000)");
     positionsizer->Add(lleftctrl, 0, wxALIGN_CENTER_VERTICAL|wxALL, 3);
 
     //positionsizer->AddSpacer(0);
@@ -151,7 +151,7 @@ void HTMLButcherAdjustSizeDialog::CreateControls()
         wxSP_ARROW_KEYS, 0, 10000, 0);
     positionsizer->Add(mrightctrl, 0, wxALIGN_CENTER_VERTICAL|wxALL, 3);
 
-    wxStaticText *lrightctrl = new wxStaticText(this, ID_RIGHTGLOBAL, wxT("(00000)"));
+    wxStaticText *lrightctrl = new wxStaticText(this, ID_RIGHTGLOBAL, "(00000)");
     positionsizer->Add(lrightctrl, 0, wxALIGN_CENTER_VERTICAL|wxALL, 3);
 
     // bottom
@@ -166,7 +166,7 @@ void HTMLButcherAdjustSizeDialog::CreateControls()
         wxSP_ARROW_KEYS, 0, 10000, 0);
     positionsizer->Add(mbottomctrl, 0, wxALIGN_CENTER_VERTICAL|wxALL, 3);
 
-    wxStaticText *lbottomctrl = new wxStaticText(this, ID_BOTTOMGLOBAL, wxT("(00000)"));
+    wxStaticText *lbottomctrl = new wxStaticText(this, ID_BOTTOMGLOBAL, "(00000)");
     positionsizer->Add(lbottomctrl, 0, wxALIGN_CENTER_VERTICAL|wxALL, 3);
 
     positionsizer->AddSpacer(0);
@@ -333,10 +333,10 @@ void HTMLButcherAdjustSizeDialog::UpdateDisplay(bool isfirst)
     if (mheightctrl->GetValue() != area_->GetHeight())
         mheightctrl->SetValue(area_->GetHeight());
 
-    lleftctrl->SetLabel(wxString::Format(wxT("(%d)"), area_->GetLeft()->GetGlobalPosition()));
-    ltopctrl->SetLabel(wxString::Format(wxT("(%d)"), area_->GetTop()->GetGlobalPosition()));
-    lrightctrl->SetLabel(wxString::Format(wxT("(%d)"), area_->GetRight()->GetGlobalPosition()-1));
-    lbottomctrl->SetLabel(wxString::Format(wxT("(%d)"), area_->GetBottom()->GetGlobalPosition()-1));
+    lleftctrl->SetLabel(wxString::Format("(%d)", area_->GetLeft()->GetGlobalPosition()));
+    ltopctrl->SetLabel(wxString::Format("(%d)", area_->GetTop()->GetGlobalPosition()));
+    lrightctrl->SetLabel(wxString::Format("(%d)", area_->GetRight()->GetGlobalPosition()-1));
+    lbottomctrl->SetLabel(wxString::Format("(%d)", area_->GetBottom()->GetGlobalPosition()-1));
 
     SetSpinRange(area_->GetLeft(), mleftctrl, false);
     SetSpinRange(area_->GetTop(), mtopctrl, false);
@@ -494,7 +494,7 @@ void HTMLButcherAdjustSizeDialog::SetSpinRange(ButcherProjectLine *start,
         mm=MovementMinMax(start, end);
 
         if (spinctrl->GetValue()<mm.min || spinctrl->GetValue()>mm.max)
-            wxMessageBox(wxT("Uh oh"));
+            wxMessageBox("Uh oh");
 
         spinctrl->SetRange(mm.min, mm.max);
     }

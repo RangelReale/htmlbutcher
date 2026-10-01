@@ -23,8 +23,8 @@
 
 
 
-BEGIN_EVENT_TABLE(HTMLButcherOptionsDialog, wxDialog)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(HTMLButcherOptionsDialog, wxDialog)
+wxEND_EVENT_TABLE()
 
 
 

@@ -22,7 +22,7 @@ using namespace std;
 
 class HTMLButcherMaskEditDialog: public ButcherControl_Dialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherMaskEditDialog( wxWindow* parent,
         wxWindowID id,

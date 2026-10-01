@@ -24,10 +24,10 @@
 //      ButcherDocument
 /////////////////////////////////
 
-DEFINE_EVENT_TYPE( wxEVT_BUTCHERDOCUMENTKEYBOARD_ACTION )
+wxDEFINE_EVENT(wxEVT_BUTCHERDOCUMENTKEYBOARD_ACTION, wxKeyEvent);
 
 
-BEGIN_EVENT_TABLE(ButcherDocument, wxControl)
+wxBEGIN_EVENT_TABLE(ButcherDocument, wxControl)
     EVT_PAINT(ButcherDocument::OnPaint)
     EVT_ERASE_BACKGROUND(ButcherDocument::OnEraseBackground)
     EVT_MOUSE_EVENTS(ButcherDocument::OnMouse)
@@ -35,7 +35,7 @@ BEGIN_EVENT_TABLE(ButcherDocument, wxControl)
     EVT_KEY_UP(ButcherDocument::OnKeyboard)
 	EVT_CHILD_FOCUS(ButcherDocument::OnChildFocus) 
     //EVT_CHAR(ButcherDocument::OnKeyboard)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 ButcherDocument::ButcherDocument(ButcherView* view, wxWindow *parent,
     wxWindowID id,
@@ -88,7 +88,7 @@ void ButcherDocument::OnMouse(wxMouseEvent &event)
 
 /*
     if (event.GetEventType() == wxEVT_MOTION)
-        wxLogDebug(wxT("Mouse = x: %d - y: %d - nx: %d - ny: %d - pixel: %f"),
+        wxLogDebug("Mouse = x: %d - y: %d - nx: %d - ny: %d - pixel: %f",
             event.m_x, event.m_y, newe.m_x, newe.m_y, view_->GetPixelSize());
 */
 
@@ -108,7 +108,7 @@ void ButcherDocument::OnKeyboard(wxKeyEvent &event)
 
 /*
     if (event.GetEventType() == wxEVT_MOTION)
-        wxLogDebug(wxT("Key = x: %d - y: %d - nx: %d - ny: %d - pixel: %f"),
+        wxLogDebug("Key = x: %d - y: %d - nx: %d - ny: %d - pixel: %f",
             event.m_x, event.m_y, newe.m_x, newe.m_y, view_->GetPixelSize());
 */
     view_->GetEventHandler()->ProcessEvent(newe);
@@ -122,8 +122,8 @@ void ButcherDocument::OnKeyboard(wxKeyEvent &event)
 void ButcherDocument::DrawGrid(wxDC *dc)
 {
 	static wxDash gdash[2]={1,2};
-	//wxPen *ypen=wxThePenList->FindOrCreatePen(wxT("LIGHT GREY"), 1, wxUSER_DASH);
-	wxPen *ypen=wxThePenList->FindOrCreatePen(wxColour(0xA0, 0xA0, 0xA0), 1, wxUSER_DASH);
+	//wxPen *ypen=wxThePenList->FindOrCreatePen("LIGHT GREY", 1, wxUSER_DASH);
+	wxPen *ypen=wxThePenList->FindOrCreatePen(wxColour(0xA0, 0xA0, 0xA0), 1, wxPENSTYLE_USER_DASH);
 	ypen->SetDashes(2, gdash);
 
 

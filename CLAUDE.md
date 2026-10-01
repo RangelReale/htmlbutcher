@@ -10,8 +10,8 @@ either a nested `<table>` structure or absolutely-positioned `<div>`s, so text a
 edited independently afterwards.
 
 wxWidgets C++ desktop GUI application, CMake build, BSD-3 licensed, open-sourced in 2013. It began
-on wxWidgets 2.8 and now targets **wx 3.2**. The style still reads as 2.8-era (see Conventions), but
-nothing requires 2.8 any more and there are no `wxCHECK_VERSION` forks left in the tree.
+on wxWidgets 2.8 and now targets **wx 3.2**, written in wx 3 style (see Conventions). Nothing
+requires 2.8 any more and there are no `wxCHECK_VERSION` forks left in the tree.
 
 ## Build
 
@@ -151,7 +151,7 @@ Deliberately separate, and easy to confuse:
 1. **Model → GUI.** `ButcherProjectEvent : wxEvent`, event type `wxEVT_BUTCHERPROJECT_ACTION`, with
    a `BPE_*` enum (`BPE_PROJECTOPEN`, `BPE_MODIFIED`, `BPE_<THING>MODIFIED`, `BPE_<THING>DELETED`,
    `BPE_PROGRESS`, …) and `eid_`/`eid2_` payload ids. Because the project *is* a `wxEvtHandler`,
-   listeners `Connect()` straight to it. Dispatch is **synchronous `ProcessEvent`**, not posted —
+   listeners `Bind()` straight to it. Dispatch is **synchronous `ProcessEvent`**, not posted —
    the `wxPostEvent` branch is commented out.
 2. **Model → model.** `ButcherProjectEventNotify` wraps an event and adds `changecount_` /
    `removecount_` counters plus an `isexecute` flag — a **two-phase count-then-execute pass**.
@@ -250,10 +250,18 @@ Match the surrounding code; there is no `.clang-format` or `.editorconfig`.
 - `friend class` is used pervasively so collections can construct and mutate their items; the
   protected default constructor plus friend collection is how metadata loading creates blank
   objects.
-- wx style is 2.8-era and deliberately left that way: static
-  `DECLARE_EVENT_TABLE()`/`BEGIN_EVENT_TABLE` macro tables rather than `Bind()`, `wxT()` around every literal, `_()` for translations. Custom events follow an identical
-  boilerplate triple: an event class with `Clone()`, a `…EventFunction` typedef, a
-  `…EventHandler(func)` cast macro and an `EVT_…(id, fn)` table macro.
+- wx 3 style: plain narrow literals with no `wxT()`/`_T()`, `_()` for translations, and `wxString`
+  passed straight to `wxString::Format`/`wxLog*` with no `.c_str()`. Static handlers use
+  `wxDECLARE_EVENT_TABLE();` / `wxBEGIN_EVENT_TABLE` / `wxEND_EVENT_TABLE()`; runtime hookups use
+  `Bind()`/`Unbind()`, never `Connect()`. Use the `wx`-prefixed RTTI/app macros
+  (`wxDECLARE_DYNAMIC_CLASS(X);`, `wxIMPLEMENT_APP(X);`, …) — the `wxDECLARE_*` ones need a
+  trailing `;`. Use the wx 3 event names (`wxEVT_BUTTON`, `wxEVT_MENU`, …) and typed styles
+  (`wxPENSTYLE_*`, `wxBRUSHSTYLE_*`, `wxBORDER_*`).
+- Custom events are typed: `wxDECLARE_EVENT(wxEVT_X, XEvent);` in the header (after a forward
+  declaration of the event class) and `wxDEFINE_EVENT(wxEVT_X, XEvent);` in the `.cpp`, so `Bind()`
+  checks the handler signature. Each also keeps a `…EventFunction` typedef, a
+  `…EventHandler(func)` macro over `wxEVENT_HANDLER_CAST`, and an `EVT_…(id, fn)` table macro over
+  `wx__DECLARE_EVT1`. An event class overrides `Clone()`.
 - Indentation is tabs. Dead code is commented out in place rather than deleted.
 
 ## Compile-time switches

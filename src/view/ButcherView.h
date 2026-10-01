@@ -33,19 +33,15 @@ class ButcherProjectMaskDrawSelection;
  * @brief Base scrolling window
  */
 
-DECLARE_EVENT_TYPE( wxEVT_BUTCHEROPERATION_ACTION, -1 )
+wxDECLARE_EVENT(wxEVT_BUTCHEROPERATION_ACTION, wxCommandEvent);
 
 #define EVT_BUTCHEROPERATION(id, fn) \
-    DECLARE_EVENT_TABLE_ENTRY( wxEVT_BUTCHEROPERATION_ACTION, id, -1, \
-    (wxObjectEventFunction) (wxEventFunction) \
-    wxStaticCastEvent( wxCommandEventFunction, & fn ), (wxObject *) NULL ),
+    wx__DECLARE_EVT1(wxEVT_BUTCHEROPERATION_ACTION, id, wxCommandEventHandler(fn))
 
-DECLARE_EVENT_TYPE( wxEVT_BUTCHERSCROLL_ACTION, -1 )
+wxDECLARE_EVENT(wxEVT_BUTCHERSCROLL_ACTION, wxScrollWinEvent);
 
 #define EVT_BUTCHERSCROLL(id, fn) \
-    DECLARE_EVENT_TABLE_ENTRY( wxEVT_BUTCHERSCROLL_ACTION, id, -1, \
-    (wxObjectEventFunction) (wxEventFunction) \
-    wxStaticCastEvent( wxScrollWinEventFunction, & fn ), (wxObject *) NULL ),
+    wx__DECLARE_EVT1(wxEVT_BUTCHERSCROLL_ACTION, id, wxScrollWinEventHandler(fn))
 
 
 class ButcherView : public wxControl, public ButcherViewBase {
@@ -55,7 +51,7 @@ public:
 
     ButcherView(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition,
         const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL | wxBORDER_NONE,
-        const wxString& name = wxT("ButcherView"));
+        const wxString& name = "ButcherView");
     virtual ~ButcherView();
 
     virtual ButcherProject *GetProject() = 0;
@@ -136,7 +132,7 @@ private:
     bool filealternate_;
     int filealternateid_;
 
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 };
 
 ButcherProjectArea::areaselect_t ButcherView_AreaSelect(bool showareas, bool showareasglobal);

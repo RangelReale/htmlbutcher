@@ -33,14 +33,14 @@ namespace HBTest {
 			filedata.SeekO(0);
 			wxMemoryInputStream filei(filedata);
 
-			fileid_=project_.Files().Add(wxT("TEST IMAGE"), filei);
+			fileid_=project_.Files().Add("TEST IMAGE", filei);
 			//project_.Files()[fileid_]->SetFileData(filedata);
 
 			// Mask
-			maskid_=project_.Masks().Add(wxT("TEST MASK"), 400, 400);
+			maskid_=project_.Masks().Add("TEST MASK", 400, 400);
 
 			// View
-			viewid_=project_.Views().Add(wxT("TEST VIEW"), fileid_, maskid_);
+			viewid_=project_.Views().Add("TEST VIEW", fileid_, maskid_);
 		}
 		// virtual void TearDown() {}
 

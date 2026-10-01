@@ -33,10 +33,10 @@
 // CLASS
 //      HTMLButcherNewViewWizard
 /////////////////////////////////
-BEGIN_EVENT_TABLE(HTMLButcherNewViewWizard, wxWizard)
+wxBEGIN_EVENT_TABLE(HTMLButcherNewViewWizard, wxWizard)
 	EVT_WIZARD_PAGE_CHANGING(wxID_ANY, HTMLButcherNewViewWizard::OnWizardChanging)
 	EVT_WIZARD_FINISHED(wxID_ANY, HTMLButcherNewViewWizard::OnWizardFinished)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 HTMLButcherNewViewWizard::HTMLButcherNewViewWizard( wxWindow* parent,
     wxWindowID id,
@@ -49,7 +49,7 @@ HTMLButcherNewViewWizard::HTMLButcherNewViewWizard( wxWindow* parent,
 	project_(project), viewid_(0)
 {
     wxLogNull lnull;
-	wxBitmap rbitmap(wxXmlResource::Get()->LoadBitmap(wxT("img_wizard")));
+	wxBitmap rbitmap(wxXmlResource::Get()->LoadBitmap("img_wizard"));
 
 	Create(parent, id, caption, rbitmap, pos, style);
 
@@ -61,7 +61,7 @@ void HTMLButcherNewViewWizard::Init()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	//SetHelpSection(wxT("wizard-newfile.html"));
+	//SetHelpSection("wizard-newfile.html");
 #endif
 }
 
@@ -123,8 +123,8 @@ void HTMLButcherNewViewWizard::OnWizardChanging(wxWizardEvent& event)
 // CLASS
 //      HTMLButcherNewViewIntroWizardPage
 /////////////////////////////////
-BEGIN_EVENT_TABLE(HTMLButcherNewViewIntroWizardPage, wxWizardPageSimple)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(HTMLButcherNewViewIntroWizardPage, wxWizardPageSimple)
+wxEND_EVENT_TABLE()
 
 HTMLButcherNewViewIntroWizardPage::HTMLButcherNewViewIntroWizardPage(wxWizard *parent) :
 	wxWizardPageSimple(parent)
@@ -151,11 +151,11 @@ HTMLButcherNewViewIntroWizardPage::HTMLButcherNewViewIntroWizardPage(wxWizard *p
     mainSizer->Add(
         new wxStaticText(this, wxID_ANY,
                          wxString(_("Welcome to the New view wizard!"))+
-						 wxT("\n\n")+
+						 "\n\n"+
 						 wxString(_("This wizard will help on the creation of a new VIEW (HTML page)."))+
-						 wxT("\n\n")+
+						 "\n\n"+
 						 wxString(_("To continue, press Next."))+
-						 wxT("\n")),
+						 "\n"),
         0,
         wxALL,
         5
@@ -169,8 +169,8 @@ HTMLButcherNewViewIntroWizardPage::HTMLButcherNewViewIntroWizardPage(wxWizard *p
 // CLASS
 //      HTMLButcherNewViewFileWizardPage
 /////////////////////////////////
-BEGIN_EVENT_TABLE(HTMLButcherNewViewFileWizardPage, wxWizardPageSimple)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(HTMLButcherNewViewFileWizardPage, wxWizardPageSimple)
+wxEND_EVENT_TABLE()
 
 HTMLButcherNewViewFileWizardPage::HTMLButcherNewViewFileWizardPage(wxWizard *parent) :
 	wxWizardPageSimple(parent)
@@ -210,9 +210,9 @@ HTMLButcherNewViewFileWizardPage::HTMLButcherNewViewFileWizardPage(wxWizard *par
     mainSizer->Add(
         new wxStaticText(this, wxID_ANY,
 			wxString(_("The layout image FILE is the image made by the webdesigner"))+
-			wxT("\n")+
+			"\n"+
 			wxString(_("that will be sliced to generate the HTML page."))+
-			wxT("\n")),
+			"\n"),
         0,
         wxALL,
         5
@@ -266,9 +266,9 @@ bool HTMLButcherNewViewFileWizardPage::TransferDataFromWindow()
 // CLASS
 //      HTMLButcherNewViewMaskWizardPage
 /////////////////////////////////
-BEGIN_EVENT_TABLE(HTMLButcherNewViewMaskWizardPage, wxWizardPageSimple)
+wxBEGIN_EVENT_TABLE(HTMLButcherNewViewMaskWizardPage, wxWizardPageSimple)
 	EVT_RADIOBUTTON(wxID_ANY, HTMLButcherNewViewMaskWizardPage::OnRadio)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 HTMLButcherNewViewMaskWizardPage::HTMLButcherNewViewMaskWizardPage(wxWizard *parent) :
 	wxWizardPageSimple(parent), autofilename_(wxEmptyString), autoimagewidth_(-1), autoimageheight_(-1)
@@ -351,19 +351,19 @@ HTMLButcherNewViewMaskWizardPage::HTMLButcherNewViewMaskWizardPage(wxWizard *par
     mainSizer->Add(
         new wxStaticText(this, wxID_ANY,
 			wxString(_("The MASK will define the areas of the HTML slicing."))+
-			wxT("\n\n")+
+			"\n\n"+
 			wxString(_("It could be defined as the real output page slices,"))+
-			wxT("\n")+
+			"\n"+
 			wxString(_("but to allow reuse, a MASK was separately created from"))+
-			wxT("\n")+
+			"\n"+
 			wxString(_("the output page (the VIEW)."))+
-			wxT("\n\n")+
+			"\n\n"+
 			wxString(_("Normally the MASK should have the same size as the layout IMAGE,"))+
-			wxT("\n")+
+			"\n"+
 			wxString(_("but if the layout images aren't all the same size, the mask"))+
-			wxT("\n")+
+			"\n"+
 			wxString(_("should be the size of the largest one."))+
-			wxT("\n")),
+			"\n"),
         0,
         wxALL,
         5
@@ -475,8 +475,8 @@ void HTMLButcherNewViewMaskWizardPage::OnRadio(wxCommandEvent &event)
 // CLASS
 //      HTMLButcherNewViewViewWizardPage
 /////////////////////////////////
-BEGIN_EVENT_TABLE(HTMLButcherNewViewViewWizardPage, wxWizardPageSimple)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(HTMLButcherNewViewViewWizardPage, wxWizardPageSimple)
+wxEND_EVENT_TABLE()
 
 HTMLButcherNewViewViewWizardPage::HTMLButcherNewViewViewWizardPage(wxWizard *parent) :
 	wxWizardPageSimple(parent), autofilename_(wxEmptyString)
@@ -526,11 +526,11 @@ HTMLButcherNewViewViewWizardPage::HTMLButcherNewViewViewWizardPage(wxWizard *par
     mainSizer->Add(
         new wxStaticText(this, wxID_ANY,
 			wxString(_("The VIEW is the output HTML page."))+
-			wxT("\n\n")+
+			"\n\n"+
 			wxString(_("It combines an image FILE with a MASK, generating a single"))+
-			wxT("\n")+
+			"\n"+
 			wxString(_("output HTML page together with the sliced images."))+
-			wxT("\n")),
+			"\n"),
         0,
         wxALL,
         5
@@ -552,11 +552,11 @@ void HTMLButcherNewViewViewWizardPage::SetInfo(const wxString &filename)
 		wxFileName fn(filename);
 		namectrl->SetValue(fn.GetName().Upper());
 	}
-	wxString lastfilename(lastfn.GetName().Lower()+wxT(".html"));
+	wxString lastfilename(lastfn.GetName().Lower()+".html");
 	if (filenamectrl->GetValue().IsEmpty() || filenamectrl->GetValue()==lastfilename)
 	{
 		wxFileName fn(filename);
-		filenamectrl->SetValue(fn.GetName().Lower()+wxT(".html"));
+		filenamectrl->SetValue(fn.GetName().Lower()+".html");
 	}
 
 	autofilename_=filename;
@@ -593,8 +593,8 @@ bool HTMLButcherNewViewViewWizardPage::TransferDataFromWindow()
 // CLASS
 //      HTMLButcherNewViewLastWizardPage
 /////////////////////////////////
-BEGIN_EVENT_TABLE(HTMLButcherNewViewLastWizardPage, wxWizardPageSimple)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(HTMLButcherNewViewLastWizardPage, wxWizardPageSimple)
+wxEND_EVENT_TABLE()
 
 HTMLButcherNewViewLastWizardPage::HTMLButcherNewViewLastWizardPage(wxWizard *parent) :
 	wxWizardPageSimple(parent)
@@ -648,19 +648,19 @@ void HTMLButcherNewViewLastWizardPage::SetInfo(const wxString &filename,
 	confirmctrl->SetLabel(
 			wxString::Format(
 			wxString(_("Please review your selection, and click Finish if all is correct."))+
-			wxT("\n\n")+
+			"\n\n"+
 			wxString(_("Image file name: %s"))+
-			wxT("\n\n")+
+			"\n\n"+
 			wxString(_("Mask name: %s"))+
-			wxT("\n")+
+			"\n"+
 			wxString(_("Mask size: Width = %d   Height = %d"))+
-			wxT("\n\n")+
+			"\n\n"+
 			wxString(_("View name: %s"))+
-			wxT("\n")+
+			"\n"+
 			wxString(_("View file name: %s"))+
-			wxT("\n"),
-			fn.GetFullName().c_str(), maskname_.c_str(), maskwidth_, maskheight_,
-			viewname_.c_str(), viewfilename_.c_str())
+			"\n",
+			fn.GetFullName(), maskname_, maskwidth_, maskheight_,
+			viewname_, viewfilename_)
 	);
 
 }

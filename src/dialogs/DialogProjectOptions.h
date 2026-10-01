@@ -21,7 +21,7 @@ using namespace std;
 
 class HTMLButcherProjectOptionsDialog: public ButcherControl_Dialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherProjectOptionsDialog( wxWindow* parent,
         wxWindowID id,
