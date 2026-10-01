@@ -164,7 +164,7 @@ void ccu_Path<T>::SetPath(const T &path)
     while (T::npos != pos || T::npos != lastPos)
     {
         // Found a token, add it to the vector.
-        addtoken(path.substr(pos, 1), path.substr(lastPos, pos - lastPos));
+        addtoken(T::npos != pos ? path.substr(pos, 1) : T(), path.substr(lastPos, pos - lastPos));
         // Skip delimiters.  Note the "not_of"
         lastPos =path.find_first_not_of(delim, pos);
         if (lastPos==T::npos)

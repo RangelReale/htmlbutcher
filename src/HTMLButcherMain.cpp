@@ -1367,7 +1367,7 @@ void HTMLButcherFrame::LoadViews(bool check)
             }
             else
             {
-               if (wxccu_control_getindex(viewsctrl, i.first()==wxNOT_FOUND) ||
+               if (wxccu_control_getindex(viewsctrl, i.first())==wxNOT_FOUND ||
                     viewsctrl->GetString(wxccu_control_getindex(viewsctrl, i.first()))!=desc)
                 {
                     LoadViews(false);
