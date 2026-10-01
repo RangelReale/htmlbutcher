@@ -36,7 +36,7 @@ public:
 
     ButcherViewEditor(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition,
         const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL,
-        const wxString& name = wxT("ButcherViewEditor"));
+        const wxString& name = "ButcherViewEditor");
     virtual ~ButcherViewEditor();
 
     virtual ButcherProject *GetProject() { return project_; }
@@ -168,7 +168,7 @@ private:
     wxRect band_;
     areaview_t areaview_;
 
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 };
 
 #endif // __BVIEW_BUTCHERVIEWEDITOR_H__

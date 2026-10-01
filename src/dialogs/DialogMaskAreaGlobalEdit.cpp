@@ -29,10 +29,10 @@
 
 
 
-BEGIN_EVENT_TABLE(HTMLButcherMaskAreaGlobalEditDialog, ButcherControl_Dialog)
+wxBEGIN_EVENT_TABLE(HTMLButcherMaskAreaGlobalEditDialog, ButcherControl_Dialog)
     EVT_BUTTON(ID_IMAGEFORMATDIALOG, HTMLButcherMaskAreaGlobalEditDialog::OnImageFormat)
     EVT_COMBOBOX(ID_FILEALTERNATE, HTMLButcherMaskAreaGlobalEditDialog::OnAlternateFileChanged)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 
 
@@ -67,7 +67,7 @@ void HTMLButcherMaskAreaGlobalEditDialog::Init()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-area.html"));
+	SetHelpSection("dialog-area.html");
 #endif
 
 	areaname_=wxEmptyString;

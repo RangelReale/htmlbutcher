@@ -262,14 +262,14 @@ wxString ButcherProjectLine::GetFullDescription()
 {
     wxString temp=GetDescription(), temp2=GetPosDescription(), temp3=GetOrientationDescription();
     if (!temp2.IsEmpty())
-        temp+=wxString::Format(wxT(" (%s)"), temp2.c_str());
+        temp+=wxString::Format(" (%s)", temp2);
     if (!temp3.IsEmpty())
-        temp+=wxString::Format(wxT(" (%s)"), temp3.c_str());
+        temp+=wxString::Format(" (%s)", temp3);
     ButcherProjectMask *ms;
     ms=GetMask();
     while (ms->GetParent())
     {
-        temp=ms->GetParent()->GetDescription()+wxT("->")+temp;
+        temp=ms->GetParent()->GetDescription()+"->"+temp;
         ms=ms->GetParent()->GetMask();
     };
     return temp;

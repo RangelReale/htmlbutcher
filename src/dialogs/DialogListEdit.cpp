@@ -35,14 +35,14 @@
 // CLASS
 //      HTMLButcherListEditDialog
 /////////////////////////////////
-BEGIN_EVENT_TABLE(HTMLButcherListEditDialog, ButcherControl_Dialog)
+wxBEGIN_EVENT_TABLE(HTMLButcherListEditDialog, ButcherControl_Dialog)
     EVT_BUTTON(ID_ADD, HTMLButcherListEditDialog::OnAdd)
     EVT_BUTTON(ID_EDIT, HTMLButcherListEditDialog::OnEdit)
     EVT_BUTTON(ID_REMOVE, HTMLButcherListEditDialog::OnRemove)
     EVT_BUTTON(ID_DUPLICATE, HTMLButcherListEditDialog::OnDuplicate)
 	EVT_LISTBOX(ID_ITEMS, HTMLButcherListEditDialog::OnSelect)
     EVT_LISTBOX_DCLICK(ID_ITEMS, HTMLButcherListEditDialog::OnEdit)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 HTMLButcherListEditDialog::HTMLButcherListEditDialog( wxWindow* parent,
     wxWindowID id,
@@ -80,7 +80,7 @@ void HTMLButcherListEditDialog::CreateControls()
     wxBoxSizer *boxsizer = new wxBoxSizer(wxVERTICAL);
 
     // Items
-    wxStaticText *itemslabel = new wxStaticText(this, wxID_STATIC, GetTitle()+wxT(":"), wxDefaultPosition, wxDefaultSize, 0);
+    wxStaticText *itemslabel = new wxStaticText(this, wxID_STATIC, GetTitle()+":", wxDefaultPosition, wxDefaultSize, 0);
     boxsizer->Add(itemslabel, 0, wxALIGN_LEFT|wxALL, 3);
 
     wxListBox *itemsctrl = new wxListBox(this, ID_ITEMS, wxDefaultPosition, wxSize(250, 200), 0, NULL, wxLB_SORT);
@@ -296,14 +296,14 @@ void HTMLButcherListEditDialog::EnableDuplicate()
 // CLASS
 //      HTMLButcherMasksDialog
 /////////////////////////////////
-BEGIN_EVENT_TABLE(HTMLButcherMasksDialog, HTMLButcherListEditDialog)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(HTMLButcherMasksDialog, HTMLButcherListEditDialog)
+wxEND_EVENT_TABLE()
 
 void HTMLButcherMasksDialog::do_load()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-masks.html"));
+	SetHelpSection("dialog-masks.html");
 #endif
 	EnableDuplicate();
 	EnableAdd(!GetProject()->Masks().IsFull());
@@ -416,7 +416,7 @@ void HTMLButcherMasksDialog::do_duplicate(unsigned long id)
 
 wxString HTMLButcherMasksDialog::make_description(ButcherProjectMask *item)
 {
-    return wxString::Format(wxT("%s [%dx%d]"), item->GetName().c_str(), item->GetWidth(), item->GetHeight());
+    return wxString::Format("%s [%dx%d]", item->GetName(), item->GetWidth(), item->GetHeight());
 }
 
 
@@ -426,14 +426,14 @@ wxString HTMLButcherMasksDialog::make_description(ButcherProjectMask *item)
 // CLASS
 //      HTMLButcherViewsDialog
 /////////////////////////////////
-BEGIN_EVENT_TABLE(HTMLButcherViewsDialog, HTMLButcherListEditDialog)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(HTMLButcherViewsDialog, HTMLButcherListEditDialog)
+wxEND_EVENT_TABLE()
 
 void HTMLButcherViewsDialog::do_load()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-views.html"));
+	SetHelpSection("dialog-views.html");
 #endif
 	EnableAdd(!GetProject()->Views().IsFull());
 
@@ -499,23 +499,23 @@ void HTMLButcherViewsDialog::do_remove(unsigned long id)
 
 wxString HTMLButcherViewsDialog::make_description(ButcherProjectView *item)
 {
-    return wxString::Format(wxT("%s [%s - %s]"), item->GetName().c_str(),
-        item->GetFile()->GetDisplayName().c_str(),
-        item->GetMask()->GetName().c_str());
+    return wxString::Format("%s [%s - %s]", item->GetName(),
+        item->GetFile()->GetDisplayName(),
+        item->GetMask()->GetName());
 }
 
 /////////////////////////////////
 // CLASS
 //      HTMLButcherAssortedFileGroupsDialog
 /////////////////////////////////
-BEGIN_EVENT_TABLE(HTMLButcherAssortedFileGroupsDialog, HTMLButcherListEditDialog)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(HTMLButcherAssortedFileGroupsDialog, HTMLButcherListEditDialog)
+wxEND_EVENT_TABLE()
 
 void HTMLButcherAssortedFileGroupsDialog::do_load()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-assortedfilegroups.html"));
+	SetHelpSection("dialog-assortedfilegroups.html");
 #endif
 
 	for (ButcherProjectAssortedFileGroups::iterator i=GetProject()->AssortedFileGroups().begin();
@@ -588,14 +588,14 @@ wxString HTMLButcherAssortedFileGroupsDialog::make_description(ButcherProjectAss
 // CLASS
 //      HTMLButcherAssortedFilesDialog
 /////////////////////////////////
-BEGIN_EVENT_TABLE(HTMLButcherAssortedFilesDialog, HTMLButcherListEditDialog)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(HTMLButcherAssortedFilesDialog, HTMLButcherListEditDialog)
+wxEND_EVENT_TABLE()
 
 void HTMLButcherAssortedFilesDialog::do_load()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-assortedfiles.html"));
+	SetHelpSection("dialog-assortedfiles.html");
 #endif
 	for (ButcherProjectAssortedFiles::iterator i=GetProject()->AssortedFiles().begin();
 		i!=GetProject()->AssortedFiles().end(); i++)
@@ -678,14 +678,14 @@ wxString HTMLButcherAssortedFilesDialog::make_description(ButcherProjectAssorted
 // CLASS
 //      HTMLButcherFilePathsDialog
 /////////////////////////////////
-BEGIN_EVENT_TABLE(HTMLButcherFilePathsDialog, HTMLButcherListEditDialog)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(HTMLButcherFilePathsDialog, HTMLButcherListEditDialog)
+wxEND_EVENT_TABLE()
 
 void HTMLButcherFilePathsDialog::do_load()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-filepaths.html"));
+	SetHelpSection("dialog-filepaths.html");
 #endif
 	for (ButcherProjectFilePaths::iterator i=GetProject()->FilePaths().begin();
 		i!=GetProject()->FilePaths().end(); i++)
@@ -768,14 +768,14 @@ wxString HTMLButcherFilePathsDialog::make_description(ButcherProjectFilePath *it
 // CLASS
 //      HTMLButcherCSSFilesDialog
 /////////////////////////////////
-BEGIN_EVENT_TABLE(HTMLButcherCSSFilesDialog, HTMLButcherListEditDialog)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(HTMLButcherCSSFilesDialog, HTMLButcherListEditDialog)
+wxEND_EVENT_TABLE()
 
 void HTMLButcherCSSFilesDialog::do_load()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-cssfile.html"));
+	SetHelpSection("dialog-cssfile.html");
 #endif
 	for (ButcherProjectCSSFiles::iterator i=GetProject()->CSSFiles().begin();
 		i!=GetProject()->CSSFiles().end(); i++)

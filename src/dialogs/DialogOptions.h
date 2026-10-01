@@ -21,7 +21,7 @@ using namespace cppcomp;
 
 class HTMLButcherOptionsDialog: public wxDialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherOptionsDialog( wxWindow* parent,
         wxWindowID id = wxID_ANY,

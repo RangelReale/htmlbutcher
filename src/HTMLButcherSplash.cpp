@@ -34,13 +34,13 @@
 
 #define wxSPLASH_TIMER_ID 9999
 
-IMPLEMENT_DYNAMIC_CLASS(HTMLButcherSplashScreen, wxFrame)
+wxIMPLEMENT_DYNAMIC_CLASS(HTMLButcherSplashScreen, wxFrame)
 
-BEGIN_EVENT_TABLE(HTMLButcherSplashScreen, wxFrame)
+wxBEGIN_EVENT_TABLE(HTMLButcherSplashScreen, wxFrame)
     EVT_TIMER(wxSPLASH_TIMER_ID, HTMLButcherSplashScreen::OnNotify)
     EVT_CLOSE(HTMLButcherSplashScreen::OnCloseWindow)
     EVT_WINDOW_CREATE(HTMLButcherSplashScreen::OnWindowCreate)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 /* Note that unless we pass a non-default size to the frame, SetClientSize
  * won't work properly under Windows, and the splash screen frame is sized
@@ -59,7 +59,7 @@ HTMLButcherSplashScreen::HTMLButcherSplashScreen(const wxBitmap& bitmap, long sp
     m_splashStyle = splashStyle;
     m_milliseconds = milliseconds;
 
-    m_window = new HTMLButcherSplashScreenWindow(bitmap, this, wxID_ANY, pos, size, wxNO_BORDER);
+    m_window = new HTMLButcherSplashScreenWindow(bitmap, this, wxID_ANY, pos, size, wxBORDER_NONE);
 
     SetClientSize(bitmap.GetWidth(), bitmap.GetHeight());
 
@@ -128,14 +128,14 @@ void HTMLButcherSplashScreen::OnWindowCreate(wxWindowCreateEvent & event)
  * HTMLButcherSplashScreenWindow
  */
 
-BEGIN_EVENT_TABLE(HTMLButcherSplashScreenWindow, wxWindow)
+wxBEGIN_EVENT_TABLE(HTMLButcherSplashScreenWindow, wxWindow)
 #ifdef __WXGTK__
     EVT_PAINT(HTMLButcherSplashScreenWindow::OnPaint)
 #endif
     EVT_ERASE_BACKGROUND(HTMLButcherSplashScreenWindow::OnEraseBackground)
     EVT_CHAR(HTMLButcherSplashScreenWindow::OnChar)
     EVT_MOUSE_EVENTS(HTMLButcherSplashScreenWindow::OnMouseEvent)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 
 

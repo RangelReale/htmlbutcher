@@ -20,7 +20,8 @@ class ButcherView;
  *
  * @brief view changed event
  */
-DECLARE_EVENT_TYPE( wxEVT_BUTCHERVIEWCHANGED_ACTION, -1 )
+class ButcherViewChangedEvent;
+wxDECLARE_EVENT(wxEVT_BUTCHERVIEWCHANGED_ACTION, ButcherViewChangedEvent);
 
 class ButcherViewChangedEvent : public wxEvent
 {
@@ -46,12 +47,9 @@ private:
 typedef void (wxEvtHandler::*ButcherViewChangedEventFunction)(ButcherViewChangedEvent&);
 
 #define ButcherViewChangedEventHandler(func) \
-	(wxObjectEventFunction)(wxEventFunction) \
-	wxStaticCastEvent(ButcherViewChangedEventFunction, &func)
+	wxEVENT_HANDLER_CAST(ButcherViewChangedEventFunction, func)
 
 #define EVT_BUTCHERVIEWCHANGED(id, fn) \
-    DECLARE_EVENT_TABLE_ENTRY( wxEVT_BUTCHERVIEWCHANGED_ACTION, id, -1, \
-    (wxObjectEventFunction) (wxEventFunction) \
-    wxStaticCastEvent( ButcherViewChangedEventFunction, & fn ), (wxObject *) NULL ),
+    wx__DECLARE_EVT1(wxEVT_BUTCHERVIEWCHANGED_ACTION, id, ButcherViewChangedEventHandler(fn))
 
 #endif // __BVIEW_BUTCHERVIEWCHANGEDEVENT_H__

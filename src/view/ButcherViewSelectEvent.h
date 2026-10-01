@@ -23,7 +23,8 @@ class ButcherProjectMaskAreaSelect;
  *
  * @brief view item selected event
  */
-DECLARE_EVENT_TYPE( wxEVT_BUTCHERSELECT_ACTION, -1 )
+class ButcherViewSelectEvent;
+wxDECLARE_EVENT(wxEVT_BUTCHERSELECT_ACTION, ButcherViewSelectEvent);
 
 class ButcherViewSelectEvent : public wxEvent
 {
@@ -64,13 +65,10 @@ private:
 typedef void (wxEvtHandler::*ButcherViewSelectEventFunction)(ButcherViewSelectEvent&);
 
 #define ButcherViewSelectEventHandler(func) \
-	(wxObjectEventFunction)(wxEventFunction) \
-	wxStaticCastEvent(ButcherViewSelecEventFunction, &func)
+	wxEVENT_HANDLER_CAST(ButcherViewSelectEventFunction, func)
 
 #define EVT_BUTCHERVIEWSELECT(id, fn) \
-    DECLARE_EVENT_TABLE_ENTRY( wxEVT_BUTCHERSELECT_ACTION, id, -1, \
-    (wxObjectEventFunction) (wxEventFunction) \
-    wxStaticCastEvent( ButcherViewSelectEventFunction, & fn ), (wxObject *) NULL ),
+    wx__DECLARE_EVT1(wxEVT_BUTCHERSELECT_ACTION, id, ButcherViewSelectEventHandler(fn))
 
 
 #endif // __BVIEW_BUTCHERVIEWSELECTEVENT_H__

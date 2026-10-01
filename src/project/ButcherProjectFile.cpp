@@ -33,14 +33,14 @@ ButcherProjectFile::ButcherProjectFile(ButcherProject *project,
     isloaderror_(false)
 {
 	if (filename_.IsEmpty())
-		filename_=wxT("___TEMP___");
+		filename_="___TEMP___";
 }
 
 ButcherProjectFile::ButcherProjectFile(ButcherProject *project,
     const wxString &name, wxInputStream &filedata,
     unsigned long imagewidth, unsigned long imageheight) :
     ButcherProjectBaseBLId(project), ButcherOutputFile(),
-    name_(name), filename_(wxT("___TEMP___")), image_(NULL),
+    name_(name), filename_("___TEMP___"), image_(NULL),
     imagewidth_(imagewidth), imageheight_(imageheight),
 	imageloaddata_(NULL), imagedata_(NULL),
     isloaderror_(false)
@@ -57,7 +57,7 @@ ButcherProjectFile::ButcherProjectFile(ButcherProject *project,
 
 
 ButcherProjectFile::ButcherProjectFile(ButcherProject *project) :
-    ButcherProjectBaseBLId(project), name_(wxEmptyString), filename_(wxT("___TEMP___")),
+    ButcherProjectBaseBLId(project), name_(wxEmptyString), filename_("___TEMP___"),
     image_(NULL), imagewidth_(0), imageheight_(0),
 	imageloaddata_(NULL), imagedata_(NULL), isloaderror_(false)
 {
@@ -217,8 +217,8 @@ ButcherImage *ButcherProjectFile::GetSubImage(const wxRect &r)
         wmdc.SetBrush(*wxRED_BRUSH);
         wmdc.DrawRectangle(ret->GetImageRect());
         // mark
-        wmdc.SetPen(*wxThePenList->FindOrCreatePen(wxT("LIGHT STEEL BLUE"), 1, wxDOT_DASH));
-        //wmdc.SetBrush(*wxTheBrushList->FindOrCreateBrush(wxT("LIGHT STEEL BLUE"), wxBDIAGONAL_HATCH  ));
+        wmdc.SetPen(*wxThePenList->FindOrCreatePen("LIGHT STEEL BLUE", 1, wxPENSTYLE_DOT_DASH));
+        //wmdc.SetBrush(*wxTheBrushList->FindOrCreateBrush("LIGHT STEEL BLUE", wxBDIAGONAL_HATCH  ));
         wmdc.SetBrush(*wxTRANSPARENT_BRUSH);
         for (i=0; i<ret->GetHeight(); i+=15)
             wmdc.DrawLine(0, i, ret->GetWidth()-1, i);
@@ -240,7 +240,7 @@ ButcherImage *ButcherProjectFile::CreateImage()
     if (isloaderror_) return NULL;
 
     ButcherProjectBaseAutoProgress progress(this,
-        wxString::Format(_("Loading image %s, please wait..."), GetDisplayName().c_str()));
+        wxString::Format(_("Loading image %s, please wait..."), GetDisplayName()));
 
     ButcherImage *ret=NULL;
     try
@@ -251,7 +251,7 @@ ButcherImage *ButcherProjectFile::CreateImage()
 
             if (!istream.get())
             {
-                //throw ButcherException(wxT("Error loading image stream"));
+                //throw ButcherException("Error loading image stream");
                 isloaderror_=true;
                 return NULL;
             }

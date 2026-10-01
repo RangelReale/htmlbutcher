@@ -19,11 +19,11 @@
 
 class HTMLButcherDEMODialog: public wxDialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherDEMODialog( wxWindow* parent,
         wxWindowID id,
-        const wxString& caption = wxT("HTMLButcher DEMO"),
+        const wxString& caption = "HTMLButcher DEMO",
         const wxPoint& pos = wxDefaultPosition,
         const wxSize& size = wxDefaultSize,
         long style = wxCAPTION|wxRESIZE_BORDER|wxFRAME_TOOL_WINDOW );

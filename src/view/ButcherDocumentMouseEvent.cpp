@@ -18,7 +18,7 @@
 //      ButcherDocumentMouseEvent
 /////////////////////////////////
 
-DEFINE_EVENT_TYPE( wxEVT_BUTCHERDOCUMENTMOUSE_ACTION )
+wxDEFINE_EVENT(wxEVT_BUTCHERDOCUMENTMOUSE_ACTION, ButcherDocumentMouseEvent);
 
 ButcherDocumentMouseEvent::ButcherDocumentMouseEvent(wxEventType origCommandType,
     wxEventType commandType) :

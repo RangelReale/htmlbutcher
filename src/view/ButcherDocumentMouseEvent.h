@@ -20,7 +20,8 @@ class ButcherView;
  *
  * @brief document mouse event
  */
-DECLARE_EVENT_TYPE( wxEVT_BUTCHERDOCUMENTMOUSE_ACTION, -1 )
+class ButcherDocumentMouseEvent;
+wxDECLARE_EVENT(wxEVT_BUTCHERDOCUMENTMOUSE_ACTION, ButcherDocumentMouseEvent);
 
 class ButcherDocumentMouseEvent : public wxMouseEvent
 {
@@ -40,12 +41,9 @@ private:
 typedef void (wxEvtHandler::*ButcherDocumentMouseEventFunction)(ButcherDocumentMouseEvent&);
 
 #define ButcherDocumentMouseEventHandler(func) \
-	(wxObjectEventFunction)(wxEventFunction) \
-	wxStaticCastEvent(ButcherDocumentMouseEventFunction, &func)
+	wxEVENT_HANDLER_CAST(ButcherDocumentMouseEventFunction, func)
 
 #define EVT_BUTCHERDOCUMENTMOUSE(id, fn) \
-    DECLARE_EVENT_TABLE_ENTRY( wxEVT_BUTCHERDOCUMENTMOUSE_ACTION, id, -1, \
-    (wxObjectEventFunction) (wxEventFunction) \
-    wxStaticCastEvent( ButcherDocumentMouseEventFunction, & fn ), (wxObject *) NULL ),
+    wx__DECLARE_EVT1(wxEVT_BUTCHERDOCUMENTMOUSE_ACTION, id, ButcherDocumentMouseEventHandler(fn))
 
 #endif // __BVIEW_BUTCHERDOCUMENTMOUSEEVENT_H__

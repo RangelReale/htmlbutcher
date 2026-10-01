@@ -37,7 +37,7 @@ bool ButcherProjectTemplateParser::Parse(const wxString &t)
     wxString sparse=t, tag, ret(wxEmptyString);
     size_t start, len;//, lastend=0;
     item_t item;
-    wxRegEx pr(wxT("@@(.*?)@@"), wxRE_ADVANCED);
+    wxRegEx pr("@@(.*?)@@", wxRE_ADVANCED);
     while (pr.Matches(sparse))
     {
         if (!pr.GetMatch(&start, &len, 1))
@@ -97,7 +97,7 @@ wxString ButcherProjectTemplateParser::GetResult()
 wxString ButcherProjectTemplateParser::ParseDefaultTag(const wxString &tag)
 {
     // burl
-    if (tag.StartsWith(wxT("burl")))
+    if (tag.StartsWith("burl"))
     {
         ButcherProjectFileLink fl(GetProject());
         try

@@ -269,7 +269,7 @@ void ButcherImage_FreeImage::Save(format_t format, const wxString &filename, int
         if (img!=image_) delete img;
 
         if (!res)
-			throw ButcherException(wxString::Format(_("Error saving image %s"), filename.c_str()));
+			throw ButcherException(wxString::Format(_("Error saving image %s"), filename));
     } catch (wxFreeImageException &e) {
         throw ButcherException(e.what());
     }

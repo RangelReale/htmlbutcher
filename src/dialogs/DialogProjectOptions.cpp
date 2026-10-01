@@ -24,8 +24,8 @@
 
 
 
-BEGIN_EVENT_TABLE(HTMLButcherProjectOptionsDialog, ButcherControl_Dialog)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(HTMLButcherProjectOptionsDialog, ButcherControl_Dialog)
+wxEND_EVENT_TABLE()
 
 HTMLButcherProjectOptionsDialog::HTMLButcherProjectOptionsDialog( wxWindow* parent,
     wxWindowID id,
@@ -45,7 +45,7 @@ void HTMLButcherProjectOptionsDialog::Init()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-projectoptions.html"));
+	SetHelpSection("dialog-projectoptions.html");
 #endif
 	
 	layouttype_=ButcherProjectConsts::LTYPE_DEFAULT;

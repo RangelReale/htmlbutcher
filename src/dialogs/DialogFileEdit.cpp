@@ -32,9 +32,9 @@
 // CLASS
 //      HTMLButcherFilesDialog
 /////////////////////////////////
-BEGIN_EVENT_TABLE(HTMLButcherFilesDialog, HTMLButcherListEditDialog)
+wxBEGIN_EVENT_TABLE(HTMLButcherFilesDialog, HTMLButcherListEditDialog)
     EVT_CHECKBOX(ID_AUTOUPDATE, HTMLButcherFilesDialog::OnAutoUpdate)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 
 
@@ -42,7 +42,7 @@ void HTMLButcherFilesDialog::CreatePreviewControls()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-files.html"));
+	SetHelpSection("dialog-files.html");
 #endif
 
 	// PREVIEW
@@ -53,7 +53,7 @@ void HTMLButcherFilesDialog::CreatePreviewControls()
     previewsizer_->Add(previewlabel_, 0, wxALIGN_LEFT|wxALL, 3);
 
     previewctrl_ = new ButcherImageView(this, wxID_ANY, wxPoint(0, 0), wxSize(300, 300));
-    previewctrl_->SetBGColor(wxColour(wxT("WHITE")));
+    previewctrl_->SetBGColor(wxColour("WHITE"));
     //previewctrl_->SetFullSize(true);
 
     previewsizer_->Add(previewctrl_, 1, wxEXPAND|wxALL, 3);
@@ -119,8 +119,8 @@ void HTMLButcherFilesDialog::do_add()
 void HTMLButcherFilesDialog::do_edit(unsigned long id)
 {
 /*
-    wxFileDialog d(this, wxT("File"), wxEmptyString, GetProject()->Files().Get(id)->GetFilename(),
-        wxT("All files|*.*"), wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+    wxFileDialog d(this, "File", wxEmptyString, GetProject()->Files().Get(id)->GetFilename(),
+        "All files|*.*", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
 */
     HTMLButcherFileEditDialog d(this, wxID_ANY, GetProject());
     d.Load(GetProject()->Files().Get(id));
@@ -168,7 +168,7 @@ void HTMLButcherFilesDialog::do_remove(unsigned long id)
 
 wxString HTMLButcherFilesDialog::make_description(ButcherProjectFile *item)
 {
-    return wxString::Format(wxT("%s [%dx%d]"), item->GetDisplayName().c_str(), item->GetImageWidth(), item->GetImageHeight());
+    return wxString::Format("%s [%dx%d]", item->GetDisplayName(), item->GetImageWidth(), item->GetImageHeight());
 }
 
 
@@ -214,8 +214,8 @@ void HTMLButcherFilesDialog::OnAutoUpdate(wxCommandEvent &event)
 //      HTMLButcherFileEditDialog
 /////////////////////////////////
 
-BEGIN_EVENT_TABLE(HTMLButcherFileEditDialog, ButcherControl_Dialog)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(HTMLButcherFileEditDialog, ButcherControl_Dialog)
+wxEND_EVENT_TABLE()
 
 HTMLButcherFileEditDialog::HTMLButcherFileEditDialog( wxWindow* parent,
     wxWindowID id,
@@ -236,7 +236,7 @@ void HTMLButcherFileEditDialog::Init()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-files.html"));
+	SetHelpSection("dialog-files.html");
 #endif
 
 	name_=wxEmptyString;

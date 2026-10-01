@@ -22,7 +22,7 @@
 
 class HTMLButcherMaskAreaListDialog: public ButcherControl_Dialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherMaskAreaListDialog( wxWindow* parent,
         wxWindowID id,

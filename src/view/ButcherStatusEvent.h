@@ -20,7 +20,8 @@ class ButcherView;
  *
  * @brief status displaying event
  */
-DECLARE_EVENT_TYPE( wxEVT_BUTCHERSTATUS_ACTION, -1 )
+class ButcherStatusEvent;
+wxDECLARE_EVENT(wxEVT_BUTCHERSTATUS_ACTION, ButcherStatusEvent);
 
 class ButcherStatusEvent : public wxEvent
 {
@@ -43,12 +44,9 @@ private:
 typedef void (wxEvtHandler::*ButcherStatusEventFunction)(ButcherStatusEvent&);
 
 #define ButcherStatusEventHandler(func) \
-	(wxObjectEventFunction)(wxEventFunction) \
-	wxStaticCastEvent(ButcherStatusFunction, &func)
+	wxEVENT_HANDLER_CAST(ButcherStatusEventFunction, func)
 
 #define EVT_BUTCHERSTATUS(id, fn) \
-    DECLARE_EVENT_TABLE_ENTRY( wxEVT_BUTCHERSTATUS_ACTION, id, -1, \
-    (wxObjectEventFunction) (wxEventFunction) \
-    wxStaticCastEvent( ButcherStatusEventFunction, & fn ), (wxObject *) NULL ),
+    wx__DECLARE_EVT1(wxEVT_BUTCHERSTATUS_ACTION, id, ButcherStatusEventHandler(fn))
 
 #endif // __BVIEW_BUTCHERSTATUSEVENT_H__

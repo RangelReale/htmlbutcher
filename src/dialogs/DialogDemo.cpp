@@ -21,11 +21,11 @@
 
 #include "DialogDemo.h"
 
-BEGIN_EVENT_TABLE(HTMLButcherDEMODialog, wxDialog)
+wxBEGIN_EVENT_TABLE(HTMLButcherDEMODialog, wxDialog)
 	EVT_BUTTON(wxID_OK, HTMLButcherDEMODialog::OnOk)
 	EVT_TIMER(ID_TIMER, HTMLButcherDEMODialog::OnTimer)
 	EVT_HTML_LINK_CLICKED(ID_MSG, HTMLButcherDEMODialog::OnLink)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 HTMLButcherDEMODialog::HTMLButcherDEMODialog( wxWindow* parent,
     wxWindowID id,

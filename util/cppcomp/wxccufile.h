@@ -11,7 +11,7 @@ using namespace cppcomp;
  *
  * @brief string path class
  */
-static ccu_Path<wxString>::delimiters_t ccu_Path_delim_wxString = {wxT("\\"), wxT("/"), wxT(":")};
+static ccu_Path<wxString>::delimiters_t ccu_Path_delim_wxString = {"\\", "/", ":"};
 
 class ccu_Path_wxString : public ccu_Path<wxString>
 {

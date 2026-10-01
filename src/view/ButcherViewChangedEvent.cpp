@@ -20,7 +20,7 @@
 
 
 
-DEFINE_EVENT_TYPE( wxEVT_BUTCHERVIEWCHANGED_ACTION )
+wxDEFINE_EVENT(wxEVT_BUTCHERVIEWCHANGED_ACTION, ButcherViewChangedEvent);
 
 ButcherViewChangedEvent::ButcherViewChangedEvent(ButcherViewChangedEvent::change_t change,
         int id, wxEventType commandType) :

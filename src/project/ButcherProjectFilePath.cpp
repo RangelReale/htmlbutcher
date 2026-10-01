@@ -34,7 +34,7 @@ ButcherProjectFilePath::ButcherProjectFilePath(ButcherProject *project, const wx
 
 
 ButcherProjectFilePath::ButcherProjectFilePath(ButcherProject *project) :
-    ButcherProjectBaseBLId(project), name_(wxT("__TEMP__")), path_(wxEmptyString)
+    ButcherProjectBaseBLId(project), name_("__TEMP__"), path_(wxEmptyString)
 {
 
 }
@@ -61,13 +61,13 @@ wxString ButcherProjectFilePath::GetFormattedPath(const wxString &path,
 
 /*
     wxString tpath=basepath;
-    tpath.Replace(wxT("\\"), wxT("/"));
-    if (!tpath.IsEmpty() && !tpath.EndsWith(wxT("/")))
-        tpath+=wxT("/");
+    tpath.Replace("\\", "/");
+    if (!tpath.IsEmpty() && !tpath.EndsWith("/"))
+        tpath+="/";
     tpath+=path;
-    tpath.Replace(wxT("\\"), wxT("/"));
-    if (includetrailing && !tpath.IsEmpty() && !tpath.EndsWith(wxT("/")))
-        tpath+=wxT("/");
+    tpath.Replace("\\", "/");
+    if (includetrailing && !tpath.IsEmpty() && !tpath.EndsWith("/"))
+        tpath+="/";
     return tpath;
 */
 }
@@ -95,23 +95,23 @@ void ButcherProjectFilePath::ForcePathCreate(const wxString &path)
         curpath=bpath.GetPath(wxEmptyString, true, ccu_Path_wxString::PPF_NATIVE, i);
         if (!wxFileName::DirExists(curpath))
             if (!wxFileName::Mkdir(curpath))
-                throw ButcherException(wxString::Format(_("Could not create dir: %s"), curpath.c_str()));
+                throw ButcherException(wxString::Format(_("Could not create dir: %s"), curpath));
 
     }
 
 /*
     wxString opath(path);
-    opath.Replace(wxT("\\"), wxT("/"));
+    opath.Replace("\\", "/");
     wxString fpath=wxEmptyString;
-    wxStringTokenizer pathtk(opath, wxT("/"));
+    wxStringTokenizer pathtk(opath, "/");
     while (pathtk.HasMoreTokens())
     {
         fpath+=pathtk.GetNextToken();
 
         if (!wxFileName::DirExists(fpath))
             if (!wxFileName::Mkdir(fpath))
-                throw ButcherException(wxString::Format(wxT("Could not create dir: %s"), fpath.c_str()));
-        fpath+=wxT("/");
+                throw ButcherException(wxString::Format("Could not create dir: %s", fpath));
+        fpath+="/";
     }
 */
 }
@@ -122,14 +122,14 @@ void ButcherProjectFilePath::ForcePathCreate(const wxString &path)
 wxString ButcherProjectFilePath::GetValidFilename(const wxString &path)
 {
     wxString ret(path), forb(wxFileName::GetForbiddenChars());
-	forb+=wxT("[]()<>#@'\"");
+	forb+="[]()<>#@'\"";
     wxString rchar;
     for (unsigned i=0; i<forb.Len(); i++)
     {
         rchar=forb.GetChar(i);
-        ret.Replace(rchar, wxT("_"));
+        ret.Replace(rchar, "_");
     }
-    ret.MakeLower().Replace(wxT(" "), wxT("_"));
+    ret.MakeLower().Replace(" ", "_");
     return ret;
 }
 

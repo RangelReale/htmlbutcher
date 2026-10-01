@@ -20,7 +20,7 @@
 //      ButcherViewSelectEvent
 /////////////////////////////////
 
-DEFINE_EVENT_TYPE( wxEVT_BUTCHERSELECT_ACTION )
+wxDEFINE_EVENT(wxEVT_BUTCHERSELECT_ACTION, ButcherViewSelectEvent);
 
 ButcherViewSelectEvent::ButcherViewSelectEvent(ButcherView *view, ButcherProjectView *pview,
         ButcherViewSelectEvent::select_t select,

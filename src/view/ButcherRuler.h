@@ -26,7 +26,7 @@ public:
 
     ButcherRuler(ButcherView* parent, rulerkind_t kind, wxWindowID id = wxID_ANY,
         const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
-        long style = wxTAB_TRAVERSAL | wxBORDER_NONE, const wxString& name = wxT("ButcherRuler"));
+        long style = wxTAB_TRAVERSAL | wxBORDER_NONE, const wxString& name = "ButcherRuler");
 
     void SetStart(unsigned int start) { start_=start; Refresh(); }
     void SetSelection(long position);
@@ -42,7 +42,7 @@ private:
     int start_;
     long position_;
 
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 };
 
 #endif // __BVIEW_BUTCHERRULER_H__

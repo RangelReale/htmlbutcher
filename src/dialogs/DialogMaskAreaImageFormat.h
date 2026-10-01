@@ -25,7 +25,7 @@
 
 class HTMLButcherMaskAreaImageFormatDialog: public ButcherControl_Dialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherMaskAreaImageFormatDialog( wxWindow* parent,
         wxWindowID id,

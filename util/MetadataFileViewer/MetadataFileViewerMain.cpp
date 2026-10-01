@@ -42,7 +42,7 @@ wxString ViewerButcherMetadataFile::GetMDDescription(ButcherMetadataID_t id)
     case BFILE_MD_FILEALTERNATE: return _("FILE ALTERNATE");
     case BFILE_MD_ALTERNATEIMAGEINFO: return _("ALTERNATE IMAGE INFO");
     case BFILE_MD_TRANSPARENTCOLOR: return _("TRANSPARENT COLOR");
-    default: return wxString::Format(wxT("%d"), id);
+    default: return wxString::Format("%d", id);
     }
 }
 wxString ViewerButcherMetadataFile::GetMIDescription(ButcherMetadataID_t id)
@@ -121,28 +121,28 @@ wxString ViewerButcherMetadataFile::GetMIDescription(ButcherMetadataID_t id)
     case BFILE_MDI_CONTAINERS: return _("CONTAINERS");
 
     case BFILE_MDI_AREACLASS: return _("AREACLASS");
-    default: return wxString::Format(wxT("%d"), id);
+    default: return wxString::Format("%d", id);
     }
 }
 
-BEGIN_EVENT_TABLE(MetadataFileViewerFrame, wxFrame)
+wxBEGIN_EVENT_TABLE(MetadataFileViewerFrame, wxFrame)
     EVT_CLOSE(MetadataFileViewerFrame::OnClose)
     EVT_MENU(idMenuOpen, MetadataFileViewerFrame::OnOpen)
     EVT_MENU(idMenuQuit, MetadataFileViewerFrame::OnQuit)
     EVT_MENU(idMenuAbout, MetadataFileViewerFrame::OnAbout)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 MetadataFileViewerFrame::MetadataFileViewerFrame(wxFrame *frame, const wxString& title)
     : wxFrame(frame, -1, title)
 {
     // create a menu bar
     wxMenuBar* mbar = new wxMenuBar();
-    wxMenu* fileMenu = new wxMenu(_T(""));
+    wxMenu* fileMenu = new wxMenu("");
     fileMenu->Append(idMenuOpen, _("&Open\tCtrl-O"), _("Open file"));
     fileMenu->Append(idMenuQuit, _("&Quit\tAlt-F4"), _("Quit the application"));
     mbar->Append(fileMenu, _("&File"));
 
-    wxMenu* helpMenu = new wxMenu(_T(""));
+    wxMenu* helpMenu = new wxMenu("");
     helpMenu->Append(idMenuAbout, _("&About\tF1"), _("Show info about this application"));
     mbar->Append(helpMenu, _("&Help"));
 
@@ -220,15 +220,15 @@ void MetadataFileViewerFrame::LoadMDItem(wxTreeCtrl *mdtree, wxTreeItemId *paren
 
         for (unsigned long ct=0; ct<storage->Get(*i).Count(); ct++)
         {
-            newid2=mdtree->AppendItem(newid, wxString::Format(wxT("%d"), ct));
+            newid2=mdtree->AppendItem(newid, wxString::Format("%d", ct));
 
             for (dt=storage->Get(*i).Get(ct).GetData().begin();
                     dt!=storage->Get(*i).Get(ct).GetData().end(); dt++)
             {
                 newid3=mdtree->AppendItem(newid2,
-                    wxString::Format(wxT("%s: %s     [st: %d - sz: %d]"),
-                        ViewerButcherMetadataFile::GetMIDescription(dt->first).c_str(),
-                        storage->Get(*i).Get(ct).Get(dt->first).GetValueDescription().c_str(),
+                    wxString::Format("%s: %s     [st: %d - sz: %d]",
+                        ViewerButcherMetadataFile::GetMIDescription(dt->first),
+                        storage->Get(*i).Get(ct).Get(dt->first).GetValueDescription(),
                         storage->Get(*i).Get(ct).Get(dt->first).GetPosition(),
                         storage->Get(*i).Get(ct).Get(dt->first).GetSize()
                     ));

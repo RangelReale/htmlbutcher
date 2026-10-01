@@ -29,7 +29,7 @@ ButcherProjectAreaConfigBase::ButcherProjectAreaConfigBase(ButcherProjectArea *a
     content_(wxEmptyString), celltagappend_(wxEmptyString), imageurl_(wxEmptyString),
     imageurltagappend_(wxEmptyString), imagetagappend_(wxEmptyString), imagemapname_(wxEmptyString),
     align_(AA_NONE), valign_(AV_TOP), bgrepeat_(BR_ALL),
-    isbgcolor_(false), bgcolor_(wxT("BLACK")), innerscrollable_(false), variablesize_(false), havemap_(false),
+    isbgcolor_(false), bgcolor_("BLACK"), innerscrollable_(false), variablesize_(false), havemap_(false),
     alternatefile_(-1), imagesource_(IS_AREA), imagelink_(this),
     imageinfo_(this, -1), altimageinfo_(), margins_()
 {
@@ -180,61 +180,61 @@ wxString ButcherProjectAreaConfigBase::GetFlagsDescription()
 {
     wxString ret(wxEmptyString), tmp;
 	if (area_->GetAreaClass() == ButcherProjectArea::AC_GLOBAL)
-        ret+=wxT("<G>");
+        ret+="<G>";
     switch (GetAreaKind())
     {
     case AK_NONE:
-        ret+=wxT("N");
+        ret+="N";
         break;
     case AK_IMAGE:
-        ret+=wxT("I");
+        ret+="I";
         break;
     case AK_MASK:
-        ret+=wxT("M");
+        ret+="M";
         break;
     default:
-        ret+=wxT("?");
+        ret+="?";
         break;
     }
-    if (!GetIsDefault()) ret+=wxT("C");
-    if (GetBackground()) ret+=wxT("B");
-    if (GetIsBGColor()) ret+=wxT("L");
-    if (GetImageSource()==IS_LINK) ret+=wxT("K");
-    if (GetAlternateFile()>-1) ret+=wxT("A");
-    if (GetInnerScrollable()) ret+=wxT("S");
-    if (GetVariableSize()) ret+=wxT("Z");
-    if (GetHaveMap()) ret+=wxT("P");
-    if (ImageInfo().TransparentColors().size()>0) ret+=wxT("T");
+    if (!GetIsDefault()) ret+="C";
+    if (GetBackground()) ret+="B";
+    if (GetIsBGColor()) ret+="L";
+    if (GetImageSource()==IS_LINK) ret+="K";
+    if (GetAlternateFile()>-1) ret+="A";
+    if (GetInnerScrollable()) ret+="S";
+    if (GetVariableSize()) ret+="Z";
+    if (GetHaveMap()) ret+="P";
+    if (ImageInfo().TransparentColors().size()>0) ret+="T";
     switch (GetAlign())
     {
-    case AA_LEFT: ret+=wxT("@L"); break;
-    case AA_CENTER: ret+=wxT("@C"); break;
-    case AA_RIGHT: ret+=wxT("@R"); break;
+    case AA_LEFT: ret+="@L"; break;
+    case AA_CENTER: ret+="@C"; break;
+    case AA_RIGHT: ret+="@R"; break;
     default: break;
     }
     switch (GetVAlign())
     {
-    case AV_NONE: ret+=wxT("$N"); break;
-    case AV_MIDDLE: ret+=wxT("$M"); break;
-    case AV_BOTTOM: ret+=wxT("$B"); break;
+    case AV_NONE: ret+="$N"; break;
+    case AV_MIDDLE: ret+="$M"; break;
+    case AV_BOTTOM: ret+="$B"; break;
     default: break;
     }
     switch (GetBGRepeat())
     {
-    case BR_NONE: ret+=wxT("*N"); break;
-    case BR_HORIZONTAL: ret+=wxT("*H"); break;
-    case BR_VERTICAL: ret+=wxT("*V"); break;
+    case BR_NONE: ret+="*N"; break;
+    case BR_HORIZONTAL: ret+="*H"; break;
+    case BR_VERTICAL: ret+="*V"; break;
     default: break;
     }
     tmp=wxEmptyString;
     for (int i=0; i<BUTCHERCONST_VIEW_MAXALTERNATE; i++)
     {
         if (altimageinfo_[i]->GetEnabled())
-            tmp+=wxString::Format(wxT("%d"), i+1);
+            tmp+=wxString::Format("%d", i+1);
     }
     if (!tmp.IsEmpty())
     {
-        ret+=wxT("+");
+        ret+="+";
         ret+=tmp;
     }
     return ret;
@@ -266,7 +266,7 @@ void ButcherProjectAreaConfigBase::LoadMetadata(ButcherMetadataData *metadata)
 {
     ButcherProjectBaseAutoUpdate autoupd(this);
 
-	//wxLogDebug(wxT("BFile Version %d"), dynamic_cast<ButcherProjectMetadataFile*>(metadata->GetFile())->GetBVersion());
+	//wxLogDebug("BFile Version %d", dynamic_cast<ButcherProjectMetadataFile*>(metadata->GetFile())->GetBVersion());
 
     if ((!metadata->Exists(BFILE_MDI_ID, ButcherMetadataDataItem::DT_INTEGER)) ||
         (!metadata->Exists(BFILE_MDI_AREAKIND, ButcherMetadataDataItem::DT_INTEGER)))

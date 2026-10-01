@@ -25,7 +25,7 @@ using namespace cppcomp;
 
 class HTMLButcherCSSFileEditDialog: public ButcherControl_Dialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherCSSFileEditDialog( wxWindow* parent,
         wxWindowID id,

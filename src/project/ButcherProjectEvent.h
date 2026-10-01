@@ -21,7 +21,8 @@ class ButcherProject;
  *
  * @brief Project event
  */
-DECLARE_EVENT_TYPE( wxEVT_BUTCHERPROJECT_ACTION, -1 )
+class ButcherProjectEvent;
+wxDECLARE_EVENT(wxEVT_BUTCHERPROJECT_ACTION, ButcherProjectEvent);
 
 class ButcherProjectEvent : public wxEvent
 {
@@ -63,12 +64,9 @@ private:
 typedef void (wxEvtHandler::*ButcherProjectEventFunction)(ButcherProjectEvent&);
 
 #define ButcherProjectEventHandler(func) \
-	(wxObjectEventFunction)(wxEventFunction) \
-	wxStaticCastEvent(ButcherProjectEventFunction, &func)
+	wxEVENT_HANDLER_CAST(ButcherProjectEventFunction, func)
 
 #define EVT_BUTCHERPROJECT(id, fn) \
-    DECLARE_EVENT_TABLE_ENTRY( wxEVT_BUTCHERPROJECT_ACTION, id, -1, \
-    (wxObjectEventFunction) (wxEventFunction) \
-    wxStaticCastEvent( ButcherProjectEventFunction, & fn ), (wxObject *) NULL ),
+    wx__DECLARE_EVT1(wxEVT_BUTCHERPROJECT_ACTION, id, ButcherProjectEventHandler(fn))
 
 #endif // __BPROJECT_BUTCHERPROJECTEVENT_H__

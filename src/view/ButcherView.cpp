@@ -24,16 +24,16 @@
 //      ButcherView
 /////////////////////////////////
 
-DEFINE_EVENT_TYPE( wxEVT_BUTCHEROPERATION_ACTION )
-DEFINE_EVENT_TYPE( wxEVT_BUTCHERSCROLL_ACTION )
+wxDEFINE_EVENT(wxEVT_BUTCHEROPERATION_ACTION, wxCommandEvent);
+wxDEFINE_EVENT(wxEVT_BUTCHERSCROLL_ACTION, wxScrollWinEvent);
 
-BEGIN_EVENT_TABLE(ButcherView, wxControl)
+wxBEGIN_EVENT_TABLE(ButcherView, wxControl)
     EVT_SIZE(ButcherView::OnSize)
     EVT_SET_FOCUS(ButcherView::OnSetFocus)
 
     EVT_BUTCHERDOCUMENTDRAW(wxID_ANY, ButcherView::OnDrawDocument)
     EVT_BUTCHERSCROLL(wxID_ANY, ButcherView::OnDWindowRealWinScroll)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 
 
@@ -71,17 +71,16 @@ ButcherView::ButcherView(wxWindow* parent, wxWindowID id, const wxPoint& pos,
     dwindow_=new wxScrolledWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
     dwindow_->SetScrollRate( 10, 10 );
 
-    const wxEventType scrollwin_events[] = {
+    const wxEventTypeTag<wxScrollWinEvent> scrollwin_events[] = {
         wxEVT_SCROLLWIN_TOP,        wxEVT_SCROLLWIN_BOTTOM,
         wxEVT_SCROLLWIN_LINEUP,     wxEVT_SCROLLWIN_LINEDOWN,
         wxEVT_SCROLLWIN_PAGEUP,     wxEVT_SCROLLWIN_PAGEDOWN,
         wxEVT_SCROLLWIN_THUMBTRACK, wxEVT_SCROLLWIN_THUMBRELEASE
     };
     for (size_t i=0; i<WXSIZEOF(scrollwin_events); i++) {
-        dwindow_->Connect(wxID_ANY, scrollwin_events[i],
-            wxScrollWinEventHandler(ButcherView::OnDWindowWinScroll), NULL, this);
+        dwindow_->Bind(scrollwin_events[i], &ButcherView::OnDWindowWinScroll, this);
     }
-    //dwindow_->Connect(wxID_ANY, wxEVT_LEAVE_WINDOW, wxMouseEventHandler(ButcherViewEditor::OnDWindowLeave), NULL, this);
+    //dwindow_->Bind(wxEVT_LEAVE_WINDOW, &ButcherViewEditor::OnDWindowLeave, this);
 
     ruler_left_=new ButcherRuler(this, ButcherRuler::BRK_LEFT);//, wxID_ANY, wxDefaultPosition, wxSize(rulersize_, -1));
     ruler_top_=new ButcherRuler(this, ButcherRuler::BRK_TOP);//, wxID_ANY, wxDefaultPosition, wxSize(-1, rulersize_));
@@ -151,14 +150,14 @@ void ButcherView::RepositionScroll(int orientation)
 /*
     dwindow_->GetViewStart(&sw, &sh);
 
-    wxLogDebug(wxT("RepositionScroll VS = sw: %d [%d] - sh: %d [%d]"),
+    wxLogDebug("RepositionScroll VS = sw: %d [%d] - sh: %d [%d]",
         sw, ClientToPos(sw), sh, ClientToPos(sh));
 
 */
     dwindow_->CalcUnscrolledPosition(0, 0, &sw, &sh);
 
 /*
-    wxLogDebug(wxT("RepositionScroll = sw: %d [%d] - sh: %d [%d] - pos: %d"),
+    wxLogDebug("RepositionScroll = sw: %d [%d] - sh: %d [%d] - pos: %d",
         sw, ClientToPos(sw), sh, ClientToPos(sh), orientation);
 */
 
@@ -223,7 +222,7 @@ void ButcherView::OnDWindowRealWinScroll(wxScrollWinEvent &event)
 
 void ButcherView::OnSetFocus(wxFocusEvent &event)
 {
-    //wxLogDebug(wxT("Focus"));
+    //wxLogDebug("Focus");
 
     //designer_->SetFocusIgnoringChildren();
     event.Skip();

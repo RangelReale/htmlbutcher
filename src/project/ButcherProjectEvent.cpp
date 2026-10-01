@@ -18,7 +18,7 @@
 //      ButcherProjectEvent
 /////////////////////////////////
 
-DEFINE_EVENT_TYPE( wxEVT_BUTCHERPROJECT_ACTION )
+wxDEFINE_EVENT(wxEVT_BUTCHERPROJECT_ACTION, ButcherProjectEvent);
 
 ButcherProjectEvent::ButcherProjectEvent(ButcherProject *project,
     event_t event, BLID_t eid, BLID_t eid2, int id, wxEventType commandType) :

@@ -30,7 +30,7 @@
 
 
 
-BEGIN_EVENT_TABLE(HTMLButcherMaskAreaEditDialog, ButcherControl_Dialog)
+wxBEGIN_EVENT_TABLE(HTMLButcherMaskAreaEditDialog, ButcherControl_Dialog)
     EVT_BUTTON(ID_IMAGEFORMATDIALOG, HTMLButcherMaskAreaEditDialog::OnImageFormat)
     EVT_COMBOBOX(ID_KIND, HTMLButcherMaskAreaEditDialog::OnCtrlChanged)
 	EVT_RADIOBOX(ID_LAYOUTTYPE, HTMLButcherMaskAreaEditDialog::OnCtrlChanged)
@@ -38,7 +38,7 @@ BEGIN_EVENT_TABLE(HTMLButcherMaskAreaEditDialog, ButcherControl_Dialog)
     EVT_CHECKBOX(ID_HAVEIMAGEMAP, HTMLButcherMaskAreaEditDialog::OnCtrlChanged)
     EVT_CHECKBOX(ID_ISBGCOLOR, HTMLButcherMaskAreaEditDialog::OnCtrlChanged)
     EVT_COMBOBOX(ID_FILEALTERNATE, HTMLButcherMaskAreaEditDialog::OnAlternateFileChanged)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 
 
@@ -62,7 +62,7 @@ void HTMLButcherMaskAreaEditDialog::Init()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-area.html"));
+	SetHelpSection("dialog-area.html");
 #endif
 	
 	areaname_=wxEmptyString;
@@ -85,7 +85,7 @@ void HTMLButcherMaskAreaEditDialog::Init()
     valign_=ButcherProjectAreaConfig::AV_TOP;
     bgrepeat_=ButcherProjectAreaConfig::BR_ALL;
     isbgcolor_=false;
-    bgcolor_=wxColor(wxT("BLACK"));
+    bgcolor_=wxColor("BLACK");
     tabletagappend_=wxEmptyString;
     innerscrollable_=false;
     variablesize_=false;
@@ -149,8 +149,7 @@ void HTMLButcherMaskAreaEditDialog::CreateControls()
     if (ButcherOptions::GetEditMode(GetProject()->GetOptions())>=ButcherOptions::EM_NORMAL)
     {
         previewctrl_->SetSelectColor(true);
-        previewctrl_->Connect(wxID_ANY, wxEVT_BUTCHERIMAGEVIEWCOLOR_ACTION,
-            ButcherImageViewColorEventHandler(HTMLButcherMaskAreaEditDialog::OnSelectColor), NULL, this);
+        previewctrl_->Bind(wxEVT_BUTCHERIMAGEVIEWCOLOR_ACTION, &HTMLButcherMaskAreaEditDialog::OnSelectColor, this);
 
         // PREVIEW COLOR
         wxBoxSizer *previewcolorsizer = new wxBoxSizer(wxHORIZONTAL);
@@ -162,7 +161,7 @@ void HTMLButcherMaskAreaEditDialog::CreateControls()
             0, wxALIGN_LEFT|wxALL, 3);
 
         wxTextCtrl *pchoverctrl = new wxTextCtrl(this, ID_PROC_HOVERCOLOR, wxEmptyString, wxDefaultPosition, wxDefaultSize,
-            wxTE_READONLY|wxTE_CENTRE|wxNO_BORDER);
+            wxTE_READONLY|wxTE_CENTRE|wxBORDER_NONE);
         previewcolorsizer->Add(pchoverctrl, 0, wxGROW|wxALL, 3);
 
         // selected color
@@ -171,7 +170,7 @@ void HTMLButcherMaskAreaEditDialog::CreateControls()
             0, wxALIGN_LEFT|wxALL, 3);
 
         wxTextCtrl *pcselectedctrl = new wxTextCtrl(this, ID_PROC_SELCOLOR, wxEmptyString, wxDefaultPosition, wxDefaultSize,
-            wxTE_READONLY|wxTE_CENTRE|wxNO_BORDER);
+            wxTE_READONLY|wxTE_CENTRE|wxBORDER_NONE);
         previewcolorsizer->Add(pcselectedctrl, 0, wxGROW|wxALL, 3);
 
 

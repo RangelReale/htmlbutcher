@@ -25,7 +25,7 @@
  */
 class HTMLButcherListEditDialog: public ButcherControl_Dialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherListEditDialog( wxWindow* parent,
         wxWindowID id,
@@ -88,7 +88,7 @@ private:
  */
 class HTMLButcherMasksDialog: public HTMLButcherListEditDialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherMasksDialog( wxWindow* parent,
         wxWindowID id,
@@ -116,7 +116,7 @@ private:
  */
 class HTMLButcherViewsDialog: public HTMLButcherListEditDialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherViewsDialog( wxWindow* parent,
         wxWindowID id,
@@ -143,7 +143,7 @@ private:
  */
 class HTMLButcherAssortedFileGroupsDialog: public HTMLButcherListEditDialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherAssortedFileGroupsDialog( wxWindow* parent,
         wxWindowID id,
@@ -170,7 +170,7 @@ private:
  */
 class HTMLButcherAssortedFilesDialog: public HTMLButcherListEditDialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherAssortedFilesDialog( wxWindow* parent,
         wxWindowID id,
@@ -197,7 +197,7 @@ private:
  */
 class HTMLButcherFilePathsDialog: public HTMLButcherListEditDialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherFilePathsDialog( wxWindow* parent,
         wxWindowID id,
@@ -224,7 +224,7 @@ private:
  */
 class HTMLButcherCSSFilesDialog: public HTMLButcherListEditDialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherCSSFilesDialog( wxWindow* parent,
         wxWindowID id,

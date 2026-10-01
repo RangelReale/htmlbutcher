@@ -51,7 +51,7 @@
 
 
 
-BEGIN_EVENT_TABLE(HTMLButcherFrame, wxFrame)
+wxBEGIN_EVENT_TABLE(HTMLButcherFrame, wxFrame)
     EVT_CLOSE(HTMLButcherFrame::OnClose)
     EVT_MENU(idMenuNew, HTMLButcherFrame::OnMenuNew)
     EVT_MENU(idMenuClose, HTMLButcherFrame::OnMenuClose)
@@ -117,7 +117,7 @@ BEGIN_EVENT_TABLE(HTMLButcherFrame, wxFrame)
 #endif
 
     //EVT_UPDATE_UI_RANGE(idAreaMenuStart, idAreaMenuEnd, HTMLButcherFrame::OnUpdateUIAreaMenu)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
     : wxFrame(frame, -1, title, wxDefaultPosition, wxDefaultSize,
@@ -129,7 +129,7 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
         options_()
 {
 #ifdef HTMLBUTCHER_DEBUG
-    (void) new wxLogWindow(this, wxT("log"));
+    (void) new wxLogWindow(this, "log");
 #endif //__WXDEBUG__
 
     // notify wxAUI which frame to use
@@ -139,7 +139,7 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
 
     // create a menu bar
     wxMenuBar* mbar = new wxMenuBar();
-    wxMenu* fileMenu = new wxMenu(_T(""));
+    wxMenu* fileMenu = new wxMenu("");
     fileMenu->Append(idMenuNew, _("&New\tCtrl-N"), _("Create new project"));
 #ifndef HTMLBUTCHER_DEMO
     fileMenu->Append(idMenuOpen, _("&Open...\tCtrl-O"), _("Open project"));
@@ -162,18 +162,18 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
 #ifndef HTMLBUTCHER_DEMO
     filehistory_.UseMenu(fileMenu);
 #endif
-    wxConfigBase::Get(true)->SetPath(wxT("/"));
+    wxConfigBase::Get(true)->SetPath("/");
 #ifndef HTMLBUTCHER_DEMO
     filehistory_.Load(*wxConfigBase::Get(true));
 #endif
 
     mbar->Append(fileMenu, _("&File"));
 
-    wxMenu* viewMenu = new wxMenu(_T(""));
+    wxMenu* viewMenu = new wxMenu("");
 
-    //wxMenu* viewviewMenu = new wxMenu(_T(""));
+    //wxMenu* viewviewMenu = new wxMenu("");
     //viewMenu->Append(idMenuViewSelect, _("&View"), _("View"));
-    //viewMenu->Append(idMenuViewSelect, wxT("&View"), viewviewMenu, wxT("View"));
+    //viewMenu->Append(idMenuViewSelect, "&View", viewviewMenu, "View");
 	viewMenu->Append(idMenuViewSelect, _("&View"), _("View"));
 
     viewMenu->AppendSeparator();
@@ -209,7 +209,7 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
     modeMenu->Append(wxID_STATIC, _("&Edit mode"), editmodeMenu, _("Edit mode"));
     mbar->Append(modeMenu, _("&Mode"));
 
-    wxMenu* dataMenu = new wxMenu(_T(""));
+    wxMenu* dataMenu = new wxMenu("");
     dataMenu->Append(idMenuFiles, _("&Files...\tF5"), _("Project files"));
     dataMenu->Append(idMenuMasks, _("&Masks...\tF6"), _("Project masks"));
     dataMenu->Append(idMenuViews, _("&Views...\tF7"), _("Project views"));
@@ -230,7 +230,7 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
     dataMenu->Append(idMenuProjectOptions, _("Project &options..."), _("Project options"));
     mbar->Append(dataMenu, _("&Data"));
 
-    wxMenu* helpMenu = new wxMenu(_T(""));
+    wxMenu* helpMenu = new wxMenu("");
 #ifdef BUTCHER_USE_HELP
 	helpMenu->Append(wxID_HELP, _("&Contents\tF1"), _("Help contents"));
     helpMenu->AppendSeparator();
@@ -266,13 +266,13 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
                                    wxTB_FLAT | wxTB_NODIVIDER);
 #endif
     tbFile->SetToolBitmapSize(wxSize(16,16));
-    tbFile->AddTool(idMenuNew, _("New Project"), butil_loadxmlrcbitmap(wxT("ico_new")),
+    tbFile->AddTool(idMenuNew, _("New Project"), butil_loadxmlrcbitmap("ico_new"),
         _("New Project"));
 
 #ifndef HTMLBUTCHER_DEMO
-    tbFile->AddTool(idMenuOpen, _("Open Project"), butil_loadxmlrcbitmap(wxT("ico_open")),
+    tbFile->AddTool(idMenuOpen, _("Open Project"), butil_loadxmlrcbitmap("ico_open"),
         _("Open Project"));
-    tbFile->AddTool(idMenuSave, _("Save Project"), butil_loadxmlrcbitmap(wxT("ico_save")),
+    tbFile->AddTool(idMenuSave, _("Save Project"), butil_loadxmlrcbitmap("ico_save"),
         _("Save Project"));
 #endif
 
@@ -283,23 +283,23 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
     wxToolBar* tbTools = new wxToolBar(this, idTBTools, wxDefaultPosition, wxDefaultSize,
                                    wxTB_FLAT | wxTB_NODIVIDER | wxTB_VERTICAL);
     tbTools->SetToolBitmapSize(wxSize(32,32));
-    tbTools->AddTool(idMenuInsertLineHorizontal, _("Insert Horizontal Line"), butil_loadxmlrcbitmap(wxT("ico_insert_hline")),
+    tbTools->AddTool(idMenuInsertLineHorizontal, _("Insert Horizontal Line"), butil_loadxmlrcbitmap("ico_insert_hline"),
         _("Insert Horizontal Line"));
-    tbTools->AddTool(idMenuInsertLineVertical, _("Insert Vertical Line"), butil_loadxmlrcbitmap(wxT("ico_insert_vline")),
+    tbTools->AddTool(idMenuInsertLineVertical, _("Insert Vertical Line"), butil_loadxmlrcbitmap("ico_insert_vline"),
         _("Insert Vertical Line"));
-    tbTools->AddTool(idMenuMoveLine, _("Move line"), butil_loadxmlrcbitmap(wxT("ico_move_line")),
+    tbTools->AddTool(idMenuMoveLine, _("Move line"), butil_loadxmlrcbitmap("ico_move_line"),
         _("Move line"));
-    tbTools->AddTool(idMenuDeleteLine, _("Delete line"), butil_loadxmlrcbitmap(wxT("ico_delete_line")),
+    tbTools->AddTool(idMenuDeleteLine, _("Delete line"), butil_loadxmlrcbitmap("ico_delete_line"),
         _("Delete line"));
-    tbTools->AddTool(idMenuInsertAreaGlobal, _("Insert global area"), butil_loadxmlrcbitmap(wxT("ico_insert_garea")),
+    tbTools->AddTool(idMenuInsertAreaGlobal, _("Insert global area"), butil_loadxmlrcbitmap("ico_insert_garea"),
         _("Insert global area"));
-    tbTools->AddTool(idMenuDeleteAreaGlobal, _("Delete global area"), butil_loadxmlrcbitmap(wxT("ico_delete_garea")),
+    tbTools->AddTool(idMenuDeleteAreaGlobal, _("Delete global area"), butil_loadxmlrcbitmap("ico_delete_garea"),
         _("Delete global area"));
-    tbTools->AddTool(idMenuInsertAreaMap, _("Insert map area"), butil_loadxmlrcbitmap(wxT("ico_insert_marea")),
+    tbTools->AddTool(idMenuInsertAreaMap, _("Insert map area"), butil_loadxmlrcbitmap("ico_insert_marea"),
         _("Insert map area"));
-    tbTools->AddTool(idMenuDeleteAreaMap, _("Delete map area"), butil_loadxmlrcbitmap(wxT("ico_delete_marea")),
+    tbTools->AddTool(idMenuDeleteAreaMap, _("Delete map area"), butil_loadxmlrcbitmap("ico_delete_marea"),
         _("Delete map area"));
-    tbTools->AddTool(idMenuCancelOperation, _("Cancel operation"), butil_loadxmlrcbitmap(wxT("ico_cancel")),
+    tbTools->AddTool(idMenuCancelOperation, _("Cancel operation"), butil_loadxmlrcbitmap("ico_cancel"),
 		_("Cancel operation"));
     tbTools->Realize();
 
@@ -347,11 +347,11 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
     tbView->AddControl(new wxStaticText(tbView, wxID_ANY, _("View:"), wxDefaultPosition, wxDefaultSize, 0));
     tbView->AddControl(new wxComboBox(tbView, idViewList, wxEmptyString, wxDefaultPosition, wxSize(200, -1),
         wxArrayString(), wxCB_READONLY|wxCB_SORT));
-    tbView->AddTool(idMenuZoomOut, _("Zoom Out"), butil_loadxmlrcbitmap(wxT("ico_zoom_out")),
+    tbView->AddTool(idMenuZoomOut, _("Zoom Out"), butil_loadxmlrcbitmap("ico_zoom_out"),
         _("Zoom Out"));
-    tbView->AddTool(idMenuZoomIn, _("Zoom In"), butil_loadxmlrcbitmap(wxT("ico_zoom_in")),
+    tbView->AddTool(idMenuZoomIn, _("Zoom In"), butil_loadxmlrcbitmap("ico_zoom_in"),
         _("Zoom In"));
-    tbView->AddTool(idMenuZoomNormal, _("Zoom Normal"), butil_loadxmlrcbitmap(wxT("ico_zoom_normal")),
+    tbView->AddTool(idMenuZoomNormal, _("Zoom Normal"), butil_loadxmlrcbitmap("ico_zoom_normal"),
         _("Zoom Normal"));
     tbView->AddSeparator();
     tbView->AddControl(new wxStaticText(tbView, wxID_ANY, _("Mode:"), wxDefaultPosition, wxDefaultSize, 0));
@@ -365,24 +365,24 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
 
     // add the toolbars to the manager
     mgr_.AddPane(tbFile, wxAuiPaneInfo().
-                  Name(wxT("tbFile")).Caption(_("Main")).
+                  Name("tbFile").Caption(_("Main")).
                   ToolbarPane().Top().
                   LeftDockable(false).RightDockable(false));
 
     mgr_.AddPane(tbView, wxAuiPaneInfo().
-                  Name(wxT("tbView")).Caption(_("View")).
+                  Name("tbView").Caption(_("View")).
                   ToolbarPane().Top().Position(2).
                   LeftDockable(false).RightDockable(false));
 
     mgr_.AddPane(tbTools, wxAuiPaneInfo().
-                  Name(wxT("tbTools")).Caption(_("Tools")).
+                  Name("tbTools").Caption(_("Tools")).
                   ToolbarPane().Left().
                   GripperTop().
                   TopDockable(false).BottomDockable(false));
 
 /*
     mgr_.AddPane(tbDetail, wxAuiPaneInfo().
-                  Name(wxT("tbDetail")).Caption(_("Detail")).
+                  Name("tbDetail").Caption(_("Detail")).
                   ToolbarPane().Left().
                   GripperTop().
                   TopDockable(false).BottomDockable(false));
@@ -390,7 +390,7 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
 
 /*
 	mgr_.AddPane(tbSelection, wxAuiPaneInfo().
-                  Name(wxT("tbSelection")).Caption(_("Selection")).
+                  Name("tbSelection").Caption(_("Selection")).
                   ToolbarPane().Right().
                   GripperTop().
                   TopDockable(false).BottomDockable(false));
@@ -401,7 +401,7 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
     panBase_ = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxBORDER_SUNKEN);
     //panBase_->SetBackgroundColour(*wxRED);
     mgr_.AddPane(panBase_, wxAuiPaneInfo().
-                  Name(wxT("panBase")).Caption(_("Base")).
+                  Name("panBase").Caption(_("Base")).
                   CentrePane().PaneBorder(false));
 
 
@@ -441,9 +441,7 @@ HTMLButcherFrame::HTMLButcherFrame(wxFrame *frame, const wxString& title)
     project_=new ButcherProject;
     project_->SetOptions(&options_);
 
-    project_->Connect(wxID_ANY, wxEVT_BUTCHERPROJECT_ACTION,
-        ButcherProjectEventHandler(HTMLButcherFrame::OnProjectEvent),
-        NULL, this);
+    project_->Bind(wxEVT_BUTCHERPROJECT_ACTION, &HTMLButcherFrame::OnProjectEvent, this);
 
     UpdateAppState();
 
@@ -470,9 +468,7 @@ HTMLButcherFrame::~HTMLButcherFrame()
 
     project_->Close();
 
-    project_->Disconnect(wxID_ANY, wxEVT_BUTCHERPROJECT_ACTION,
-        ButcherProjectEventHandler(HTMLButcherFrame::OnProjectEvent),
-        NULL, this);
+    project_->Unbind(wxEVT_BUTCHERPROJECT_ACTION, &HTMLButcherFrame::OnProjectEvent, this);
 
     view_->SetProject(NULL);
 
@@ -611,7 +607,7 @@ void HTMLButcherFrame::OnMenuSaveForWeb(wxCommandEvent& event)
 		SetCursor(*wxHOURGLASS_CURSOR);
         try {
             view_->GetProjectView()->GenerateHTML(d.GetPath());
-            //view_->GetProjectView()->GenerateHTML(wxT("c:\\temp\\work\\h.html"));
+            //view_->GetProjectView()->GenerateHTML("c:\\temp\\work\\h.html");
 
         } catch(...) {
             SetCursor(*wxSTANDARD_CURSOR);
@@ -711,10 +707,10 @@ void HTMLButcherFrame::OnHelpAbout(wxCommandEvent& event)
 void HTMLButcherFrame::OnHelpTest(wxCommandEvent& event)
 {
 	//ButcherHTMLAttributeGenerator a(_("Maria=\"1\" jose'2 e demais' joaQUIm=3434"));
-	ButcherHTMLAttributeGenerator a(wxT("maria: \"1 px\"; jose: '2 e demais'; joaquim: 3434 13px"), ButcherHTMLAttributeGenerator::KIND_STYLE);
+	ButcherHTMLAttributeGenerator a("maria: \"1 px\"; jose: '2 e demais'; joaquim: 3434 13px", ButcherHTMLAttributeGenerator::KIND_STYLE);
 
-	wxMessageBox(a.Generate(ButcherHTMLAttributeGenerator::KIND_TAG, wxT("ID")));
-	wxMessageBox(a.Generate(ButcherHTMLAttributeGenerator::KIND_STYLE, wxT("ID")));
+	wxMessageBox(a.Generate(ButcherHTMLAttributeGenerator::KIND_TAG, "ID"));
+	wxMessageBox(a.Generate(ButcherHTMLAttributeGenerator::KIND_STYLE, "ID"));
 }
 #endif
 
@@ -1041,7 +1037,7 @@ void HTMLButcherFrame::OnMenuGridSize(wxCommandEvent& event)
 {
     if (view_->GetProjectView() == NULL) return;
 
-    wxTextEntryDialog d(this, _("Enter grid size"), _("Grid Size"), wxString::Format(wxT("%d"), view_->GetGridSize()));
+    wxTextEntryDialog d(this, _("Enter grid size"), _("Grid Size"), wxString::Format("%d", view_->GetGridSize()));
     if (d.ShowModal() == wxID_OK) {
         int a=wxAtoi(d.GetValue());
         if (a>0)
@@ -1259,9 +1255,9 @@ void HTMLButcherFrame::UpdateAppState()
     tbTools->EnableTool(idMenuCancelOperation, isview && isoperation);
 
 #ifdef HTMLBUTCHER_DEMO
-	wxString atit=wxString::Format(wxT("HTMLButcher DEMO %d.%d"), HTMLBUTCHERVERSION_1, HTMLBUTCHERVERSION_2);
+	wxString atit=wxString::Format("HTMLButcher DEMO %d.%d", HTMLBUTCHERVERSION_1, HTMLBUTCHERVERSION_2);
 #else
-	wxString atit=wxString::Format(wxT("HTMLButcher %d.%d"), HTMLBUTCHERVERSION_1, HTMLBUTCHERVERSION_2);
+	wxString atit=wxString::Format("HTMLButcher %d.%d", HTMLBUTCHERVERSION_1, HTMLBUTCHERVERSION_2);
 #endif
 
     if (isactive)
@@ -1275,7 +1271,7 @@ void HTMLButcherFrame::UpdateAppState()
             fn=f.GetFullName();
         }
 
-        SetTitle(wxString::Format(wxT("%s - %s%s"), atit.c_str(), fn.c_str(), (project_->GetModified()?wxT("*"):wxEmptyString)));
+        SetTitle(wxString::Format("%s - %s%s", atit, fn, (project_->GetModified()?"*":"")));
     }
     else
     {
@@ -1283,7 +1279,7 @@ void HTMLButcherFrame::UpdateAppState()
     }
 
     if (isactive) {
-        SetStatusText((project_->GetModified()?_("Modified"):wxT("")), 0);
+        SetStatusText((project_->GetModified()?_("Modified"):""), 0);
     }
 
     if (!isactive) SetStatusText(wxEmptyString, 0);
@@ -1358,9 +1354,9 @@ void HTMLButcherFrame::LoadViews(bool check)
     if (project_->IsOpen()) {
 		for (ButcherProjectViews::iterator i=project_->Views().begin(); i!=project_->Views().end(); i++)
 		{
-            desc=wxString::Format(wxT("%s [%s]"),
-                    i->GetName().c_str(),
-                    i->GetMask()->GetName().c_str());
+            desc=wxString::Format("%s [%s]",
+                    i->GetName(),
+                    i->GetMask()->GetName());
                     //i->GetMask()->Configs().Get(i->GetMaskConfigId())->GetName().c_str());
 
             if (!check)
@@ -1467,7 +1463,7 @@ void HTMLButcherFrame::LoadFileAlternate()
 
     wxString dfile;
     if (view_->GetProjectViewId()!=0)
-        dfile=wxString::Format(wxT("* - %s"), view_->GetProjectView()->GetFile()->GetDisplayName().c_str());
+        dfile=wxString::Format("* - %s", view_->GetProjectView()->GetFile()->GetDisplayName());
     else
         dfile=_("- DEFAULT -");
 
@@ -1479,9 +1475,9 @@ void HTMLButcherFrame::LoadFileAlternate()
         {
             if (view_->GetProjectView()->GetFileAlternate(i))
             {
-                wxccu_control_append_select(factrl, wxString::Format(wxT("%d - %s"),
+                wxccu_control_append_select(factrl, wxString::Format("%d - %s",
                         i+1,
-                        view_->GetProjectView()->GetFileAlternate(i)->GetDisplayName().c_str()),
+                        view_->GetProjectView()->GetFileAlternate(i)->GetDisplayName()),
                         i+1, (view_->GetFileAlternate()?view_->GetFileAlternateId()+1:0) );
             }
         }
@@ -1591,7 +1587,7 @@ void HTMLButcherFrame::OnBViewSelect(ButcherViewSelectEvent& event)
 
         for (unsigned int i=0; i<event.GetLineSelect()->GetCount(); i++)
         {
-            msg+=wxString::Format(wxT("[%s]"), event.GetLineSelect()->GetItem(i)->GetFullDescription().c_str());
+            msg+=wxString::Format("[%s]", event.GetLineSelect()->GetItem(i)->GetFullDescription());
         }
         SetStatusText(msg, 3);
 
@@ -1602,8 +1598,8 @@ void HTMLButcherFrame::OnBViewSelect(ButcherViewSelectEvent& event)
 
         for (unsigned int i=0; i<event.GetAreaSelect()->GetCount(); i++)
         {
-            msg+=wxString::Format(wxT("[%s(%s)]"), event.GetAreaSelect()->GetItem(i)->GetFullDescription().c_str(),
-                event.GetAreaSelect()->GetItem(i)->Configs().Get(view_->GetProjectView()->GetBLId())->GetFlagsDescription().c_str());
+            msg+=wxString::Format("[%s(%s)]", event.GetAreaSelect()->GetItem(i)->GetFullDescription(),
+                event.GetAreaSelect()->GetItem(i)->Configs().Get(view_->GetProjectView()->GetBLId())->GetFlagsDescription());
         }
         SetStatusText(msg, 3);
 

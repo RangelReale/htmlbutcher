@@ -51,19 +51,19 @@ ButcherProjectCSSFile::~ButcherProjectCSSFile()
 
 wxString ButcherProjectCSSFile::GetOutputFileURL(BLID_t id)
 {
-    wxString p=(filepathid_>0?GetProject()->FilePaths().Get(filepathid_)->GetFormattedPath():wxT(""));
+    wxString p=(filepathid_>0?GetProject()->FilePaths().Get(filepathid_)->GetFormattedPath():"");
     wxString fn;
     if (!savefilename_.IsEmpty())
     {
         wxFileName tmp(savefilename_);
         if (tmp.GetExt().IsEmpty())
         {
-			tmp.SetExt(wxT("css"));
+			tmp.SetExt("css");
         }
 		fn=tmp.GetFullName();
     }
     else
-        fn=wxString::Format(wxT("%s.css"), name_.c_str());
+        fn=wxString::Format("%s.css", name_);
     return p+fn;
 }
 
@@ -72,19 +72,19 @@ wxString ButcherProjectCSSFile::GetOutputFileURL(BLID_t id)
 
 wxString ButcherProjectCSSFile::GetOutputFilename(const wxString &basepath, BLID_t id)
 {
-    wxString p=(filepathid_>0?GetProject()->FilePaths().Get(filepathid_)->GetFormattedPath(basepath):wxT(""));
+    wxString p=(filepathid_>0?GetProject()->FilePaths().Get(filepathid_)->GetFormattedPath(basepath):"");
     wxString fn;
     if (!savefilename_.IsEmpty())
     {
         wxFileName tmp(savefilename_);
         if (tmp.GetExt().IsEmpty())
         {
-			tmp.SetExt(wxT("css"));
+			tmp.SetExt("css");
         }
 		fn=tmp.GetFullName();
     }
     else
-        fn=wxString::Format(wxT("%s.css"), name_.c_str());
+        fn=wxString::Format("%s.css", name_);
     return p+fn;
 
 /*

@@ -330,16 +330,16 @@ wxString ButcherProjectArea::GetDescription()
 //#ifndef __WXDEBUG__
     if (!name_.IsEmpty())
         return name_;
-    return wxString::Format(wxT("%s %d"), aread.c_str(), GetBLId());
+    return wxString::Format("%s %d", aread, GetBLId());
 /*
 #else
-	wxString arealay=wxString::Format(wxT("[%d %d %d %d]"),
+	wxString arealay=wxString::Format("[%d %d %d %d]",
 		GetLeft()->GetBLId(), GetTop()->GetBLId(),
 		GetRight()->GetBLId(), GetBottom()->GetBLId());
 
 	if (!name_.IsEmpty())
-        return name_+wxT(" ")+arealay;
-    return wxString::Format(wxT("%s %d %s"), aread.c_str(), GetBLId(), arealay.c_str());
+        return name_+" "+arealay;
+    return wxString::Format("%s %d %s", aread, GetBLId(), arealay);
 #endif
 */
 }
@@ -353,7 +353,7 @@ wxString ButcherProjectArea::GetFullDescription()
     ms=GetMask();
     while (ms->GetParent())
     {
-        temp=ms->GetParent()->GetDescription()+wxT("->")+temp;
+        temp=ms->GetParent()->GetDescription()+"->"+temp;
         ms=ms->GetParent()->GetMask();
     };
     return temp;
@@ -364,21 +364,21 @@ wxString ButcherProjectArea::GetFullDescription()
 
 wxString ButcherProjectArea::GetBaseFilename(int alternatefile)
 {
-    wxString aread(wxT("area"));
+    wxString aread("area");
     switch (GetAreaClass())
     {
     case AC_GLOBAL:
-        aread=wxT("garea");
+        aread="garea";
         break;
     case AC_MAP:
-        aread=wxT("marea");
+        aread="marea";
         break;
     default:
         break;
     }
-    aread=wxString::Format(wxT("%s%d"), aread.c_str(), GetBLId());
+    aread=wxString::Format("%s%d", aread, GetBLId());
     if (alternatefile!=-1)
-        aread+=wxString::Format(wxT("alt%d"), alternatefile+1);
+        aread+=wxString::Format("alt%d", alternatefile+1);
     return aread;
 }
 
@@ -416,11 +416,11 @@ wxString ButcherProjectArea::GetImageFilename(BLID_t viewid, bool fileext, int a
             }
         }
     }
-    if (!curfn.IsEmpty() && (curfn==wxT("!")) && !fileext)
+    if (!curfn.IsEmpty() && (curfn=="!") && !fileext)
         ; // if ! don't add a name for this area, if it is not the last one
     else
     {
-        if (addunder) ret+=wxT("_");
+        if (addunder) ret+="_";
         if (!curfn.IsEmpty())
             ret+=curfn;
         else
@@ -428,7 +428,7 @@ wxString ButcherProjectArea::GetImageFilename(BLID_t viewid, bool fileext, int a
     }
     if (viewid>0 && fileext)
     {
-        ret+=wxT(".");
+        ret+=".";
         ret+=ButcherImage::GetFormatExt(Configs().Get(viewid)->GetValidImageInfo(alternatefile).GetImageFormat()->GetFormat());
     }
 

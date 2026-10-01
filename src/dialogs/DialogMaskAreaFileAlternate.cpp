@@ -30,9 +30,9 @@
 
 
 
-BEGIN_EVENT_TABLE(HTMLButcherMaskAreaFileAlternateDialog, ButcherControl_Dialog)
+wxBEGIN_EVENT_TABLE(HTMLButcherMaskAreaFileAlternateDialog, ButcherControl_Dialog)
     EVT_BUTTON(ID_BTN_LOADPREVIEW, HTMLButcherMaskAreaFileAlternateDialog::OnLoadPreview)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 HTMLButcherMaskAreaFileAlternateDialog::HTMLButcherMaskAreaFileAlternateDialog( wxWindow* parent,
     wxWindowID id,
@@ -52,7 +52,7 @@ void HTMLButcherMaskAreaFileAlternateDialog::Init()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-alternatefiles.html"));
+	SetHelpSection("dialog-alternatefiles.html");
 #endif
 }
 
@@ -130,14 +130,12 @@ void HTMLButcherMaskAreaFileAlternateDialog::CreateControls()
 
         // enabled
         wxCheckBox *ialtenabledctrl = new wxCheckBox(ialtpanel, ID_ALTERNATE_ENABLED+altidadd, _("Enabled"), wxDefaultPosition, wxDefaultSize);
-        ialtenabledctrl->Connect(ID_ALTERNATE_ENABLED+altidadd, wxEVT_COMMAND_CHECKBOX_CLICKED,
-            wxCommandEventHandler(HTMLButcherMaskAreaFileAlternateDialog::OnEnabledClick), NULL, this);
+        ialtenabledctrl->Bind(wxEVT_CHECKBOX, &HTMLButcherMaskAreaFileAlternateDialog::OnEnabledClick, this, ID_ALTERNATE_ENABLED+altidadd);
         enabledsizer->Add(ialtenabledctrl, 0, wxGROW|wxALL, 3);
 
         // image format button
         wxButton *ialtformatbtn = new wxButton(ialtpanel, ID_ALTERNATE_IMAGEFORMATBUTTON+altidadd, _("Format"), wxDefaultPosition, wxDefaultSize);
-        ialtformatbtn->Connect(ID_ALTERNATE_IMAGEFORMATBUTTON+altidadd, wxEVT_COMMAND_BUTTON_CLICKED,
-            wxCommandEventHandler(HTMLButcherMaskAreaFileAlternateDialog::OnAlternateImageFormat), NULL, this);
+        ialtformatbtn->Bind(wxEVT_BUTTON, &HTMLButcherMaskAreaFileAlternateDialog::OnAlternateImageFormat, this, ID_ALTERNATE_IMAGEFORMATBUTTON+altidadd);
         enabledsizer->Add(ialtformatbtn, 0, wxGROW|wxALL, 3);
 
         // image format

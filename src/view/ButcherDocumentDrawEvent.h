@@ -21,7 +21,8 @@ class ButcherDocument;
  *
  * @brief document draw event
  */
-DECLARE_EVENT_TYPE( wxEVT_BUTCHERDOCUMENTDRAW_ACTION, -1 )
+class ButcherDocumentDrawEvent;
+wxDECLARE_EVENT(wxEVT_BUTCHERDOCUMENTDRAW_ACTION, ButcherDocumentDrawEvent);
 
 class ButcherDocumentDrawEvent : public wxEvent
 {
@@ -45,12 +46,9 @@ private:
 typedef void (wxEvtHandler::*ButcherDocumentDrawEventFunction)(ButcherDocumentDrawEvent&);
 
 #define ButcherDocumentDrawEventHandler(func) \
-	(wxObjectEventFunction)(wxEventFunction) \
-	wxStaticCastEvent(ButcherDocumentDrawEventFunction, &func)
+	wxEVENT_HANDLER_CAST(ButcherDocumentDrawEventFunction, func)
 
 #define EVT_BUTCHERDOCUMENTDRAW(id, fn) \
-    DECLARE_EVENT_TABLE_ENTRY( wxEVT_BUTCHERDOCUMENTDRAW_ACTION, id, -1, \
-    (wxObjectEventFunction) (wxEventFunction) \
-    wxStaticCastEvent( ButcherDocumentDrawEventFunction, & fn ), (wxObject *) NULL ),
+    wx__DECLARE_EVT1(wxEVT_BUTCHERDOCUMENTDRAW_ACTION, id, ButcherDocumentDrawEventHandler(fn))
 
 #endif // __BVIEW_BUTCHERDOCUMENTDRAWEVENT_H__

@@ -23,12 +23,12 @@
 
 
 
-BEGIN_EVENT_TABLE(ButcherControl_Dialog, wxDialog)
+wxBEGIN_EVENT_TABLE(ButcherControl_Dialog, wxDialog)
 #ifdef BUTCHER_USE_HELP
 	EVT_BUTTON(wxID_HELP, ButcherControl_Dialog::OnHelp)
 	EVT_HELP(wxID_ANY, ButcherControl_Dialog::OnHelpEvent)
 #endif
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 /////////////////////////////////
 // CLASS
@@ -72,16 +72,16 @@ void ButcherControl_Dialog::OnHelpEvent(wxHelpEvent& event)
 //      ButcherControl_FileLink
 /////////////////////////////////
 
-IMPLEMENT_DYNAMIC_CLASS(ButcherControl_FileLink, wxControl)
+wxIMPLEMENT_DYNAMIC_CLASS(ButcherControl_FileLink, wxControl)
 
-BEGIN_EVENT_TABLE(ButcherControl_FileLink, wxControl)
+wxBEGIN_EVENT_TABLE(ButcherControl_FileLink, wxControl)
     EVT_PAINT(ButcherControl_FileLink::OnPaint)
     EVT_LEFT_DOWN(ButcherControl_FileLink::OnLeftDown)
     EVT_LEFT_UP(ButcherControl_FileLink::OnLeftUp)
     EVT_MOTION(ButcherControl_FileLink::OnMotion)
     EVT_LEAVE_WINDOW(ButcherControl_FileLink::OnLeaveWindow)
     EVT_SIZE(ButcherControl_FileLink::OnSize)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 
 
@@ -268,9 +268,9 @@ void ButcherControl_FileLink::OnSize(wxSizeEvent& WXUNUSED(event))
 //      ButcherControl_FmtTextCtrl
 /////////////////////////////////
 
-BEGIN_EVENT_TABLE(ButcherControl_FmtTextCtrl, wxStyledTextCtrl)
+wxBEGIN_EVENT_TABLE(ButcherControl_FmtTextCtrl, wxStyledTextCtrl)
     EVT_RIGHT_DOWN(ButcherControl_FmtTextCtrl::OnRMouseDown)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 
 
@@ -357,7 +357,7 @@ void ButcherControl_FmtTextCtrl::DoInsertFileLink()
 
     HTMLButcherFileLinkDialog d(this, wxID_ANY, project_);
     if (d.ShowModal()==wxID_OK)
-        WriteText(wxString::Format(wxT("$$burl %s$$"), d.GetFileLink().GetBURL().c_str()));
+        WriteText(wxString::Format("$$burl %s$$", d.GetFileLink().GetBURL()));
 }
 
 /////////////////////////////////
@@ -380,7 +380,7 @@ bool ButcherControl_GenericValidator::TransferToWindow()
         else if (m_pInt)
         {
             wxString str;
-            str.Printf(wxT("%d"), *m_pInt);
+            str.Printf("%d", *m_pInt);
             pControl->SetText(str);
             return true;
         }
@@ -429,10 +429,10 @@ float ButcherControl_ButcherViewSimulated::GetPixelSize()
 // CLASS
 //      ButcherControl_SelectionDisplay
 /////////////////////////////////
-BEGIN_EVENT_TABLE(ButcherControl_SelectionDisplay, wxControl)
+wxBEGIN_EVENT_TABLE(ButcherControl_SelectionDisplay, wxControl)
     EVT_PAINT(ButcherControl_SelectionDisplay::OnPaint)
     EVT_ERASE_BACKGROUND(ButcherControl_SelectionDisplay::OnErase)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 ButcherControl_SelectionDisplay::ButcherControl_SelectionDisplay(wxWindow* parent, wxWindowID id,
     const wxPoint& pos, const wxSize& size, long style, const wxString& name) :
@@ -505,7 +505,7 @@ void ButcherControl_SelectionDisplay::OnPaint(wxPaintEvent& event)
 			wxString msg;
 			for (unsigned int i=0; i<selectevent_->GetLineSelect()->GetCount(); i++)
 			{
-				msg+=wxString::Format(wxT("[%s]"), selectevent_->GetLineSelect()->GetItem(i)->GetFullDescription().c_str());
+				msg+=wxString::Format("[%s]", selectevent_->GetLineSelect()->GetItem(i)->GetFullDescription());
 			}
 			dc.DrawText(msg, 5, 5);
 
@@ -535,8 +535,8 @@ void ButcherControl_SelectionDisplay::OnPaint(wxPaintEvent& event)
 					NULL, ButcherProjectMask::DO_DONTDRAWTITLES);
 				sel.Draw(&n, &dc, selectevent_->GetProjectView(), ButcherProjectMask::DO_DONTDRAWTITLES);
 
-				msg=wxString::Format(wxT("[%s(%s)]"), selectevent_->GetAreaSelect()->GetItem(i)->GetFullDescription().c_str(),
-					selectevent_->GetAreaSelect()->GetItem(i)->Configs().Get(selectevent_->GetProjectView()->GetBLId())->GetFlagsDescription().c_str());
+				msg=wxString::Format("[%s(%s)]", selectevent_->GetAreaSelect()->GetItem(i)->GetFullDescription(),
+					selectevent_->GetAreaSelect()->GetItem(i)->Configs().Get(selectevent_->GetProjectView()->GetBLId())->GetFlagsDescription());
 
 				dc.DrawText(msg, n.GetDesignLeft(), n.GetDesignTop()-10);
 
@@ -569,10 +569,10 @@ void ButcherControl_SelectionDisplay::OnErase(wxEraseEvent &event)
 // CLASS
 //      ButcherControl_TransparentStaticText
 /////////////////////////////////
-BEGIN_EVENT_TABLE (ButcherControl_TransparentStaticText, wxControl)
+wxBEGIN_EVENT_TABLE (ButcherControl_TransparentStaticText, wxControl)
     EVT_PAINT(ButcherControl_TransparentStaticText::OnPaint)
     EVT_ERASE_BACKGROUND(ButcherControl_TransparentStaticText::OnEraseBackground)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 ButcherControl_TransparentStaticText::ButcherControl_TransparentStaticText(wxWindow* parent, wxWindowID id,
         const wxString &label , const wxPoint& pos ,
@@ -604,7 +604,7 @@ void ButcherControl_TransparentStaticText::OnPaint (wxPaintEvent & event)
     wxPaintDC dc(this);
     wxFont my_font = this->GetFont();
 	dc.SetFont(my_font);
-	dc.SetBackgroundMode(wxTRANSPARENT);
+	dc.SetBackgroundMode(wxBRUSHSTYLE_TRANSPARENT);
 #ifndef __WXGTK__
 	dc.SetTextForeground(*wxWHITE);
 #else

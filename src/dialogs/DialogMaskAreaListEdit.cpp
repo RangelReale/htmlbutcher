@@ -44,10 +44,10 @@ private:
 
 
 
-BEGIN_EVENT_TABLE(HTMLButcherMaskAreaListDialog, ButcherControl_Dialog)
+wxBEGIN_EVENT_TABLE(HTMLButcherMaskAreaListDialog, ButcherControl_Dialog)
     EVT_TREE_SEL_CHANGED(ID_AREALIST, HTMLButcherMaskAreaListDialog::OnAreaChanged)
     EVT_BUTCHERIMAGEVIEW_AFTERPAINT(ID_PREVIEW, HTMLButcherMaskAreaListDialog::OnAfterDraw)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 HTMLButcherMaskAreaListDialog::HTMLButcherMaskAreaListDialog( wxWindow* parent,
     wxWindowID id,
@@ -70,7 +70,7 @@ void HTMLButcherMaskAreaListDialog::Init()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-currentareas.html"));
+	SetHelpSection("dialog-currentareas.html");
 #endif
 }
 
@@ -97,8 +97,7 @@ void HTMLButcherMaskAreaListDialog::CreateControls()
     wxTreeCtrl *arealistctrl = new wxTreeCtrl(this, ID_AREALIST, wxDefaultPosition, wxSize(250, -1),
         wxTR_DEFAULT_STYLE);
     arealistctrl->SetToolTip(_("Right-click for area menu"));
-    arealistctrl->Connect(ID_AREALIST, wxEVT_RIGHT_DOWN, wxMouseEventHandler(HTMLButcherMaskAreaListDialog::OnAreaMenu),
-        NULL, this);
+    arealistctrl->Bind(wxEVT_RIGHT_DOWN, &HTMLButcherMaskAreaListDialog::OnAreaMenu, this, ID_AREALIST);
     fieldssizer->Add(arealistctrl, 1, wxEXPAND|wxALL, 3);
 
 
@@ -229,11 +228,11 @@ void HTMLButcherMaskAreaListDialog::AddSubArea(wxTreeCtrl *tree, wxTreeItemId pa
         ac=i->Configs().Get(view_->GetBLId());
 
 /*
-        desc=wxString::Format(wxT("%s [%s]"), container->Areas().Get(*i)->GetDescription().c_str(),
-            ac->GetFlagsDescription().c_str());
+        desc=wxString::Format("%s [%s]", container->Areas().Get(*i)->GetDescription(),
+            ac->GetFlagsDescription());
 */
 
-        cid=tree->AppendItem(parentitem, AreaDescription(&*i).c_str(),
+        cid=tree->AppendItem(parentitem, AreaDescription(&*i),
             -1, -1, new MaskAreaListTreeItemData(&*i));
 
         // AREAS
@@ -283,10 +282,10 @@ wxString HTMLButcherMaskAreaListDialog::AreaDescription(ButcherProjectArea *area
 {
     wxString fmtadd(wxEmptyString);
     if (area->Configs().Get(view_->GetBLId())->ImageInfo().IsOutputImage())
-        fmtadd=wxString::Format(wxT(" \"%s\""), area->Configs().Get(view_->GetBLId())->ImageInfo().GetOutputFileURL(view_->GetBLId()).c_str());
+        fmtadd=wxString::Format(" \"%s\"", area->Configs().Get(view_->GetBLId())->ImageInfo().GetOutputFileURL(view_->GetBLId()));
 
-    return wxString::Format(wxT("%s [%s]%s"), area->GetDescription().c_str(),
-        area->Configs().Get(view_->GetBLId())->GetFlagsDescription().c_str(), fmtadd.c_str());
+    return wxString::Format("%s [%s]%s", area->GetDescription(),
+        area->Configs().Get(view_->GetBLId())->GetFlagsDescription(), fmtadd);
 }
 
 

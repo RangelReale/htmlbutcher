@@ -65,12 +65,12 @@ private:
 
 
 
-BEGIN_EVENT_TABLE(HTMLButcherFileLinkDialog, ButcherControl_Dialog)
+wxBEGIN_EVENT_TABLE(HTMLButcherFileLinkDialog, ButcherControl_Dialog)
     EVT_TREE_ITEM_EXPANDING(ID_LINKS, HTMLButcherFileLinkDialog::OnLinksExpanding)
     EVT_TREE_SEL_CHANGED(ID_LINKS, HTMLButcherFileLinkDialog::OnLinksChanged)
     EVT_BUTTON(ID_BTN_NONE, HTMLButcherFileLinkDialog::OnButtonNone)
     EVT_CHECKBOX(ID_PREVIEWENABLE, HTMLButcherFileLinkDialog::OnPreviewEnable)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 HTMLButcherFileLinkDialog::HTMLButcherFileLinkDialog( wxWindow* parent,
     wxWindowID id,
@@ -346,8 +346,8 @@ void HTMLButcherFileLinkDialog::AddSubArea(wxTreeItemId parentitem, BLID_t viewi
 	{
         ac=i->Configs().Get(viewid);
 
-        desc=wxString::Format(wxT("%s [%s]"), i->GetDescription().c_str(),
-            ac->GetFlagsDescription().c_str());
+        desc=wxString::Format("%s [%s]", i->GetDescription(),
+            ac->GetFlagsDescription());
 
         tmplink.SetArea(container->GetProject()->Views().Get(viewid), &*i, -1);
 
@@ -398,7 +398,7 @@ void HTMLButcherFileLinkDialog::OnLinksChanged(wxTreeEvent &event)
     {
         ButcherProjectFileLink fl(link_.GetProject(), data->GetBURL());
         UpdatePreview(fl);
-        SetTitle(wxString::Format(wxT("%s [%s]"), fl.GetDescription().c_str(), data->GetBURL().c_str()));
+        SetTitle(wxString::Format("%s [%s]", fl.GetDescription(), data->GetBURL()));
     }
     else
     {

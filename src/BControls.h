@@ -39,7 +39,7 @@ public:
     ButcherControl_Dialog( wxWindow* parent,
         wxWindowID id,
         ButcherProject *project,
-        const wxString& caption = wxT("Dialog"),
+        const wxString& caption = "Dialog",
         const wxPoint& pos = wxDefaultPosition,
         const wxSize& size = wxDefaultSize,
         long style = wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX );
@@ -56,7 +56,7 @@ private:
 	ButcherProject *project_;
 	wxString helpsection_;
 
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 };
 
 
@@ -73,8 +73,8 @@ public:
 
     // Constructor.
     ButcherControl_FileLink(wxWindow* parent, wxWindowID id, ButcherProject *project,
-        const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxNO_BORDER,
-        const wxString& name = wxT("bc_filelink")) :
+        const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxBORDER_NONE,
+        const wxString& name = "bc_filelink") :
              filelink_(NULL)
     {
         (void)Create(parent, id, project, pos, size, style, name);
@@ -88,8 +88,8 @@ public:
                 ButcherProject *project,
                 const wxPoint& pos = wxDefaultPosition,
                 const wxSize& size = wxDefaultSize,
-                long style = wxNO_BORDER,
-                const wxString& name = wxT("bc_filelink"));
+                long style = wxBORDER_NONE,
+                const wxString& name = "bc_filelink");
 
     // get/set
     void SetProject(ButcherProject *project);
@@ -152,8 +152,8 @@ private:
     bool m_clicking;
 
 private:
-    DECLARE_DYNAMIC_CLASS(ButcherControl_FileLink)
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_DYNAMIC_CLASS(ButcherControl_FileLink);
+    wxDECLARE_EVENT_TABLE();
 };
 
 /**
@@ -172,13 +172,13 @@ public:
         const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
         long style = 0,
         const wxValidator& validator = wxDefaultValidator,
-        const wxString& name = wxT("fmttextctrl")) ;
+        const wxString& name = "fmttextctrl") ;
 
     bool Create(wxWindow* parent, wxWindowID id,
         const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
         long style = 0,
         const wxValidator& validator = wxDefaultValidator,
-        const wxString& name = wxT("fmttextctrl"));
+        const wxString& name = "fmttextctrl");
 
     void SetEditFormat(editformat_t fmt);
 
@@ -198,7 +198,7 @@ private:
     bool allowfilelink_;
     int filelinkseltypes_;
 
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 };
 
 
@@ -236,7 +236,7 @@ class ButcherControl_ProjectImageView : public ButcherImageView, public ButcherV
 public:
     ButcherControl_ProjectImageView(wxWindow* parent, wxWindowID id,
         const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
-        long style = wxNO_BORDER, const wxValidator &validator = wxDefaultValidator,
+        long style = wxBORDER_NONE, const wxValidator &validator = wxDefaultValidator,
         const wxString& name = wxPanelNameStr) :
         ButcherImageView(parent, id, pos, size, style, validator, name), ButcherViewBase(),
         designwidth_(0), designheight_(0) {}
@@ -304,11 +304,11 @@ private:
  */
 class ButcherControl_SelectionDisplay : public wxControl
 {
-	DECLARE_EVENT_TABLE()
+	wxDECLARE_EVENT_TABLE();
 public:
 	ButcherControl_SelectionDisplay(wxWindow* parent, wxWindowID id = wxID_ANY,
 		const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize,
-		long style = wxTAB_TRAVERSAL, const wxString& name = wxT("selectiondisplay"));
+		long style = wxTAB_TRAVERSAL, const wxString& name = "selectiondisplay");
 	~ButcherControl_SelectionDisplay();
 
 	void SetSelectEvent(const ButcherViewSelectEvent &event);
@@ -331,7 +331,7 @@ public:
     ButcherControl_TransparentStaticText(wxWindow* parent, wxWindowID id = wxID_ANY,
 		const wxString &label = wxEmptyString, const wxPoint& pos = wxDefaultPosition,
 		const wxSize& size = wxDefaultSize, long style = 0,
-		const wxString& name = wxT("TransparentStaticText"));
+		const wxString& name = "TransparentStaticText");
     ~ButcherControl_TransparentStaticText();
 
     virtual bool HasTransparentBackground() const;
@@ -340,7 +340,7 @@ public:
 	void OnPaint(wxPaintEvent & event);
     wxSize DoGetBestSize() const;
 private:
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 };
 
 #endif //__BCONTROLS_H__

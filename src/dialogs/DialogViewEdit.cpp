@@ -28,10 +28,10 @@
 
 
 
-BEGIN_EVENT_TABLE(HTMLButcherViewEditDialog, ButcherControl_Dialog)
+wxBEGIN_EVENT_TABLE(HTMLButcherViewEditDialog, ButcherControl_Dialog)
     EVT_BUTTON(ID_BTN_CSS, HTMLButcherViewEditDialog::OnBtnCSS)
 	EVT_RADIOBOX(ID_LAYOUTTYPE, HTMLButcherViewEditDialog::OnCtrlChanged)
-END_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
 HTMLButcherViewEditDialog::HTMLButcherViewEditDialog( wxWindow* parent,
     wxWindowID id,
@@ -56,7 +56,7 @@ void HTMLButcherViewEditDialog::Init()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-view.html"));
+	SetHelpSection("dialog-view.html");
 #endif
 
 	viewname_=wxEmptyString;
@@ -79,7 +79,7 @@ void HTMLButcherViewEditDialog::Init()
     bgrepeat_=ButcherProjectAreaConfig::BR_NONE;
     isbgcolor_=false;
     isstretch_=false;
-    bgcolor_=wxColor(wxT("BLACK"));
+    bgcolor_=wxColor("BLACK");
 
     encodingimap_.Add(ButcherHTMLConsts::BE_UTF8, _("UTF8"));
     encodingimap_.Add(ButcherHTMLConsts::BE_ISO8859_1, _("ISO8859-1"));
@@ -527,8 +527,8 @@ bool HTMLButcherViewEditDialog::TransferDataToWindow()
     // FILES
 	for (ButcherProjectFiles::iterator i=GetProject()->Files().begin(); i!=GetProject()->Files().end(); i++)
 	{
-        tmp=wxString::Format(wxT("%s [%dx%d]"),
-            i->GetDisplayName().c_str(),
+        tmp=wxString::Format("%s [%dx%d]",
+            i->GetDisplayName(),
             i->GetImageWidth(),
             i->GetImageHeight());
 
@@ -551,8 +551,8 @@ bool HTMLButcherViewEditDialog::TransferDataToWindow()
     // MASKS
 	for (ButcherProjectMasks::iterator i=GetProject()->Masks().begin(); i!=GetProject()->Masks().end(); i++)
 	{
-        newitem=maskctrl->Append(wxString::Format(wxT("%s"),
-                i->GetName().c_str()),
+        newitem=maskctrl->Append(wxString::Format("%s",
+                i->GetName()),
             static_cast<wxClientData *>(new ButcherListIdClientData(i.first())));
         if (i.first()==maskid_)
             maskctrl->SetSelection(newitem);
@@ -561,8 +561,8 @@ bool HTMLButcherViewEditDialog::TransferDataToWindow()
     // FILE PATHS
 	for (ButcherProjectFilePaths::iterator i=GetProject()->FilePaths().begin(); i!=GetProject()->FilePaths().end(); i++)
 	{
-        tmp=wxString::Format(wxT("%s"),
-            i->GetName().c_str());
+        tmp=wxString::Format("%s",
+            i->GetName());
 
         newitem=imagedirctrl->Append(tmp,
             static_cast<wxClientData *>(new ButcherListIdClientData(i.first())));
@@ -606,8 +606,8 @@ bool HTMLButcherViewEditDialog::TransferDataToWindow()
 
 		for (ButcherProjectCSSFiles::iterator i=GetProject()->CSSFiles().begin(); i!=GetProject()->CSSFiles().end(); i++)
 		{
-            tmp=wxString::Format(wxT("%s"),
-                i->GetName().c_str());
+            tmp=wxString::Format("%s",
+                i->GetName());
 
             wxccu_control_append_select(cssfilectrl, tmp, i.first(), cssfileid_);
 		}

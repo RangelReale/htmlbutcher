@@ -26,8 +26,8 @@
 
 
 
-BEGIN_EVENT_TABLE(HTMLButcherMaskEditDialog, ButcherControl_Dialog)
-END_EVENT_TABLE()
+wxBEGIN_EVENT_TABLE(HTMLButcherMaskEditDialog, ButcherControl_Dialog)
+wxEND_EVENT_TABLE()
 
 HTMLButcherMaskEditDialog::HTMLButcherMaskEditDialog( wxWindow* parent,
     wxWindowID id,
@@ -46,7 +46,7 @@ void HTMLButcherMaskEditDialog::Init()
 {
 #ifdef BUTCHER_USE_HELP
 	// HELP
-	SetHelpSection(wxT("dialog-masks.html"));
+	SetHelpSection("dialog-masks.html");
 #endif
 	
 	maskname_=wxEmptyString;

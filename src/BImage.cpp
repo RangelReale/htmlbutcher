@@ -27,32 +27,32 @@ wxString ButcherImage::GetFormatExt(format_t format)
     switch (format)
     {
     case FMT_JPG:
-        return wxT("jpg");
+        return "jpg";
     case FMT_GIF:
-        return wxT("gif");
+        return "gif";
     case FMT_PNG:
-        return wxT("png");
+        return "png";
     case FMT_BMP:
-        return wxT("bmp");
+        return "bmp";
     case FMT_TIFF:
-        return wxT("tif");
+        return "tif";
     case FMT_XPM:
-        return wxT("xpm");
+        return "xpm";
     default:
-        return wxT("unknown");
+        return "unknown";
     }
 }
 
 ButcherImage::format_t ButcherImage::GetExtFormat(const wxString &ext)
 {
-    if (ext==wxT("jpg")) return FMT_JPG;
-    if (ext==wxT("jpeg")) return FMT_JPG;
-    if (ext==wxT("gif")) return FMT_GIF;
-    if (ext==wxT("png")) return FMT_PNG;
-    if (ext==wxT("bmp")) return FMT_BMP;
-	if (ext==wxT("tif")) return FMT_TIFF;
-	if (ext==wxT("tiff")) return FMT_TIFF;
-	if (ext==wxT("xpm")) return FMT_XPM;
+    if (ext=="jpg") return FMT_JPG;
+    if (ext=="jpeg") return FMT_JPG;
+    if (ext=="gif") return FMT_GIF;
+    if (ext=="png") return FMT_PNG;
+    if (ext=="bmp") return FMT_BMP;
+	if (ext=="tif") return FMT_TIFF;
+	if (ext=="tiff") return FMT_TIFF;
+	if (ext=="xpm") return FMT_XPM;
     throw ButcherException(_("Invalid image file extension"));
 }
 

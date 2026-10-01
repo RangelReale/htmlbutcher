@@ -18,7 +18,7 @@
 //      ButcherStatusEvent
 /////////////////////////////////
 
-DEFINE_EVENT_TYPE( wxEVT_BUTCHERSTATUS_ACTION )
+wxDEFINE_EVENT(wxEVT_BUTCHERSTATUS_ACTION, ButcherStatusEvent);
 
 ButcherStatusEvent::ButcherStatusEvent(ButcherStatusEvent::status_t status, const wxString &message,
         int id, wxEventType commandType) :

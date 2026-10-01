@@ -19,7 +19,7 @@
 #include "MetadataFileViewerMain.h"
 #include "BExcept.h"
 
-IMPLEMENT_APP(MetadataFileViewerApp);
+wxIMPLEMENT_APP(MetadataFileViewerApp);
 
 bool MetadataFileViewerApp::OnInit()
 {

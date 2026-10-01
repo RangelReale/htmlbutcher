@@ -30,7 +30,7 @@ using namespace std;
  */
 class HTMLButcherFilesDialog: public HTMLButcherListEditDialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherFilesDialog( wxWindow* parent,
         wxWindowID id,
@@ -75,7 +75,7 @@ private:
  */
 class HTMLButcherFileEditDialog: public ButcherControl_Dialog
 {
-    DECLARE_EVENT_TABLE()
+    wxDECLARE_EVENT_TABLE();
 public:
     HTMLButcherFileEditDialog( wxWindow* parent,
         wxWindowID id,
