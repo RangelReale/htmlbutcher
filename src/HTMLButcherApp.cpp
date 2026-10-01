@@ -80,7 +80,9 @@ bool HTMLButcherApp::OnInit()
 
 #ifdef __WXGTK__
     wxFileName::Mkdir(wxStandardPaths::Get().GetUserDataDir(), 0777, wxPATH_MKDIR_FULL); // must create dir for wxConfig
-    wxConfig::Set(new wxFileConfig(wxString::Format("%s/config", wxTheApp->GetAppName())));
+    wxConfig::Set(new wxFileConfig(wxEmptyString, wxEmptyString,
+        wxFileName(wxStandardPaths::Get().GetUserDataDir(), "config").GetFullPath(),
+        wxEmptyString, wxCONFIG_USE_LOCAL_FILE));
 #endif
 
 
