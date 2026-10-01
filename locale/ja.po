@@ -472,8 +472,8 @@ msgstr "Não é possível salvar o projeto"
 
 #: src/BProject.cpp:1056
 #, c-format
-msgid "Line %d"
-msgstr "ライン %d"
+msgid "Line %lu"
+msgstr "ライン %lu"
 
 #: src/BProject.cpp:1149
 msgid "TOP"
@@ -567,12 +567,12 @@ msgstr "Arquivos alternativos"
 
 #: src/BProject.cpp:1802
 #, c-format
-msgid "File #%d (%s)"
-msgstr "ファイル #%d (%s)"
+msgid "File #%lu (%s)"
+msgstr "ファイル #%lu (%s)"
 
 #: src/BProject.cpp:1805
 #, fuzzy, c-format
-msgid "Assorted File #%d (%s)"
+msgid "Assorted File #%lu (%s)"
 msgstr "Arquivos extra"
 
 #: src/BProject.cpp:1808
@@ -740,8 +740,8 @@ msgstr "Não foi possível encontrar linha de início e/ou fim"
 
 #: src/BProject.cpp:4817
 #, c-format
-msgid "Could not find area %d (%d-%d-%d-%d)"
-msgstr "Não foi possível encontrar a área %d (%d-%d-%d-%d)"
+msgid "Could not find area %ld (%ld-%ld-%ld-%ld)"
+msgstr "Não foi possível encontrar a área %ld (%ld-%ld-%ld-%ld)"
 
 #: src/BProject.cpp:4905
 msgid "Cannot add split area on this container"
@@ -851,7 +851,7 @@ msgstr "Área: %s alternativa %d"
 
 #: src/BProject.cpp:8333
 #, fuzzy, c-format
-msgid "Assorted file: %d - %s"
+msgid "Assorted file: %lu - %s"
 msgstr "Arquivos extra"
 
 #: src/BProject.cpp:8375
@@ -1081,7 +1081,7 @@ msgstr "Erro carregando dados de arquivo"
 
 #: src/ButcherMetadataFile.cpp:675
 #, c-format
-msgid "Data written different than expected (expect: %d - read: %d)."
+msgid "Data written different than expected (expect: %u - read: %lu)."
 msgstr ""
 
 #: src/ButcherMetadataFile.cpp:740
@@ -1390,12 +1390,12 @@ msgstr ""
 
 #: src/DialogFileEdit.cpp:160
 #, c-format
-msgid "Removing this file will remove %d view(s). Are you sure?"
+msgid "Removing this file will remove %ld view(s). Are you sure?"
 msgstr ""
 
 #: src/DialogFileEdit.cpp:162
 #, c-format
-msgid "Removing this file will affect %d item(s). Are you sure?"
+msgid "Removing this file will affect %ld item(s). Are you sure?"
 msgstr ""
 
 #: src/DialogFileEdit.cpp:164
@@ -1477,7 +1477,7 @@ msgstr ""
 
 #: src/DialogImageFormatEdit.cpp:163
 #, c-format
-msgid "Removing this image format will affect %d item(s). Are you sure?"
+msgid "Removing this image format will affect %ld item(s). Are you sure?"
 msgstr ""
 
 #: src/DialogImageFormatEdit.cpp:165
@@ -1610,7 +1610,7 @@ msgstr ""
 
 #: src/DialogListEdit.cpp:436
 #, c-format
-msgid "Removing this mask will remove %d view(s). Are you sure?"
+msgid "Removing this mask will remove %ld view(s). Are you sure?"
 msgstr ""
 
 #: src/DialogListEdit.cpp:438
@@ -1684,7 +1684,7 @@ msgstr ""
 
 #: src/DialogListEdit.cpp:845
 #, c-format
-msgid "Removing this path will affect %d item(s). Are you sure?"
+msgid "Removing this path will affect %ld item(s). Are you sure?"
 msgstr ""
 
 #: src/DialogListEdit.cpp:853
@@ -1698,7 +1698,7 @@ msgstr ""
 
 #: src/DialogListEdit.cpp:950
 #, c-format
-msgid "Removing this CSS will affect %d item(s). Are you sure?"
+msgid "Removing this CSS will affect %ld item(s). Are you sure?"
 msgstr ""
 
 #: src/DialogListEdit.cpp:952

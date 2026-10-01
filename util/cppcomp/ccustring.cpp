@@ -53,7 +53,7 @@ string ccustring_numberformat(long number, int flags)
         return ret;
 
     } else
-        return ccustring_format("%d", number);
+        return ccustring_format("%ld", number);
 }
 
 string ccustring_trim(string str)

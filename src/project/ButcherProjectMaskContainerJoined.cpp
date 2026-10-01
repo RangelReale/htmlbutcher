@@ -504,7 +504,7 @@ void ButcherProjectMaskContainerJoined::LoadMetadataAreas(ButcherMetadataDataLis
             area->LoadMetadata(metadata);
         }
         else
-            throw ButcherException(wxString::Format(_("Could not find area %d (%d-%d-%d-%d)"),
+            throw ButcherException(wxString::Format(_("Could not find area %ld (%ld-%ld-%ld-%ld)"),
                 metadata->Get(BFILE_MDI_ID).GetInteger(),
                 metadata->Get(BFILE_MDI_LEFT).GetInteger(),
                 metadata->Get(BFILE_MDI_TOP).GetInteger(),

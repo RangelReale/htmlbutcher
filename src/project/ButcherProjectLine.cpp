@@ -252,7 +252,7 @@ ButcherProjectArea *ButcherProjectLine::FindJoinArea(areapos_t pos, ButcherProje
 
 wxString ButcherProjectLine::GetDescription()
 {
-    return wxString::Format(_("Line %d"), GetBLId());
+    return wxString::Format(_("Line %lu"), GetBLId());
 }
 
 

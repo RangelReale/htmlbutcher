@@ -527,7 +527,7 @@ bool HTMLButcherViewEditDialog::TransferDataToWindow()
     // FILES
 	for (ButcherProjectFiles::iterator i=GetProject()->Files().begin(); i!=GetProject()->Files().end(); i++)
 	{
-        tmp=wxString::Format("%s [%dx%d]",
+        tmp=wxString::Format("%s [%lux%lu]",
             i->GetDisplayName(),
             i->GetImageWidth(),
             i->GetImageHeight());
