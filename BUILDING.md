@@ -110,7 +110,7 @@ Both directories are gitignored.
 Set automatically:
 
 - Windows: `_CRT_SECURE_NO_WARNINGS`, `UNICODE`, `_UNICODE`; links as a `WIN32` subsystem executable
-- Debug configurations: `HTMLBUTCHER_DEBUG`, `HTMLBUTCHER_KEEPOLDSAVE`, `__WXDEBUG__`
+- Debug configurations: `HTMLBUTCHER_DEBUG`, `HTMLBUTCHER_KEEPOLDSAVE` (wx itself defines `__WXDEBUG__`)
 - Demo target: `HTMLBUTCHER_DEMO`
 - macOS: a `MACOSX_BUNDLE` with `CMAKE_OSX_ARCHITECTURES x86_64`; the only platform where CPack is
   configured (`cpack` installs to `/Applications`)
