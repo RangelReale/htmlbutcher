@@ -67,7 +67,7 @@ bool HTMLButcherApp::OnInit()
 	kf.AppendDir("..");
 	kf.AppendDir("..");
 	kf.AppendDir("locale");
-	kf.Normalize();
+	kf.Normalize(wxPATH_NORM_DOTS | wxPATH_NORM_ABSOLUTE);
 
 	locale_.AddCatalogLookupPathPrefix(kf.GetPath());
 #endif

@@ -122,12 +122,15 @@ target_link_libraries(HTMLButcherDemo PRIVATE
 endif (HB_WITH_DEMO)
 
 
-set_target_properties(HTMLButcher PROPERTIES COMPILE_DEFINITIONS "${HB_CDEF}")
-set_target_properties(HTMLButcher PROPERTIES COMPILE_DEFINITIONS_DEBUG "${HB_CDEF};HTMLBUTCHER_DEBUG;HTMLBUTCHER_KEEPOLDSAVE;__WXDEBUG__")
+# Per-configuration COMPILE_DEFINITIONS_<CONFIG> properties are ignored since
+# CMake 3.0 (CMP0043), so the Debug-only definitions go through a generator
+# expression. __WXDEBUG__ is not needed: wx 3 defines it from wxDEBUG_LEVEL.
+set(HB_DEBUG_CDEF $<$<CONFIG:Debug>:HTMLBUTCHER_DEBUG> $<$<CONFIG:Debug>:HTMLBUTCHER_KEEPOLDSAVE>)
+
+target_compile_definitions(HTMLButcher PRIVATE ${HB_CDEF} ${HB_DEBUG_CDEF})
 
 if (HB_WITH_DEMO)
-set_target_properties(HTMLButcherDemo PROPERTIES COMPILE_DEFINITIONS "${HBDEMO_CDEF}")
-set_target_properties(HTMLButcherDemo PROPERTIES COMPILE_DEFINITIONS_DEBUG "${HBDEMO_CDEF};HTMLBUTCHER_DEBUG;HTMLBUTCHER_KEEPOLDSAVE;__WXDEBUG__")
+target_compile_definitions(HTMLButcherDemo PRIVATE ${HBDEMO_CDEF} ${HB_DEBUG_CDEF})
 endif (HB_WITH_DEMO)
 
 

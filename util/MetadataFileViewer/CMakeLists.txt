@@ -12,4 +12,4 @@ include_directories (${HTMLButcher_SOURCE_DIR}/src)
 
 target_link_libraries(MetadataFileViewer PRIVATE hb_wx ${CPPCOMP_LIBRARIES})
 
-set_target_properties(MetadataFileViewer PROPERTIES COMPILE_DEFINITIONS_DEBUG "HTMLBUTCHER_DEBUG;HTMLBUTCHER_KEEPOLDSAVE;__WXDEBUG__")
+target_compile_definitions(MetadataFileViewer PRIVATE $<$<CONFIG:Debug>:HTMLBUTCHER_DEBUG> $<$<CONFIG:Debug>:HTMLBUTCHER_KEEPOLDSAVE>)
