@@ -13,6 +13,11 @@
 
 #include <wx/wx.h>
 #include "FreeImage.h"
+#ifndef _WIN32
+// FreeImage.h defines _WINDOWS_ outside Windows to declare its own BYTE/WORD/DWORD types,
+// which wx/defs.h then takes as windows.h having been included.
+#undef _WINDOWS_
+#endif
 #include <exception>
 #include <deque>
 

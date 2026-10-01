@@ -38,6 +38,7 @@
 #include <wx/cmdline.h>
 #include <wx/sysopt.h>
 #include <wx/fileconf.h>
+#include <wx/config.h>
 #include <wx/fs_arc.h>
 
 
