@@ -330,7 +330,7 @@ wxString ButcherProjectArea::GetDescription()
 //#ifndef __WXDEBUG__
     if (!name_.IsEmpty())
         return name_;
-    return wxString::Format("%s %d", aread, GetBLId());
+    return wxString::Format("%s %lu", aread, GetBLId());
 /*
 #else
 	wxString arealay=wxString::Format("[%d %d %d %d]",
@@ -376,7 +376,7 @@ wxString ButcherProjectArea::GetBaseFilename(int alternatefile)
     default:
         break;
     }
-    aread=wxString::Format("%s%d", aread, GetBLId());
+    aread=wxString::Format("%s%lu", aread, GetBLId());
     if (alternatefile!=-1)
         aread+=wxString::Format("alt%d", alternatefile+1);
     return aread;

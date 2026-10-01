@@ -333,10 +333,10 @@ void HTMLButcherAdjustSizeDialog::UpdateDisplay(bool isfirst)
     if (mheightctrl->GetValue() != area_->GetHeight())
         mheightctrl->SetValue(area_->GetHeight());
 
-    lleftctrl->SetLabel(wxString::Format("(%d)", area_->GetLeft()->GetGlobalPosition()));
-    ltopctrl->SetLabel(wxString::Format("(%d)", area_->GetTop()->GetGlobalPosition()));
-    lrightctrl->SetLabel(wxString::Format("(%d)", area_->GetRight()->GetGlobalPosition()-1));
-    lbottomctrl->SetLabel(wxString::Format("(%d)", area_->GetBottom()->GetGlobalPosition()-1));
+    lleftctrl->SetLabel(wxString::Format("(%ld)", area_->GetLeft()->GetGlobalPosition()));
+    ltopctrl->SetLabel(wxString::Format("(%ld)", area_->GetTop()->GetGlobalPosition()));
+    lrightctrl->SetLabel(wxString::Format("(%ld)", area_->GetRight()->GetGlobalPosition()-1));
+    lbottomctrl->SetLabel(wxString::Format("(%ld)", area_->GetBottom()->GetGlobalPosition()-1));
 
     SetSpinRange(area_->GetLeft(), mleftctrl, false);
     SetSpinRange(area_->GetTop(), mtopctrl, false);

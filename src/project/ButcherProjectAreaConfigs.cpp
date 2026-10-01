@@ -182,7 +182,7 @@ BLID_t ButcherProjectAreaConfigs::Add(ButcherMetadataData *metadata)
 	{
 		if (mdadd->GetBLId()>1) {
 			BLID_t newid=0;
-			wxLogDebug("Area configs = mask %d area %d config %d (%s)",
+			wxLogDebug("Area configs = mask %lu area %lu config %lu (%s)",
 				area_->GetMaskRoot()->GetBLId(), area_->GetBLId(), mdadd->GetBLId(),
 				area_->GetFullDescription());
 
@@ -194,7 +194,7 @@ BLID_t ButcherProjectAreaConfigs::Add(ButcherMetadataData *metadata)
 				if (i->GetMaskId()==area_->GetMaskRoot()->GetBLId() &&
 					i->GetCOMPATMaskConfigId()==mdadd->GetBLId())
 				{
-					wxLogDebug("-- Area config view [mask %d area %d config %d] = %d", area_->GetMaskRoot()->GetBLId(), area_->GetBLId(), mdadd->GetBLId(), i.first());
+					wxLogDebug("-- Area config view [mask %lu area %lu config %lu] = %lu", area_->GetMaskRoot()->GetBLId(), area_->GetBLId(), mdadd->GetBLId(), i.first());
 					newid=i.first();
 				}
 			}

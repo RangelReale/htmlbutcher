@@ -386,19 +386,19 @@ wxString ButcherProjectFileLink::GetBURL() const
             ret+="area";
         else
             ret+="garea";
-        ret+=wxString::Format("@%d", id_);
+        ret+=wxString::Format("@%lu", id_);
         for (arealist_t::const_iterator i=arealist_.begin(); i!=arealist_.end(); i++)
         {
-            ret+=wxString::Format("/%d", *i);
+            ret+=wxString::Format("/%lu", *i);
         }
         if (alternate_>=0)
             ret+=wxString::Format("#%d", alternate_);
         break;
     case IL_FILE:
-        ret+=wxString::Format("file@%d", id_);
+        ret+=wxString::Format("file@%lu", id_);
         break;
     case IL_ASSORTEDFILE:
-        ret+=wxString::Format("assortedfile@%d", id_);
+        ret+=wxString::Format("assortedfile@%lu", id_);
         break;
     default:
         break;
@@ -564,10 +564,10 @@ wxString ButcherProjectFileLink::GetDescription() const
         }
         break;
     case IL_FILE:
-        ret+=wxString::Format(_("File #%d (%s)"), id_, GetProject()->Files()[id_]->GetDisplayName());
+        ret+=wxString::Format(_("File #%lu (%s)"), id_, GetProject()->Files()[id_]->GetDisplayName());
         break;
     case IL_ASSORTEDFILE:
-        ret+=wxString::Format(_("Assorted File #%d (%s)"), id_, GetProject()->AssortedFiles()[id_]->GetPathFile());
+        ret+=wxString::Format(_("Assorted File #%lu (%s)"), id_, GetProject()->AssortedFiles()[id_]->GetPathFile());
         break;
     default:
         ret+=_("Unknown link");

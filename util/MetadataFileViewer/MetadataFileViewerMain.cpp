@@ -220,7 +220,7 @@ void MetadataFileViewerFrame::LoadMDItem(wxTreeCtrl *mdtree, wxTreeItemId *paren
 
         for (unsigned long ct=0; ct<storage->Get(*i).Count(); ct++)
         {
-            newid2=mdtree->AppendItem(newid, wxString::Format("%d", ct));
+            newid2=mdtree->AppendItem(newid, wxString::Format("%lu", ct));
 
             for (dt=storage->Get(*i).Get(ct).GetData().begin();
                     dt!=storage->Get(*i).Get(ct).GetData().end(); dt++)

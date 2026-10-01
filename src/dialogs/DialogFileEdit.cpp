@@ -143,9 +143,9 @@ void HTMLButcherFilesDialog::do_remove(unsigned long id)
 
     wxString remmsg=_("Are you sure you want to remove this file?");
     if (en.GetRemoveCount()>0)
-        remmsg=wxString::Format(_("Removing this file will remove %d view(s). Are you sure?"), en.GetRemoveCount());
+        remmsg=wxString::Format(_("Removing this file will remove %ld view(s). Are you sure?"), en.GetRemoveCount());
     else if (en.GetChangeCount()>0)
-        remmsg=wxString::Format(_("Removing this file will affect %d item(s). Are you sure?"), en.GetChangeCount());
+        remmsg=wxString::Format(_("Removing this file will affect %ld item(s). Are you sure?"), en.GetChangeCount());
 
     wxMessageDialog d(this, remmsg, _("Remove path"), wxYES_NO | wxYES_DEFAULT | wxICON_QUESTION);
     if (d.ShowModal() != wxID_YES) return;
@@ -168,7 +168,7 @@ void HTMLButcherFilesDialog::do_remove(unsigned long id)
 
 wxString HTMLButcherFilesDialog::make_description(ButcherProjectFile *item)
 {
-    return wxString::Format("%s [%dx%d]", item->GetDisplayName(), item->GetImageWidth(), item->GetImageHeight());
+    return wxString::Format("%s [%lux%lu]", item->GetDisplayName(), item->GetImageWidth(), item->GetImageHeight());
 }
 
 

@@ -168,7 +168,7 @@ ButcherImage *ButcherProjectView::CreateAreaErrorImage(ButcherProjectArea *area)
 wxString ButcherProjectView::GetBaseFilename()
 {
     if (name_.IsEmpty())
-        return wxString::Format("view%d", GetBLId());
+        return wxString::Format("view%lu", GetBLId());
     return ButcherProjectFilePath::GetValidFilename(name_);
 }
 
@@ -526,10 +526,10 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
 				tdattr.Add("ROWSPAN", wxString::Format("%d", list->Get(ct)->rowspan));
             if (list->Get(ct)->forcewidth>0)
                 //tdadd+=wxString::Format(" WIDTH=\"%d\"", list->Get(ct)->forcewidth);
-				tdattr.Add("WIDTH", wxString::Format("%d", list->Get(ct)->forcewidth));
+				tdattr.Add("WIDTH", wxString::Format("%ld", list->Get(ct)->forcewidth));
             if (list->Get(ct)->forceheight>0)
                 //tdadd+=wxString::Format(" HEIGHT=\"%d\"", list->Get(ct)->forceheight);
-				tdattr.Add("HEIGHT", wxString::Format("%d", list->Get(ct)->forceheight));
+				tdattr.Add("HEIGHT", wxString::Format("%ld", list->Get(ct)->forceheight));
 
             if (ismaskarea)
             {
@@ -859,7 +859,7 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
 
 						ButcherHTMLAttributeGenerator aattr;
 						aattr.Add("SHAPE", "rect");
-						aattr.Add("COORDS", wxString::Format(" coords=\"%d,%d,%d,%d\"",
+						aattr.Add("COORDS", wxString::Format(" coords=\"%ld,%ld,%ld,%ld\"",
                             i->GetLeft()->GetPosition(),
                             i->GetTop()->GetPosition(),
                             i->GetRight()->GetPosition()-1,
@@ -876,7 +876,7 @@ void ButcherProjectView::do_genhtml(int level, ButcherHTMLGenerator &htmlgenerat
                         imagemap+="\n";
 
 /*
-						tmp=wxString::Format(" coords=\"%d,%d,%d,%d\"",
+						tmp=wxString::Format(" coords=\"%ld,%ld,%ld,%ld\"",
                             i->GetLeft()->GetPosition(),
                             i->GetTop()->GetPosition(),
                             i->GetRight()->GetPosition()-1,
@@ -1076,7 +1076,7 @@ void ButcherProjectView::do_checkfile(int level, ButcherProjectViewFileCheck &ch
                         i!=assortedfilegroups_.Get().end(); i++)
                     {
                         bpath=GetProject()->AssortedFiles().Get(*i)->GetOutputFileURL();
-                        check.Add(GetBLId(), wxString::Format(_("Assorted file: %d - %s"), *i,
+                        check.Add(GetBLId(), wxString::Format(_("Assorted file: %lu - %s"), *i,
                             GetProject()->AssortedFiles().Get(*i)->GetPathFile()),
                             bpath.GetPath(wxEmptyString, true, ccu_Path_wxString::PPF_URL));
                     }

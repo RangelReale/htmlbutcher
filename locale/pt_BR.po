@@ -438,8 +438,8 @@ msgstr "Não é possível setar esta posição"
 
 #: src/BProject.cpp:1056
 #, c-format
-msgid "Line %d"
-msgstr "Linha %d"
+msgid "Line %lu"
+msgstr "Linha %lu"
 
 #: src/BProject.cpp:1149
 msgid "TOP"
@@ -532,13 +532,13 @@ msgstr "Alternativo %d"
 
 #: src/BProject.cpp:1802
 #, c-format
-msgid "File #%d (%s)"
-msgstr "Arquivo #%d (%s)"
+msgid "File #%lu (%s)"
+msgstr "Arquivo #%lu (%s)"
 
 #: src/BProject.cpp:1805
 #, c-format
-msgid "Assorted File #%d (%s)"
-msgstr "Arquivos extra #%d (%s)"
+msgid "Assorted File #%lu (%s)"
+msgstr "Arquivos extra #%lu (%s)"
 
 #: src/BProject.cpp:1808
 msgid "Unknown link"
@@ -704,8 +704,8 @@ msgstr "Não foi possível encontrar linha de início e/ou fim"
 
 #: src/BProject.cpp:4817
 #, c-format
-msgid "Could not find area %d (%d-%d-%d-%d)"
-msgstr "Não foi possível encontrar a área %d (%d-%d-%d-%d)"
+msgid "Could not find area %ld (%ld-%ld-%ld-%ld)"
+msgstr "Não foi possível encontrar a área %ld (%ld-%ld-%ld-%ld)"
 
 #: src/BProject.cpp:4905
 msgid "Cannot add split area on this container"
@@ -812,8 +812,8 @@ msgstr "Área: %s alternativo %d"
 
 #: src/BProject.cpp:8333
 #, c-format
-msgid "Assorted file: %d - %s"
-msgstr "Arquivo extra: %d - %s"
+msgid "Assorted file: %lu - %s"
+msgstr "Arquivo extra: %lu - %s"
 
 #: src/BProject.cpp:8375
 #, c-format
@@ -1021,8 +1021,8 @@ msgstr "Erro gravado cabeçalho de arquivo"
 
 #: src/ButcherMetadataFile.cpp:675
 #, c-format
-msgid "Data written different than expected (expect: %d - read: %d)."
-msgstr "Dado gravado diferente do esperado (esperado: %d - lido: %d)."
+msgid "Data written different than expected (expect: %u - read: %lu)."
+msgstr "Dado gravado diferente do esperado (esperado: %u - lido: %lu)."
 
 #: src/ButcherMetadataFile.cpp:740
 msgid "Error reopening file."
@@ -1299,13 +1299,13 @@ msgstr "Você tem certeza que quer remover este arquivo?"
 
 #: src/DialogFileEdit.cpp:160
 #, c-format
-msgid "Removing this file will remove %d view(s). Are you sure?"
-msgstr "Remover este arquivo removerá também %d página(s). Tem certeza?"
+msgid "Removing this file will remove %ld view(s). Are you sure?"
+msgstr "Remover este arquivo removerá também %ld página(s). Tem certeza?"
 
 #: src/DialogFileEdit.cpp:162
 #, c-format
-msgid "Removing this file will affect %d item(s). Are you sure?"
-msgstr "Remover este arquivo afetará %d item(s). Tem certeza?"
+msgid "Removing this file will affect %ld item(s). Are you sure?"
+msgstr "Remover este arquivo afetará %ld item(s). Tem certeza?"
 
 #: src/DialogFileEdit.cpp:164
 #: src/DialogListEdit.cpp:847
@@ -1378,8 +1378,8 @@ msgstr "Tem certeza que deseja remover este formato de imagem?"
 
 #: src/DialogImageFormatEdit.cpp:163
 #, c-format
-msgid "Removing this image format will affect %d item(s). Are you sure?"
-msgstr "Remover este formato de imgem afetará %d item(s). Tem certeza?"
+msgid "Removing this image format will affect %ld item(s). Are you sure?"
+msgstr "Remover este formato de imgem afetará %ld item(s). Tem certeza?"
 
 #: src/DialogImageFormatEdit.cpp:165
 msgid "Remove image format"
@@ -1501,8 +1501,8 @@ msgstr "Tem certeza que deseja remover esta máscara?"
 
 #: src/DialogListEdit.cpp:436
 #, c-format
-msgid "Removing this mask will remove %d view(s). Are you sure?"
-msgstr "Remover esta máscara afetará %d página(s). Tem certeza?"
+msgid "Removing this mask will remove %ld view(s). Are you sure?"
+msgstr "Remover esta máscara afetará %ld página(s). Tem certeza?"
 
 #: src/DialogListEdit.cpp:438
 msgid "Remove mask"
@@ -1568,8 +1568,8 @@ msgstr "Tem certeza que deseja remover este caminho de diretório?"
 
 #: src/DialogListEdit.cpp:845
 #, c-format
-msgid "Removing this path will affect %d item(s). Are you sure?"
-msgstr "Remover este caminho de diretório afetará %d item(s). Tem certeza?"
+msgid "Removing this path will affect %ld item(s). Are you sure?"
+msgstr "Remover este caminho de diretório afetará %ld item(s). Tem certeza?"
 
 #: src/DialogListEdit.cpp:853
 msgid "This path cannot be deleted"
@@ -1581,8 +1581,8 @@ msgstr "Tem certeza que deseja remover este CSS?"
 
 #: src/DialogListEdit.cpp:950
 #, c-format
-msgid "Removing this CSS will affect %d item(s). Are you sure?"
-msgstr "Remover este CSS afetará %d item(s). Tem certeza?"
+msgid "Removing this CSS will affect %ld item(s). Are you sure?"
+msgstr "Remover este CSS afetará %ld item(s). Tem certeza?"
 
 #: src/DialogListEdit.cpp:952
 msgid "Remove CSS"

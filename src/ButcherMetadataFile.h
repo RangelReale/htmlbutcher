@@ -240,7 +240,7 @@ public:
 
     virtual ButcherMetadataBinary *GetData() { return new wxMemoryInputStream(&ivalue_, sizeof(ivalue_)); }
 
-    virtual wxString GetValueDescription() { return wxString::Format("%d", ivalue_); }
+    virtual wxString GetValueDescription() { return wxString::Format("%ld", ivalue_); }
 private:
     long ivalue_;
 };

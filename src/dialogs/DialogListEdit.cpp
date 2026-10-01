@@ -380,7 +380,7 @@ void HTMLButcherMasksDialog::do_remove(unsigned long id)
 
     wxString remmsg=_("Are you sure you want to remove this mask?");
     if (en.GetRemoveCount()>0)
-        remmsg=wxString::Format(_("Removing this mask will remove %d view(s). Are you sure?"), en.GetRemoveCount());
+        remmsg=wxString::Format(_("Removing this mask will remove %ld view(s). Are you sure?"), en.GetRemoveCount());
 
     wxMessageDialog d(this, remmsg, _("Remove mask"), wxYES_NO | wxYES_DEFAULT | wxICON_QUESTION);
     if (d.ShowModal() != wxID_YES) return;
@@ -739,7 +739,7 @@ void HTMLButcherFilePathsDialog::do_remove(unsigned long id)
 
     wxString remmsg=_("Are you sure you want to remove this path?");
     if (en.GetRemoveCount()>0||en.GetChangeCount()>0)
-        remmsg=wxString::Format(_("Removing this path will affect %d item(s). Are you sure?"), en.GetRemoveCount()+en.GetChangeCount());
+        remmsg=wxString::Format(_("Removing this path will affect %ld item(s). Are you sure?"), en.GetRemoveCount()+en.GetChangeCount());
 
     wxMessageDialog d(this, remmsg, _("Remove path"), wxYES_NO | wxYES_DEFAULT | wxICON_QUESTION);
     if (d.ShowModal() != wxID_YES) return;
@@ -833,7 +833,7 @@ void HTMLButcherCSSFilesDialog::do_remove(unsigned long id)
 
     wxString remmsg=_("Are you sure you want to remove this CSS?");
     if (en.GetRemoveCount()>0||en.GetChangeCount()>0)
-        remmsg=wxString::Format(_("Removing this CSS will affect %d item(s). Are you sure?"), en.GetRemoveCount()+en.GetChangeCount());
+        remmsg=wxString::Format(_("Removing this CSS will affect %ld item(s). Are you sure?"), en.GetRemoveCount()+en.GetChangeCount());
 
     wxMessageDialog d(this, remmsg, _("Remove CSS"), wxYES_NO | wxYES_DEFAULT | wxICON_QUESTION);
     if (d.ShowModal() != wxID_YES) return;

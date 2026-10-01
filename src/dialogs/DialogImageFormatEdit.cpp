@@ -142,7 +142,7 @@ void HTMLButcherImageFormatListEditDialog::do_remove(unsigned long id)
 
     wxString remmsg=_("Are you sure you want to remove this image format?");
     if (en.GetRemoveCount()>0||en.GetChangeCount()>0)
-        remmsg=wxString::Format(_("Removing this image format will affect %d item(s). Are you sure?"), en.GetRemoveCount()+en.GetChangeCount());
+        remmsg=wxString::Format(_("Removing this image format will affect %ld item(s). Are you sure?"), en.GetRemoveCount()+en.GetChangeCount());
 
     wxMessageDialog d(this, remmsg, _("Remove image format"), wxYES_NO | wxYES_DEFAULT | wxICON_QUESTION);
     if (d.ShowModal() != wxID_YES) return;

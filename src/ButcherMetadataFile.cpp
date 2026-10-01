@@ -672,7 +672,7 @@ bool ButcherMetadataFile::WriteMetadata(wxFile &file, ButcherMetadataStorage *st
                 }
                 if (nTotal!=dataitemheader.datasize)
                     throw ButcherException(
-                        wxString::Format(_("Data written different than expected (expect: %d - read: %d)."),
+                        wxString::Format(_("Data written different than expected (expect: %u - read: %lu)."),
                             dataitemheader.datasize, nTotal));
 
                 // free itembin
